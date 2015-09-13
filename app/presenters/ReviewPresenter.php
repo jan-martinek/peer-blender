@@ -38,7 +38,7 @@ class ReviewPresenter extends BasePresenter
         
         $reviewer = $this->userRepository->find($this->user->id);
         if (!$review = $this->reviewRepository->findUnfinishedReview($reviewer)) {
-            $solution = $solutionRepository->findSolutionToReview($unit, $reviewer);
+            $solution = $this->solutionRepository->findSolutionToReview($unit, $reviewer);
             $review = $this->reviewRepository->createReview($solution, $reviewer);
         } else {
             $solution = $review->solution;

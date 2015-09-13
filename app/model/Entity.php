@@ -62,7 +62,7 @@ class Objection extends \LeanMapper\Entity
 /**
  * @property int $id
  * @property Solution $solution m:hasOne
- * @property User $reviewed_by m:hasOne
+ * @property User $reviewed_by m:hasOne(reviewed_by_id)
  * @property DateTime $opened_at
  * @property int|NULL $score
  * @property string|NULL $comment
@@ -157,7 +157,7 @@ class Unit extends \LeanMapper\Entity
  * @property string $password
  * @property Enrollment[] $enrollments m:belongsToMany
  * @property Assignment[] $assignments m:belongsToMany
- * @property Review[] $reviews m:belongsToMany
+ * @property Review[] $reviews m:belongsToMany(reviewed_by_id:review)
  * @property Solution[] $solutions m:belongsToMany
  */
 class User extends \LeanMapper\Entity
