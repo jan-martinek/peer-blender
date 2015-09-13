@@ -1,0 +1,109 @@
+{block title}{$unit->name}{/block}
+
+{block content}
+<div id="content" class="columns">		
+	<div class="row">
+		<div class="columns large-8">
+			<h2>{_messages.unit.goals}</h2>
+			{!$unit->goals|md}
+			
+			<hr>
+			
+			<h2>{_messages.unit.reading}</h2>
+			{!$unit->reading|md}
+			
+			<hr>
+			
+			<h2>{_messages.unit.myHomework}</h2>
+			
+			{ifset $solution}
+				
+				{foreach unserialize($assignment->questions) as $question}
+					<h3>Question</h3>
+					{!$question|md}
+					<h3>Answer</h3>
+					{!="--- answer ---"|md}
+				{/foreach}
+				
+				<label>
+					<h3>{_messages.unit.homeworkAttachment}</h3>
+					{!="--- [file]() ---"|md}
+				</label>
+			
+				<hr>
+			
+				<h2>{_messages.unit.myAssesment}</h2>
+				{if !count($solution->reviews)}
+					{_messages.unit.noReviewsFound|md}
+				{else}
+					<ul>
+					{foreach $solution->reviews as $review}
+						<li>
+							{if is_null($review->score)}
+								<a n:href="Review:writeForUnit">{$review->opened_at|date:'j. n. Y, H.i'}</a>
+								&mdash;
+								{_messages.unit.evaluationInProgress},
+								<a n:href="Review:writeForUnit $unit->id">{_messages.unit.continue} &rarr;</a>
+							{else}
+								<a n:href="Review:default $review->id">{$review->submitted_at|date:'j. n. Y, H.i'}</a> 
+								&mdash; 
+								{_messages.review.score.title}: {_messages.review.score.$review->score},
+								<a n:href="Review:default $review->id">show review &rarr;</a> 
+							{/if}
+						</li>
+					{/foreach}
+					</ul>
+				{/if}
+				
+				<p><strong>{_messages.unit.averageScore}: <big>{$solution->score|number:2}</big></strong></p>
+				
+				<hr>
+				
+				<h2>{_messages.unit.myReviewsOfOthers}</h2>
+				{if !count($solution->reviews)}
+					{_messages.unit.noReviewsFound|md}
+				{else}
+					<ul>
+					{foreach $reviews as $review}
+						<li>
+							{if is_null($review->score)}
+								<a n:href="Review:writeForUnit">{$review->opened_at|date:'j. n. Y, H.i'}</a>
+								&mdash;
+								{_messages.unit.evaluationInProgress},
+								<a n:href="Review:writeForUnit $unit->id">{_messages.unit.continue} &rarr;</a>
+							{else}
+								<a n:href="Review:default $review->id">{$review->submitted_at|date:'j. n. Y, H.i'}</a> 
+								&mdash; 
+								{_messages.review.score.title}: {_messages.review.score.$review->score},
+								<a n:href="Review:default $review->id">show review &rarr;</a> 
+							{/if}
+						</li>
+					{/foreach}
+					</ul>
+				{/if}
+				{if count($solution->reviews) < $course->reviewCount}
+					<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
+					{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}
+				{else}
+					{!_messages.unit.enoughReviews, [count => $course->reviewCount]|md}
+				{/if}
+				
+			{else}
+				<form>
+					{foreach unserialize($assignment->questions) as $question}
+						<label for="question">{!$question|md}</label>
+						<textarea name="answer" rows="10"></textarea>
+					{/foreach}
+					
+					<label>
+						{_messages.unit.homeworkAttachment} ({_messages.unit.homeworkAttachmentNote})
+						<input type="file">
+					</label>
+					
+					<input type="submit" class="button" value="Submit homework">
+				</form>
+			{/ifset}
+		</div>
+	</div>
+</div>
+{/block}

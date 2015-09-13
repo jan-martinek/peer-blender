@@ -1,0 +1,145 @@
+@import '../bower_components/foundation/scss/foundation.scss';
+
+body {
+	background: url('./../images/dots.png') white;
+	background-attachment: fixed;
+}
+
+html, body, p, li, blockquote, h1, h2, h3, h4, h5, h6, input, textarea {
+	font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
+}
+
+h1, h2, h3 {
+	font-weight: bold;
+}
+
+.row .row {
+	background: white;
+}
+
+#frm-searchForm {
+	padding: 0;
+	margin: 1em 0;
+
+	#frm-searchForm-query {
+		font-size: 24pt;
+		height: 48pt;
+		line-height: 48pt;
+		border: 0;
+		margin: 0;
+		padding: 7px 65px 0;
+		background: -2px 50% no-repeat url("./../images/search.png") rgba(255, 255, 255, .8);
+		background-size: contain; 
+	}
+
+	.postfix {
+		height: 48pt;
+		line-height: 48pt;
+		margin: 0;
+	}
+
+	input[type=submit] {
+		display: none;
+	}
+}
+
+header {
+	
+	&>div {
+		background: white;
+		padding: 0px 0;
+	}
+
+	#tags {
+		width: 100%;
+	}
+	.select2 input[type="search"] {
+		margin: 0;
+		padding: 2px;
+		height: 28px;
+		line-height: 28px;
+		box-shadow: none;
+	}
+}
+
+#related {
+	border-top: 1px solid #ddd;
+	margin-top: 20px;
+	padding-top: 10px;
+}
+
+#answer, #results {
+	padding-top: 20px;
+	min-height: 300px;
+	
+	.empty {
+		padding: 200px 0;
+		text-align: center;
+		color: #999;
+		font-variant: italic;
+	}
+}
+
+#content {
+	background: white;
+}
+
+.button.small {
+	.fa {
+		font: normal normal normal 14px/.4 FontAwesome;
+		font-size: 170%;
+		position: relative;
+		left: -10px;
+	}
+}
+
+#editor-save, #load-editor {
+	float: right;
+	margin-bottom: 0;
+}
+
+.breadcrumbs {
+	margin-top: 20px;
+	padding: 0;
+	border: 0;
+	background: transparent;
+}
+
+a.hashtag {
+	font-weight: bold;
+}
+a.nonexistent {
+	color: #f60;
+}
+p .hljs, blockquote .hljs, li .hljs {
+	display: inline;
+	padding: 0; border: 0;
+	background: transparent;
+}
+.editor {
+	color: #999;
+	display: none;
+	
+	&::before {
+		content: "— ";
+	}
+}
+ul.checklist {
+	list-style-type: none;
+	
+	ul, ol {
+		list-style-type: none;
+		padding-left: 40px;	
+	}
+	
+	input {
+			
+	}
+}
+.medium-insert-buttons {
+	margin-left: -60px;
+	opacity: .5;	
+}
+
+
+

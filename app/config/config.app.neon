@@ -1,0 +1,33 @@
+application:
+	errorPresenter: Error
+	mapping:
+		*: App\*Module\Presenters\*Presenter
+
+session:
+	expiration: 14 days
+
+services:	
+	leanmapper.connection: LeanMapper\Connection(%leanmapper%)
+	- LeanMapper\DefaultMapper
+	- LeanMapper\DefaultEntityFactory
+	- Model\Repository\AssignmentRepository
+	- Model\Repository\CourseRepository
+	- Model\Repository\EnrollmentRepository
+	- Model\Repository\ObjectionRepository
+	- Model\Repository\ReviewRepository
+	- Model\Repository\SolutionRepository
+	- Model\Repository\UnitRepository
+	- Model\Repository\UserRepository
+	- Model\Entity\Assignment
+	- Model\Entity\Course
+	- Model\Entity\Enrollment
+	- Model\Entity\Objection
+	- Model\Entity\Review
+	- Model\Entity\Solution
+	- Model\Entity\Unit
+	- Model\Entity\User	
+	- App\Forms\SignFormFactory
+	router: App\RouterFactory::createRouter
+
+extensions:
+	translation: Kdyby\Translation\DI\TranslationExtension

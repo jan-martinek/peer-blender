@@ -1,0 +1,21 @@
+#
+# WARNING: it is CRITICAL that this file & directory are NOT accessible directly via a web browser!
+# http://nette.org/security-warning
+#
+parameters:
+	leanmapper:
+		driver: mysqli
+		host: localhost
+		username: ***
+		password: ***
+		database: ***
+
+php:
+	date.timezone: Europe/Prague
+
+translation:
+	default: en
+	fallback: [en_US, en]
+
+includes:
+	- config.app.neon

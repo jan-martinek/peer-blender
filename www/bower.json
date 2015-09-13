@@ -1,0 +1,30 @@
+{
+  "name": "peer-blender",
+  "version": "0.1",
+  "homepage": "https://github.com/jan-martinek/peer-blender",
+  "authors": [
+    "Jan Martinek <info@jan-martinek.com>"
+  ],
+  "description": "Peer assessment-based homework tool",
+  "main": "index.php",
+  "keywords": [
+    "peer assesment",
+    "homework",
+    "elearning"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "foundation": "zurb/bower-foundation#~5.5.1",
+    "nette.ajax.js": "~2.0.0",
+    "fontawesome": "~4.3.0",
+    "tablesorter": "*",
+    "codemirror": "*"
+  }
+}

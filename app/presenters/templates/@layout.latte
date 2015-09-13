@@ -1,0 +1,86 @@
+{**
+ * @param string   $basePath web base path
+ * @param array    $flashes  flash messages
+ *}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+
+    <title>{ifset title}{include title|striptags} | {/ifset}{_messages.app.name}</title>
+
+    
+    <link rel="stylesheet" href="{$baseUri}/bower_components/fontawesome/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
+    <link rel="shortcut icon" href="{$basePath}/favicon.ico">
+    <meta name="viewport" content="width=device-width">
+
+    <!-- Typekit -->
+    <!-- script src="//use.typekit.net/lvs8brj.js"></script -->
+    <!-- script>try{l}Typekit.load();{r}catch(e){l}{r}</script -->
+
+    <!-- choose a theme file -->
+    <link rel="stylesheet" href="{$baseUri}/bower_components/tablesorter/themes/blue/style.css">
+
+    {block head}{/block}
+</head>
+
+<body>
+    <nav class="top-bar" data-topbar role="navigation">
+        <ul class="title-area">
+            <li class="name">
+                <h1><a href="{link Homepage:default}">{_messages.app.name}</a></h1>
+            </li>
+            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+        </ul>
+
+        <section class="top-bar-section">
+            <ul class="right">
+                {var user = $presenter->getUser();}
+                {if $user->isLoggedIn()}
+                    <li><a n:href="User:default"><i class="fa fa-user"></i> {$user->getIdentity()->name}</a>
+                    <li class="active"><a href="{link logout!}">{_messages.app.logout}</a></li>
+                {else}
+                    <li><a n:href="Sign:in">{_messages.app.login}</a></li>
+                {/if}
+            </ul>
+            
+            <ul class="left">
+                <!-- <li>{block new}<a href=""><i class="fa fa-file-o"></i> _messages.kb.newEntry</a>{/block}</li> -->
+            </ul>
+        </section>
+    </nav>
+
+
+    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
+    
+    <header class="row">
+            <div class="columns">
+                {block header}<h1>{block title}{/block}</h1>{/block}
+            </div>
+    </header>
+    
+    <div id="content" class="row">
+        {include content}
+    </div>
+    <div class="row"><div class="columns">
+        <a href="https://github.com/jan-martinek/peer-blender" target="_blank" class="button secondary" style="margin-bottom: 100px; float: right; font-weight: bold;">@Peer Blender</a>
+    </div></div>
+
+    <script src="{$baseUri}/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="{$baseUri}/bower_components/foundation/js/foundation.min.js"></script>
+    <script src="{$baseUri}/bower_components/nette-forms/src/assets/netteForms.js"></script>
+    <script src="{$baseUri}/bower_components/jquery-sortable/source/js/jquery-sortable-min.js"></script>
+    <script src="{$baseUri}/bower_components/nette.ajax.js/nette.ajax.js"></script>
+    <script src="{$baseUri}/bower_components/tablesorter/jquery.tablesorter.min.js"></script>
+    <script src="{$baseUri}/js/main.js"></script>
+    <script>
+        $(document).ready(function() {
+            PeerBlender.init();
+        });
+    </script>
+    {block scripts}{/block}
+</body>
+</html>

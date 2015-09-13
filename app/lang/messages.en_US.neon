@@ -1,0 +1,41 @@
+app:
+	name: "Peer Blender"
+	subtitle: "Peer assessment-based homework tool"
+	courses: "Courses"
+	login: "Sign in"
+	logout: "Sign out"
+course:
+	totalEnrolled: "%count% people enrolled."
+unit:
+	goals: "Unit goals"
+	reading: "Assigned reading"
+	myHomework: "My homework"
+	instructions: "Instructions"
+	solution: "Solution"
+	homeworkAttachment: "Attachment"
+	homeworkAttachmentNote: "maximum size 500 kB, archive files into ZIP if needed"
+	review: "Review"
+	myAssesment: "My assessment: how others see my work"
+	myReviewsOfOthers: "My reviews of other's work"
+	evaluationInProgress: "evaluation in progress"
+	noReviewsFound: "No reviews have been found."
+	continue: "continue"
+	writeReview: "Write a review"
+	reviewMore: "You need to review %count% homeworks."
+	enoughReviews: "Great! You reviewed %count% homeworks and you've been awarded by an extra point! +1"
+	averageScore: "Score (average)"
+	phase:
+		finalized: "finalized"
+		objections: "objections"
+		reviews: "reviews"
+		published: "published"
+		draft: "draft"
+review:
+	score: 
+		title: "Score"
+		0: "0 points: this is totally wrong"
+		1: "1 point: bad result, but some work is visible"
+		2: "2 points: well, it's okay"
+		3: "3 points: excellent work"
+	comments: "Comments"
+	

@@ -1,0 +1,7 @@
+parameters:
+	leanmapper:
+		driver: mysqli
+		host: localhost
+		username:
+		password:
+		database: peer-blender
