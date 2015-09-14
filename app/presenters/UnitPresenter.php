@@ -25,7 +25,7 @@ class UnitPresenter extends BasePresenter
     public function renderDefault($id)
     {
         $user = $this->userRepository->find($this->user->id);
-    	$this->template->unit = $unit = $this->unitRepository->find($id);
+        $this->template->unit = $unit = $this->unitRepository->find($id);
         $this->template->course = $this->courseRepository->find($unit->course->id);        
         $this->template->assignment = $this->assignmentRepository->getMyAssignment($unit, $user);
         $this->template->solution = $solution = $this->template->assignment->solution;

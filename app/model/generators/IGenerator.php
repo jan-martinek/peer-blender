@@ -7,8 +7,8 @@ use Nette;
 interface IGenerator
 {
 
-	function getQuestions();
-	
-	function getRubrics();
-	
+    function getQuestions();
+    
+    function getRubrics();
+    
 }

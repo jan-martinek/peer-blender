@@ -86,15 +86,15 @@ class Review extends \LeanMapper\Entity
  */
 class Solution extends \LeanMapper\Entity
 {
-	public function getScore() {
-		$scores = array();
-		
-		foreach ($this->reviews as $review) {
-			$scores[] = $review->score;
-		}
-		
-		return array_sum($scores)/count($scores);
-	}
+    public function getScore() {
+        $scores = array();
+        
+        foreach ($this->reviews as $review) {
+            $scores[] = $review->score;
+        }
+        
+        return array_sum($scores)/count($scores);
+    }
 }
 
 /**
@@ -112,42 +112,46 @@ class Solution extends \LeanMapper\Entity
  */
 class Unit extends \LeanMapper\Entity
 {
-	const
-		DRAFT = 0,
+    const
+        DRAFT = 0,
         PUBLISHED = 1,
-		REVIEWS = 2,
-		OBJECTIONS = 3,
-		FINALIZED = 4;
-	
-	public function getCurrentPhase() {
-		if ($this->finalized_since < new DateTime) {
-			return self::FINALIZED;
-		} else if ($this->objections_since < new DateTime) {
-			return self::OBJECTIONS;
-		} else if ($this->reviews_since < new DateTime) {
-			return self::REVIEWS;
-		} else if ($this->published_since < new DateTime) {
-			return self::PUBLISHED;
-		} else {
-			return self::DRAFT;
-		}
-	}
-	
-	public function getCurrentPhaseName() {
-		$phase = $this->getCurrentPhase();
-		switch ($phase) {
-			case self::FINALIZED:
-				return 'finalized';
-			case self::OBJECTIONS:
-				return 'objections';
-			case self::REVIEWS:
-				return 'reviews';
-			case self::PUBLISHED:
-				return 'published';
-			case self::DRAFT:
-				return 'draft';
-		}
-	}
+        REVIEWS = 2,
+        OBJECTIONS = 3,
+        FINALIZED = 4;
+    
+    public function getCurrentPhase() {
+        if ($this->finalized_since < new DateTime) {
+            return self::FINALIZED;
+        } else if ($this->objections_since < new DateTime) {
+            return self::OBJECTIONS;
+        } else if ($this->reviews_since < new DateTime) {
+            return self::REVIEWS;
+        } else if ($this->published_since < new DateTime) {
+            return self::PUBLISHED;
+        } else {
+            return self::DRAFT;
+        }
+    }
+    
+    public function isCurrentPhase($phase) {
+        return $phase = $this->getCurrentPhase() ? true : false;
+    }
+    
+    public function getCurrentPhaseName() {
+        $phase = $this->getCurrentPhase();
+        switch ($phase) {
+            case self::FINALIZED:
+                return 'finalized';
+            case self::OBJECTIONS:
+                return 'objections';
+            case self::REVIEWS:
+                return 'reviews';
+            case self::PUBLISHED:
+                return 'published';
+            case self::DRAFT:
+                return 'draft';
+        }
+    }
 }
 
 /**
