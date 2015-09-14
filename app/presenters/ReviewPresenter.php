@@ -2,6 +2,8 @@
 
 namespace App\Presenters;
 
+use App\Components\ReviewForm;
+
 /**
  * Review presenter.
  */
@@ -24,6 +26,8 @@ class ReviewPresenter extends BasePresenter
     
     /** @var \Model\Repository\UserRepository @inject */
     public $userRepository;
+    
+    private $review;
 
     public function renderDefault($id)
     {
@@ -32,8 +36,11 @@ class ReviewPresenter extends BasePresenter
         $this->template->assignment = $review->solution->assignment;
     }
     
-    public function renderWriteForUnit($id) {
-        $this->template->unit = $unit = $this->unitRepository->find($id);
+    public function actionWriteForUnit($id) 
+    {
+        $unit = $this->unitRepository->find($id);
+        
+        $this->template->unit = $unit;
         $this->template->course = $unit->course;
         
         $reviewer = $this->userRepository->find($this->user->id);
@@ -43,12 +50,27 @@ class ReviewPresenter extends BasePresenter
         } else {
             $solution = $review->solution;
         }
-        $this->template->review = $review;
+        $this->review = $this->template->review = $review;
         $this->template->solution = $solution;
-        $this->template->assignment = $solution->assignment;
+        $this->template->assignment = $assignment = $solution->assignment;
     }
     
-    public function renderObjection() {
+    public function renderWriteForUnit($id) 
+    {
+
+    }
+    
+    public function renderObjection($id) 
+    {
         
+    }
+    
+    protected function createComponentReviewForm() 
+    {
+        if (!$this->review->solution->assignment->rubrics) {
+            throw new Nette\Application\BadRequestException;
+        }
+        
+        return new ReviewForm($this->review, $this->reviewRepository, $this->translator);
     }
 }

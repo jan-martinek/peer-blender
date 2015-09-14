@@ -2,28 +2,33 @@
 
 {block content}
 <div id="content" class="row">
-	<div class="columns">
-		<h2>{_messages.unit.instructions}</h2>
-		{!$assignment->questions|md}
-
-		<hr>
-
-		<h2>{_messages.unit.solution}</h2>
-		{!$solution->answer|md}
-		
-		<hr>
+	<div class="columns">	
+		{var answers = unserialize($solution->answer)}		
+		<div n:foreach="unserialize($assignment->questions) as $id => $question" class="panel">
+			{!$question|md}
+			<hr>
+			<div n:if="!is_null($solution)">
+				{!$answers[$id]|md}
+			</div>
+		</div>
 		
 		<h2>{_messages.unit.review}</h2>
 
+		{var answers = unserialize($review->assessment)}
 		{foreach unserialize($assignment->rubrics) as $id => $rubric}
 		<h3>{!$rubric|imd}</h3>
-		---
+		{!$answers[$id]|md}
 		{/foreach}
 
 		<h3>{_messages.review.score.title}<h3>
 		<p>{_messages.review.score.$review->score}</p>
 		
 		<h3>{_messages.review.comments}</h3>
-		---
+		{!$review->comments|md}
+		
+		<div class="panel">
+		{!_messages.review.isItWrong|md}
+		<a n:href="Review:objection $review->id" class="button alert">{_messages.review.raiseAnObjection}</a>
+		
 	</div>
 </div>

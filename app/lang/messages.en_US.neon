@@ -35,9 +35,12 @@ unit:
 review:
 	score: 
 		title: "Score"
-		0: "0 points: this is totally wrong"
-		1: "1 point: bad result, but some work is visible"
-		2: "2 points: well, it's okay"
-		3: "3 points: excellent work"
+		0: "zero: this is wrong"
+		1: "★ bad result, but some work is visible"
+		2: "★★ well, it's okay"
+		3: "★★★ excellent work"
+		placeholder: "Rate this homework"
 	comments: "Comments"
-	
+	submit: "Submit review"
+	isItWrong: "Is this review wrong? Raise an objection. If it's proven wrong, reviewer loses one point &mdash; be careful though: if proven right, it's you who loses that point."
+	raiseAnObjection: "Raise an objection"

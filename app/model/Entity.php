@@ -66,7 +66,8 @@ class Objection extends \LeanMapper\Entity
  * @property User $reviewed_by m:hasOne(reviewed_by_id)
  * @property DateTime $opened_at
  * @property int|NULL $score
- * @property string|NULL $comment
+ * @property string|NULL $assessment
+ * @property string|NULL $comments
  * @property DateTime|NULL $submitted_at
  * @property Objection|NULL $objection
  */

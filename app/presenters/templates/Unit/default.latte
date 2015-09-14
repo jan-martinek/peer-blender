@@ -40,11 +40,14 @@
 
 	{!$assignment->preface|md}
 
-	{foreach unserialize($assignment->questions) as $question}
-		<h3>Question</h3>
-		{!$question|md}
-		<h3>Answer</h3>
-		{!="--- answer ---"|md}
+	{foreach unserialize($assignment->questions) as $id => $question}
+		<div class="panel">
+			{!$question|md}
+			<hr>
+			<div n:if="!is_null($solution)">
+				{!$answers[$id]|md}
+			</div>
+		</div>
 	{/foreach}
 
 	<label>
@@ -57,7 +60,9 @@
 {block homeworkAssessment}
 	<h2>{_messages.unit.myAssesment}</h2>
 	{if !count($solution->reviews)}
-		{_messages.unit.noReviewsFound|md}
+		<div class="panel">
+			{!_messages.unit.noReviewsFound|md}
+		</div>
 	{else}
 		<ul>
 			<li n:foreach="$solution->reviews as $review">
@@ -76,13 +81,15 @@
 		</ul>
 	{/if}
 	
-	<p><strong>{_messages.unit.averageScore}: <big>{$solution->score|number:2}</big></strong></p>
+	<p n:if="!is_null($solution->score)"><strong>{_messages.unit.averageScore}: <big>{$solution->score|number:2}</big></strong></p>
 {/block}
 
 {block reviewsFromOthers}
 	<h2>{_messages.unit.myReviewsOfOthers}</h2>
 	{if !count($solution->reviews)}
-		{_messages.unit.noReviewsFound|md}
+		<div class="panel">
+			{!_messages.unit.noReviewsFound|md}
+		</div>
 	{else}
 		<ul>
 			<li n:foreach="$reviews as $review">

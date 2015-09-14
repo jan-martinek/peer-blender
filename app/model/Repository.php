@@ -93,7 +93,7 @@ class ReviewRepository extends Repository
     
     public function findUnfinishedReview($reviewer) {
         $query = $this->connection->query("SELECT * FROM", $this->getTable(),  
-            "WHERE score IS NULL OR comment IS NULL OR submitted_at IS NULL");
+            "WHERE score IS NULL OR comments IS NULL OR submitted_at IS NULL");
         
         if ($openedReview = $query->fetch()) {
             return $this->createEntity($openedReview);
