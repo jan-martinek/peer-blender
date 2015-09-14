@@ -1,5 +1,12 @@
 {block title}{$unit->name}{/block}
 
+{block breadcrumbs}
+	<p>
+		<a n:href="Homepage:default">Home</a> &rsaquo;
+		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
+		Unit
+	</p>
+{/block}
 
 {block unitInfo}
 	<h2>{_messages.unit.goals}</h2>

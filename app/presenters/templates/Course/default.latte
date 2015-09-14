@@ -1,5 +1,12 @@
 {block title}{$course->name}{/block}
 
+{block breadcrumbs}
+	<p>
+		<a n:href="Homepage:default">Home</a> &rsaquo;
+		{$course->name}
+	</p>
+{/block}
+
 {block content}
 <div id="content" class="row">
 	<div class="columns">

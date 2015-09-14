@@ -1,5 +1,14 @@
 {block title}Homework peer-review{/block}
 
+{block breadcrumbs}
+	<p>
+		<a n:href="Homepage:default">Home</a> &rsaquo;
+		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
+		<a n:href="Unit:default $unit->id">{$unit->name}</a> &rsaquo;
+		Review
+	</p>
+{/block}
+
 {block content}
 <div id="content" class="row">
 	<div class="columns">
