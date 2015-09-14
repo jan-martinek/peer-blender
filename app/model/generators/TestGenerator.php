@@ -17,7 +17,8 @@ class TestGenerator extends Nette\Object implements IGenerator
     public function getQuestions() 
     {
         return array(
-            'What is *love*?'
+            'What is *love*?',
+            'Find an essay on "sad sharks" on the internet and sum it up in three sentences.'
         );
     }
     

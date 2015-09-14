@@ -15,21 +15,23 @@
 {block homeworkForm}
 	<h2>{_messages.unit.myHomework}</h2>
 	
-	<form>
-		{!$assignment->preface|md}
+	<div n:if="$solution" class="panel callout">
+		<p>{!_messages.unit.homeworkSaved, [date => $unit->reviews_since->format('j. n. Y H.i')]|imd}</p>
+	</div>
 	
-		{foreach unserialize($assignment->questions) as $id => $question}
-			<label for="question">{!$question|md}</label>
-			<textarea name="answer[{$id}]" rows="10"></textarea>
+	{form homeworkForm}
+		{foreach $form['questions']->controls as $name => $question}
+			{label $question /}
+			{? $form['questions'][$name]->setValue(is_null($solution) ? '' : $answers[$name])}
+			{input $question, 'rows' => '10'}
+			<p n:ifcontent>{inputError $question}</p>
 		{/foreach}
+
+		{label attachment /}
+		{input attachment}
 		
-		<label>
-			{_messages.unit.homeworkAttachment} ({_messages.unit.homeworkAttachmentNote})
-			<input type="file">
-		</label>
-		
-		<input type="submit" class="button" value="Submit homework">
-	</form>
+		{input submit, 'class' => 'button'}
+	{/form}
 {/block}
 
 

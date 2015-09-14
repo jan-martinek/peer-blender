@@ -83,20 +83,23 @@ class Review extends \LeanMapper\Entity
  * @property DateTime $edited_at
  * @property string $answer
  * @property string $attachment
- * @property Review[] $reviews m:belongsToMany(solution_id)
+ * @property Review[]|NULL $reviews m:belongsToMany(solution_id)
  */
 class Solution extends \LeanMapper\Entity
 {
-    public function getScore() {
+    public function getScore() 
+    {
+        if (is_null($this->reviews)) {
+            return false;
+        }
+        
         $scores = array();
         
         foreach ($this->reviews as $review) {
             if (!is_null($review->score)) {
                 $scores[] = $review->score;    
             }
-        }
-        
-        return array_sum($scores)/count($scores);
+        }        
     }
 }
 
@@ -137,7 +140,7 @@ class Unit extends \LeanMapper\Entity
     }
     
     public function isCurrentPhase($phase) {
-        return $phase = $this->getCurrentPhase() ? true : false;
+        return $phase === $this->getCurrentPhase() ? true : false;
     }
     
     public function getCurrentPhaseName() {

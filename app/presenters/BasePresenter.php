@@ -4,7 +4,8 @@ namespace App\Presenters;
 
 use Nette;
 use Nette\Application\UI\Form;
-use DibiConnection;
+use Michelf\Markdown;
+
 
 /**
  * Base presenter for all application presenters.
@@ -29,7 +30,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         });
         //inline markdown
         $this->template->addFilter('imd', function ($s) {
-            return strip_tags(\Michelf\Markdown::defaultTransform($s), '<a><strong><em>');
+            return strip_tags(Markdown::defaultTransform($s), '<a><strong><em>');
         });
     }
 
