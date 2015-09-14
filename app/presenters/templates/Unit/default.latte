@@ -13,6 +13,8 @@
 
 
 {block homeworkForm}
+	<h2>{_messages.unit.myHomework}</h2>
+	
 	<form>
 		{!$assignment->preface|md}
 	
@@ -56,8 +58,7 @@
 		{_messages.unit.noReviewsFound|md}
 	{else}
 		<ul>
-		{foreach $solution->reviews as $review}
-			<li>
+			<li n:foreach="$solution->reviews as $review">
 				{if is_null($review->score)}
 					<a n:href="Review:writeForUnit">{$review->opened_at|date:'j. n. Y, H.i'}</a>
 					&mdash;
@@ -70,7 +71,6 @@
 					<a n:href="Review:default $review->id">show review &rarr;</a> 
 				{/if}
 			</li>
-		{/foreach}
 		</ul>
 	{/if}
 	
@@ -83,8 +83,7 @@
 		{_messages.unit.noReviewsFound|md}
 	{else}
 		<ul>
-		{foreach $reviews as $review}
-			<li>
+			<li n:foreach="$reviews as $review">
 				{if is_null($review->score)}
 					<a n:href="Review:writeForUnit">{$review->opened_at|date:'j. n. Y, H.i'}</a>
 					&mdash;
@@ -97,7 +96,6 @@
 					<a n:href="Review:default $review->id">show review &rarr;</a> 
 				{/if}
 			</li>
-		{/foreach}
 		</ul>
 	{/if}
 	{if count($solution->reviews) < $course->reviewCount}
@@ -110,28 +108,25 @@
 
 
 {block content}
-<div id="content" class="row">		
-	<div class="row">
-		<div class="columns">
-			
-			{include unitInfo}
+<div id="content" class="row">
+	<div class="columns">
+		{include unitInfo}
+		
+		<hr>
+
+		{if $unit->isCurrentPhase($unit::PUBLISHED)}
+			{include homeworkForm}
+		{else}
+			{include finishedHomework}	
+		
+			<hr>
+		
+			{include homeworkAssessment}
 			
 			<hr>
-
-			{if $unit->isCurrentPhase($unit::PUBLISHED)}
-				{include homeworkForm}
-			{else}
-				{include finishedHomework}	
 			
-				<hr>
-			
-				{include homeworkAssessment}
-				
-				<hr>
-				
-				{include reviewsFromOthers}
-			{/if}
-		</div>
+			{include reviewsFromOthers}
+		{/if}
 	</div>
 </div>
 {/block}

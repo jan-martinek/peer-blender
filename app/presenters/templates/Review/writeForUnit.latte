@@ -1,39 +1,40 @@
 {block title}Homework peer-review{/block}
 
 {block content}
-<div class="columns">
+<div id="content" class="row">
+	<div class="columns">
+		<h2>{_messages.unit.instructions}</h2>
+		{!$assignment->questions|md}
 
-	<h2>{_messages.unit.instructions}</h2>
-	{!$assignment->questions|md}
+		<hr>
 
-	<hr>
-
-	<h2>{_messages.unit.solution}</h2>
-	{!$solution->answer|md}
-	
-	<hr>
-
-	<h2>{_messages.unit.review}</h2>
-
-	<form>
-		{foreach unserialize($assignment->rubrics) as $id => $rubric}
-			<label for="rubric[{$id}]">{!$rubric|imd}</label>
-			<textarea name="rubric[{$id}]"></textarea>
-		{/foreach}
+		<h2>{_messages.unit.solution}</h2>
+		{!$solution->answer|md}
 		
-		<label for="score">
-			{_messages.review.score.title}<br>
-			<select name="score">
-				<option>select score</option>
-				{for $i=0; $i<=3; $i++}
-					<option name="{$i}">{_messages.review.score.$i}</option>
-				{/for}
-			</select>
-		</label>
-		
-		<label for="rubric[{$id}]">{_messages.review.comments}</label>
-			<textarea name="rubric[{$id}]"></textarea>
+		<hr>
+
+		<h2>{_messages.unit.review}</h2>
+
+		<form>
+			{foreach unserialize($assignment->rubrics) as $id => $rubric}
+				<label for="rubric[{$id}]">{!$rubric|imd}</label>
+				<textarea name="rubric[{$id}]"></textarea>
+			{/foreach}
 			
-		<input type="submit" class="button" value="Submit review">
-	</form>
+			<label for="score">
+				{_messages.review.score.title}<br>
+				<select name="score">
+					<option>select score</option>
+					{for $i=0; $i<=3; $i++}
+						<option name="{$i}">{_messages.review.score.$i}</option>
+					{/for}
+				</select>
+			</label>
+			
+			<label for="rubric[{$id}]">{_messages.review.comments}</label>
+				<textarea name="rubric[{$id}]"></textarea>
+				
+			<input type="submit" class="button" value="Submit review">
+		</form>
+	</div>
 </div>

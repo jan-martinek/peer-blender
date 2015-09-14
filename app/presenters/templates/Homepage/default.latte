@@ -1,20 +1,15 @@
 {block title}{_messages.app.courses}{/block}
 
 {block content}
-<div id="content" class="columns">		
-	<div class="row">
-		<div class="columns large-8">
-			<ul class="courses">
-			{foreach $courses as $course}
-				<li>
-					<h3><a n:href="Course:default $course->id">{!$course->name|imd}</a></h3>
-					{!$course->goals|md}
-					<p>{_messages.course.totalEnrolled, [count => count($course->enrollments)]}</p>
-				</li>
-			{/foreach}
-			</ul>
-			
-		</div>
+<div id="content" class="row">
+	<div class="columns">
+		<ul class="courses">
+			<li n:foreach="$courses as $course">
+				<h3><a n:href="Course:default $course->id">{!$course->name|imd}</a></h3>
+				{!$course->goals|md}
+				<p>{_messages.course.totalEnrolled, [count => count($course->enrollments)]}</p>
+			</li>
+		</ul>
 	</div>
 </div>
 {/block}
