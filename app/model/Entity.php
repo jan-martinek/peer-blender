@@ -90,7 +90,9 @@ class Solution extends \LeanMapper\Entity
         $scores = array();
         
         foreach ($this->reviews as $review) {
-            $scores[] = $review->score;
+            if (!is_null($review->score)) {
+                $scores[] = $review->score;    
+            }
         }
         
         return array_sum($scores)/count($scores);
