@@ -11,6 +11,7 @@ CREATE TABLE `assignment` (
   `unit_id` int(10) unsigned NOT NULL,
   `student_id` int(10) unsigned NOT NULL,
   `generated_at` datetime NOT NULL,
+  `preface` text COLLATE utf8_czech_ci NOT NULL,
   `questions` text COLLATE utf8_czech_ci NOT NULL,
   `rubrics` text COLLATE utf8_czech_ci NOT NULL,
   PRIMARY KEY (`id`),
@@ -143,5 +144,4 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
 (1,	'Test Admin',	'admin@test.dev',	'$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
 (2,	'Test Assistant',	'assistant@test.dev',	'$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
 (3,	'Test Student',	'student@test.dev',	'$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG');
-
--- 2015-09-14 00:29:37
+-- 2015-09-14 13:48:10

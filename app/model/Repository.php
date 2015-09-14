@@ -54,6 +54,7 @@ class AssignmentRepository extends Repository
         $generator = new $generatorClassname;
         
         $assignment = new \Model\Entity\Assignment;
+        $assignment->preface = $generator->getPreface();
         $assignment->questions = serialize($generator->getQuestions());
         $assignment->rubrics = serialize($generator->getRubrics());
         $assignment->unit = $unit;

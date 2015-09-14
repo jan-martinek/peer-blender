@@ -11,6 +11,7 @@ use DateTime;
  * @property Unit $unit m:hasOne
  * @property User $student m:hasOne(student_id)
  * @property DateTime $generated_at
+ * @property string $preface
  * @property string $questions
  * @property string $rubrics
  * @property Solution|NULL $solution m:belongsToOne(assignment_id)

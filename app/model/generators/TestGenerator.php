@@ -6,14 +6,23 @@ use Nette;
 
 class TestGenerator extends Nette\Object implements IGenerator
 {
+    
+    
+    public function getPreface() 
+    {
+        return 'This is a fairly easy task to begin with.';
+    }
+    
 
-    public function getQuestions() {
+    public function getQuestions() 
+    {
         return array(
             'What is *love*?'
         );
     }
     
-    public function getRubrics() {
+    public function getRubrics() 
+    {
         return array(
             'Is the answer truthful?',
             'Is the answer emotionally fulfilling?',
