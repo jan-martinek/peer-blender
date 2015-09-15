@@ -18,7 +18,7 @@ CREATE TABLE `assignment` (
   KEY `unit_id` (`unit_id`),
   KEY `student_id` (`student_id`),
   CONSTRAINT `assignment_ibfk_1` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`),
-  CONSTRAINT `assignment_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `user` (`id`)
+  CONSTRAINT `assignment_ibfk_4` FOREIGN KEY (`student_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -32,7 +32,7 @@ CREATE TABLE `course` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `course` (`id`, `name`, `goals`, `reviewCount`) VALUES
-(1,	'Test course',	'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',	5);
+(1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  5);
 
 DROP TABLE IF EXISTS `enrollment`;
 CREATE TABLE `enrollment` (
@@ -48,9 +48,22 @@ CREATE TABLE `enrollment` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `enrollment` (`id`, `user_id`, `course_id`, `role`) VALUES
-(1,	1,	1,	'admin'),
-(2,	2,	1,	'assistant'),
-(3,	3,	1,	'student');
+(1, 1,  1,  'admin'),
+(2, 2,  1,  'assistant'),
+(3, 3,  1,  'student');
+
+DROP TABLE IF EXISTS `favorite`;
+CREATE TABLE `favorite` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `entity` enum('Assignment','Course','Review','Unit','User') COLLATE utf8_czech_ci NOT NULL,
+  `entity_id` int(10) unsigned NOT NULL,
+  `saved_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `favorite_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
 
 DROP TABLE IF EXISTS `objection`;
 CREATE TABLE `objection` (
@@ -130,7 +143,7 @@ CREATE TABLE `unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `unit` (`id`, `course_id`, `published_since`, `reviews_since`, `objections_since`, `finalized_since`, `name`, `goals`, `reading`, `generator`) VALUES
-(1,	1,	'2015-08-01 00:00:00',	'2016-08-01 00:00:00',	'2016-08-01 00:00:00',	'2016-08-01 00:00:00',	'Test Unit',	'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',	'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',	'TestGenerator');
+(1, 1,  '2015-08-01 00:00:00',  '2015-09-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  'TestGenerator');
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -142,7 +155,8 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
-(1,	'Test Admin',	'admin@test.dev',	'$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
-(2,	'Test Assistant',	'assistant@test.dev',	'$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
-(3,	'Test Student',	'student@test.dev',	'$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG');
--- 2015-09-14 13:48:10
+(1, 'Test Admin', 'admin@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
+(2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
+(3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG');
+
+-- 2015-09-15 18:35:50

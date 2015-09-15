@@ -17,9 +17,6 @@ class UnitPresenter extends BasePresenter
     
     /** @var \Model\Repository\AssignmentRepository @inject */
     public $assignmentRepository;
-    
-    /** @var \Model\Repository\UserRepository @inject */
-    public $userRepository;
 
     /** @var \Model\Repository\ReviewRepository @inject */
     public $reviewRepository;
@@ -30,18 +27,19 @@ class UnitPresenter extends BasePresenter
     private $unit;
     private $assignment;
     private $questions;
-    private $userEntity;
-
     public function actionDefault($id) {
-        $this->userEntity = $this->userRepository->find($this->user->id);
+    
         $this->unit = $this->unitRepository->find($id);
+        $this->unit->setFavoriteRepository($this->favoriteRepository);
+        $this->template->isFavorited = $this->unit->isFavoritedBy($this->userEntity);
+        
         $this->assignment = $this->assignmentRepository->getMyAssignment($this->unit, $this->userEntity);        
         $this->questions = unserialize($this->assignment->questions);
     }
 
     public function renderDefault($id)
     {
-        $this->template->unit = $this->unit;
+        $this->template->unit = $this->unit; 
         $this->template->assignment = $this->assignment;
         $this->template->course = $this->courseRepository->find($this->unit->course->id);        
         $this->template->solution = $solution = $this->template->assignment->solution;
@@ -51,7 +49,14 @@ class UnitPresenter extends BasePresenter
         $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($this->unit, $this->userEntity);
     }
     
-    protected function createComponentHomeworkForm() {
+    public function handleFavorite() 
+    {
+        $this->unit->favorite($this->userRepository->find($this->user->id));
+        $this->redirect('this');
+    }
+    
+    protected function createComponentHomeworkForm() 
+    {
         if (!$this->questions) {
             throw new Nette\Application\BadRequestException;
         }

@@ -60,7 +60,12 @@
             <div class="columns">
                 {block breadcrumbs}{/block}
             
-                {block header}<h1>{block title}{/block}</h1>{/block}
+                {block header}
+                    <h1>
+                        {block title}{/block} 
+                        {block favorites}{/block}
+                    </h1>
+                {/block}
             </div>
     </header>
     

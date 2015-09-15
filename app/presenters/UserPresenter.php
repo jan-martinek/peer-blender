@@ -4,12 +4,28 @@ namespace App\Presenters;
 
 class UserPresenter extends BasePresenter
 {
-    /** @var \Model\Repository\UserRepository @inject */
-    public $userRepository;
-
-    public function renderDefault()
+	
+	public function actionDefault($id) 
     {
-        $this->template->me = $this->userRepository->find($this->user->getId());
+        $this->userEntity->setFavoriteRepository($this->favoriteRepository);
+	}
+	
+    public function renderDefault($id)
+    {
+        $this->template->userEntity = $this->userEntity;
+        $this->template->isFavorited = $this->userEntity->isFavoritedBy($this->userEntity);
+    }
+
+	public function handleFavorite() 
+    {
+        $this->userEntity->favorite($this->userRepository->find($this->user->id));
+        $this->redirect('this');
+    }
+
+    public function renderMe()
+    {
+    	$user = $this->userRepository->find($this->user->id);
+    	$this->redirect('User:default', $user->id);
     }
 
 }

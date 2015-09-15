@@ -13,6 +13,7 @@ services:
 	- Model\Repository\AssignmentRepository
 	- Model\Repository\CourseRepository
 	- Model\Repository\EnrollmentRepository
+	- Model\Repository\FavoriteRepository
 	- Model\Repository\ObjectionRepository
 	- Model\Repository\ReviewRepository
 	- Model\Repository\SolutionRepository
@@ -21,6 +22,7 @@ services:
 	- Model\Entity\Assignment
 	- Model\Entity\Course
 	- Model\Entity\Enrollment
+	- Model\Entity\Favorite
 	- Model\Entity\Objection
 	- Model\Entity\Review
 	- Model\Entity\Solution

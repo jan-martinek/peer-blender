@@ -74,6 +74,39 @@ class EnrollmentRepository extends Repository
 {
 }
 
+class FavoriteRepository extends Repository
+{
+    public function findByUserAndId($user, $entity, $entity_id) 
+    {
+        $where = array(
+            'user_id%i' => $user->id,
+            'entity%s' => $entity,
+            'entity_id%i' => $entity_id   
+        );
+        
+        $query = $this->connection->select('*')
+            ->from($this->getTable())
+            ->where($where);
+        
+        return $query->fetch();
+    }
+    
+    public function countFavoritesOfEntity($entity, $entity_id) 
+    {
+        $where = array(
+            'entity%s' => $entity,
+            'entity_id%i' => $entity_id   
+        );
+        
+        $query = $this->connection->select('count(*)')
+            ->from($this->getTable())
+            ->where($where);
+            
+        return $query->fetchSingle();
+    }
+    
+}
+
 class ObjectionRepository extends Repository
 {
 }

@@ -24,16 +24,20 @@ class ReviewPresenter extends BasePresenter
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
     
-    /** @var \Model\Repository\UserRepository @inject */
-    public $userRepository;
-    
     private $review;
 
     public function renderDefault($id)
     {
-        $this->template->review = $review = $this->reviewRepository->find($id);
-        $this->template->solution = $review->solution;
-        $this->template->assignment = $review->solution->assignment;
+        $this->review = $this->reviewRepository->find($id);
+        $this->review->setFavoriteRepository($this->favoriteRepository);
+        $this->template->isFavorited = $this->review->isFavoritedBy($this->userEntity);
+    }
+
+    public function renderDefault($id)
+    {   
+        $this->template->review = $this->review;
+        $this->template->solution = $this->review->solution;
+        $this->template->assignment = $this->review->solution->assignment;
     }
     
     public function actionWriteForUnit($id) 
@@ -64,6 +68,12 @@ class ReviewPresenter extends BasePresenter
     {
         
     }
+    
+    public function handleFavorite() 
+    {
+        $this->review->favorite($this->userRepository->find($this->user->id));
+        $this->redirect('this');
+    }    
     
     protected function createComponentReviewForm() 
     {

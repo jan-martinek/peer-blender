@@ -17,10 +17,20 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
     /** @var \Kdyby\Translation\Translator @inject */
     public $translator;
+    
+    /** @var \Model\Repository\FavoriteRepository @inject */
+    public $favoriteRepository;
+    
+    /** @var \Model\Repository\UserRepository @inject */
+    public $userRepository;
+    
+    protected $userEntity;
 
     public function startup()
     {
         parent::startup();
+        
+        $this->userEntity = $this->userRepository->find($this->user->id);
     }
 
     public function beforeRender() {

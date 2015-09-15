@@ -3,8 +3,67 @@
 namespace Model\Entity;
 
 use DateTime;
+use Model\Repository\FavoriteRepository;
 
+class FavoritableEntity extends \LeanMapper\Entity 
+{
+    private $favoriteRepository;
+    
+    public function favorite($user) 
+    {
+        if ($favorite = $this->getFavoriteByUser($user))
+        {
+            $this->favoriteRepository->delete($favorite->id);
+            return true;
+        }
 
+        $favorite = new \Model\Entity\Favorite;
+        $favorite->user = $user;
+        $favorite->entity = $this->getConventionalEntityName();
+        $favorite->entity_id = $this->id;
+        $favorite->saved_at = new DateTime;
+        $this->favoriteRepository->persist($favorite);
+        return true;
+    }
+    
+    public function removeFavorite($user) 
+    {
+        
+    }
+    
+    public function isFavoritedBy($user) 
+    {
+        return $this->favoriteRepository->findByUserAndId(
+            $user, $this->getConventionalEntityName(), $this->id
+        ) ? true : false;
+    }
+    
+    public function getFavoriteByUser($user)
+    {
+        return $this->favoriteRepository->findByUserAndId(
+            $user, $this->getConventionalEntityName(), $this->id
+        );
+    }    
+    
+    public function countFavorites() 
+    {
+        return $this->favoriteRepository->countFavoritesOfEntity(
+            $this->getConventionalEntityName(), $this->id
+        );
+    }
+    
+    public function setFavoriteRepository(FavoriteRepository $repository) 
+    {   
+        $this->favoriteRepository = $repository;
+
+    }
+    
+    public function getConventionalEntityName() 
+    {
+        $name = array_slice(explode('\\', get_class($this)), -1, 1);
+        return $name[0];
+    }
+}
 
 /**
  * @property int $id
@@ -46,6 +105,17 @@ class Enrollment extends \LeanMapper\Entity
 
 /**
  * @property int $id
+ * @property User $user m:hasOne
+ * @property string $entity
+ * @property int $entity_id
+ * @property DateTime $saved_at
+ */
+class Favorite extends \LeanMapper\Entity
+{
+}
+
+/**
+ * @property int $id
  * @property Review $review m:hasOne
  * @property User $user m:hasOne
  * @property DateTime $submitted_at
@@ -71,7 +141,7 @@ class Objection extends \LeanMapper\Entity
  * @property DateTime|NULL $submitted_at
  * @property Objection|NULL $objection
  */
-class Review extends \LeanMapper\Entity
+class Review extends FavoritableEntity
 {
 }
 
@@ -117,7 +187,7 @@ class Solution extends \LeanMapper\Entity
  * @property string $generator
  * @property Assignment[] $assignments m:hasMany
  */
-class Unit extends \LeanMapper\Entity
+class Unit extends FavoritableEntity
 {
     const
         DRAFT = 0,
@@ -171,6 +241,6 @@ class Unit extends \LeanMapper\Entity
  * @property Review[] $reviews m:belongsToMany(reviewed_by_id:review)
  * @property Solution[] $solutions m:belongsToMany
  */
-class User extends \LeanMapper\Entity
+class User extends FavoritableEntity
 {
 }
