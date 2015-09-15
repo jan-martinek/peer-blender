@@ -26,7 +26,8 @@ class ReviewPresenter extends BasePresenter
     
     private $review;
 
-    public function renderDefault($id)
+
+    public function actionDefault($id) 
     {
         $this->review = $this->reviewRepository->find($id);
         $this->review->setFavoriteRepository($this->favoriteRepository);

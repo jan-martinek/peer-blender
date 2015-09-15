@@ -27,8 +27,9 @@ class UnitPresenter extends BasePresenter
     private $unit;
     private $assignment;
     private $questions;
-    public function actionDefault($id) {
     
+    public function actionDefault($id) 
+    {
         $this->unit = $this->unitRepository->find($id);
         $this->unit->setFavoriteRepository($this->favoriteRepository);
         $this->template->isFavorited = $this->unit->isFavoritedBy($this->userEntity);
