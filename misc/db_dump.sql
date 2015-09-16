@@ -65,6 +65,20 @@ CREATE TABLE `favorite` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
+DROP TABLE IF EXISTS `log`;
+CREATE TABLE `log` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `entity_name` enum('Objection','Review','Solution','Unit','User') COLLATE utf8_czech_ci NOT NULL,
+  `entity_identifier` int(11) NOT NULL,
+  `action` enum('create','submit','open','edit','delete','login','logout') COLLATE utf8_czech_ci NOT NULL,
+  `logged_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `log_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
 DROP TABLE IF EXISTS `objection`;
 CREATE TABLE `objection` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -159,4 +173,4 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
 (2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
 (3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG');
 
--- 2015-09-15 18:35:50
+-- 2015-09-16 20:36:28

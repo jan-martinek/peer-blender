@@ -22,6 +22,7 @@ class SignPresenter extends BasePresenter
     {
         $form = $this->factory->create();
         $form->onSuccess[] = function ($form) {
+            $this->logEvent($this->userEntity, 'login');
             $form->getPresenter()->redirect('Homepage:');
         };
 
@@ -31,6 +32,7 @@ class SignPresenter extends BasePresenter
     public function actionOut()
     {
         $this->getUser()->logout();
+        $this->logEvent($this->userEntity, 'logout');
         $this->flashMessage('You have been signed out.');
         $this->redirect('in');
     }

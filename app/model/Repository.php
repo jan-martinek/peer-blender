@@ -200,3 +200,7 @@ class UnitRepository extends Repository
         return $this->createEntities($query->fetchAll());
     }
 }
+
+class LogRepository extends \LeanMapper\Repository
+{   
+}

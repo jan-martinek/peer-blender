@@ -5,7 +5,16 @@ namespace Model\Entity;
 use DateTime;
 use Model\Repository\FavoriteRepository;
 
-class FavoritableEntity extends \LeanMapper\Entity 
+class Entity extends \LeanMapper\Entity 
+{
+    public function getConventionalName() 
+    {
+        $name = array_slice(explode('\\', get_class($this)), -1, 1);
+        return $name[0];
+    }
+}
+
+class FavoritableEntity extends Entity 
 {
     private $favoriteRepository;
     
@@ -19,7 +28,7 @@ class FavoritableEntity extends \LeanMapper\Entity
 
         $favorite = new \Model\Entity\Favorite;
         $favorite->user = $user;
-        $favorite->entity = $this->getConventionalEntityName();
+        $favorite->entity = $this->getConventionalName();
         $favorite->entity_id = $this->id;
         $favorite->saved_at = new DateTime;
         $this->favoriteRepository->persist($favorite);
@@ -34,21 +43,21 @@ class FavoritableEntity extends \LeanMapper\Entity
     public function isFavoritedBy($user) 
     {
         return $this->favoriteRepository->findByUserAndId(
-            $user, $this->getConventionalEntityName(), $this->id
+            $user, $this->getConventionalName(), $this->id
         ) ? true : false;
     }
     
     public function getFavoriteByUser($user)
     {
         return $this->favoriteRepository->findByUserAndId(
-            $user, $this->getConventionalEntityName(), $this->id
+            $user, $this->getConventionalName(), $this->id
         );
     }    
     
     public function countFavorites() 
     {
         return $this->favoriteRepository->countFavoritesOfEntity(
-            $this->getConventionalEntityName(), $this->id
+            $this->getConventionalName(), $this->id
         );
     }
     
@@ -56,12 +65,6 @@ class FavoritableEntity extends \LeanMapper\Entity
     {   
         $this->favoriteRepository = $repository;
 
-    }
-    
-    public function getConventionalEntityName() 
-    {
-        $name = array_slice(explode('\\', get_class($this)), -1, 1);
-        return $name[0];
     }
 }
 
@@ -75,7 +78,7 @@ class FavoritableEntity extends \LeanMapper\Entity
  * @property string $rubrics
  * @property Solution|NULL $solution m:belongsToOne(assignment_id)
  */
-class Assignment extends \LeanMapper\Entity
+class Assignment extends Entity
 {
 }
 
@@ -87,7 +90,7 @@ class Assignment extends \LeanMapper\Entity
  * @property Enrollment[] $enrollments m:belongsToMany
  * @property int $reviewCount
  */
-class Course extends \LeanMapper\Entity
+class Course extends Entity
 {
 }
 
@@ -99,7 +102,7 @@ class Course extends \LeanMapper\Entity
  * @property string $role
  * @property bool $active
  */
-class Enrollment extends \LeanMapper\Entity
+class Enrollment extends Entity
 {
 }
 
@@ -110,7 +113,7 @@ class Enrollment extends \LeanMapper\Entity
  * @property int $entity_id
  * @property DateTime $saved_at
  */
-class Favorite extends \LeanMapper\Entity
+class Favorite extends Entity
 {
 }
 
@@ -126,7 +129,7 @@ class Favorite extends \LeanMapper\Entity
  * @property string $comment
  * @property DateTime $evaluated_at
  */
-class Objection extends \LeanMapper\Entity
+class Objection extends Entity
 {
 }
 
@@ -156,7 +159,7 @@ class Review extends FavoritableEntity
  * @property string $attachment
  * @property Review[]|NULL $reviews m:belongsToMany(solution_id)
  */
-class Solution extends \LeanMapper\Entity
+class Solution extends Entity
 {
     public function getScore() 
     {
@@ -243,4 +246,18 @@ class Unit extends FavoritableEntity
  */
 class User extends FavoritableEntity
 {
+}
+
+/* DATA GATHERING */
+
+/**
+ * @property int $id
+ * @property User $user m:hasOne
+ * @property string $entity_name
+ * @property int $entity_identifier
+ * @property string $action
+ * @property DateTime $logged_at
+ */
+class Log extends Entity
+{   
 }

@@ -14,6 +14,7 @@ services:
 	- Model\Repository\CourseRepository
 	- Model\Repository\EnrollmentRepository
 	- Model\Repository\FavoriteRepository
+	- Model\Repository\LogRepository
 	- Model\Repository\ObjectionRepository
 	- Model\Repository\ReviewRepository
 	- Model\Repository\SolutionRepository
@@ -23,6 +24,7 @@ services:
 	- Model\Entity\Course
 	- Model\Entity\Enrollment
 	- Model\Entity\Favorite
+	- Model\Entity\Log
 	- Model\Entity\Objection
 	- Model\Entity\Review
 	- Model\Entity\Solution

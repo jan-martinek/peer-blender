@@ -3,6 +3,8 @@
 namespace App\Presenters;
 
 use App\Components\HomeworkForm;
+use DateTime;
+use Model\Entity\Log;
 
 /**
  * Unit presenter.
@@ -24,29 +26,39 @@ class UnitPresenter extends BasePresenter
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
     
+    private $course;
     private $unit;
     private $assignment;
     private $questions;
+    private $solution;
     
     public function actionDefault($id) 
     {
         $this->unit = $this->unitRepository->find($id);
+        $this->course = $this->unit->course;
+        
         $this->unit->setFavoriteRepository($this->favoriteRepository);
         $this->template->isFavorited = $this->unit->isFavoritedBy($this->userEntity);
         
         $this->assignment = $this->assignmentRepository->getMyAssignment($this->unit, $this->userEntity);        
         $this->questions = unserialize($this->assignment->questions);
+        
+        $this->solution = $this->assignment->solution;
+        
+        $this->logEvent($this->unit, 'open');
     }
 
     public function renderDefault($id)
     {
         $this->template->unit = $this->unit; 
         $this->template->assignment = $this->assignment;
-        $this->template->course = $this->courseRepository->find($this->unit->course->id);        
-        $this->template->solution = $solution = $this->template->assignment->solution;
-        if ($solution) {
-            $this->template->answers = unserialize($solution->answer);
+        $this->template->course = $this->course;
+        $this->template->solution = $this->solution;
+        
+        if ($this->solution) {
+            $this->template->answers = unserialize($this->solution->answer);
         }
+        
         $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($this->unit, $this->userEntity);
     }
     
@@ -62,6 +74,32 @@ class UnitPresenter extends BasePresenter
             throw new Nette\Application\BadRequestException;
         }
         
-        return new HomeworkForm($this->assignment, $this->questions, $this->solutionRepository, $this->translator);
+        $form = new HomeworkForm($this->questions, $this->translator);
+        $form->onSuccess[] = array($this, 'homeworkFormSucceeded');
+        return $form;
+    }
+    
+    public function homeworkFormSucceeded(HomeworkForm $form, $values) 
+    {
+        if ($solution = $this->assignment->solution) {
+            $solution->edited_at = new DateTime;
+            $solution->answer = serialize((array) $values->questions);
+            $solution->attachment = 'TODO';
+            $this->solutionRepository->persist($solution);
+            $this->logEvent($solution, 'edit');
+        } else {
+            $solution = new Solution;
+            $solution->unit = $this->unit;
+            $solution->assignment = $this->assignment;
+            $solution->user = $this->userEntity;
+            $solution->submitted_at = new DateTime;
+            $solution->edited_at = new DateTime;
+            $solution->answer = serialize((array) $values->questions);
+            $solution->attachment = 'TODO';
+            $this->solutionRepository->persist($solution);            
+            $this->logEvent($solution, 'create');
+        }
+
+        $this->redirect('this');
     }
 }

@@ -9,16 +9,10 @@ use Model\Entity\Solution;
 use DateTime;
 
 class HomeworkForm extends Form
-{
-    private $solutionRepository;
-    private $assignment;
-    
-    public function __construct($assignment, $questions, $solutionRepository, $translator) 
+{   
+    public function __construct($questions, $translator) 
     {    
         parent::__construct();
-        
-        $this->assignment = $assignment;
-        $this->solutionRepository = $solutionRepository;
         
         $questionsContainer = $this->addContainer('questions');
         foreach ($questions as $id => $question) {
@@ -33,30 +27,5 @@ class HomeworkForm extends Form
         
         $submitLabel = $translator->translate('messages.unit.submitHomework');
         $this->addSubmit('submit', $submitLabel);
-        
-        $this->onSuccess[] = array($this, 'formSucceeded');
-    }
-    
-    public function formSucceeded(HomeworkForm $form, $values) 
-    {
-        
-        if ($solution = $this->assignment->solution) {
-            $solution->edited_at = new DateTime;
-            $solution->answer = serialize((array) $values->questions);
-            $solution->attachment = 'TODO';
-            $this->solutionRepository->persist($solution);
-        } else {
-            $solution = new Solution;
-            $solution->unit = $this->assignment->unit;
-            $solution->assignment = $this->assignment;
-            $solution->user = $this->assignment->student;
-            $solution->submitted_at = new DateTime;
-            $solution->edited_at = new DateTime;
-            $solution->answer = serialize((array) $values->questions);
-            $solution->attachment = 'TODO';
-            $this->solutionRepository->persist($solution);            
-        }
-
-        $this->getPresenter()->redirect('this');
     }
 }

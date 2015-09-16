@@ -5,6 +5,8 @@ namespace App\Presenters;
 use Nette;
 use Nette\Application\UI\Form;
 use Michelf\Markdown;
+use Model\Entity\Log;
+use DateTime;
 
 
 /**
@@ -23,6 +25,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     
     /** @var \Model\Repository\UserRepository @inject */
     public $userRepository;
+    
+    /** @var \Model\Repository\LogRepository @inject */
+    public $logRepository;
     
     protected $userEntity;
 
@@ -53,10 +58,21 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
 
         return $template;
     }
+    
+    protected function logEvent(\LeanMapper\Entity $entity, $action) {
+        $log = new Log;
+        $log->entity_name = $entity->getConventionalName();
+        $log->entity_identifier = $entity->id;
+        $log->user = $this->userEntity;
+        $log->logged_at = new DateTime;
+        $log->action = $action;
+        $this->logRepository->persist($log);
+    }
 
     public function handleLogout()
     {
         $user = $this->getUser();
+        $this->logEvent($this->userEntity, 'logout');
         $user->logout();
         $this->redirect('Homepage:default');
     }

@@ -15,7 +15,7 @@
 
 {block content}
 <div id="content" class="row">
-	<div class="columns">	
+	<div class="columns">
 		{var answers = unserialize($solution->answer)}		
 		<div n:foreach="unserialize($assignment->questions) as $id => $question" class="panel">
 			{!$question|md}
@@ -40,8 +40,8 @@
 		{!$review->comments|md}
 		
 		<div class="panel">
-		{!_messages.review.isItWrong|md}
-		<a n:href="Review:objection $review->id" class="button alert">{_messages.review.raiseAnObjection}</a>
-		
+			{!_messages.review.isItWrong|md}
+			<a n:href="Review:objection $review->id" class="button alert">{_messages.review.raiseAnObjection}</a>
+		</div>
 	</div>
 </div>

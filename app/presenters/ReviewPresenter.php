@@ -52,6 +52,7 @@ class ReviewPresenter extends BasePresenter
         if (!$review = $this->reviewRepository->findUnfinishedReview($reviewer)) {
             $solution = $this->solutionRepository->findSolutionToReview($unit, $reviewer);
             $review = $this->reviewRepository->createReview($solution, $reviewer);
+            $this->logEvent($review, 'create');
         } else {
             $solution = $review->solution;
         }
@@ -82,6 +83,19 @@ class ReviewPresenter extends BasePresenter
             throw new Nette\Application\BadRequestException;
         }
         
-        return new ReviewForm($this->review, $this->reviewRepository, $this->translator);
+        $form = new ReviewForm($this->review, $this->reviewRepository, $this->translator);
+        $form->onSuccess[] = array($this, 'reviewFormSucceeded');
+        return $form;
+    }
+    
+    public function formSucceeded(ReviewForm $form, $values) 
+    {
+        $this->review->score = $values->score;
+        $this->review->assessment = serialize((array) $values->rubrics);
+        $this->review->comments = $values->comments;
+        $this->review->submitted_at = new DateTime;
+        $this->reviewRepository->persist($this->review);
+        $this->logEvent($this->review, 'submit');
+        $this->redirect('this');
     }
 }
