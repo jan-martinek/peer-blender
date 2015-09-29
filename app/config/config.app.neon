@@ -5,6 +5,7 @@ application:
 
 session:
 	expiration: 14 days
+	savePath: "%tempDir%/sessions"
 
 services:	
 	leanmapper.connection: LeanMapper\Connection(%leanmapper%)
