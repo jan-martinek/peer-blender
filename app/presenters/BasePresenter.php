@@ -29,13 +29,23 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /** @var \Model\Repository\LogRepository @inject */
     public $logRepository;
     
+    /** @var \Nette\Http\Response @inject */
+    public $response;        
+    
     protected $userEntity;
 
     public function startup()
     {
         parent::startup();
         
-        $this->userEntity = $this->userRepository->find($this->user->id);
+        if (!$this->user->isLoggedIn() AND !in_array($this->getName(), array('Homepage', 'Sign'))) {
+            $this->flashMessage('Please sign in.');
+            
+            $backlink = $this->storeRequest('+ 48 hour');
+            $this->redirect('Sign:in', $backlink);
+        } else {
+            $this->userEntity = $this->userRepository->find($this->user->id);
+        }
     }
 
     public function beforeRender() {

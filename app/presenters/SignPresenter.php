@@ -13,6 +13,12 @@ class SignPresenter extends BasePresenter
     /** @var SignFormFactory @inject */
     public $factory;
 
+    /** @persistent */
+    public $backlink;
+    
+    /** @var \Nette\Http\Request @inject */
+    public $request;    
+
     /**
      * Sign-in form factory.
      *
@@ -22,17 +28,26 @@ class SignPresenter extends BasePresenter
     {
         $form = $this->factory->create();
         $form->onSuccess[] = function ($form) {
-            $this->logEvent($this->userEntity, 'login');
-            $form->getPresenter()->redirect('Homepage:');
+            $this->logEvent($this->userRepository->find($this->user->id), 'login');
+            if (!empty($this->backlink)) {
+                $this->getPresenter()->redirect($this->getPresenter()->restoreRequest($this->backlink));
+            } else {
+                $form->getPresenter()->redirect('Homepage:');
+            }
+
         };
 
         return $form;
     }
+    
+    public function actionIn($backlink = null) {
+        
+    }
 
     public function actionOut()
     {
-        $this->getUser()->logout();
         $this->logEvent($this->userEntity, 'logout');
+        $this->getUser()->logout();
         $this->flashMessage('You have been signed out.');
         $this->redirect('in');
     }
