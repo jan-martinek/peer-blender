@@ -55,7 +55,7 @@
 
     <header class="row">
             <div class="columns" n:ifcontent>
-                <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{$flash->message}</p>
+                <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{!$flash->message|imd}</p>
             </div>
     
             <div class="columns">
