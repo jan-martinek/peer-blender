@@ -3,6 +3,7 @@
 namespace App\Presenters;
 
 use App\Components\ReviewForm;
+use DateTime;
 
 /**
  * Review presenter.
@@ -88,7 +89,7 @@ class ReviewPresenter extends BasePresenter
         return $form;
     }
     
-    public function formSucceeded(ReviewForm $form, $values) 
+    public function reviewFormSucceeded(ReviewForm $form, $values) 
     {
         $this->review->score = $values->score;
         $this->review->assessment = serialize((array) $values->rubrics);
