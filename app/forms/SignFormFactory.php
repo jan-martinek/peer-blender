@@ -10,10 +10,15 @@ class SignFormFactory extends Nette\Object
 {
     /** @var User */
     private $user;
+    
+    /** @var \Kdyby\Translation\Translator @inject */
+    public $translator;
+    
 
-    public function __construct(User $user)
+    public function __construct(User $user, \Kdyby\Translation\Translator $translator)
     {
         $this->user = $user;
+        $this->translator = $translator;
     }
 
     /**
@@ -22,15 +27,15 @@ class SignFormFactory extends Nette\Object
     public function create()
     {
         $form = new Form();
-        $form->addText('username', 'Username:')
-            ->setRequired('Please enter your username.');
+        $form->addText('username', $this->translator->translate('messages.app.username') . ':')
+            ->setRequired($this->translator->translate('messages.app.usernameRequired'));
 
-        $form->addPassword('password', 'Password:')
-            ->setRequired('Please enter your password.');
+        $form->addPassword('password', $this->translator->translate('messages.app.password') . ':')
+            ->setRequired($this->translator->translate('messages.app.passwordRequired'));
 
-        $form->addCheckbox('remember', 'Keep me signed in');
+        $form->addCheckbox('remember', ' ' . $this->translator->translate('messages.app.keepMeSignedIn'));
 
-        $form->addSubmit('send', 'Sign in');
+        $form->addSubmit('send', $this->translator->translate('messages.app.login'));
 
         $form->onSuccess[] = array($this, 'formSucceeded');
 

@@ -4,6 +4,13 @@ app:
 	courses: "Courses"
 	login: "Sign in"
 	logout: "Sign out"
+	username: "Username"
+	usernameRequired: "Please enter your username."
+	requestNewPassword: "Request new password"
+	password: "Password"
+	passwordRequired: "Please enter your password."
+	keepMeSignedIn: "Keep me signed in"
+	emailAddress: "E-mail address"
 course:
 	totalEnrolled: "%count% people enrolled."
 unit:
