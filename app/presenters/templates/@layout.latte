@@ -53,10 +53,11 @@
         </section>
     </nav>
 
-
-    <div n:foreach="$flashes as $flash" n:class="flash, $flash->type">{$flash->message}</div>
-    
     <header class="row">
+            <div class="columns" n:ifcontent>
+                <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{$flash->message}</p>
+            </div>
+    
             <div class="columns">
                 {block breadcrumbs}{/block}
             
