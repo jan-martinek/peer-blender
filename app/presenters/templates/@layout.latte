@@ -54,10 +54,6 @@
     </nav>
 
     <header class="row">
-            <div class="columns" n:ifcontent>
-                <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{!$flash->message|imd}</p>
-            </div>
-    
             <div class="columns">
                 {block breadcrumbs}{/block}
             
@@ -67,6 +63,10 @@
                         {block favorites}{/block}
                     </h1>
                 {/block}
+            </div>
+            
+            <div class="columns" n:ifcontent>
+                <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{!$flash->message|imd}</p>
             </div>
     </header>
     
