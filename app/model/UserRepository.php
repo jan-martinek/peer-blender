@@ -69,6 +69,12 @@ class UserRepository extends Repository implements Nette\Security\IAuthenticator
         }
         return $query->fetchPairs('id', 'name');
     }
+    
+    public function findByEmail($email) {
+        $user = $this->connection->select('*')->from($this->getTable())
+            ->where(array('email%s' => $email))->fetch();
+        return $user ? $this->createEntity($user) : NULL;
+    }
 }
 
 class DuplicateNameException extends \Exception

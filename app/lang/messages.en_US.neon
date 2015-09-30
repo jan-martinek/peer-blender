@@ -7,10 +7,16 @@ app:
 	username: "Username"
 	usernameRequired: "Please enter your username."
 	requestNewPassword: "Request new password"
+	newPassword: "New password"
+	setNewPassword: "Set as the new password"
 	password: "Password"
 	passwordRequired: "Please enter your password."
+	passwordResetRequestNotInitiated: "No password reset request is active for account with e-mail address **\"%address%\"**."
+	newPasswordSet: "New password has been set."
 	keepMeSignedIn: "Keep me signed in"
 	emailAddress: "E-mail address"
+	accountNotFoundByEmail: "There's no account using the e-mail address **\"%address%\"**."
+	passwordResetRequestSent: "An email with a link to reset your password has been sent to your e-mail address (%address%)."
 course:
 	totalEnrolled: "%count% people enrolled."
 unit:

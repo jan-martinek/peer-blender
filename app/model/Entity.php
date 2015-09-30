@@ -4,6 +4,8 @@ namespace Model\Entity;
 
 use DateTime;
 use Model\Repository\FavoriteRepository;
+use Model\Mailer;
+use Nette\Security\Passwords;
 
 class Entity extends \LeanMapper\Entity 
 {
@@ -239,6 +241,8 @@ class Unit extends FavoritableEntity
  * @property string $name
  * @property string $email
  * @property string $password
+ * @property string $passwordResetToken (password_reset_token)
+ * @property DateTime $passwordResetValidUntil (password_reset_valid_until)
  * @property Enrollment[] $enrollments m:belongsToMany
  * @property Assignment[] $assignments m:belongsToMany
  * @property Review[] $reviews m:belongsToMany(reviewed_by_id:review)
@@ -246,6 +250,23 @@ class Unit extends FavoritableEntity
  */
 class User extends FavoritableEntity
 {
+    private $passwordResetTimespan = '+ 30 minute';
+    
+    public function initiatePasswordReset() {
+        $this->passwordResetToken = substr(md5(rand()), 0, 10);
+        $this->passwordResetValidUntil = new DateTime($this->passwordResetTimespan);
+    }
+    
+    public function hasPasswordResetBeenInitiated($token) {
+        return ($this->passwordResetValidUntil >= new DateTime 
+            && $this->token === $token) 
+            ? true : false;
+    }
+    
+    public function sendPasswordResetEmail($presenter) {
+        $mailer = new Mailer;
+        $mailer->sendPasswordResetEmail($presenter, $this->email, $this->passwordResetToken);
+    }
 }
 
 /* DATA GATHERING */

@@ -2,7 +2,18 @@
 
 {block content}
 <div id="content" class="row">
-	<div class="columns">
-		{control signInForm}
+	<div class="columns large-6">
+		{form signInForm}
+			<p>{label username /} {input username}
+			<span class="error" n:ifcontent>{inputError username}</span></p>
+			
+			<p>{label password /} {input password}
+			<span class="error" n:ifcontent>{inputError password}</span></p>
+			
+			<p>{label remember /} {input remember}
+			<span class="error" n:ifcontent>{inputError remember}</span></p>
+			
+			<p>{input send, class => 'button'} &nbsp; <a n:href="Sign:passwordReset">{_messages.app.requestNewPassword}</a></p>
+		{/form}
 	</div>
 </div>
