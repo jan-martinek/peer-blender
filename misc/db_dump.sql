@@ -27,12 +27,16 @@ CREATE TABLE `course` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_czech_ci NOT NULL,
   `goals` text COLLATE utf8_czech_ci NOT NULL,
-  `reviewCount` tinyint(4) NOT NULL DEFAULT '5',
+  `contact_email` text COLLATE utf8_czech_ci NOT NULL,
+  `review_count` tinyint(4) NOT NULL DEFAULT '5',
+  `upload_max_filesize_kb` smallint(6) NOT NULL,
+  `ga_code` varchar(20) COLLATE utf8_czech_ci NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `course` (`id`, `name`, `goals`, `reviewCount`) VALUES
-(1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  5);
+INSERT INTO `course` (`id`, `name`, `goals`, `contact_email`, `review_count`, `upload_max_filesize_kb`, `ga_code`) VALUES
+(1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  '', 5,  0,  '0'),
+(2, 'Transformace dat pomocí počítače', 'Cílem předmětu je porozumění možnostem práce s informacemi v počítači.\r\n \r\nPočítač často vnímáme jako nástroj pro snadné vkládání, ukládání a čtení informací – ať už jde o texty, hudbu, videa či multimediální a interaktivní obsahy. \r\n\r\nPředmět Práce s informacemi prostřednictvím počítače se soustředí na v předchozím výčtu chybějící aktivitu: transformaci informací. Studenti se naučí strukturovat vkládané informace, aby s nimi bylo možné provádět další operace, a jak provádět tyto operace – pomocí jednoduchého textového editoru, tabulkového procesoru, databáze nebo v jednoduchých skriptech. Kurz je vyučován hybridní formou – zadané texty čtou a úkoly plní studenti před společným seminářem, na němž je povinná účast.\r\n',  '', 5,  500,  '0');
 
 DROP TABLE IF EXISTS `enrollment`;
 CREATE TABLE `enrollment` (
@@ -101,6 +105,20 @@ CREATE TABLE `objection` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
+DROP TABLE IF EXISTS `objection_open`;
+CREATE TABLE `objection_open` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `objection_id` int(10) unsigned NOT NULL,
+  `arbiter_id` int(10) unsigned NOT NULL,
+  `opened_at` datetime NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `objection_id` (`objection_id`),
+  KEY `arbiter_id` (`arbiter_id`),
+  CONSTRAINT `objection_open_ibfk_1` FOREIGN KEY (`objection_id`) REFERENCES `objection` (`id`),
+  CONSTRAINT `objection_open_ibfk_2` FOREIGN KEY (`arbiter_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
 DROP TABLE IF EXISTS `review`;
 CREATE TABLE `review` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -157,7 +175,7 @@ CREATE TABLE `unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `unit` (`id`, `course_id`, `published_since`, `reviews_since`, `objections_since`, `finalized_since`, `name`, `goals`, `reading`, `generator`) VALUES
-(1, 1,  '2015-08-01 00:00:00',  '2015-09-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  'TestGenerator');
+(1, 1,  '2015-08-01 00:00:00',  '2015-06-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  'TestGenerator');
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -165,12 +183,14 @@ CREATE TABLE `user` (
   `name` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `email` varchar(100) COLLATE utf8_czech_ci NOT NULL,
   `password` varchar(255) COLLATE utf8_czech_ci NOT NULL,
+  `password_reset_token` varchar(10) COLLATE utf8_czech_ci NOT NULL,
+  `password_reset_valid_until` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`) VALUES
-(1, 'Test Admin', 'admin@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
-(2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG'),
-(3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG');
+INSERT INTO `user` (`id`, `name`, `email`, `password`, `password_reset_token`, `password_reset_valid_until`) VALUES
+(1, 'Test Admin', 'admin@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00'),
+(2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', 'b39b0361a2', '2015-09-30 01:38:31'),
+(3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00');
 
--- 2015-09-16 20:36:28
+-- 2015-10-01 00:01:52
