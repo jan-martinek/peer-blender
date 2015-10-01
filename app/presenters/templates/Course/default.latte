@@ -15,7 +15,14 @@
 				<h3>
 					<a n:href="Unit:default $unit->id">{!$unit->name|imd}</a>
 				</h3>
-				<span class="label">{_messages.unit.phase.$unit->currentPhaseName}</span>
+				{foreach $unit->phaseNames as $phaseName}
+					{continueIf $phaseName == 'draft'}
+					{var $dateAttrName = $phaseName . '_since'}
+					<span class="label {if $phaseName !== $unit->currentPhaseName}secondary strong{else}success{/if}" title="{$unit->$dateAttrName|date: '%A %e %B %k.%M'}">
+						{_messages.unit.phase.$phaseName |upper} 
+						&middot; {_messages.unit.phase.since} {$unit->$dateAttrName|date: "%a %e %h, %k.%M"}
+					</span>
+				{/foreach}
 				{!$unit->goals|md}
 			</li>
 		</ul>

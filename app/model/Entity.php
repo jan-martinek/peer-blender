@@ -236,6 +236,16 @@ class Unit extends FavoritableEntity
                 return 'draft';
         }
     }
+    
+    public function getPhaseNames() {
+        return array( 
+            0 => 'draft', 
+            1 => 'published', 
+            2 => 'reviews', 
+            3 => 'objections', 
+            4 => 'finalized'
+        );
+    }
 }
 
 /**

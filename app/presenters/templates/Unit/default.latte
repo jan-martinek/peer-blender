@@ -13,6 +13,15 @@
 {/block}
 
 {block unitInfo}
+	{foreach $unit->phaseNames as $phaseName}
+		{continueIf $phaseName == 'draft'}
+		{var $dateAttrName = $phaseName . '_since'}
+		<span class="label {if $phaseName !== $unit->currentPhaseName}secondary strong{else}success{/if}" title="{$unit->$dateAttrName|date: '%A %e %B %k.%M'}">
+			{_messages.unit.phase.$phaseName |upper}
+			&middot; {_messages.unit.phase.since} {$unit->$dateAttrName|date: "%a %e %h, %k.%M"}
+		</span>
+	{/foreach}
+
 	<h2>{_messages.unit.goals}</h2>
 	{!$unit->goals|md}
 	
