@@ -33,6 +33,7 @@ services:
 	- Model\Entity\User	
 	- App\Forms\SignFormFactory
 	router: App\RouterFactory::createRouter
+	uploadStorage: Model\UploadStorage(%wwwDir%/uploads, /uploads)
 
 extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension

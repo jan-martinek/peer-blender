@@ -160,11 +160,11 @@ class Review extends FavoritableEntity
  * @property DateTime $submitted_at
  * @property DateTime $edited_at
  * @property string $answer
- * @property string $attachment
+ * @property string|NULL $attachment
  * @property Review[]|NULL $reviews m:belongsToMany(solution_id)
  */
 class Solution extends Entity
-{
+{   
     public function getScore() 
     {
         if (is_null($this->reviews)) {
@@ -243,8 +243,8 @@ class Unit extends FavoritableEntity
  * @property string $name
  * @property string $email
  * @property string $password
- * @property string $passwordResetToken (password_reset_token)
- * @property DateTime $passwordResetValidUntil (password_reset_valid_until)
+ * @property string|NULL $passwordResetToken (password_reset_token)
+ * @property DateTime|NULL $passwordResetValidUntil (password_reset_valid_until)
  * @property Enrollment[] $enrollments m:belongsToMany
  * @property Assignment[] $assignments m:belongsToMany
  * @property Review[] $reviews m:belongsToMany(reviewed_by_id:review)
@@ -261,7 +261,7 @@ class User extends FavoritableEntity
     
     public function hasPasswordResetBeenInitiated($token) {
         return ($this->passwordResetValidUntil >= new DateTime 
-            && $this->token === $token) 
+            && $this->passwordResetToken === $token) 
             ? true : false;
     }
     

@@ -5,6 +5,8 @@ namespace App\Presenters;
 use App\Components\HomeworkForm;
 use DateTime;
 use Model\Entity\Log;
+use Model\Entity\Solution;
+use Nette\Utils\Strings;
 
 /**
  * Unit presenter.
@@ -26,10 +28,14 @@ class UnitPresenter extends BasePresenter
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
     
-    private $course;
+    /** @var \Model\UploadStorage @inject */
+    public $uploadStorage;
+    
+    public $questions;    
+    public $course;
+    
     private $unit;
     private $assignment;
-    private $questions;
     private $solution;
     
     public function actionDefault($id) 
@@ -59,6 +65,8 @@ class UnitPresenter extends BasePresenter
             $this->template->answers = unserialize($this->solution->answer);
         }
         
+        $this->template->uploadPath = $this->uploadStorage->path;
+        
         $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($this->unit, $this->userEntity);
     }
     
@@ -74,7 +82,7 @@ class UnitPresenter extends BasePresenter
             throw new Nette\Application\BadRequestException;
         }
         
-        $form = new HomeworkForm($this->questions, $this->translator);
+        $form = new HomeworkForm($this, $this->course);
         $form->onSuccess[] = array($this, 'homeworkFormSucceeded');
         return $form;
     }
@@ -84,7 +92,17 @@ class UnitPresenter extends BasePresenter
         if ($solution = $this->assignment->solution) {
             $solution->edited_at = new DateTime;
             $solution->answer = serialize((array) $values->questions);
-            $solution->attachment = 'TODO';
+            if ($values->attachment->isOK()) 
+            {
+                $this->removeHomeworkFile($solution->attachment);
+                
+                $solution->attachment = $this->saveHomeworkFile(
+                    $values->attachment, 
+                    $this->course->id,
+                    $this->unit->id,
+                    $this->user->id
+                );    
+            }
             $this->solutionRepository->persist($solution);
             $this->logEvent($solution, 'edit');
         } else {
@@ -95,11 +113,53 @@ class UnitPresenter extends BasePresenter
             $solution->submitted_at = new DateTime;
             $solution->edited_at = new DateTime;
             $solution->answer = serialize((array) $values->questions);
-            $solution->attachment = 'TODO';
+            if ($values->attachment->isOK()) 
+            {
+                $solution->attachment = $this->saveHomeworkFile(
+                    $values->attachment, 
+                    $this->course->id,
+                    $this->unit->id,
+                    $this->user->id
+                ); 
+            }
             $this->solutionRepository->persist($solution);            
             $this->logEvent($solution, 'create');
         }
 
         $this->redirect('this');
+    }
+    
+    /**
+     * @return string uploaded filename
+     */
+    private function saveHomeworkFile($file, $courseId, $unitId, $userId) 
+    {
+        if ($file->isOK()) {
+            $path = "/course-$courseId/homeworks/unit-$unitId/user-$userId/";
+            $filename = 
+                Strings::webalize(pathinfo($file->name, PATHINFO_FILENAME))
+                . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
+            
+            if (!file_exists($this->uploadStorage->getAbsolutePath($path))) {
+                mkdir($this->uploadStorage->getAbsolutePath($path), 0777, TRUE);
+            }
+
+            $absoluteFilename = $this->uploadStorage->getAbsolutePath($path . $filename);
+            
+            $file->move($absoluteFilename);
+            
+            return $path . $filename;
+        } else {
+            return NULL;
+        }
+    }
+    
+    private function removeHomeworkFile($filename) 
+    {
+        $absoluteFilename = $this->uploadStorage->getAbsolutePath($filename);
+        
+        if (file_exists($absoluteFilename)) {
+            return unlink($absoluteFilename);    
+        } 
     }
 }

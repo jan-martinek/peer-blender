@@ -2,7 +2,7 @@ log/*
 temp/*
 vendor/*
 www/bower_components/*
-www/upload/*
+www/uploads/*
 config.neon
 !.gitignore
 !.htaccess

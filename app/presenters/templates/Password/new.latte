@@ -7,6 +7,8 @@
 			<p>{label password /} {input password}
 			<span class="error" n:ifcontent>{inputError password}</span></p>
 
+			{input email, value => $email}
+			{input token, value => $token}
 			<p>{input submit, class => 'button'}</p>
 		{/form}
 	</div>

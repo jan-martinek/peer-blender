@@ -38,13 +38,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     {
         parent::startup();
         
-        if (!$this->user->isLoggedIn() AND !in_array($this->getName(), array('Homepage', 'Sign'))) {
+        if ($this->user->isLoggedIn() OR in_array($this->getName(), array('Homepage', 'Sign', 'Password'))) {
+            $this->userEntity = $this->user->id ? $this->userRepository->find($this->user->id) : NULL;
+        } else {
             $this->flashMessage('Please sign in.');
             
             $backlink = $this->storeRequest('+ 48 hour');
             $this->redirect('Sign:in', $backlink);
-        } else {
-            $this->userEntity = $this->userRepository->find($this->user->id);
         }
     }
 

@@ -19,7 +19,7 @@ class Mailer extends \Nette\Object
 
         $header = Html::el('h1')->setText('Peer Blender password reset');
         
-        $link = $presenter->link('//Sign:newPassword', array('email' => $email, 'token' => $token));
+        $link = $presenter->link('//Password:new', array('email' => $email, 'token' => $token));
         $text = '<p>You can reset your password on Peer Blender by clicking on this link:<br>'
         	. '<a href="' . $link . '">' . $link . '</a>.</p>';
         

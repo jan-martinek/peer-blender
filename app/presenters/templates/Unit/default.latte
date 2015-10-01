@@ -41,6 +41,12 @@
 		{label attachment /}
 		{input attachment}
 		
+		<p>
+			{_messages.unit.submittedAttachment}: 
+			<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
+			{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
+		</p>
+		
 		{input submit, 'class' => 'button'}
 	{/form}
 {/block}
@@ -63,7 +69,10 @@
 
 	<label>
 		<h3>{_messages.unit.homeworkAttachment}</h3>
-		{!="--- [file]() ---"|md}
+		<p>
+			<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
+			{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
+		</p>
 	</label>
 {/block}
 
@@ -136,16 +145,16 @@
 
 		{if $unit->isCurrentPhase($unit::PUBLISHED)}
 			{include homeworkForm}
-		{else}
-			{include finishedHomework}	
-		
+		{elseif !is_null($solution)}
+			{include finishedHomework}
+			
+			<hr>
+				
+			{include reviewsFromOthers}
+			
 			<hr>
 		
 			{include homeworkAssessment}
-			
-			<hr>
-			
-			{include reviewsFromOthers}
 		{/if}
 	</div>
 </div>
