@@ -58,3 +58,5 @@ review:
 	submit: "Submit review"
 	isItWrong: "Is this review wrong? Raise an objection. If it's proven wrong, reviewer loses one point &mdash; be careful though: if proven right, it's you who loses that point."
 	raiseAnObjection: "Raise an objection"
+docs:
+	title: "Peer Blender Docs"
