@@ -4,6 +4,19 @@ app:
 	courses: "Kurzy"
 	login: "Přihlásit se"
 	logout: "Odhlásit se"
+	username: "E-mail"
+	usernameRequired: "Vložte svůj e-mail."
+	requestNewPassword: "Nové či zapomenuté heslo?"
+	newPassword: "Nové heslo"
+	setNewPassword: "Nastavit jako nové heslo"
+	password: "Heslo"
+	passwordRequired: "Prosím, zadejte heslo."
+	passwordResetRequestNotInitiated: "O změnu hesla k účtu s e-mailovou adresou **\"%address%\"** nebylo požádáno."
+	newPasswordSet: "Nastavení nového heslo proběhlo úspěšně."
+	keepMeSignedIn: "Trvalé přihlášení"
+	emailAddress: "E-mailová adresa"
+	accountNotFoundByEmail: "Žádný účet s e-mailovou adresou **\"%address%\"** nebyl nalezen."
+	passwordResetRequestSent: "E-mail s odkazem, pomocí něhož můžete změnit své heslo, vám odešel na e-mail (%address%)."
 course:
 	totalEnrolled: "V kurzu je zapsáno %count% lidí."
 unit:
@@ -14,7 +27,8 @@ unit:
 	solution: "Řešení"
 	homeworkSaved: "**Váš úkol byl uložen.** Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
 	homeworkAttachment: "Příloha"
-	homeworkAttachmentNote: "maximální velikost souboru je 500 kB, pokud je to potřeba, můžete soubor zazipovat"
+	homeworkAttachmentNote: "maximální velikost souboru je %filesize% kB, pokud je to potřeba, můžete soubor zazipovat"
+	submittedAttachment: "Uložené přílohy"
 	submitHomework: "Uložit úkol"
 	review: "Hodnocení"
 	myAssesment: "Mé hodnocení: jak ostatní vidí mou práci"
@@ -23,6 +37,7 @@ unit:
 	noReviewsFound: "Nenalezena žádná hodnocení."
 	continue: "pokračovat"
 	writeReview: "Napsat hodnocení"
+	noSolutionAvailable: "V databáti nejsou žádné úkoly, které byste nyní mohli hodnotit. Zkuste to prosím později."
 	reviewMore: "Potřebujete ohodnotit ještě %count% úkolů."
 	enoughReviews: "Skvělé! Ohodnotili jste %count% úkolů a dostáváte bod navíc! +1"
 	averageScore: "Celkové hodnocení (průměr)"
@@ -32,6 +47,7 @@ unit:
 		reviews: "hodnocení"
 		published: "zpracování úkolů"
 		draft: "příprava"
+		since: "od"
 review:
 	score: 
 		title: "Hodnocení"
@@ -44,3 +60,5 @@ review:
 	submit: "Odeslat hodnocení"
 	isItWrong: "Je toto hodnocení nesprávné? Vzneste námitku. Pokud se ukáže, že hodnocení bylo skutečně špatné, hodnotitel ztratí bod. Ale pozor &mdash; pokud je hodnocení oprávněné, ztratíte bod vy."
 	raiseAnObjection: "Vznést námitku"
+docs:
+	title: "Dokumentace aplikace Peer Blender"
