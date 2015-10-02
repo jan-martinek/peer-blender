@@ -48,6 +48,7 @@ unit:
 		published: "zpracování úkolů"
 		draft: "příprava"
 		since: "od"
+		timeLeft: "zbývá %time%"
 review:
 	score: 
 		title: "Hodnocení"

@@ -48,6 +48,7 @@ unit:
 		published: "published"
 		draft: "draft"
 		since: "since"
+		timeLeft: "%time% left"
 review:
 	score: 
 		title: "Score"
