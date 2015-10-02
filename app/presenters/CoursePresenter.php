@@ -17,7 +17,7 @@ class CoursePresenter extends BasePresenter
     {
         $this->template->course = $this->courseRepository->find($id);
         $this->template->units = $this->unitRepository->findByCourseId($id);
-        
+        $this->template->gaCode = $this->template->course->gaCode;
     }
     
     public function renderEnrolled($id) 

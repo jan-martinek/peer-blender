@@ -60,6 +60,7 @@ class UnitPresenter extends BasePresenter
         $this->template->assignment = $this->assignment;
         $this->template->course = $this->course;
         $this->template->solution = $this->solution;
+        $this->template->gaCode = $this->course->gaCode;
         
         if ($this->solution) {
             $this->template->answers = unserialize($this->solution->answer);
