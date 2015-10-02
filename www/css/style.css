@@ -6428,4 +6428,22 @@ ul.checklist {
   margin-left: -60px;
   opacity: .5; }
 
+.phases .label {
+  position: relative;
+  margin-right: 3px; }
+  .phases .label:after {
+    left: 100%;
+    top: 50%;
+    border: solid transparent;
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border-left-color: #e7e7e7;
+    border-width: 8px;
+    margin-top: -8px; }
+  .phases .label.success:after {
+    border-left-color: #43AC6A; }
+
 /*# sourceMappingURL=style.css.map */
