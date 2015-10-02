@@ -15,7 +15,7 @@ class Mailer extends \Nette\Object
         $mail->CharSet = "utf-8";
         $mail->From = 'honza.martinek@gmail.com';
         $mail->FromName = 'Peer Blender';
-        $mail->AddAddress($email); //
+        $mail->AddAddress($email);
 
         $header = Html::el('h1')->setText('Peer Blender password reset');
         

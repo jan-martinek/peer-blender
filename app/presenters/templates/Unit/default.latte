@@ -55,7 +55,7 @@
 		{label attachment /}
 		{input attachment}
 		
-		<p>
+		<p n:if="$solution">
 			{_messages.unit.submittedAttachment}: 
 			<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
 			{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>

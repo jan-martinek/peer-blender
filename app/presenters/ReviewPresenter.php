@@ -40,6 +40,7 @@ class ReviewPresenter extends BasePresenter
         $this->template->review = $this->review;
         $this->template->solution = $this->review->solution;
         $this->template->assignment = $this->review->solution->assignment;
+        $this->template->gaCode = $this->solution->unit->course->gaCode;
     }
     
     public function actionWriteForUnit($id) 
