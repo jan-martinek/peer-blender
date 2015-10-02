@@ -73,7 +73,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $log = new Log;
         $log->entity_name = $entity->getConventionalName();
         $log->entity_identifier = $entity->id;
-        $log->user = $this->userEntity;
+        $log->user = $this->userRepository->find($this->user->id);
         $log->logged_at = new DateTime;
         $log->action = $action;
         $this->logRepository->persist($log);
