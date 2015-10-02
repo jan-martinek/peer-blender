@@ -46,6 +46,7 @@
 	
 	{form homeworkForm}
 		{foreach $form['questions']->controls as $name => $question}
+			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 			{label $question /}
 			{? $form['questions'][$name]->setValue(is_null($solution) ? '' : $answers[$name])}
 			{input $question, 'rows' => '10'}

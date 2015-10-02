@@ -141,13 +141,23 @@ ul.checklist {
 	opacity: .5;	
 }
 
+.questionNumber {
+	float: left;
+	background: black;
+	color: white;
+	text-align: center;
+	padding: 2px 10px;
+	margin-right: 5px;
+}
+
 .phases {
 	overflow: hidden;
 	margin-bottom: 20px;
 	
 	.label {
 		position: relative;
-		margin-right: 3px;
+		margin-right: 10px;
+		font-weight: bold;
 
 		&:after {
 			left: 100%;
@@ -159,8 +169,8 @@ ul.checklist {
 			position: absolute;
 			pointer-events: none;
 			border-left-color: #e7e7e7;
-			border-width: 8px;
-			margin-top: -8px;
+			border-width: 15px;
+			margin-top: -15px;
 		}
 		
 		&:last-child:after {
