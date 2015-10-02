@@ -16,10 +16,21 @@ class TestGenerator extends Nette\Object implements IGenerator
 
     public function getQuestions() 
     {
-        return array(
+        $questions = array(
             'What is *love*?',
-            'Find an essay on "sad sharks" on the internet and sum it up in three sentences.'
+            'Find an essay on "sad sharks" on the internet and sum it up in three sentences.',
+            'What is the weather outside?',
+            'Explain something about your specific way of doing things.'
         );
+        
+        shuffle($questions);
+               
+        $assignedQuestions = array();
+        for ($i = 1; $i <= 2; $i++) {
+            $assignedQuestions[] = array_pop($questions);  
+        }
+                
+        return $assignedQuestions;
     }
     
     public function getRubrics() 
