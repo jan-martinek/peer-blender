@@ -50,10 +50,15 @@ class ReviewPresenter extends BasePresenter
         $this->template->course = $unit->course;
         
         $reviewer = $this->userRepository->find($this->user->id);
-        if (!$review = $this->reviewRepository->findUnfinishedReview($reviewer)) {
-            $solution = $this->solutionRepository->findSolutionToReview($unit, $reviewer);
-            $review = $this->reviewRepository->createReview($solution, $reviewer);
-            $this->logEvent($review, 'create');
+        if (!$review = $this->reviewRepository->findUnfinishedReview($reviewer)) {            
+            if ($solution = $this->solutionRepository->findSolutionToReview($unit, $reviewer)) {
+                $review = $this->reviewRepository->createReview($solution, $reviewer);
+                $this->logEvent($review, 'create');    
+            } else {
+                $solution = null;
+                return;
+            }
+            
         } else {
             $solution = $review->solution;
         }

@@ -166,8 +166,12 @@ class SolutionRepository extends Repository
             'SELECT solution.id, count(review.id) as reviewCount
               FROM solution
               LEFT JOIN review ON solution.id = review.solution_id
-              WHERE solution.unit_id = %i', $unit->id, 
+              WHERE solution.unit_id = %i', $unit->id, 'AND user_id != %i', $reviewer->id,
             'GROUP BY review.id')->fetchAssoc('reviewCount,id');
+        
+        if (!count($reviewStats)) {
+            return FALSE;
+        }
         
         $lowestReviewCount = min(array_keys($reviewStats));
         

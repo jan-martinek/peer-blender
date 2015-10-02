@@ -37,6 +37,7 @@ unit:
 	noReviewsFound: "No reviews have been found."
 	continue: "continue"
 	writeReview: "Write a review"
+	noSolutionAvailable: "There are no homeworks to be evaluated at the moment. Try again later, please."
 	reviewMore: "You need to review %count% homeworks."
 	enoughReviews: "Great! You reviewed %count% homeworks and you've been awarded by an extra point! +1"
 	averageScore: "Score (average)"

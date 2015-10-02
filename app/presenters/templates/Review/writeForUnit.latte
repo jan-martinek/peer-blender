@@ -12,31 +12,36 @@
 {block content}
 <div id="content" class="row">
 	<div class="columns">
-		{var answers = unserialize($solution->answer)}		
-		<div n:foreach="unserialize($assignment->questions) as $id => $question" class="panel">
-			{!$question|md}
-			<hr>
-			<div n:if="!is_null($solution)">
-				{!$answers[$id]|md}
+		{if !isset($solution)}
+			<div class="panel">{_messages.unit.noSolutionAvailable}</div>
+		{else}
+			{var answers = unserialize($solution->answer)}		
+			<div n:foreach="unserialize($assignment->questions) as $id => $question" class="panel">
+				{!$question|md}
+				<hr>
+				<div n:if="!is_null($solution)">
+					{!$answers[$id]|md}
+				</div>
 			</div>
-		</div>
 
-		<h2>{_messages.unit.review}</h2>
+			<h2>{_messages.unit.review}</h2>
 
-		{form reviewForm}
-			{foreach $form['rubrics']->controls as $name => $rubric}
-				{label $rubric /}
-				{input $rubric, 'rows' => '5'}
-				<p n:ifcontent>{inputError $rubric}</p>
-			{/foreach}
+			{form reviewForm}
+				{foreach $form['rubrics']->controls as $name => $rubric}
+					{label $rubric /}
+					{input $rubric, 'rows' => '5'}
+					<p n:ifcontent>{inputError $rubric}</p>
+				{/foreach}
 
-			{label score /}
-			{input score}
-			
-			{label comments /}
-			{input comments}
-			
-			{input submit, 'class' => 'button'}
-		{/form}
+				{label score /}
+				{input score}
+				
+				{label comments /}
+				{input comments}
+				
+				{input submit, 'class' => 'button'}
+			{/form}
+		{/if}
+		
 	</div>
 </div>
