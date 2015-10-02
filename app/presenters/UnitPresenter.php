@@ -70,6 +70,22 @@ class UnitPresenter extends BasePresenter
         $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($this->unit, $this->userEntity);
     }
     
+    public function actionTest($id) 
+    {
+        $this->unit = $this->unitRepository->find($id);
+        $this->course = $this->unit->course;
+        $this->assignment = $this->assignmentRepository->getMyAssignment($this->unit, $this->userEntity, TRUE);        
+        $this->questions = unserialize($this->assignment->questions);    
+    }    
+    
+    public function renderTest($id) 
+    {
+        $this->template->unit = $this->unit; 
+        $this->template->assignment = $this->assignment;
+        $this->template->course = $this->course;
+        $this->template->solution = $this->solution;
+    }
+    
     public function handleFavorite() 
     {
         $this->unit->favorite($this->userRepository->find($this->user->id));

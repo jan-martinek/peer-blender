@@ -1,0 +1,68 @@
+{block title}{$unit->name}{/block}
+
+{block breadcrumbs}
+	<p>
+		<a n:href="Homepage:default">Home</a> &rsaquo;
+		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
+		TEST Unit
+	</p>
+{/block}
+
+{block unitInfo}
+	<div class="phases">
+		{foreach $unit->phaseNames as $phaseName}
+			{continueIf $phaseName == 'draft'}
+			{var $dateAttrName = $phaseName . '_since'}
+			{var isPreviousCurrent = isset($isCurrent) && $isCurrent ? true : false}
+			{var isCurrent = $phaseName === $unit->currentPhaseName}
+			<span class="label {if !$isCurrent}secondary strong{else}success{/if}" title="{$unit->$dateAttrName|date: '%A %e %B %k.%M'}">
+				{_messages.unit.phase.$phaseName |upper} 
+				{var now = new DateTime}{if $isPreviousCurrent} &middot; {_messages.unit.phase.timeLeft, [time => $unit->$dateAttrName->diff($now)->format('%d d, %h h')]}{/if} <br>
+				{_messages.unit.phase.since} {$unit->$dateAttrName|date: "%a %e %h, %k.%M"}
+			</span>
+		{/foreach}
+	</div>
+
+	<h2>{_messages.unit.goals}</h2>
+	{!$unit->goals|md}
+	
+	<hr>
+	
+	<h2>{_messages.unit.reading}</h2>
+	{!$unit->reading|md}
+{/block}
+
+
+{block homeworkForm}
+	<h2>{_messages.unit.myHomework}</h2>
+	
+	<div n:if="$solution" class="panel callout">
+		<p>{!_messages.unit.homeworkSaved, [date => $unit->reviews_since->format('j. n. Y H.i')]|imd}</p>
+	</div>
+	
+	{form homeworkForm}
+		{foreach $form['questions']->controls as $name => $question}
+			{label $question /}
+			{? $form['questions'][$name]->setValue(is_null($solution) ? '' : $answers[$name])}
+			{input $question, 'rows' => '10'}
+			<p n:ifcontent>{inputError $question}</p>
+		{/foreach}
+
+		{label attachment /}
+		{input attachment}
+		
+		{input submit, 'class' => 'button'}
+	{/form}
+{/block}
+
+{block content}
+<div id="content" class="row">
+	<div class="columns">
+		{include unitInfo}
+		
+		<hr>
+		
+		{include homeworkForm}
+	</div>
+</div>
+{/block}

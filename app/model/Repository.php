@@ -34,8 +34,12 @@ abstract class Repository extends \LeanMapper\Repository
 
 class AssignmentRepository extends Repository
 {
-    public function getMyAssignment($unit, $student) 
+    public function getMyAssignment($unit, $student, $test = FALSE) 
     {
+        if ($test) {
+            return $this->generateAssignment($unit, $student, TRUE);
+        }
+        
         $assignment = $this->connection->select('*')
             ->from($this->getTable())
             ->where(array('unit_id' => $unit->id, 'student_id%i' => $student->id));
@@ -48,7 +52,7 @@ class AssignmentRepository extends Repository
         }
     }
     
-    private function generateAssignment($unit, $student) 
+    private function generateAssignment($unit, $student, $test = FALSE) 
     {
         $generatorClassname = '\Model\Generator\\' . $unit->generator;
         $generator = new $generatorClassname;
@@ -58,9 +62,11 @@ class AssignmentRepository extends Repository
         $assignment->questions = serialize($generator->getQuestions());
         $assignment->rubrics = serialize($generator->getRubrics());
         $assignment->unit = $unit;
-        $assignment->student = $student;
         $assignment->generated_at = new DateTime;
-        $this->persist($assignment);
+        if (!$test) {
+            $assignment->student = $student;
+            $this->persist($assignment);    
+        }
         
         return $assignment;
     }
