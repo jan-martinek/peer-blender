@@ -19,6 +19,11 @@ app:
 	passwordResetRequestSent: "E-mail s odkazem, pomocí něhož můžete změnit své heslo, vám odešel na e-mail (%address%)."
 course:
 	totalEnrolled: "V kurzu je zapsáno %count% lidí."
+	participants: "Účastníci kurzu"
+	roles:
+		student: "student"
+		assistant: "asistent"
+		admin: "administrátor"
 unit:
 	goals: "Cíle výukové jednotky"
 	reading: "Zadaná četba"

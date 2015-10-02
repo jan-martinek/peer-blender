@@ -7,7 +7,7 @@
 			<li n:foreach="$courses as $course">
 				<h3><a n:href="Course:default $course->id">{!$course->name|imd}</a></h3>
 				{!$course->goals|md}
-				<p>{_messages.course.totalEnrolled, [count => count($course->enrollments)]}</p>
+				<p><a n:href="Course:enrolled, $course->id">{_messages.course.totalEnrolled, [count => count($course->enrollments)]}</a></p>
 			</li>
 		</ul>
 	</div>

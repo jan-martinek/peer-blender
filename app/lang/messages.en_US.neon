@@ -19,6 +19,11 @@ app:
 	passwordResetRequestSent: "An email with a link to reset your password has been sent to your e-mail address (%address%)."
 course:
 	totalEnrolled: "%count% people enrolled."
+	participants: "Course participants"
+	roles:
+		student: "student"
+		assistant: "assistant"
+		admin: "admin"
 unit:
 	goals: "Unit goals"
 	reading: "Assigned reading"

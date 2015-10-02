@@ -1,0 +1,21 @@
+{block title}{_messages.course.participants}{/block}
+
+{block breadcrumbs}
+	<p>
+		<a n:href="Homepage:default">Home</a> &rsaquo;
+		<a n:href="Course:default, $course->id">{$course->name}</a> &rsaquo; 
+		{_messages.course.participants}
+	</p>
+{/block}
+
+{block content}
+<div id="content" class="row">
+	<div class="columns">
+		<ul class="participants">
+			<li n:foreach="$course->enrollments as $enrollment">
+				{$enrollment->user->name} {if $enrollment->role !== student}({_messages.course.roles.$enrollment->role}){/if}
+			</li>
+		</ul>
+	</div>
+</div>
+{/block}
