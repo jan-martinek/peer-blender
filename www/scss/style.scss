@@ -141,14 +141,25 @@ ul.checklist {
 	opacity: .5;	
 }
 
-.questionNumber {
-	float: left;
-	background: black;
-	color: white;
-	text-align: center;
-	padding: 2px 10px;
-	margin-right: 5px;
+.assignmentQuestion {
+	padding-left: 50px;
+	
+	label p:last-child {
+		margin-bottom: .5em;
+	}
+	
+	.questionNumber {
+		float: left;
+		background: black;
+		color: white;
+		text-align: center;
+		padding: 2px 10px;
+		margin-left: -50px;
+		margin-right: 5px;
+	}	
 }
+
+
 
 .phases {
 	overflow: hidden;

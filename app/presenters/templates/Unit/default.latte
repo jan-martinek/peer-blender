@@ -45,25 +45,32 @@
 	</div>
 	
 	{form homeworkForm}
-		{foreach $form['questions']->controls as $name => $question}
+		<div class="assignmentQuestion" n:foreach="$form['questions']->controls as $name => $question">
 			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 			{label $question /}
 			{? $form['questions'][$name]->setValue(is_null($solution) ? '' : $answers[$name])}
 			{input $question, 'rows' => '10'}
 			<p n:ifcontent>{inputError $question}</p>
-		{/foreach}
+		</div>
 
-		{label attachment /}
-		{input attachment}
-		
-		<p n:if="$solution">
-			{_messages.unit.submittedAttachment}: 
-			<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
-			{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
-		</p>
-		
-		{input submit, 'class' => 'button'}
+		<hr>
+
+		<div class="assignmentQuestion">
+			<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
+			<div class="panel">
+				{label attachment /}
+				{input attachment}
+				
+				<p n:if="$solution && $solution->attachment">
+					{_messages.unit.submittedAttachment}: 
+					<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
+					{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
+				</p>
+			</div>
+			
+			{input submit, 'class' => 'button'} 
 			<p>{!_messages.unit.submitRepeatedly|imd}</p>
+		</div>
 	{/form}
 {/block}
 
