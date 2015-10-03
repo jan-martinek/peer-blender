@@ -35,6 +35,7 @@ unit:
 	homeworkAttachmentNote: "maximální velikost souboru je %filesize% kB, pokud je to potřeba, můžete soubor zazipovat"
 	submittedAttachment: "Uložené přílohy"
 	submitHomework: "Uložit úkol"
+	submitRepeatedly: "**Tip:** Úkol můžete průběžně ukládat, včetně přílohy, kterou můžete nahrát znovu a starý soubor se přepíše novým."
 	review: "Hodnocení"
 	myAssesment: "Mé hodnocení: jak ostatní vidí mou práci"
 	myReviewsOfOthers: "Má hodnocení práce ostatních"
