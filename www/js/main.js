@@ -7,6 +7,8 @@ var PeerBlender = {
 		$.nette.init();
 		
 		this.ThirdParty.init();
+		
+		$('a[href^=http]').attr('target', '_blank');
 	},
 	
 	ThirdParty: {
