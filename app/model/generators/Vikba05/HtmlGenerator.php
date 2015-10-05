@@ -50,9 +50,11 @@ class HtmlGenerator extends Nette\Object implements IGenerator
                 a do odpovědi zkopírujte chyby a varování nalezené validátorem.',
                 
                 'Najděte na internetu stránku s vysvětlením, jak v HTML psát podtitulky 
-                (tzn. doplňující text k titulku, viz příklad) dle specifikace HTML5. Do 
+                (tzn. doplňující text k titulku, viz příklad níže) dle specifikace HTML5. Do 
                 odpovědi vlastními slovy shrňte toto vysvětlení a zkopírujte URL (adresu) nalezené 
-                stránky. Dejte si skutečně pozor na to, aby šlo o návod pro *HTML 5*.',
+                stránky. Dejte si skutečně pozor na to, aby šlo o návod pro *HTML 5*.' 
+                . "\n\n"
+                . '<big><big><strong>Technology and The Evolution of Storytelling</strong></big></big><br><strong style="line-height: 1.6em;">It is such an exciting time to be a filmmaker.</strong>',
                 
                 'Vytvořte v HTML číslovaný nákupní seznam. Jako jeho položky použijte jablko, máslo, 
                 jogurt a dvě vymyšlené položky dle vlastní fantazie (v libovolném pořadí). Zapište kód do odpovědi.',
