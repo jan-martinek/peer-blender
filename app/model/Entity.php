@@ -192,7 +192,7 @@ class Solution extends Entity
  * @property string $goals
  * @property string $reading
  * @property string $generator
- * @property Assignment[] $assignments m:hasMany
+ * @property Assignment[] $assignments m:belongsToMany
  */
 class Unit extends FavoritableEntity
 {
