@@ -6,4 +6,5 @@ www/uploads/*
 config.neon
 !.gitignore
 !.htaccess
+.debug
 !web.config
