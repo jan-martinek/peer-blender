@@ -47,7 +47,7 @@ class UnitPresenter extends BasePresenter
         $this->template->isFavorited = $this->unit->isFavoritedBy($this->userEntity);
         
         $this->assignment = $this->assignmentRepository->getMyAssignment($this->unit, $this->userEntity);        
-        $this->questions = unserialize($this->assignment->questions);
+        $this->questions = $this->assignment->questionSet;
         
         $this->solution = $this->assignment->solution;
         
@@ -63,7 +63,7 @@ class UnitPresenter extends BasePresenter
         $this->template->gaCode = $this->course->gaCode;
         
         if ($this->solution) {
-            $this->template->answers = unserialize($this->solution->answer);
+            $this->template->answers = $this->solution->answerSet;
         }
         
         $this->template->uploadPath = $this->uploadStorage->path;
@@ -76,7 +76,7 @@ class UnitPresenter extends BasePresenter
         $this->unit = $this->unitRepository->find($id);
         $this->course = $this->unit->course;
         $this->assignment = $this->assignmentRepository->getMyAssignment($this->unit, $this->userEntity, TRUE);        
-        $this->questions = unserialize($this->assignment->questions);    
+        $this->questions = $this->assignment->questionSet;    
     }    
     
     public function renderTest($id) 
@@ -108,7 +108,7 @@ class UnitPresenter extends BasePresenter
     {
         if ($solution = $this->assignment->solution) {
             $solution->edited_at = new DateTime;
-            $solution->answer = serialize((array) $values->questions);
+            $solution->answerSet = $values->questions;
             if ($values->attachment->isOK()) 
             {
                 $this->removeHomeworkFile($solution->attachment);
@@ -129,7 +129,7 @@ class UnitPresenter extends BasePresenter
             $solution->user = $this->userEntity;
             $solution->submitted_at = new DateTime;
             $solution->edited_at = new DateTime;
-            $solution->answer = serialize((array) $values->questions);
+            $solution->answerSet = $values->questions;
             if ($values->attachment->isOK()) 
             {
                 $solution->attachment = $this->saveHomeworkFile(

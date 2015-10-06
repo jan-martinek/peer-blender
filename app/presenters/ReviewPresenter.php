@@ -98,7 +98,7 @@ class ReviewPresenter extends BasePresenter
     public function reviewFormSucceeded(ReviewForm $form, $values) 
     {
         $this->review->score = $values->score;
-        $this->review->assessment = serialize((array) $values->rubrics);
+        $this->review->assessmentSet = $values->rubrics;
         $this->review->comments = $values->comments;
         $this->review->submitted_at = new DateTime;
         $this->reviewRepository->persist($this->review);

@@ -80,7 +80,7 @@
 
 	{!$assignment->preface|md}
 
-	{foreach unserialize($assignment->questions) as $id => $question}
+	{foreach $assignment->questionSet as $id => $question}
 		<div class="panel">
 			{!$question|md}
 			<hr>

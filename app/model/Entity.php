@@ -82,6 +82,43 @@ class FavoritableEntity extends Entity
  */
 class Assignment extends Entity
 {
+    /**
+     * @return array
+     */
+    public function getQuestionSet() 
+    {
+        $set = @unserialize($this->questions);
+        if ($set !== FALSE) {
+            return $set;
+        } else {
+            return json_decode($this->questions, true);
+        }
+        
+    }
+    
+    public function setQuestionSet($questions) 
+    {
+        $this->questions = json_encode((array) $questions);
+    }
+    
+    /**
+     * @return array
+     */
+    public function getRubricSet() 
+    {
+        $set = @unserialize($this->rubrics);
+        if ($set !== FALSE) {
+            return $set;
+        } else {
+            return json_decode($this->rubrics, true);
+        }
+        
+    }
+    
+    public function setRubricSet($rubrics) 
+    {
+        $this->rubrics = json_encode((array) $rubrics);
+    }
 }
 
 /**
@@ -150,6 +187,24 @@ class Objection extends Entity
  */
 class Review extends FavoritableEntity
 {
+    /**
+     * @return array
+     */
+    public function getAssessmentSet() 
+    {
+        $set = @unserialize($this->assessment);
+        if ($set !== FALSE) {
+            return $set;
+        } else {
+            return json_decode($this->assessment, TRUE);
+        }
+        
+    }
+    
+    public function setAssessmentSet($assessment) 
+    {
+        $this->assessment = json_encode((array) $assessment);
+    }
 }
 
 /**
@@ -178,6 +233,25 @@ class Solution extends Entity
                 $scores[] = $review->score;    
             }
         }        
+    }
+    
+    /**
+     * @return array
+     */
+    public function getAnswerSet() 
+    {
+        $set = @unserialize($this->answer);
+        if ($set !== FALSE) {
+            return $set;
+        } else {
+            return json_decode($this->answer, true);
+        }
+        
+    }
+    
+    public function setAnswerSet($answer) 
+    {
+        $this->answer = json_encode((array) $answer);
     }
 }
 

@@ -16,8 +16,8 @@
 {block content}
 <div id="content" class="row">
 	<div class="columns">
-		{var answers = unserialize($solution->answer)}		
-		<div n:foreach="unserialize($assignment->questions) as $id => $question" class="panel">
+		{var answers = $solution->answerSet}		
+		<div n:foreach="$assignment->questionSet as $id => $question" class="panel">
 			{!$question|md}
 			<hr>
 			<div n:if="!is_null($solution)">
@@ -27,8 +27,8 @@
 		
 		<h2>{_messages.unit.review}</h2>
 
-		{var answers = unserialize($review->assessment)}
-		{foreach unserialize($assignment->rubrics) as $id => $rubric}
+		{var answers = $review->assessmentSet}
+		{foreach $assignment->rubricSet as $id => $rubric}
 		<h3>{!$rubric|imd}</h3>
 		{!$answers[$id]|md}
 		{/foreach}
