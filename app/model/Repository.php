@@ -130,9 +130,13 @@ class ReviewRepository extends Repository
         return $review;
     }    
     
-    public function findUnfinishedReview($reviewer) {
-        $query = $this->connection->query("SELECT * FROM", $this->getTable(),  
-            "WHERE score IS NULL OR comments IS NULL OR submitted_at IS NULL");
+    public function findUnfinishedReview($unit, $reviewer) {
+        $query = $this->connection->query(
+            'SELECT review.* FROM review 
+            LEFT JOIN solution ON solution_id = solution.id 
+            WHERE solution.unit_id = %i', $unit->id,
+            'AND review.reviewed_by_id = %i', $reviewer->id,
+            'AND (score IS NULL OR comments IS NULL OR review.submitted_at IS NULL)');
         
         if ($openedReview = $query->fetch()) {
             return $this->createEntity($openedReview);
@@ -143,7 +147,7 @@ class ReviewRepository extends Repository
     
     public function findByUnitAndReviewer($unit, $user) {
         $query = $this->connection->query(
-            'SELECT * FROM review 
+            'SELECT review.* FROM review 
             LEFT JOIN solution ON solution_id = solution.id 
             WHERE solution.unit_id = %i', $unit->id,
             'AND review.reviewed_by_id = %i', $user->id,
@@ -154,7 +158,7 @@ class ReviewRepository extends Repository
 
     public function findByUnitAndUser($unit, $user) {
         $query = $this->connection->query(
-            'SELECT * FROM review 
+            'SELECT review.* FROM review 
             LEFT JOIN solution ON solution_id = solution.id 
             WHERE solution.unit_id = %i', $unit->id,
             'AND review.reviewed_by_id = %i', $user->id,
@@ -168,11 +172,19 @@ class SolutionRepository extends Repository
 {
     public function findSolutionToReview($unit, $reviewer) 
     {
+        $alreadyReviewedByMe = $this->connection->query(
+            'SELECT solution.id AS id 
+              FROM solution
+              LEFT JOIN review ON solution.id = review.solution_id
+              WHERE solution.unit_id = %i', $unit->id, 'AND reviewed_by_id = %i', $reviewer->id)->fetchAssoc('id');
+        
         $reviewStats = $this->connection->query(
             'SELECT solution.id, count(review.id) as reviewCount
               FROM solution
               LEFT JOIN review ON solution.id = review.solution_id
-              WHERE solution.unit_id = %i', $unit->id, 'AND user_id != %i', $reviewer->id,
+              WHERE solution.unit_id = %i', $unit->id,
+              'AND solution.id NOT IN %in', count($alreadyReviewedByMe) ? array_keys($alreadyReviewedByMe) : array(0),
+              'AND solution.user_id != %i', $reviewer->id,
             'GROUP BY review.id')->fetchAssoc('reviewCount,id');
         
         if (!count($reviewStats)) {

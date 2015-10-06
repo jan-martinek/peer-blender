@@ -58,11 +58,13 @@ unit:
 review:
 	score: 
 		title: "Hodnocení"
-		0: "nula: tohle je prostě špatné"
+		0: "nula: špatný výsledek zapříčiněný neporozumění obsahu"
 		1: "★ špatný výsledek, ale je za tím vidět práce"
-		2: "★★ tohle se dá"
-		3: "★★★ skvělá práce"
+		2: "★★ průměrná práce s chybami, ale je znát porozumění obsahu"
+		3: "★★★ slušná práce (může obsahovat drobné chyby)"
 		placeholder: "Ohodnoťte tento úkol"
+	useRubricsWhileChoosingScore: "Hodnoťte na základě toho, co jste uvedli v písemném hodnocení."
+	editUntilScoring: "Hodnocení můžete průběžně ukládat — ale pouze do chvíle, kdy vyberete konkrétní hodnocení (hvězdičky). Pak se recenze odešle a dostanete další úkol k recenzi."
 	comments: "Komentáře"
 	submit: "Odeslat hodnocení"
 	isItWrong: "Je toto hodnocení nesprávné? Vzneste námitku. Pokud se ukáže, že hodnocení bylo skutečně špatné, hodnotitel ztratí bod. Ale pozor &mdash; pokud je hodnocení oprávněné, ztratíte bod vy."

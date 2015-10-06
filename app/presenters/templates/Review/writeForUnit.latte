@@ -27,19 +27,27 @@
 			<h2>{_messages.unit.review}</h2>
 
 			{form reviewForm}
+				{var assessment = $review->assessmentSet}
 				{foreach $form['rubrics']->controls as $name => $rubric}
+					{?  $rubric->setValue($assessment[$name])}
 					{label $rubric /}
 					{input $rubric, 'rows' => '5'}
 					<p n:ifcontent>{inputError $rubric}</p>
 				{/foreach}
 
-				{label score /}
-				{input score}
-				
-				{label comments /}
-				{input comments}
-				
-				{input submit, 'class' => 'button'}
+				<div class="row">
+					<div class="columns large-6">
+						{label comments /}
+						{input comments, 'rows' => '5'}
+					</div>
+					<div class="columns large-6">
+						{label score /}
+						{input score}
+						
+						{input submit, 'class' => 'button'}
+						<p class="note">Tip: {_messages.review.editUntilScoring}</p>
+					</div>
+				</div>
 			{/form}
 		{/if}
 		

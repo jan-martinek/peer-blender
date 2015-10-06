@@ -37,7 +37,7 @@ class ReviewForm extends Form
         }
         
         $scoreLabel = $translator->translate('messages.review.score.title');
-        $scorePlaceholder = $translator->translate('messages.review.score.placeholder');
+        $scorePlaceholder = $translator->translate('messages.review.useRubricsWhileChoosingScore');
         $this->addSelect('score', $scoreLabel, $options)->setPrompt($scorePlaceholder);
         
         $commentsLabel = $translator->translate('messages.review.comments');

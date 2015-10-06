@@ -40,7 +40,7 @@ class ReviewPresenter extends BasePresenter
         $this->template->review = $this->review;
         $this->template->solution = $this->review->solution;
         $this->template->assignment = $this->review->solution->assignment;
-        $this->template->gaCode = $this->solution->unit->course->gaCode;
+        $this->template->gaCode = $this->template->solution->unit->course->gaCode;
     }
     
     public function actionWriteForUnit($id) 
@@ -50,19 +50,21 @@ class ReviewPresenter extends BasePresenter
         $this->template->unit = $unit;
         $this->template->course = $unit->course;
         
+        // needs splitting into readable methods
         $reviewer = $this->userRepository->find($this->user->id);
-        if (!$review = $this->reviewRepository->findUnfinishedReview($reviewer)) {            
+        if (!$review = $this->reviewRepository->findUnfinishedReview($unit, $reviewer)) {
             if ($solution = $this->solutionRepository->findSolutionToReview($unit, $reviewer)) {
                 $review = $this->reviewRepository->createReview($solution, $reviewer);
+                $review = $this->reviewRepository->find($review->id); // fetching all columns
                 $this->logEvent($review, 'create');    
             } else {
                 $solution = null;
                 return;
             }
-            
         } else {
             $solution = $review->solution;
         }
+        
         $this->review = $this->template->review = $review;
         $this->template->solution = $solution;
         $this->template->assignment = $assignment = $solution->assignment;
