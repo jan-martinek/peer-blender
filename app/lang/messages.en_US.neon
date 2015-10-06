@@ -64,6 +64,7 @@ review:
 		3: "★★★ good work (can contain minor issues)"
 		placeholder: "Rate this homework"
 	noComment: "without comment"
+	verbalAsssessmentCompulsory: "Include verbal assessment please."
 	useRubricsWhileChoosingScore: "Score the homework with regard to your verbal rating above."
 	editUntilScoring: "You can save the review repeatedly — but only after you give the final score (stars). Then the review is submitted and you'll get another homework to review."
 	comments: "Comments"

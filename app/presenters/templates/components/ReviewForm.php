@@ -28,7 +28,7 @@ class ReviewForm extends Form
         foreach ($rubrics as $id => $rubric) {
             $rubricsContainer->addTextarea($id, 
                 Html::el()->setHtml(Markdown::defaultTransform($rubric))
-            );
+            )->setRequired($translator->translate('messages.review.verbalAsssessmentCompulsory'));;
         }
         
         $options = array();
