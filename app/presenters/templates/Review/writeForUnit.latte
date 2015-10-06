@@ -15,8 +15,8 @@
 		{if !isset($solution)}
 			<div class="panel">{_messages.unit.noSolutionAvailable}</div>
 		{else}
-			{var answers = unserialize($solution->answer)}		
-			<div n:foreach="unserialize($assignment->questions) as $id => $question" class="panel">
+			{var answers = $solution->answerSet}		
+			<div n:foreach="$assignment->questionSet as $id => $question" class="panel">
 				{!$question|md}
 				<hr>
 				<div n:if="!is_null($solution)">
