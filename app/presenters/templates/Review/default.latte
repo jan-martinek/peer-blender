@@ -16,11 +16,11 @@
 {block content}
 <div id="content" class="row">
 	<div class="columns">
-		{var answers = $solution->answerSet}		
-		<div n:foreach="$assignment->questionSet as $id => $question" class="panel">
-			{!$question|md}
-			<hr>
-			<div n:if="!is_null($solution)">
+		{var answers = $solution->answerSet}
+		<div n:foreach="$assignment->questionSet as $id => $question" class="assignmentQuestion">
+			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
+			<label>{!$question|md}</label>
+			<div class="panel" n:if="!is_null($solution)">
 				{!$answers[$id]|md}
 			</div>
 		</div>

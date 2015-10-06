@@ -16,10 +16,10 @@
 			<div class="panel">{$message}</div>
 		{else}
 			{var answers = $solution->answerSet}		
-			<div n:foreach="$assignment->questionSet as $id => $question" class="panel">
-				{!$question|md}
-				<hr>
-				<div n:if="!is_null($solution)">
+			<div n:foreach="$assignment->questionSet as $id => $question" class="assignmentQuestion">
+				<h3 class="questionNumber">{$iterator->getCounter()}</h3>
+				<label>{!$question|md}</label>
+				<div class="panel" n:if="!is_null($solution)">
 					{!$answers[$id]|md}
 				</div>
 			</div>
@@ -41,17 +41,20 @@
 
 			{form reviewForm}
 				{var assessment = $review->assessmentSet}
-				{foreach $form['rubrics']->controls as $name => $rubric}
+				<div n:foreach="$form['rubrics']->controls as $name => $rubric" class="assignmentQuestion">
+					<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 					{?  $rubric->setValue($assessment[$name])}
 					{label $rubric /}
 					{input $rubric, 'rows' => '5'}
 					<p n:ifcontent>{inputError $rubric}</p>
-				{/foreach}
+				</div>
 
 				<div class="row">
 					<div class="columns large-6">
-						{label comments /}
-						{input comments, 'rows' => '5'}
+						<div class="assignmentQuestion">
+							{label comments /}
+							{input comments, 'rows' => '10'}
+						</div>
 					</div>
 					<div class="columns large-6">
 						{label score /}
