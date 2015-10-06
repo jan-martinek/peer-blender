@@ -64,6 +64,7 @@ review:
 		2: "★★ average work with some issues, but author's understanding of the topic is visible"
 		3: "★★★ good work (can contain minor issues)"
 		placeholder: "Rate this homework"
+		missing: "score not given"
 	noComment: "without comment"
 	verbalAsssessmentCompulsory: "Include verbal assessment please."
 	useRubricsWhileChoosingScore: "Score the homework with regard to your verbal rating above."

@@ -64,6 +64,7 @@ review:
 		2: "★★ průměrná práce s chybami, ale je znát porozumění obsahu"
 		3: "★★★ slušná práce (může obsahovat drobné chyby)"
 		placeholder: "Ohodnoťte tento úkol"
+		missing: "Neohodnoceno"
 	verbalAsssessmentCompulsory: "Vyplňte prosím slovní hodnocení úkolu."
 	noComment: "bez komentáře"
 	useRubricsWhileChoosingScore: "Hodnoťte na základě toho, co jste uvedli v písemném hodnocení."

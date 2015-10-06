@@ -47,7 +47,14 @@
 		{/foreach}
 
 		<h3>{_messages.review.score.title}<h3>
-		<p>{_messages.review.score.$review->score}</p>
+		
+		<p>
+			{if !is_null($review->score)}
+				{_messages.review.score.$review->score}
+			{else}
+				<span style="color: #aaa">{_messages.review.score.missing}</a>
+			{/if}
+		</p>
 		
 		<h3>{_messages.review.comments}</h3>
 		{if $review->comments}{!$review->comments|md}{else}<p><span style="color: #aaa">{_messages.review.noComment}</a></p>{/if}
