@@ -60,8 +60,8 @@ class AssignmentRepository extends Repository
         
         $assignment = new \Model\Entity\Assignment;
         $assignment->preface = $generator->getPreface();
-        $assignment->questions = $generator->getQuestionSet();
-        $assignment->rubrics = $generator->getRubricSet();
+        $assignment->questions = $generator->getQuestions();
+        $assignment->rubrics = $generator->getRubrics();
         $assignment->unit = $unit;
         $assignment->generated_at = new DateTime;
         if (!$test) {
