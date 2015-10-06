@@ -13,7 +13,7 @@
 <div id="content" class="row">
 	<div class="columns">
 		{if !isset($solution)}
-			<div class="panel">{_messages.unit.noSolutionAvailable}</div>
+			<div class="panel">{$message}</div>
 		{else}
 			{var answers = $solution->answerSet}		
 			<div n:foreach="$assignment->questionSet as $id => $question" class="panel">

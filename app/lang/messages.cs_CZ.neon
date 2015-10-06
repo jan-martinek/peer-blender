@@ -43,9 +43,9 @@ unit:
 	noReviewsFound: "Nenalezena žádná hodnocení."
 	continue: "pokračovat"
 	writeReview: "Napsat hodnocení"
-	noSolutionAvailable: "V databáti nejsou žádné úkoly, které byste nyní mohli hodnotit. Zkuste to prosím později."
+	noSolutionAvailable: "V databázi nejsou žádné úkoly, které byste nyní mohli hodnotit."
 	reviewMore: "Potřebujete ohodnotit ještě %count% úkolů."
-	enoughReviews: "Skvělé! Ohodnotili jste %count% úkolů a dostáváte bod navíc! +1"
+	enoughReviews: "Skvělé! Ohodnotili jste %count% úkolů! Díky."
 	averageScore: "Celkové hodnocení (průměr)"
 	phase:
 		finalized: "ukončená"

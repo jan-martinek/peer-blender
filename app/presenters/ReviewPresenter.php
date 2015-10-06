@@ -49,25 +49,35 @@ class ReviewPresenter extends BasePresenter
         
         $this->template->unit = $unit;
         $this->template->course = $unit->course;
+        $solution = null;
         
-        // needs splitting into readable methods
-        $reviewer = $this->userRepository->find($this->user->id);
-        if (!$review = $this->reviewRepository->findUnfinishedReview($unit, $reviewer)) {
-            if ($solution = $this->solutionRepository->findSolutionToReview($unit, $reviewer)) {
-                $review = $this->reviewRepository->createReview($solution, $reviewer);
-                $review = $this->reviewRepository->find($review->id); // fetching all columns
-                $this->logEvent($review, 'create');    
+        try {
+            // needs splitting into readable methods
+            $reviewer = $this->userRepository->find($this->user->id);
+            if (!$review = $this->reviewRepository->findUnfinishedReview($unit, $reviewer)) {
+                if ($solution = $this->solutionRepository->findSolutionToReview($unit, $reviewer)) {
+                    $review = $this->reviewRepository->createReview($solution, $reviewer);
+                    $review = $this->reviewRepository->find($review->id); // fetching all columns
+                    $this->logEvent($review, 'create');    
+                } else {
+                    return;
+                }
             } else {
-                $solution = null;
-                return;
+                $solution = $review->solution;
             }
-        } else {
-            $solution = $review->solution;
+
+            $this->review = $this->template->review = $review;
+            $this->template->solution = $solution;
+            $this->template->assignment = $assignment = $solution->assignment;
+        } catch (\Model\Repository\SolutionToReviewNotFoundException $e) {
+            $this->template->message = $this->translator->translate('messages.unit.noSolutionAvailable');   
+        } catch (\Model\Repository\ReviewLimitReachedException $e) {
+            $this->template->message = $this->translator->translate(
+                'messages.unit.enoughReviews', 
+                NULL, 
+                array('count' => $unit->course->reviewCount)
+            );
         }
-        
-        $this->review = $this->template->review = $review;
-        $this->template->solution = $solution;
-        $this->template->assignment = $assignment = $solution->assignment;
     }
     
     public function renderWriteForUnit($id) 

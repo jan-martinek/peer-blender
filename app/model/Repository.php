@@ -2,6 +2,7 @@
 
 namespace Model\Repository;
 
+use Exception;
 use DateTime;
 
 abstract class Repository extends \LeanMapper\Repository
@@ -178,6 +179,12 @@ class SolutionRepository extends Repository
               LEFT JOIN review ON solution.id = review.solution_id
               WHERE solution.unit_id = %i', $unit->id, 'AND reviewed_by_id = %i', $reviewer->id)->fetchAssoc('id');
         
+        
+        if (count($alreadyReviewedByMe) >= $unit->course->reviewCount) {
+            throw new ReviewLimitReachedException();
+            return FALSE;
+        }
+        
         $reviewStats = $this->connection->query(
             'SELECT solution.id, count(review.id) as reviewCount
               FROM solution
@@ -188,20 +195,29 @@ class SolutionRepository extends Repository
             'GROUP BY review.id')->fetchAssoc('reviewCount,id');
         
         if (!count($reviewStats)) {
+            throw new SolutionToReviewNotFoundException();
             return FALSE;
         }
         
         $lowestReviewCount = min(array_keys($reviewStats));
         
         if ($lowestReviewCount >= $unit->course->reviewCount) {
-            // reviewsSaturated
-            return false;
+            throw new SolutionToReviewNotFoundException();
+            return FALSE;
         }
         
         $randomlyPickedSolutionId = array_rand($reviewStats[$lowestReviewCount]);
         
         return $this->find($randomlyPickedSolutionId);
     }
+    
+}
+
+class SolutionToReviewNotFoundException extends Exception {
+    
+}
+
+class ReviewLimitReachedException extends Exception {
     
 }
 
