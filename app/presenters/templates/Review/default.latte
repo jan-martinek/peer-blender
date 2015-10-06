@@ -37,11 +37,12 @@
 		<p>{_messages.review.score.$review->score}</p>
 		
 		<h3>{_messages.review.comments}</h3>
-		{!$review->comments|md}
+		{if $review->comments}{!$review->comments|md}{else}<p><span style="color: #aaa">{_messages.review.noComment}</a></p>{/if}
 		
 		<div class="panel">
 			{!_messages.review.isItWrong|md}
 			<a n:href="Review:objection $review->id" class="button alert">{_messages.review.raiseAnObjection}</a>
+			<p>&mdash; Funkcionalita námitek bude zprovozněna 7. října. Děkuji za pochopení.</p>
 		</div>
 	</div>
 </div>

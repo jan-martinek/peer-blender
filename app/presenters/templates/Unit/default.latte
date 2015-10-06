@@ -100,7 +100,7 @@
 {/block}
 
 
-{block homeworkAssessment}
+{block myReviewsOfOthers}
 	<h2>{_messages.unit.myAssesment}</h2>
 	{if !count($solution->reviews)}
 		<div class="panel">
@@ -117,7 +117,7 @@
 				{else}
 					<a n:href="Review:default $review->id">{$review->submitted_at|date:'j. n. Y, H.i'}</a> 
 					&mdash; 
-					{_messages.review.score.title}: {_messages.review.score.$review->score},
+					<strong>{_messages.review.score.title}:</strong> {_messages.review.score.$review->score},
 					<a n:href="Review:default $review->id">show review &rarr;</a> 
 				{/if}
 			</li>
@@ -144,7 +144,7 @@
 				{else}
 					<a n:href="Review:default $review->id">{$review->submitted_at|date:'j. n. Y, H.i'}</a> 
 					&mdash; 
-					{_messages.review.score.title}: {_messages.review.score.$review->score},
+					<strong>{_messages.review.score.title}:</strong> {_messages.review.score.$review->score},
 					<a n:href="Review:default $review->id">show review &rarr;</a> 
 				{/if}
 			</li>
@@ -177,7 +177,7 @@
 			
 			<hr>
 		
-			{include homeworkAssessment}
+			{include myReviewsOfOthers}
 		{/if}
 	</div>
 </div>
