@@ -25,11 +25,18 @@
 			</div>
 		</div>
 		
-		<p n:if="$solution && $solution->attachment">
-			{_messages.unit.submittedAttachment}: 
-			<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
-			{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
-		</p>
+		<div class="assignmentQuestion">
+			<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
+			<p class="panel callout">
+				{if $solution && $solution->attachment}
+					{_messages.unit.submittedAttachment}: 
+					<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
+					{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
+				{else}
+					<span style="color: #aaa">{_messages.unit.noAttachment}</a>
+				{/if}
+			</p>
+		</div>
 		
 		<h2>{_messages.unit.review}</h2>
 

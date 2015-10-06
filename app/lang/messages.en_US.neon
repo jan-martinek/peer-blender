@@ -34,6 +34,7 @@ unit:
 	homeworkAttachment: "Attachment"
 	homeworkAttachmentNote: "maximum size is %filesize% kB; archive files into ZIP if needed"
 	submittedAttachment: "Submitted attachment"
+	noAttachment: "No attachment submitted"
 	submitHomework: "Submit homework"
 	submitRepeatedly: "**Tip:** You can save your homework multiple times, until this phase ends. Feel easy about saving your work half-way through."
 	review: "Review"
