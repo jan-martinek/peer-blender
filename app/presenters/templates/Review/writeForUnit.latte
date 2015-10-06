@@ -23,6 +23,12 @@
 					{!$answers[$id]|md}
 				</div>
 			</div>
+			
+			<p n:if="$solution && $solution->attachment">
+				{_messages.unit.submittedAttachment}: 
+				<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
+				{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
+			</p>
 
 			<h2>{_messages.unit.review}</h2>
 

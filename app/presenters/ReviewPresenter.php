@@ -25,6 +25,9 @@ class ReviewPresenter extends BasePresenter
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
     
+    /** @var \Model\UploadStorage @inject */
+    public $uploadStorage;    
+    
     private $review;
 
 
@@ -33,6 +36,7 @@ class ReviewPresenter extends BasePresenter
         $this->review = $this->reviewRepository->find($id);
         $this->review->setFavoriteRepository($this->favoriteRepository);
         $this->template->isFavorited = $this->review->isFavoritedBy($this->userEntity);
+        $this->template->uploadPath = $this->uploadStorage->path;
     }
 
     public function renderDefault($id)
@@ -46,6 +50,7 @@ class ReviewPresenter extends BasePresenter
     public function actionWriteForUnit($id) 
     {
         $unit = $this->unitRepository->find($id);
+        $this->template->uploadPath = $this->uploadStorage->path;
         
         $this->template->unit = $unit;
         $this->template->course = $unit->course;
