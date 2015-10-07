@@ -33,8 +33,6 @@ class SignFormFactory extends Nette\Object
         $form->addPassword('password', $this->translator->translate('messages.app.password') . ':')
             ->setRequired($this->translator->translate('messages.app.passwordRequired'));
 
-        $form->addCheckbox('remember', ' ' . $this->translator->translate('messages.app.keepMeSignedIn'));
-
         $form->addSubmit('send', $this->translator->translate('messages.app.login'));
 
         $form->onSuccess[] = array($this, 'formSucceeded');
@@ -44,11 +42,7 @@ class SignFormFactory extends Nette\Object
 
     public function formSucceeded($form, $values)
     {
-        if ($values->remember) {
-            $this->user->setExpiration('14 days', false);
-        } else {
-            $this->user->setExpiration('90 minutes', true);
-        }
+        $this->user->setExpiration('15 hours', false);
 
         try {
             $this->user->login($values->username, $values->password);
