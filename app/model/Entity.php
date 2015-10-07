@@ -223,7 +223,7 @@ class Solution extends Entity
     public function getScore() 
     {
         if (is_null($this->reviews)) {
-            return false;
+            return FALSE;
         }
         
         $scores = array();
@@ -234,7 +234,7 @@ class Solution extends Entity
             }
         }
         
-        return array_sum($scores) / count($scores);
+        return count($scores) ? array_sum($scores) / count($scores) : FALSE;
     }
     
     /**
