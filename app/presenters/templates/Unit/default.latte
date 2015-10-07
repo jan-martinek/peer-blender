@@ -129,7 +129,7 @@
 
 {block reviewsFromOthers}
 	<h2>{_messages.unit.myReviewsOfOthers}</h2>
-	{if !count($solution->reviews)}
+	{if !count($reviews)}
 		<div class="panel">
 			{!_messages.unit.noReviewsFound|md}
 		</div>
@@ -150,7 +150,7 @@
 			</li>
 		</ul>
 	{/if}
-	{if count($solution->reviews) < $course->reviewCount}
+	{if count($reviews) < $course->reviewCount}
 		<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
 		{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}
 	{else}
