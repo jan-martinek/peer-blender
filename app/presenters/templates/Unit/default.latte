@@ -8,7 +8,7 @@
 	<p>
 		<a n:href="Homepage:default">Home</a> &rsaquo;
 		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
-		Unit
+		{_messages.app.unit}
 	</p>
 {/block}
 
@@ -145,7 +145,7 @@
 					<a n:href="Review:default $review->id">{$review->submitted_at|date:'j. n. Y, H.i'}</a> 
 					&mdash; 
 					<strong>{_messages.review.score.title}:</strong> {_messages.review.score.$review->score},
-					<a n:href="Review:default $review->id">show review &rarr;</a> 
+					<a n:href="Review:default $review->id">{_messages.review.showReview} &rarr;</a> 
 				{/if}
 			</li>
 		</ul>
