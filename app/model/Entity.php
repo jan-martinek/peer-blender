@@ -322,6 +322,22 @@ class Unit extends FavoritableEntity
             4 => 'finalized'
         );
     }
+    
+    public function getNextPhaseName() {
+        $phase = $this->getCurrentPhase();
+        switch ($phase) {
+            case self::FINALIZED:
+                return FALSE;
+            case self::OBJECTIONS:
+                return 'finalized';
+            case self::REVIEWS:
+                return 'objections';
+            case self::PUBLISHED:
+                return 'reviews';
+            case self::DRAFT:
+                return 'published';
+        }
+    }
 }
 
 /**
