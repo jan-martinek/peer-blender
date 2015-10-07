@@ -175,7 +175,7 @@ class UnitPresenter extends BasePresenter
     {
         $absoluteFilename = $this->uploadStorage->getAbsolutePath($filename);
         
-        if (file_exists($absoluteFilename)) {
+        if (file_exists($absoluteFilename) && is_file($absoluteFilename)) {
             return unlink($absoluteFilename);    
         } 
     }
