@@ -129,7 +129,7 @@ class Assignment extends Entity
  * @property Enrollment[] $enrollments m:belongsToMany
  * @property int $reviewCount (review_count)
  * @property int $uploadMaxFilesizeKb (upload_max_filesize_kb)
- * @property string $gaCode (ga_code)
+ * @property string|NULL $gaCode (ga_code)
  */
 class Course extends Entity
 {
