@@ -25,4 +25,11 @@ class CoursePresenter extends BasePresenter
         $this->template->course = $this->courseRepository->find($id);   
         $this->template->gaCode = $this->template->course->gaCode;
     }
+    
+    public function renderStats($id) 
+    {
+        $this->template->course = $this->courseRepository->find($id);
+        $this->template->reviewStats = $this->courseRepository->getReviewStats($this->template->course);
+        $this->template->gaCode = $this->template->course->gaCode;       
+    }
 }

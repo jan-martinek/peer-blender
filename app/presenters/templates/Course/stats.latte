@@ -1,0 +1,68 @@
+{block title}{_messages.course.participants}{/block}
+
+{block breadcrumbs}
+	<p>
+		<a n:href="Homepage:default">Home</a> &rsaquo;
+		<a n:href="Course:default, $course->id">{$course->name}</a> &rsaquo; 
+		{_messages.course.participants}
+	</p>
+{/block}
+
+{block content}
+<div id="content" class="row">
+	<div class="columns">
+		<ul>
+			<li>Enrolled: {count($course->enrollments)} students</li>
+			<li>Units: {count($course->units)}
+				<ul>
+					<li n:foreach="$course->units as $unit">
+						<strong>{$unit->name}</strong>: {count($unit->assignments)} assignments
+						{*<ul>
+							<li n:foreach="$unit->assignments as $assignment">
+								{}
+						</ul>*}
+					</li>
+				</ul>
+			</li>
+			<li n:if="$reviewStats">Reviews {dump $reviewStats}
+				<table>
+					{foreach $reviewStats as $row}
+						<tr n:if="$iterator->getCounter() == 1">
+							<th n:foreach="$row as $name => $cell">
+								{$name}
+							</th>
+						</tr>
+						<tr>
+							<td n:foreach="$row as $cell">
+								{$cell}
+							</td>
+						</tr>
+					{/foreach}
+				</table>
+			</li>
+			<li>
+				<ul>
+					<li n:foreach="$course->units as $unit">
+						Unit {$unit->id}
+						<ul>
+							<li n:foreach="$unit->assignments as $assignment">
+								Assignment {$assignment->id} 
+								{if isset($assignment->solution)}
+									{var score = $assignment->solution->getScore()}
+									({if $score}{$score} &star;{else}&mdash;{/if})
+									<ul>
+										<li n:foreach="$assignment->solution->reviews as $review">
+											<a n:href="Review:default $review->id">Review {$review->id}</a>
+											{if !is_null($review->score)}{$review->score} &star;{/if}
+										</li>
+									</ul>
+								{/if}
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+</div>
+{/block}
