@@ -4,7 +4,7 @@ application:
 		*: App\*Module\Presenters\*Presenter
 
 session:
-	expiration: 14 days
+	expiration: 18 hours
 	savePath: "%tempDir%/session"
 
 services:	

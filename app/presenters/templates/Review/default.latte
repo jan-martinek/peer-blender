@@ -21,7 +21,7 @@
 			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 			<label>{!$question|md}</label>
 			<div class="panel" n:if="!is_null($solution)">
-				{!$answers[$id]|md}
+				{!=nl2br(htmlspecialchars($answers[$id]))}
 			</div>
 		</div>
 		
@@ -62,7 +62,7 @@
 		<div class="panel">
 			{!_messages.review.isItWrong|md}
 			<a n:href="Review:objection $review->id" class="button alert">{_messages.review.raiseAnObjection}</a>
-			<p>&mdash; Funkcionalita námitek bude zprovozněna 7. října. Děkuji za pochopení.</p>
+			<p>&mdash; Funkcionalita námitek bude zprovozněna 8. října. Děkuji za pochopení.</p>
 		</div>
 	</div>
 </div>

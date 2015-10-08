@@ -89,7 +89,7 @@
 			{!$question|md}
 			<hr>
 			<div n:if="!is_null($solution)">
-				{!$answers[$id]|md}
+				{*!$answers[$id]|md*}{!=nl2br(htmlspecialchars($answers[$id]))}
 			</div>
 		</div>
 	{/foreach}

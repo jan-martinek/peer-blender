@@ -20,7 +20,7 @@
 				<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 				<label>{!$question|md}</label>
 				<div class="panel" n:if="!is_null($solution)">
-					{!$answers[$id]|md}
+					{!=nl2br(htmlspecialchars($answers[$id]))}
 				</div>
 			</div>
 			
