@@ -4,6 +4,7 @@ app:
 	courses: "Courses"
 	unit: "Unit"
 	review: "Review"
+	solution: "Solution"
 	home: "Home"
 	login: "Sign in"
 	logout: "Sign out"

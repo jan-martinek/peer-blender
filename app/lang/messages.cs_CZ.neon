@@ -4,6 +4,7 @@ app:
 	courses: "Kurzy"
 	unit: "Lekce"
 	review: "Hodnocení"
+	solution: "Řešení"
 	home: "Domů"
 	login: "Přihlásit se"
 	logout: "Odhlásit se"

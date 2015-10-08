@@ -218,7 +218,7 @@ class Review extends FavoritableEntity
  * @property string|NULL $attachment
  * @property Review[]|NULL $reviews m:belongsToMany(solution_id)
  */
-class Solution extends Entity
+class Solution extends FavoritableEntity
 {   
     public function getScore() 
     {
