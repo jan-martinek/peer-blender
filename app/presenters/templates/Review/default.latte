@@ -66,20 +66,22 @@
 				<hr>
 				<p><strong>{_messages.objection.raisedAt}</strong>: {$review->objection->submitted_at|date:'j. n. Y, H.i'}</p>
 				<p><strong>{_messages.objection.result}</strong>: {_messages.objection.notEvaluatedYet}</p>
+			{elseif $solution->user->id == $user->id}
+				{!_messages.review.isItWrong|md}
+				<a href="#" class="button alert" onclick="$('#objectionFormWrapper').show(); $(this).hide(); return false;">{_messages.objection.raise}</a>
+				<div id="objectionFormWrapper" style="display: none">
+					{form objectionForm}
+						<p>{label objection /}
+						{input objection, 'rows' => 10}</p>
+						
+						<p>{input ratingIsWrong}</p>
+						<p>{input reasonsGiven}</p>
+						
+						<p>{input submit, 'class' => 'button alert'}</p>
+					{/form}
+				</div>
 			{else}
-			{!_messages.review.isItWrong|md}
-			<a href="#" class="button alert" onclick="$('#objectionFormWrapper').show(); $(this).hide(); return false;">{_messages.objection.raise}</a>
-			<div id="objectionFormWrapper" style="display: none">
-				{form objectionForm}
-					<p>{label objection /}
-					{input objection, 'rows' => 10}</p>
-					
-					<p>{input ratingIsWrong}</p>
-					<p>{input reasonsGiven}</p>
-					
-					<p>{input submit, 'class' => 'button alert'}</p>
-				{/form}
-			</div>
+				<p style="color: #aaa">{_messages.objection.notRaised}</a>
 			{/if}
 		</div>
 	</div>

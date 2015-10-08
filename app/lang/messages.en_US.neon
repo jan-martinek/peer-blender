@@ -81,6 +81,7 @@ review:
 objection: 
 	raise: "Raise an objection"
 	raised: "An objection has been raised"
+	notRaised: "No objection has been raised."
 	description: "Description of what's wrong with the assessment"
 	ratingIsWrong: "I believe that the star rating has been wrongly assessed."
 	ratingIsWrongNeeded: "It's not possible to submit objection if you don't believe that the star rating has been wrongly assessed."

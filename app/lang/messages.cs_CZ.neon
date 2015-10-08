@@ -81,6 +81,7 @@ review:
 objection: 
 	raise: "Vznést námitku"
 	raised: "Námitka byla vznesena"
+	notRaised: "Žádná námitka nebyla vznesena."
 	description: "Popis toho, co je špatně v hodnocení tohoto úkolu"
 	ratingIsWrong: "Myslím, že výsledné hodnocení (v hvězdičkách) bylo uděleno nesprávně."
 	ratingIsWrongNeeded: "Nemůžete vznést námitku, pokud nechcete zpochybnit celkové hodnocení vyjádřené hvězdičkami."
