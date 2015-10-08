@@ -46,8 +46,8 @@
 						Unit {$unit->id}
 						<ul>
 							<li n:foreach="$unit->assignments as $assignment">
-								Assignment {$assignment->id} 
 								{if isset($assignment->solution)}
+									<a n:href="Solution:default $assignment->solution->id">Assignment {$assignment->id}</a>
 									{var score = $assignment->solution->getScore()}
 									({if $score}{$score} &star;{else}&mdash;{/if})
 									<ul>
@@ -57,6 +57,7 @@
 										</li>
 									</ul>
 								{/if}
+								Assignment {$assignment->id} (never submitted)
 							</li>
 						</ul>
 					</li>
