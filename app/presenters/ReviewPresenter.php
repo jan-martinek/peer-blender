@@ -3,6 +3,9 @@
 namespace App\Presenters;
 
 use App\Components\ReviewForm;
+use Nette\Application\UI\Form;
+use Nette\Utils\Html;
+use Model\Entity\Objection;
 use DateTime;
 
 /**
@@ -24,6 +27,9 @@ class ReviewPresenter extends BasePresenter
     
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
+    
+    /** @var \Model\Repository\ObjectionRepository @inject */
+    public $objectionRepository;
     
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;    
@@ -90,11 +96,6 @@ class ReviewPresenter extends BasePresenter
 
     }
     
-    public function renderObjection($id) 
-    {
-        
-    }
-    
     public function handleFavorite() 
     {
         $this->review->favorite($this->userRepository->find($this->user->id));
@@ -104,7 +105,7 @@ class ReviewPresenter extends BasePresenter
     protected function createComponentReviewForm() 
     {
         if (!$this->review->solution->assignment->rubrics) {
-            throw new Nette\Application\BadRequestException;
+            throw new \Nette\Application\BadRequestException;
         }
         
         $form = new ReviewForm($this->review, $this->reviewRepository, $this->translator);
@@ -122,4 +123,30 @@ class ReviewPresenter extends BasePresenter
         $this->logEvent($this->review, 'submit');
         $this->redirect('this');
     }
+    
+    protected function createComponentObjectionForm() 
+    {
+        $form = new Form;
+        $form->addTextarea('objection', $this->translator->translate('messages.objection.description'));
+        $form->addCheckbox('ratingIsWrong', ' '.$this->translator->translate('messages.objection.ratingIsWrong'))
+            ->setRequired($this->translator->translate('messages.objection.ratingIsWrongNeeded'));
+        $form->addCheckbox('reasonsGiven', ' '.$this->translator->translate('messages.objection.reasonsGiven'))
+            ->setRequired($this->translator->translate('messages.objection.reasonsGivenNeeded'));
+        $form->addSubmit('submit', $this->translator->translate('messages.objection.raise'));
+    
+        $form->onSuccess[] = array($this, 'objectionFormSucceeded');
+        return $form;
+    }
+    
+    public function objectionFormSucceeded(Form $form, $values) 
+    {   
+        $objection = new Objection;
+        $objection->objection = $values->objection;
+        $objection->review = $this->review;
+        $objection->user = $this->userRepository->find($this->user->id);
+        $objection->submitted_at = new DateTime;        
+        $this->objectionRepository->persist($objection);
+        $this->logEvent($objection, 'submit');
+        $this->redirect('this');
+    }    
 }

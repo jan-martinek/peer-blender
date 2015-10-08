@@ -78,6 +78,16 @@ review:
 	comments: "Komentáře"
 	submit: "Odeslat hodnocení"
 	isItWrong: "Je toto hodnocení nesprávné? Vzneste námitku. Pokud se ukáže, že hodnocení bylo skutečně špatné, hodnotitel ztratí bod. Ale pozor &mdash; pokud je hodnocení oprávněné, ztratíte bod vy."
-	raiseAnObjection: "Vznést námitku"
+objection: 
+	raise: "Vznést námitku"
+	raised: "Námitka byla vznesena"
+	description: "Popis toho, co je špatně v hodnocení tohoto úkolu"
+	ratingIsWrong: "Myslím, že výsledné hodnocení (v hvězdičkách) bylo uděleno nesprávně."
+	ratingIsWrongNeeded: "Nemůžete vznést námitku, pokud nechcete zpochybnit celkové hodnocení vyjádřené hvězdičkami."
+	reasonsGiven: "V námitce je popsáno vše, co je v hodnocení provedeno nesprávně."
+	reasonsGivenNeeded: "Prosím, ujistěte se, že je v námitce popsáno vše, a zaškrtněte tento boxík."
+	raisedAt: "Námitka vznesena dne"
+	result: "Výsledek"
+	notEvaluatedYet: "Zatím nevyhodnoceno"
 docs:
 	title: "Dokumentace aplikace Peer Blender"

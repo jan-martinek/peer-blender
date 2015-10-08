@@ -78,6 +78,16 @@ review:
 	comments: "Comments"
 	submit: "Submit review"
 	isItWrong: "Is this review wrong? Raise an objection. If it's proven wrong, reviewer loses one point &mdash; be careful though: if proven right, it's you who loses that point."
-	raiseAnObjection: "Raise an objection"
+objection: 
+	raise: "Raise an objection"
+	raised: "An objection has been raised"
+	description: "Description of what's wrong with the assessment"
+	ratingIsWrong: "I believe that the star rating has been wrongly assessed."
+	ratingIsWrongNeeded: "It's not possible to submit objection if you don't believe that the star rating has been wrongly assessed."
+	reasonsGiven: "I've described everything that's wrong with the review."
+	reasonsGivenNeeded: "Please, ensure that everything is described and check that checkbox."
+	raisedAt: "Raised at"
+	result: "Result"
+	notEvaluatedYet: "Not evaluated yet"
 docs:
 	title: "Peer Blender Docs"
