@@ -12,7 +12,21 @@
 <div id="content" class="row">
 	<div class="columns">
 		<ul>
-			<li>Enrolled: {count($course->enrollments)} students</li>
+			<li>Enrolled: {count($course->enrollments)} students
+				<ul>
+					<li n:foreach="$course->enrollments as $enrollment">
+						<strong>{$enrollment->user->name}</strong>
+						
+						<span n:foreach="$enrollment->user->solutions as $solution">
+							<a n:href="Solution:default $solution->id">
+								<strong>{$solution->unit->id}:</strong>{if $solution->score}{$solution->score|number:1}{else}&mdash;{/if}{sep},{/sep}
+							</a>
+							
+						</span>
+					</li>
+				</ul>
+			</li>
+			
 			<li>Units: {count($course->units)}
 				<ul>
 					<li n:foreach="$course->units as $unit">
