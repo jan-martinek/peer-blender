@@ -19,7 +19,7 @@
 						
 						<span n:foreach="$enrollment->user->solutions as $solution">
 							<a n:href="Solution:default $solution->id">
-								<strong>{$solution->unit->id}:</strong>{if $solution->score}{$solution->score|number:1}{else}&mdash;{/if}{sep},{/sep}
+								{$solution->unit->id}:{if $solution->score}<strong>{$solution->score|number:1}</strong>{else}&mdash;{/if}{sep},{/sep}
 							</a>
 							
 						</span>
