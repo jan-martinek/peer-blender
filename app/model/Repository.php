@@ -205,13 +205,13 @@ class SolutionRepository extends Repository
         }
         
         $reviewStats = $this->connection->query(
-            'SELECT solution.id, count(review.id) as reviewCount
+            'SELECT solution.id, count(*) as reviewCount
               FROM solution
               LEFT JOIN review ON solution.id = review.solution_id
               WHERE solution.unit_id = %i', $unit->id,
               'AND solution.id NOT IN %in', count($alreadyReviewedByMe) ? array_keys($alreadyReviewedByMe) : array(0),
               'AND solution.user_id != %i', $reviewer->id,
-            'GROUP BY review.id')->fetchAssoc('reviewCount,id');
+            'GROUP BY solution.id')->fetchAssoc('reviewCount,id');
         
         if (!count($reviewStats)) {
             throw new SolutionToReviewNotFoundException();
