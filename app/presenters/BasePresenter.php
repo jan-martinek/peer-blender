@@ -43,7 +43,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         } else {
             $this->flashMessage('Please sign in.');
             
-            $backlink = $this->storeRequest('+ 48 hour');
+            $backlink = $this->storeRequest('+ 18 hour');
             $this->redirect('Sign:in', $backlink);
         }
     }
