@@ -89,6 +89,15 @@ class CourseRepository extends Repository
 
 class EnrollmentRepository extends Repository
 {
+    public function getRoleInCourse($user, $course) {
+        $params = array(
+            'user_id%i' => $user->id,
+            'course_id%i' => $course->id
+        );
+        
+        return $this->connection->query('SELECT role FROM enrollment 
+            WHERE %and', $params)->fetchSingle();
+    }
 }
 
 class FavoriteRepository extends Repository

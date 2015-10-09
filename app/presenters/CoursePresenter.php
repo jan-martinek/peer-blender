@@ -28,7 +28,13 @@ class CoursePresenter extends BasePresenter
     
     public function renderStats($id) 
     {
-        $this->template->course = $this->courseRepository->find($id);
+        $this->template->course = $course = $this->courseRepository->find($id);
+        
+        $role = $this->enrollmentRepository->getRoleInCourse($this->userEntity, $course);
+        if (!in_array($role, array('admin', 'assistant'))) {
+            throw new \Nette\Application\BadRequestException('Forbidden', 403);
+        }
+        
         $this->template->reviewStats = $this->courseRepository->getReviewStats($this->template->course);
         $this->template->gaCode = $this->template->course->gaCode;       
     }
