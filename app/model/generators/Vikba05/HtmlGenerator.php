@@ -86,7 +86,7 @@ class HtmlGenerator extends Nette\Object implements IGenerator
                     'http://www.gutenberg.org/ebooks/5200',
                     'http://www.gutenberg.org/ebooks/84',
                     'http://www.gutenberg.org/ebooks/174',
-                    'http://www.gutenberg.org/ebooks/23t'
+                    'http://www.gutenberg.org/ebooks/23'
                 )
             )
         );
