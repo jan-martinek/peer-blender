@@ -9,19 +9,7 @@
 {/block}
 
 {block unitInfo}
-	<div class="phases">
-		{foreach $unit->phaseNames as $phaseName}
-			{continueIf $phaseName == 'draft'}
-			{var $dateAttrName = $phaseName . '_since'}
-			{var isPreviousCurrent = isset($isCurrent) && $isCurrent ? true : false}
-			{var isCurrent = $phaseName === $unit->currentPhaseName}
-			<span class="label {if !$isCurrent}secondary strong{else}success{/if}" title="{$unit->$dateAttrName|date: '%A %e %B %k.%M'}">
-				{_messages.unit.phase.$phaseName |upper} 
-				{var now = new DateTime}{if $isPreviousCurrent} &middot; {_messages.unit.phase.timeLeft, [time => $unit->$dateAttrName->diff($now)->format('%d d, %h h')]}{/if} <br>
-				{_messages.unit.phase.since} {$unit->$dateAttrName|date: "%a %e %h, %k.%M"}
-			</span>
-		{/foreach}
-	</div>
+	{control phasesRenderer $unit}
 
 	<h2>{_messages.unit.goals}</h2>
 	{!$unit->goals|md}

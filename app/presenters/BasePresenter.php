@@ -6,6 +6,7 @@ use Nette;
 use Nette\Application\UI\Form;
 use Michelf\Markdown;
 use Model\Entity\Log;
+use App\Components\PhasesControl;
 use DateTime;
 
 
@@ -88,5 +89,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->logEvent($this->userEntity, 'logout');
         $user->logout();
         $this->redirect('Homepage:default');
+    }
+
+    protected function createComponentPhasesRenderer()
+    {
+        return new PhasesControl();
     }
 }
