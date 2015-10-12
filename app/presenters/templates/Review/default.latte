@@ -16,7 +16,14 @@
 {block content}
 <div id="content" class="row">
 	<div class="columns">
+		<div class="panel callout" n:if="$solution->unit->isFinalized()">
+			<p><b>{_messages.solution.writtenBy}</b> {$solution->user->name}<br>
+			<b>{_messages.review.writtenBy}</b>  {$review->reviewed_by->name}</p>
+		</div>
+	
 		{control questionsRenderer $assignment, $solution}
+		
+		
 		
 		<h2>{_messages.unit.review}</h2>
 

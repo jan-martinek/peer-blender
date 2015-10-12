@@ -27,6 +27,10 @@
 
 {block finishedHomework}
 	<h2>{_messages.unit.myHomework}</h2>
+	
+	<div class="panel callout" n:if="$solution->unit->isFinalized()">
+		<p><b>{_messages.solution.writtenBy}</b> {$solution->user->name}</p>
+	</div>
 
 	{!$assignment->preface|md}
 

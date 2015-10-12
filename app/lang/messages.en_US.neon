@@ -61,6 +61,8 @@ unit:
 		draft: "draft"
 		since: "since"
 		timeLeft: "%time% left"
+solution:
+	writtenBy: "Solved by"
 review:
 	score: 
 		title: "Score"
@@ -78,6 +80,7 @@ review:
 	editUntilScoring: "You can save the review repeatedly — but only after you give the final score (stars). Then the review is submitted and you'll get another homework to review."
 	comments: "Comments"
 	submit: "Submit review"
+	writtenBy: "Reviewed by"
 	isItWrong: "Is this review wrong? Raise an objection. If it's proven wrong, reviewer loses one point &mdash; be careful though: if proven right, it's you who loses that point."
 objection: 
 	raise: "Raise an objection"
