@@ -74,54 +74,17 @@
 
 {block myReviewsOfOthers}
 	<h2>{_messages.unit.myAssesment}</h2>
-	{if !count($solution->reviews)}
-		<div class="panel">
-			{!_messages.unit.noReviewsFound|md}
-		</div>
-	{else}
-		<ul>
-			<li n:foreach="$solution->reviews as $review">
-				{if is_null($review->score)}
-					<a n:href="Review:writeForUnit">{$review->opened_at|date:'j. n. Y, H.i'}</a>
-					&mdash;
-					{_messages.unit.evaluationInProgress},
-					<a n:href="Review:writeForUnit $unit->id">{_messages.unit.continue} &rarr;</a>
-				{else}
-					<a n:href="Review:default $review->id">{$review->submitted_at|date:'j. n. Y, H.i'}</a> 
-					&mdash; 
-					<strong>{_messages.review.score.title}:</strong> {_messages.review.score.$review->score},
-					<a n:href="Review:default $review->id">show review &rarr;</a> 
-				{/if}
-			</li>
-		</ul>
-	{/if}
+	
+	{control reviewsRenderer $solution->reviews}
 	
 	<p n:if="!is_null($solution->score)"><strong>{_messages.unit.averageScore}: <big>{$solution->score|number:2}</big></strong></p>
 {/block}
 
 {block reviewsFromOthers}
 	<h2>{_messages.unit.myReviewsOfOthers}</h2>
-	{if !count($reviews)}
-		<div class="panel">
-			{!_messages.unit.noReviewsFound|md}
-		</div>
-	{else}
-		<ul>
-			<li n:foreach="$reviews as $review">
-				{if is_null($review->score)}
-					<a n:href="Review:writeForUnit">{$review->opened_at|date:'j. n. Y, H.i'}</a>
-					&mdash;
-					{_messages.unit.evaluationInProgress},
-					<a n:href="Review:writeForUnit $unit->id">{_messages.unit.continue} &rarr;</a>
-				{else}
-					<a n:href="Review:default $review->id">{$review->submitted_at|date:'j. n. Y, H.i'}</a> 
-					&mdash; 
-					<strong>{_messages.review.score.title}:</strong> {_messages.review.score.$review->score},
-					<a n:href="Review:default $review->id">{_messages.review.showReview} &rarr;</a> 
-				{/if}
-			</li>
-		</ul>
-	{/if}
+	
+	{control reviewsRenderer $reviews}
+	
 	{if count($reviews) < $course->reviewCount}
 		<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
 		{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}

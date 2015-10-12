@@ -338,6 +338,22 @@ class Unit extends FavoritableEntity
                 return 'published';
         }
     }
+    
+    public function hasBeenPublished() {
+        return in_array($this->getCurrentPhase(), array(self::PUBLISHED, self::REVIEWS, self::OBJECTIONS, self::FINALIZED));
+    }
+    
+    public function hasReviewsPhaseStarted() {
+        return in_array($this->getCurrentPhase(), array(self::REVIEWS, self::OBJECTIONS, self::FINALIZED));
+    }
+    
+    public function hasObjectionsPhaseStarted() {
+        return in_array($this->getCurrentPhase(), array(self::OBJECTIONS, self::FINALIZED));
+    }
+    
+    public function isFinalized() {
+        return in_array($this->getCurrentPhase(), array(self::FINALIZED));
+    }
 }
 
 /**

@@ -8,6 +8,7 @@ use Michelf\Markdown;
 use Model\Entity\Log;
 use App\Components\PhasesControl;
 use App\Components\IQuestionsControlFactory;
+use App\Components\ReviewsControl;
 use DateTime;
 
 
@@ -107,5 +108,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected function createComponentPhasesRenderer()
     {
         return new PhasesControl();
+    }
+    
+    protected function createComponentReviewsRenderer()
+    {
+        return new ReviewsControl();
     }
 }

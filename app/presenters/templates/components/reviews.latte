@@ -1,0 +1,28 @@
+{block content}
+{if !count($reviews)}
+	<div class="panel">
+		{!_messages.unit.noReviewsFound|md}
+	</div>
+{else}
+	<ul>
+		{foreach $reviews as $review}
+			{var unit = $review->solution->unit}
+			{if is_null($review->score) && !$unit->isFinalized()}
+				<li>
+					<a href="{plink Review:writeForUnit}">{$review->opened_at|date:'j. n. Y, H.i'}</a>
+					&mdash;
+					{_messages.unit.evaluationInProgress},
+					<a href="{plink Review:writeForUnit $unit->id}">{_messages.unit.continue} &rarr;</a>
+				</li>
+			{elseif !is_null($review->score)}
+				<li>
+					<a href="{plink Review:default $review->id}">{$review->submitted_at|date:'j. n. Y, H.i'}</a>
+					&mdash; 
+					<strong>{_messages.review.score.title}:</strong> 
+					{_messages.review.score.$review->score}{if $unit->isFinalized()} ({$review->reviewed_by->name}){/if},
+					<a href="{plink Review:default $review->id}">{_messages.review.showReview} &rarr;</a> 
+				</li>
+			{/if}
+		{/foreach}
+	</ul>
+{/if}
