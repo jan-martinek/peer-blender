@@ -47,17 +47,14 @@
 	<div class="columns">
 		{include unitInfo}
 		
+		<hr>		
+	
+		{include finishedHomework}
+		
 		<hr>
-
-		{if $unit->isCurrentPhase($unit::PUBLISHED)}
-			{include homeworkForm}
-		{elseif !is_null($solution)}
-			{include finishedHomework}
 			
-			<hr>
-				
-			{include myReviewsOfOthers}
-		{/if}
+		{include myReviewsOfOthers}
+		
 	</div>
 </div>
 {/block}
