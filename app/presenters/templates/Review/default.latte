@@ -16,27 +16,7 @@
 {block content}
 <div id="content" class="row">
 	<div class="columns">
-		{var answers = $solution->answerSet}
-		<div n:foreach="$assignment->questionSet as $id => $question" class="assignmentQuestion">
-			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-			<label>{!$question|md}</label>
-			<div class="panel" n:if="!is_null($solution)">
-				{!=nl2br(htmlspecialchars($answers[$id]))}
-			</div>
-		</div>
-		
-		<div class="assignmentQuestion">
-			<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
-			<p class="panel callout">
-				{if $solution && $solution->attachment}
-					{_messages.unit.submittedAttachment}: 
-					<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
-					{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
-				{else}
-					<span style="color: #aaa">{_messages.unit.noAttachment}</a>
-				{/if}
-			</p>
-		</div>
+		{control questionsRenderer $assignment, $solution}
 		
 		<h2>{_messages.unit.review}</h2>
 

@@ -7,6 +7,7 @@ use Nette\Application\UI\Form;
 use Michelf\Markdown;
 use Model\Entity\Log;
 use App\Components\PhasesControl;
+use App\Components\IQuestionsControlFactory;
 use DateTime;
 
 
@@ -35,6 +36,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     
     /** @var \Nette\Http\Response @inject */
     public $response;        
+    
+    protected $questionsControlFactory;
     
     protected $userEntity;
 
@@ -89,6 +92,16 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->logEvent($this->userEntity, 'logout');
         $user->logout();
         $this->redirect('Homepage:default');
+    }
+    
+    public function injectQuestionsControlFactory(IQuestionsControlFactory $factory)
+    {
+        $this->questionsControlFactory = $factory;
+    }
+    
+    protected function createComponentQuestionsRenderer()
+    {
+        return $this->questionsControlFactory->create();
     }
 
     protected function createComponentPhasesRenderer()

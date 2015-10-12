@@ -34,6 +34,7 @@ unit:
 	myHomework: "Můj domácí úkol"
 	instructions: "Pokyny"
 	solution: "Řešení"
+	notAnswered: "Nezodpovězeno."
 	homeworkSaved: "**Váš úkol byl uložen.** Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
 	homeworkAttachment: "Příloha"
 	homeworkAttachmentNote: "maximální velikost souboru je %filesize% kB, pokud je to potřeba, můžete soubor zazipovat"

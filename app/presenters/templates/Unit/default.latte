@@ -68,23 +68,7 @@
 
 	{!$assignment->preface|md}
 
-	{foreach $assignment->questionSet as $id => $question}
-		<div class="panel">
-			{!$question|md}
-			<hr>
-			<div n:if="!is_null($solution)">
-				{*!$answers[$id]|md*}{!=nl2br(htmlspecialchars($answers[$id]))}
-			</div>
-		</div>
-	{/foreach}
-
-	<label>
-		<h3>{_messages.unit.homeworkAttachment}</h3>
-		<p>
-			<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
-			{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
-		</p>
-	</label>
+	{control questionsRenderer $assignment, $solution}
 {/block}
 
 
