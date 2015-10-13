@@ -17,8 +17,8 @@
 <div id="content" class="row">
 	<div class="columns">
 		<div class="panel callout" n:if="$solution->unit->isFinalized()">
-			<p><b>{_messages.solution.writtenBy}</b> {$solution->user->name}<br>
-			<b>{_messages.review.writtenBy}</b>  {$review->reviewed_by->name}</p>
+			<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a><br>
+			<b>{_messages.review.writtenBy}</b>  <a n:href="User:default $review->reviewed_by->id">{$review->reviewed_by->name}</a></p>
 		</div>
 	
 		{control questionsRenderer $assignment, $solution}

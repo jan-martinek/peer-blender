@@ -9,23 +9,26 @@ class UserPresenter extends BasePresenter
     
     /** @var \Model\Repository\ReviewRepository @inject */
     public $reviewRepository;
-	
+    
+    private $userProfile;
+    
 	public function actionDefault($id) 
     {
-        $this->userEntity->setFavoriteRepository($this->favoriteRepository);
+        $this->userProfile = $this->userRepository->find($id);
+        $this->userProfile->setFavoriteRepository($this->favoriteRepository);
+        $this->template->isFavorited = $this->userProfile->isFavoritedBy($this->userEntity); 
 	}
 	
     public function renderDefault($id)
     {
-        $this->template->userEntity = $this->userEntity;
+        $this->template->userProfile = $this->userProfile;   
         $this->template->assignmentRepository = $this->assignmentRepository;
         $this->template->reviewRepository = $this->reviewRepository;
-        $this->template->isFavorited = $this->userEntity->isFavoritedBy($this->userEntity);
     }
 
 	public function handleFavorite() 
     {
-        $this->userEntity->favorite($this->userRepository->find($this->user->id));
+        $this->userProfile->favorite($this->userRepository->find($this->user->id));
         $this->redirect('this');
     }
 

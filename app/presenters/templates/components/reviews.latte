@@ -19,7 +19,7 @@
 					<a href="{plink Review:default $review->id}">{$review->submitted_at|date:'j. n. Y, H.i'}</a>
 					&mdash; 
 					<strong>{_messages.review.score.title}:</strong> 
-					{_messages.review.score.$review->score}{if $unit->isFinalized()} ({$review->reviewed_by->name}){/if},
+					{_messages.review.score.$review->score}{if $unit->isFinalized()} (<a href="{plink User:default $review->reviewed_by->id}">{$review->reviewed_by->name}</a>){/if},
 					<a href="{plink Review:default $review->id}">{_messages.review.showReview} &rarr;</a> 
 				</li>
 			{/if}

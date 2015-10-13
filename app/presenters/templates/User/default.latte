@@ -1,7 +1,7 @@
-{block title}{$userEntity->name}{/block}
+{block title}{$userProfile->name}{/block}
 
 {block favorites}
-	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$userEntity->countFavorites()}</small>
+	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$userProfile->countFavorites()}</small>
 {/block}
 
 {block content}
@@ -9,7 +9,7 @@
 	<div class="columns large-8">
 		<h2>{_messages.user.courses}</h2>
 		<ul>
-			<li n:foreach="$userEntity->enrollments as $enrollment">
+			<li n:foreach="$userProfile->enrollments as $enrollment">
 				{var course = $enrollment->course}
 				<b>{$course->name}</b>
 				<ul>
@@ -17,13 +17,13 @@
 						{$unit->name}
 						
 						{if $unit->isFinalized()}
-							{var assignment = $assignmentRepository->findByUnitAndUser($unit, $userEntity)}
+							{var assignment = $assignmentRepository->findByUnitAndUser($unit, $userProfile)}
 							{if $assignment && $assignment->solution}
 								{var id = $assignment->solution->id}
 								{var score = $assignment->solution->score}
 								<a n:href="Solution:default $id">Solution {$id} {if $score}(score {$score|number: 2}){/if}</a>
 								
-								{var reviews = $reviewRepository->findByUnitAndUser($unit, $userEntity)}
+								{var reviews = $reviewRepository->findByUnitAndUser($unit, $userProfile)}
 								{if $reviews}
 									({_messages.unit.reviews}:  <span n:foreach="$reviews as $review">
 										{block |strip}{if !is_null($review->score)}
