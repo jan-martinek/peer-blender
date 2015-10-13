@@ -9,6 +9,9 @@ class CoursePresenter extends BasePresenter
 {
     /** @var \Model\Repository\CourseRepository @inject */
     public $courseRepository;
+
+    /** @var \Model\Repository\EnrollmentRepository @inject */
+    public $enrollmentRepository;
     
     /** @var \Model\Repository\UnitRepository @inject */
     public $unitRepository;
@@ -22,7 +25,9 @@ class CoursePresenter extends BasePresenter
     
     public function renderEnrolled($id) 
     {
-        $this->template->course = $this->courseRepository->find($id);   
+        $this->template->course = $course = $this->courseRepository->find($id);
+        $ids = $this->enrollmentRepository->findAllUserIds($course);
+        $this->template->userFavorites = $this->favoriteRepository->findAllByScope('User', $ids);
         $this->template->gaCode = $this->template->course->gaCode;
     }
     

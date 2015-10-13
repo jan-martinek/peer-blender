@@ -106,6 +106,14 @@ class EnrollmentRepository extends Repository
         return $this->connection->query('SELECT role FROM enrollment 
             WHERE %and', $params)->fetchSingle();
     }
+    
+    public function findAllUserIds($course) {
+        $ids = $this->connection->query('SELECT user_id FROM enrollment 
+            WHERE [course_id] = %i', $course->id)->fetchAssoc('user_id');
+        
+        $keys = array_keys($ids);
+        return $keys;
+    }
 }
 
 class FavoriteRepository extends Repository
@@ -125,6 +133,21 @@ class FavoriteRepository extends Repository
         return $query->fetch();
     }
     
+    public function findAllByScope($entity, array $entity_ids) 
+    {
+        $where = array(
+            'entity%s' => $entity,
+            'entity_id%in' => $entity_ids
+        );
+        
+        $query = $this->connection->select('[entity_id], count(*) as [count]')
+            ->from($this->getTable())
+            ->groupBy('[entity_id]')
+            ->where($where);
+        
+        return $query->fetchPairs('entity_id', 'count'); 
+    }
+      
     public function countFavoritesOfEntity($entity, $entity_id) 
     {
         $where = array(

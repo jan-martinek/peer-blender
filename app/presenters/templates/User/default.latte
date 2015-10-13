@@ -11,10 +11,10 @@
 		<ul>
 			<li n:foreach="$userProfile->enrollments as $enrollment">
 				{var course = $enrollment->course}
-				<b>{$course->name}</b>
+				<b><a n:href="Course:default $course->id">{$course->name}</a></b>
 				<ul>
 					<li n:foreach="$course->units as $unit">
-						{$unit->name}
+						<a n:href="Unit:default $unit->id">{$unit->name}</a>:
 						
 						{if $unit->isFinalized()}
 							{var assignment = $assignmentRepository->findByUnitAndUser($unit, $userProfile)}
