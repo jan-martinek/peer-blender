@@ -113,6 +113,10 @@
 			<hr>
 		
 			{include myReviewsOfOthers}
+		{else}
+			<div class="panel callout">
+				{_messages.unit.cannotReviewOthers}
+			</div>
 		{/if}
 	</div>
 </div>

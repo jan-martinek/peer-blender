@@ -56,6 +56,7 @@ unit:
 	reviewMore: "Potřebujete ohodnotit ještě %count% úkolů."
 	enoughReviews: "Skvělé! Ohodnotili jste %count% úkolů! Díky."
 	averageScore: "Celkové hodnocení (průměr)"
+	cannotReviewOthers: "Bez odevzdání vlastního úkolu nemůžete hodnotit práci jiných."
 	phase:
 		finalized: "ukončená"
 		objections: "námitky"

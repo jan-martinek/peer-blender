@@ -56,6 +56,7 @@ unit:
 	reviewMore: "You need to review %count% homeworks."
 	enoughReviews: "Great! You reviewed %count% homeworks! Thanks!"
 	averageScore: "Score (average)"
+	cannotReviewOthers: "You cannot review other's work without submitting your own assignment."
 	phase:
 		finalized: "finalized"
 		objections: "objections"
