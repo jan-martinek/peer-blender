@@ -32,6 +32,7 @@
 				<div class="row">
 					<div class="columns large-6">
 						<div class="assignmentQuestion">
+							{? $form['comments']->setValue($review->comments)}
 							{label comments /}
 							{input comments, 'rows' => '10'}
 						</div>
