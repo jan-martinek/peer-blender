@@ -41,15 +41,23 @@ class AssignmentRepository extends Repository
             return $this->generateAssignment($unit, $student, TRUE);
         }
         
+        if ($assignment = $this->findByUnitAndUser($unit, $student)) {
+            return $assignment;
+        } else {
+            return $this->generateAssignment($unit, $student);
+        }
+    }
+    
+    public function findByUnitAndUser($unit, $student) 
+    {   
         $assignment = $this->connection->select('*')
             ->from($this->getTable())
             ->where(array('unit_id' => $unit->id, 'student_id%i' => $student->id));
-            
-            
+              
         if ($assignment->fetch()) {
             return $this->createEntity($assignment->fetch());
         } else {
-            return $this->generateAssignment($unit, $student);
+            return FALSE;
         }
     }
     

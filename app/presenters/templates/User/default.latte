@@ -5,11 +5,45 @@
 {/block}
 
 {block content}
-<div id="content" class="columns">		
-	<div class="row">
-		<div class="columns large-8">
-
-		</div>
+<div id="content" class="row">
+	<div class="columns large-8">
+		<h2>{_messages.user.courses}</h2>
+		<ul>
+			<li n:foreach="$userEntity->enrollments as $enrollment">
+				{var course = $enrollment->course}
+				<b>{$course->name}</b>
+				<ul>
+					<li n:foreach="$course->units as $unit">
+						{$unit->name}
+						
+						{if $unit->isFinalized()}
+							{var assignment = $assignmentRepository->findByUnitAndUser($unit, $userEntity)}
+							{if $assignment && $assignment->solution}
+								{var id = $assignment->solution->id}
+								{var score = $assignment->solution->score}
+								<a n:href="Solution:default $id">Solution {$id} {if $score}(score {$score|number: 2}){/if}</a>
+								
+								{var reviews = $reviewRepository->findByUnitAndUser($unit, $userEntity)}
+								{if $reviews}
+									({_messages.unit.reviews}:  <span n:foreach="$reviews as $review">
+										{block |strip}{if !is_null($review->score)}
+											<a n:href="Review:default $review->id">{$review->id} ({$review->score})</a>
+										{else}
+											&mdash;
+										{/if}{sep}, {/sep}
+									{/block}</span>)
+								{/if}
+							{/if}
+					
+						
+						{else}
+							<span style="color: #aaa">{_messages.unit.phase.isNotFinalized}</span>
+						{/if}	
+					
+					</li>
+				</ul>
+			</li>
+		</ul>
 	</div>
 </div>
 {/block}

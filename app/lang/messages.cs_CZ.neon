@@ -28,6 +28,8 @@ course:
 		student: "student"
 		assistant: "asistent"
 		admin: "administrátor"
+user:
+	courses: "Kurzy"
 unit:
 	goals: "Cíle výukové jednotky"
 	reading: "Zadaná četba"
@@ -43,6 +45,7 @@ unit:
 	submitHomework: "Uložit úkol"
 	submitRepeatedly: "**Tip:** Úkol můžete průběžně ukládat, včetně přílohy, kterou můžete nahrát znovu a starý soubor se přepíše novým."
 	review: "Hodnocení"
+	reviews: "Hodnocení"
 	myAssesment: "Mé hodnocení: jak ostatní vidí mou práci"
 	myReviewsOfOthers: "Má hodnocení práce ostatních"
 	evaluationInProgress: "hodnocení probíhá"
@@ -61,6 +64,7 @@ unit:
 		draft: "příprava"
 		since: "od"
 		timeLeft: "zbývá %time%"
+		isNotFinalized: "Lekce ještě není ukončená."
 solution:
 	writtenBy: "Zpracoval/a"
 review:

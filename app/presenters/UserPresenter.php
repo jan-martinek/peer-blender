@@ -4,6 +4,11 @@ namespace App\Presenters;
 
 class UserPresenter extends BasePresenter
 {
+    /** @var \Model\Repository\AssignmentRepository @inject */
+    public $assignmentRepository;
+    
+    /** @var \Model\Repository\ReviewRepository @inject */
+    public $reviewRepository;
 	
 	public function actionDefault($id) 
     {
@@ -13,6 +18,8 @@ class UserPresenter extends BasePresenter
     public function renderDefault($id)
     {
         $this->template->userEntity = $this->userEntity;
+        $this->template->assignmentRepository = $this->assignmentRepository;
+        $this->template->reviewRepository = $this->reviewRepository;
         $this->template->isFavorited = $this->userEntity->isFavoritedBy($this->userEntity);
     }
 

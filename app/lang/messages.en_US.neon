@@ -28,6 +28,8 @@ course:
 		student: "student"
 		assistant: "assistant"
 		admin: "admin"
+user:
+	courses: "User's courses"
 unit:
 	goals: "Unit goals"
 	reading: "Assigned reading"
@@ -43,6 +45,7 @@ unit:
 	submitHomework: "Submit homework"
 	submitRepeatedly: "**Tip:** You can save your homework multiple times, until this phase ends. Feel easy about saving your work half-way through."
 	review: "Review"
+	reviews: "Reviews"
 	myAssesment: "My assessment: how others see my work"
 	myReviewsOfOthers: "My reviews of other's work"
 	evaluationInProgress: "evaluation in progress"
@@ -61,6 +64,7 @@ unit:
 		draft: "draft"
 		since: "since"
 		timeLeft: "%time% left"
+		isNotFinalized: "Unit has not been finalized yet."
 solution:
 	writtenBy: "Solved by"
 review:
