@@ -40,7 +40,7 @@
             <ul class="right">
                 {var user = $presenter->getUser();}
                 {if $user->isLoggedIn()}
-                    <li><a n:href="User:default"><i class="fa fa-user"></i> {$user->getIdentity()->name}</a>
+                    <li><a n:href="User:default $user->id"><i class="fa fa-user"></i> {$user->getIdentity()->name}</a>
                     <li class="active"><a href="{link logout!}">{_messages.app.logout}</a></li>
                 {else}
                     <li><a n:href="Sign:in">{_messages.app.login}</a></li>
