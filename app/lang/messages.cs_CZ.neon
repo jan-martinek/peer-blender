@@ -31,7 +31,7 @@ course:
 user:
 	courses: "Kurzy"
 unit:
-	goals: "Cíle výukové jednotky"
+	goals: "Cíle lekce"
 	reading: "Zadaná četba"
 	myHomework: "Můj domácí úkol"
 	instructions: "Pokyny"
