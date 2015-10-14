@@ -267,6 +267,7 @@ class Solution extends FavoritableEntity
  * @property string $name
  * @property string $goals
  * @property string $reading
+ * @property string $rubrics
  * @property string $generator
  * @property Assignment[] $assignments m:belongsToMany
  */

@@ -63,13 +63,25 @@ class AssignmentRepository extends Repository
     
     private function generateAssignment($unit, $student, $test = FALSE) 
     {
-        $generatorClassname = '\Model\Generator\\' . $unit->generator;
+        $generatorClassname = $unit->generator ? '\Model\Generator\\' . $unit->generator : '\Model\Generator\AttachmentGenerator';
         $generator = new $generatorClassname;
         
         $assignment = new \Model\Entity\Assignment;
         $assignment->preface = $generator->getPreface();
         $assignment->questionSet = $generator->getQuestions();
-        $assignment->rubricSet = $generator->getRubrics();
+        if ($generator instanceof \Model\Generator\AttachmentGenerator) {
+            $rubrics = array();
+            foreach (explode("\n", $unit->rubrics) as $rubric) {
+                $rubric = trim($rubric);
+                
+                if ($rubric) {
+                    $rubrics[] = $rubric;    
+                }
+            }
+            $assignment->rubricSet = $rubrics;
+        } else {
+            $assignment->rubricSet = $generator->getRubrics();
+        }
         $assignment->unit = $unit;
         $assignment->generated_at = new DateTime;
         if (!$test) {

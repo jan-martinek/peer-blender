@@ -95,7 +95,7 @@ class UnitPresenter extends BasePresenter
     
     protected function createComponentHomeworkForm() 
     {
-        if (!$this->questions) {
+        if (is_null($this->questions)) {
             throw new \Nette\Application\BadRequestException;
         }
         

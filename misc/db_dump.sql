@@ -30,13 +30,12 @@ CREATE TABLE `course` (
   `contact_email` text COLLATE utf8_czech_ci NOT NULL,
   `review_count` tinyint(4) NOT NULL DEFAULT '5',
   `upload_max_filesize_kb` smallint(6) NOT NULL,
-  `ga_code` varchar(20) COLLATE utf8_czech_ci NOT NULL,
+  `ga_code` varchar(20) COLLATE utf8_czech_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `course` (`id`, `name`, `goals`, `contact_email`, `review_count`, `upload_max_filesize_kb`, `ga_code`) VALUES
-(1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  '', 5,  500,  '0'),
-(2, 'Transformace dat pomocí počítače', 'Cílem předmětu je porozumění možnostem práce s informacemi v počítači.\r\n \r\nPočítač často vnímáme jako nástroj pro snadné vkládání, ukládání a čtení informací – ať už jde o texty, hudbu, videa či multimediální a interaktivní obsahy. \r\n\r\nPředmět Práce s informacemi prostřednictvím počítače se soustředí na v předchozím výčtu chybějící aktivitu: transformaci informací. Studenti se naučí strukturovat vkládané informace, aby s nimi bylo možné provádět další operace, a jak provádět tyto operace – pomocí jednoduchého textového editoru, tabulkového procesoru, databáze nebo v jednoduchých skriptech. Kurz je vyučován hybridní formou – zadané texty čtou a úkoly plní studenti před společným seminářem, na němž je povinná účast.\r\n',  '', 5,  500,  '0');
+(1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  '', 5,  500,  'BB');
 
 DROP TABLE IF EXISTS `enrollment`;
 CREATE TABLE `enrollment` (
@@ -60,7 +59,7 @@ DROP TABLE IF EXISTS `favorite`;
 CREATE TABLE `favorite` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
-  `entity` enum('Assignment','Course','Review','Unit','User') COLLATE utf8_czech_ci NOT NULL,
+  `entity` enum('Assignment','Course','Review','Solution','Unit','User') COLLATE utf8_czech_ci NOT NULL,
   `entity_id` int(10) unsigned NOT NULL,
   `saved_at` datetime NOT NULL,
   PRIMARY KEY (`id`),
@@ -91,7 +90,7 @@ CREATE TABLE `objection` (
   `submitted_at` datetime NOT NULL,
   `objection` text COLLATE utf8_czech_ci NOT NULL,
   `evaluated` tinyint(1) NOT NULL,
-  `arbiter_id` int(10) unsigned NOT NULL,
+  `arbiter_id` int(10) unsigned DEFAULT NULL,
   `legitimate` tinyint(1) NOT NULL,
   `comment` text COLLATE utf8_czech_ci NOT NULL,
   `evaluated_at` datetime NOT NULL,
@@ -168,14 +167,15 @@ CREATE TABLE `unit` (
   `name` varchar(255) COLLATE utf8_czech_ci NOT NULL,
   `goals` text COLLATE utf8_czech_ci NOT NULL,
   `reading` text COLLATE utf8_czech_ci NOT NULL,
-  `generator` varchar(20) COLLATE utf8_czech_ci NOT NULL,
+  `rubrics` text COLLATE utf8_czech_ci NOT NULL,
+  `generator` varchar(50) COLLATE utf8_czech_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `unit_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `unit` (`id`, `course_id`, `published_since`, `reviews_since`, `objections_since`, `finalized_since`, `name`, `goals`, `reading`, `generator`) VALUES
-(1, 1,  '2015-08-01 00:00:00',  '2016-06-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  'TestGenerator');
+INSERT INTO `unit` (`id`, `course_id`, `published_since`, `reviews_since`, `objections_since`, `finalized_since`, `name`, `goals`, `reading`, `rubrics`, `generator`) VALUES
+(1, 1,  '2015-08-01 00:00:00',  '2015-06-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  '', 'TestGenerator'),
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -193,4 +193,4 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`, `password_reset_token`, `
 (2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', 'b39b0361a2', '2015-09-30 02:38:31'),
 (3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00');
 
--- 2015-10-01 13:05:08
+-- 2015-10-14 14:38:16
