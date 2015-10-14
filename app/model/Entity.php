@@ -371,17 +371,19 @@ class Unit extends FavoritableEntity
  */
 class User extends FavoritableEntity
 {
-    private $passwordResetTimespan = '+ 30 minute';
+    private $passwordResetTimespan = '+ 90 minute';
     
     public function initiatePasswordReset() {
         $this->passwordResetToken = substr(md5(rand()), 0, 10);
         $this->passwordResetValidUntil = new DateTime($this->passwordResetTimespan);
     }
     
-    public function hasPasswordResetBeenInitiated($token) {
-        return ($this->passwordResetValidUntil >= new DateTime 
-            && $this->passwordResetToken === $token) 
-            ? true : false;
+    public function hasPasswordResetBeenInitiated() {
+        return ($this->passwordResetValidUntil >= new DateTime) ? true : false;
+    }
+    
+    public function isPasswordResetTokenValid($token) {
+        return ($this->passwordResetToken === $token) ? true : false;
     }
     
     public function sendPasswordResetEmail($presenter) {

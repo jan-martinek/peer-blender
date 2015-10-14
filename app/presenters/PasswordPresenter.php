@@ -57,8 +57,11 @@ class PasswordPresenter extends BasePresenter
     public function actionNew($email, $token)
     {
         if ($user = $this->userRepository->findByEmail($email)) {
-            if (!$user->hasPasswordResetBeenInitiated($token)) {
+            if (!$user->hasPasswordResetBeenInitiated()) {
                 $this->flashMessage($this->translator->translate('messages.app.passwordResetRequestNotInitiated', NULL, array('address' => $email)));
+                $this->redirect('Password:reset');
+            } elseif (!$user->isPasswordResetTokenValid($token)) {
+                $this->flashMessage($this->translator->translate('messages.app.passwordResetTokenInvalid', NULL, array('address' => $email)));
                 $this->redirect('Password:reset');
             } else {
                 $this->template->token = $token;
@@ -91,9 +94,17 @@ class PasswordPresenter extends BasePresenter
     public function newPasswordFormSucceeded(Form $form, $values) 
     {
         $user = $this->userRepository->findByEmail($values->email);
-        if (!$user->hasPasswordResetBeenInitiated($values->token)) {
+        if (!$user->hasPasswordResetBeenInitiated()) {
             $this->flashMessage($this->translator->translate(
                 'messages.app.passwordResetRequestNotInitiated', 
+                NULL, 
+                array('address' => $values->email)
+            ));
+            $this->redirect('Password:reset');
+        }
+        if (!$user->isPasswordResetTokenValid($values->token)) {
+            $this->flashMessage($this->translator->translate(
+                'messages.app.passwordResetTokenInvalid', 
                 NULL, 
                 array('address' => $values->email)
             ));
