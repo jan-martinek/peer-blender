@@ -4,7 +4,7 @@
 		{!_messages.unit.noReviewsFound|md}
 	</div>
 {else}
-	<ul>
+	<ul class="no-bullet">
 		{foreach $reviews as $review}
 			{var unit = $review->solution->unit}
 			{if is_null($review->score) && !$unit->isFinalized()}
@@ -16,10 +16,9 @@
 				</li>
 			{elseif !is_null($review->score)}
 				<li>
-					<a href="{plink Review:default $review->id}">{$review->submitted_at|date:'j. n. Y, H.i'}</a>
-					&mdash; 
-					<strong>{_messages.review.score.title}:</strong> 
-					{_messages.review.score.$review->score}{if $unit->isFinalized()} (<a href="{plink User:default $review->reviewed_by->id}">{$review->reviewed_by->name}</a>){/if},
+					<span style="color: #f90; font-weight: bold">{_messages.review.shortScore.$review->score}</span>
+					{if $unit->isFinalized()}<a href="{plink User:default $review->reviewed_by->id}">{$review->reviewed_by->name}</a>, {/if}
+					{$review->submitted_at|date:'j. n., H.i'},
 					<a href="{plink Review:default $review->id}">{_messages.review.showReview} &rarr;</a> 
 				</li>
 			{/if}

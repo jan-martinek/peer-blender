@@ -77,7 +77,7 @@
 {/block}
 
 
-{block myReviewsOfOthers}
+{block myAssesment}
 	<h2>{_messages.unit.myAssesment}</h2>
 	
 	{control reviewsRenderer $solution->reviews}
@@ -85,7 +85,7 @@
 	<p n:if="!is_null($solution->score)"><strong>{_messages.unit.averageScore}: <big>{$solution->score|number:2}</big></strong></p>
 {/block}
 
-{block reviewsFromOthers}
+{block myReviewsOfOthers}
 	<h2>{_messages.unit.myReviewsOfOthers}</h2>
 	
 	{control reviewsRenderer $reviews}
@@ -110,12 +110,18 @@
 			{include finishedHomework}
 			
 			<hr>
-				
-			{include reviewsFromOthers}
 			
-			<hr>
+			<div class="row">
+				<div class="columns large-6">
+					{include myAssesment}
+				</div>
+				<div class="columns large-6">
+					{include myReviewsOfOthers}
+				</div>
+			</div>
+			
 		
-			{include myReviewsOfOthers}
+			
 		{else}
 			<div class="panel callout">
 				{_messages.unit.cannotReviewOthers}

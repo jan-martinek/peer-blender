@@ -30,7 +30,7 @@
 {/block}
 
 {block finishedHomework}
-	<h2>{_messages.unit.myHomework}</h2>
+	<h2>{_messages.unit.homework}</h2>
 	
 	<div class="panel callout" n:if="$solution->unit->isFinalized()">
 		<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a></p>
@@ -41,8 +41,8 @@
 	{control questionsRenderer $assignment, $solution}
 {/block}
 
-{block myReviewsOfOthers}
-	<h2>{_messages.unit.myAssesment}</h2>
+{block reviews}
+	<h2>{_messages.unit.reviews}</h2>
 	
 	{control reviewsRenderer $solution->reviews}
 	
@@ -59,7 +59,7 @@
 		
 		<hr>
 			
-		{include myReviewsOfOthers}
+		{include reviews}
 		
 	</div>
 </div>
