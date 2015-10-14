@@ -15,13 +15,17 @@
 {block unitInfo}
 	{control phasesRenderer $unit}
 
-	<h2>{_messages.unit.goals}</h2>
-	{!$unit->goals|md}
+	{if $unit->goals}
+		<h2>{_messages.unit.goals}</h2>
+		{!$unit->goals|md}
+		<hr>
+	{/if}
 	
-	<hr>
-	
-	<h2>{_messages.unit.reading}</h2>
-	{!$unit->reading|md}
+	{if $unit->reading}
+		<h2>{_messages.unit.reading}</h2>
+		{!$unit->reading|md}
+		<hr>
+	{/if}
 {/block}
 
 
@@ -39,9 +43,10 @@
 			{? $form['questions'][$name]->setValue(is_null($solution) ? '' : $answers[$name])}
 			{input $question, 'rows' => '10'}
 			<p n:ifcontent>{inputError $question}</p>
+			{last}<hr>{/last}
 		</div>
 
-		<hr>
+		
 
 		<div class="assignmentQuestion">
 			<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
@@ -98,8 +103,6 @@
 <div id="content" class="row">
 	<div class="columns">
 		{include unitInfo}
-		
-		<hr>
 
 		{if $unit->isCurrentPhase($unit::PUBLISHED)}
 			{include homeworkForm}

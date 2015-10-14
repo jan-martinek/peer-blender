@@ -11,13 +11,17 @@
 {block unitInfo}
 	{control phasesRenderer $unit}
 
-	<h2>{_messages.unit.goals}</h2>
-	{!$unit->goals|md}
+	{if $unit->goals}
+		<h2>{_messages.unit.goals}</h2>
+		{!$unit->goals|md}
+		<hr>
+	{/if}
 	
-	<hr>
-	
-	<h2>{_messages.unit.reading}</h2>
-	{!$unit->reading|md}
+	{if $unit->reading}
+		<h2>{_messages.unit.reading}</h2>
+		{!$unit->reading|md}
+		<hr>
+	{/if}
 {/block}
 
 
@@ -62,8 +66,6 @@
 <div id="content" class="row">
 	<div class="columns">
 		{include unitInfo}
-		
-		<hr>
 		
 		{include homeworkForm}
 	</div>
