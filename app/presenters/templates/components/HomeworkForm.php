@@ -21,18 +21,17 @@ class HomeworkForm extends Form
             ); 
         }
         
-        $uploadLabel = $presenter->translator->translate('messages.unit.homeworkAttachment') 
-            . ' ' . $presenter->translator->translate(
-                'messages.unit.homeworkAttachmentNote',
-                NULL, 
-                array('filesize' => $course->uploadMaxFilesizeKb)
-            );
+        $uploadLabel = $presenter->translator->translate('messages.unit.homeworkAttachment');
         $this->addUpload('attachment', $uploadLabel)
             ->addRule(
                 Form::MAX_FILE_SIZE, 
                 $uploadLabel, 
                 $course->uploadMaxFilesizeKb * 1024
-            );
+            )->setOption('description', $presenter->translator->translate(
+                'messages.unit.homeworkAttachmentNote',
+                NULL, 
+                array('filesize' => $course->uploadMaxFilesizeKb)
+            ));
         
         $submitLabel = $presenter->translator->translate('messages.unit.submitHomework');
         $this->addSubmit('submit', $submitLabel);

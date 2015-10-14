@@ -51,8 +51,11 @@
 		<div class="assignmentQuestion">
 			<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
 			<div class="panel">
-				{label attachment /}
-				{input attachment}
+				{label attachment}
+					<p><strong>Attachment</strong> ({$form['attachment']->getOption('description')})<br>
+					{input attachment}
+					</p>
+				{/label}
 				
 				<p n:if="$solution && $solution->attachment">
 					{_messages.unit.submittedAttachment}: 
