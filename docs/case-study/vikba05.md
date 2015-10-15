@@ -4,7 +4,7 @@
 
 Peer Blender is currently being employed to teach a freshman course *VIKBA05 Computer-aided Data Transformation* at Masaryk University, Brno (Czech Republic).
 
-There's 101 students in the course and the number of assessments in each unit is five (hence there should be 505 assessments every week). The course is worth 4 ECTS, that means that average student should spend 100—120 hours completing it. In a semester that is 12 weeks long, that translates into 8—10 hours every week.
+There's 101 students in the course and the number of assessments in each unit is five (hence there should be 505 assessments every week). The course is worth 4 ECTS, [that means](http://ec.europa.eu/education/ects/users-guide/assets/ects_users-_guide_web.pdf) that average student should spend 100—120 hours completing it. In a semester that is 12 weeks long, that translates into 8—10 hours every week.
 
 To complete the course, the students need to 
 

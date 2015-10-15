@@ -1,6 +1,6 @@
 # About Peer Blender
 
-Peer Blender is a light-weight on-line homework peer-assessment tool. It's built upon the idea of "flipped classroom": *"In a flipped classroom, students watch online lectures, collaborate in online discussions, or carry out research at home and engage in concepts in the classroom with the guidance of the instructor."* [Wikipedia](https://en.wikipedia.org/wiki/Flipped_classroom)
+Peer Blender is a light-weight on-line homework peer-assessment tool. It's built upon the idea of "flipped classroom": *"In a flipped classroom, students watch online lectures, collaborate in online discussions, or carry out research at home and engage in concepts in the classroom with the guidance of the instructor."* ([Wikipedia](https://en.wikipedia.org/wiki/Flipped_classroom))
 
 ## Principles
 
