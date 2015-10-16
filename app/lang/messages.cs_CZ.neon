@@ -69,7 +69,11 @@ unit:
 		timeLeft: "zbývá %time%"
 		isNotFinalized: "Lekce ještě není ukončená."
 solution:
-	writtenBy: "Zpracoval/a"
+	writtenBy: "Odevzdal/a"
+	writtenIn:
+		moreThanADay: "po více 24 hodinách od vygenerování úkolu."
+		hours: "po %hours% hodinách a %minutes% minutách od vygenerování úkolu."
+		minutes: "po %minutes% minutách od vygenerování úkolu."
 review:
 	score: 
 		title: "Hodnocení"
@@ -95,6 +99,10 @@ review:
 	submit: "Odeslat hodnocení"
 	writtenBy: "Zhodnotil/a"
 	isItWrong: "Je toto hodnocení nesprávné? Vzneste námitku. Pokud se ukáže, že hodnocení bylo skutečně špatné, hodnotitel ztratí bod. Ale pozor &mdash; pokud je hodnocení oprávněné, ztratíte bod vy."
+	writtenIn:
+		moreThanADay: "Recenze byla napsaná za déle než den."
+		inHours: "Recenze byla napsaná za %hours% hodin a %minutes% minut."	
+		inMinutes: "Recenze byla napsaná za %minutes% minut."
 objection: 
 	raise: "Vznést námitku"
 	raised: "Námitka byla vznesena"

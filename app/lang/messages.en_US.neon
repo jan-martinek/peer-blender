@@ -70,6 +70,10 @@ unit:
 		isNotFinalized: "Unit has not been finalized yet."
 solution:
 	writtenBy: "Solved by"
+	writtenIn:
+		moreThanADay: "after more than 24 hours since the assignment has been generated."
+		hours: "after %hours% hours and %minutes% minutes since the assignment has been generated."
+		minutes: "after %minutes% minutes since the assignment has been generated."
 review:
 	score: 
 		title: "Score"
@@ -95,6 +99,10 @@ review:
 	submit: "Submit review"
 	writtenBy: "Reviewed by"
 	isItWrong: "Is this review wrong? Raise an objection. If it's proven wrong, reviewer loses one point &mdash; be careful though: if proven right, it's you who loses that point."
+	writtenIn:
+		moreThanADay: "Review has been submitted after more than a day after it's been opened for the first time."
+		hours: "Review has been written in %hours% hours and %minutes% minutes."
+		minutes: "Review has been written in %minutes% minutes."
 objection: 
 	raise: "Raise an objection"
 	raised: "An objection has been raised"

@@ -17,8 +17,27 @@
 <div id="content" class="row">
 	<div class="columns">
 		<div class="panel callout" n:if="$solution->unit->isFinalized()">
-			<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a><br>
-			<b>{_messages.review.writtenBy}</b>  <a n:href="User:default $review->reviewed_by->id">{$review->reviewed_by->name}</a></p>
+			<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a>
+			{var solutionTimespan = $assignment->generated_at->diff($solution->submitted_at)}		
+			{if $solutionTimespan->format('%a') >= 1}
+				{!_messages.solution.writtenIn.moreThanADay|imd}
+			{elseif $solutionTimespan->format('%h') > 0}
+				{!_messages.solution.writtenIn.hours, [hours => $solutionTimespan->format('%h'), minutes => $solutionTimespan->format('%i')]|imd}
+			{else}
+				{!_messages.solution.writtenIn.minutes, [minutes => $solutionTimespan->format('%i')]|imd}
+			{/if}
+			
+			<br>
+			<b>{_messages.review.writtenBy}</b>  <a n:href="User:default $review->reviewed_by->id">{$review->reviewed_by->name}</a>.
+			{var reviewTimespan = $review->opened_at->diff($review->submitted_at)}		
+			{if $reviewTimespan->format('%a') >= 1}
+				{!_messages.review.writtenIn.moreThanADay|imd}
+			{elseif $reviewTimespan->format('%h') > 0}
+				{!_messages.review.writtenIn.hours, [hours => $reviewTimespan->format('%h'), minutes => $reviewTimespan->format('%i')]|imd}
+			{else}
+				{!_messages.review.writtenIn.minutes, [minutes => $reviewTimespan->format('%i')]|imd}
+			{/if}
+			</p>
 		</div>
 	
 		{control questionsRenderer $assignment, $solution}
