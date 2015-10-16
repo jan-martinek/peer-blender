@@ -31,33 +31,29 @@ class SolutionPresenter extends BasePresenter
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;
     
-    public function actionDefault($id) {
-        
+    public function actionDefault($id) 
+    {     
+        $solution = $this->solutionRepository->find($id);
+        $solution->setFavoriteRepository($this->favoriteRepository);
+        $this->courseInfo->init($solution);
     }    
     
     public function renderDefault($id)
     {
-        $solution = $this->solutionRepository->find($id);
-        $assignment = $solution->assignment;
-        $unit = $assignment->unit;
-        $course = $unit->course;
-        
-        $questions = $assignment->questionSet;
-        $solution = $assignment->solution;
-        $solution->setFavoriteRepository($this->favoriteRepository);
-        
-        $this->template->isFavorited = $solution->isFavoritedBy($this->userInfo);
-        $this->template->unit = $unit; 
-        $this->template->assignment = $assignment;
-        $this->template->course = $course;
+        $solution = $this->courseInfo->solution;
         $this->template->solution = $solution;
         $this->template->answers = $solution->answerSet;
+        
+        $this->template->isFavorited = $solution->isFavoritedBy($this->userInfo);
+        $this->template->unit = $this->courseInfo->unit; 
+        $this->template->assignment = $this->courseInfo->assignment;
+        $this->template->course = $this->courseInfo->course;   
         $this->template->uploadPath = $this->uploadStorage->path;
     }
     
     public function handleFavorite() 
     {
-        $this->solution->favorite($this->userRepository->find($this->user->id));
+        $this->courseInfo->solution->favorite($this->userRepository->find($this->user->id));
         $this->redirect('this');
     }
     
