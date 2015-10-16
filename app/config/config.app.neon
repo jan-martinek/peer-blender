@@ -16,6 +16,7 @@ services:
 	- Model\Repository\EnrollmentRepository
 	- Model\Repository\FavoriteRepository
 	- Model\Repository\LogRepository
+	- Model\Repository\MessageRepository
 	- Model\Repository\ObjectionRepository
 	- Model\Repository\ReviewRepository
 	- Model\Repository\SolutionRepository
@@ -26,6 +27,7 @@ services:
 	- Model\Entity\Enrollment
 	- Model\Entity\Favorite
 	- Model\Entity\Log
+	- Model\Entity\Message
 	- Model\Entity\Objection
 	- Model\Entity\Review
 	- Model\Entity\Solution
@@ -33,6 +35,7 @@ services:
 	- Model\Entity\User	
 	- App\Forms\SignFormFactory
 	- App\Components\IQuestionsControlFactory
+	- App\Components\IChatControlFactory
 	router: App\RouterFactory::createRouter
 	uploadStorage: Model\UploadStorage(%wwwDir%/uploads, /uploads)
 

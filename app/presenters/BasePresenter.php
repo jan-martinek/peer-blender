@@ -39,8 +39,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     public $response;        
     
     protected $questionsControlFactory;
+    /** @var \App\Components\IQuestionsControlFactory @inject */
+    public $questionsControlFactory;
     
     protected $userEntity;
+    /** @var \App\Components\IChatControlFactory @inject */
+    public $chatControlFactory;
+    
 
     public function startup()
     {
@@ -96,8 +101,11 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     }
     
     public function injectQuestionsControlFactory(IQuestionsControlFactory $factory)
+    protected function createComponentChatRenderer()
     {
         $this->questionsControlFactory = $factory;
+        $chatControl = $this->chatControlFactory->create();
+        return $chatControl;
     }
     
     protected function createComponentQuestionsRenderer()

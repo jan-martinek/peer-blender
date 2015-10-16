@@ -25,6 +25,7 @@
     "nette.ajax.js": "~2.0.0",
     "fontawesome": "~4.3.0",
     "tablesorter": "*",
-    "codemirror": "*"
+    "codemirror": "*",
+    "autosize": "*"
   }
 }

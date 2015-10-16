@@ -1,0 +1,22 @@
+{define message}
+	{block|md}**[{$message->user->name}]({plink User:default $message->user->id} "dddd")** {$message->text}{/block}
+{/define}
+
+{block content}
+<div id="chat">
+	<div class="header">Chat <span style="font-size: 28px; display: block; float: right">&bull;</span></div>
+	<div class="chatContent">
+		<div n:snippet="messages" class="messages">
+			<div class="message" n:foreach="$messages as $message">
+				{include message}
+			</div>
+		</div>
+		
+		{snippet chatForm}
+			{form messageForm, class => "ajax"}
+				{input message, rows => 1, style => "max-height: 200px"}
+				{input submit, class => "button", value => "Send"}
+			{/form}
+		{/snippet}
+	</div>
+</div>

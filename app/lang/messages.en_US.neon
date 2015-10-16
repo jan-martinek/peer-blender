@@ -107,5 +107,8 @@ objection:
 	raisedAt: "Raised at"
 	result: "Result"
 	notEvaluatedYet: "Not evaluated yet"
+chat:
+	title: "Chat"
+	send: "Send"
 docs:
 	title: "Peer Blender Docs"
