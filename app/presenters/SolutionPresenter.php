@@ -52,7 +52,6 @@ class SolutionPresenter extends BasePresenter
         $this->template->course = $course;
         $this->template->solution = $solution;
         $this->template->answers = $solution->answerSet;
-        $this->template->gaCode = $course->gaCode;
         $this->template->uploadPath = $this->uploadStorage->path;
     }
     

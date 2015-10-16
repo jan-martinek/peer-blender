@@ -20,7 +20,6 @@ class CoursePresenter extends BasePresenter
     {
         $this->template->course = $this->courseRepository->find($id);
         $this->template->units = $this->unitRepository->findByCourseId($id);
-        $this->template->gaCode = $this->template->course->gaCode;
     }
     
     public function renderEnrolled($id) 
@@ -28,7 +27,6 @@ class CoursePresenter extends BasePresenter
         $this->template->course = $course = $this->courseRepository->find($id);
         $ids = $this->enrollmentRepository->findAllUserIds($course);
         $this->template->userFavorites = $this->favoriteRepository->findAllByScope('User', $ids);
-        $this->template->gaCode = $this->template->course->gaCode;
     }
     
     public function renderStats($id) 
@@ -41,6 +39,5 @@ class CoursePresenter extends BasePresenter
         }
         
         $this->template->reviewStats = $this->courseRepository->getReviewStats($this->template->course);
-        $this->template->gaCode = $this->template->course->gaCode;       
     }
 }

@@ -9,6 +9,7 @@ use Model\Entity\Log;
 use App\Components\PhasesControl;
 use App\Components\IQuestionsControlFactory;
 use App\Components\ReviewsControl;
+use App\Components\CourseGaControl;
 use DateTime;
 
 
@@ -121,5 +122,10 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     protected function createComponentReviewsRenderer()
     {
         return new ReviewsControl();
+    }
+    
+    protected function createComponentCourseGaRenderer()
+    {
+        return new CourseGaControl();
     }
 }
