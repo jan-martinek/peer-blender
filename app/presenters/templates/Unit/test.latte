@@ -28,7 +28,7 @@
 {block homeworkForm}
 	<h2>{_messages.unit.myHomework}</h2>
 	
-	<div n:if="$solution" class="panel callout">
+	<div n:ifset="$solution" class="panel callout">
 		<p>{!_messages.unit.homeworkSaved, [date => $unit->reviews_since->format('j. n. Y H.i')]|imd}</p>
 	</div>
 	
@@ -36,7 +36,7 @@
 		<div class="assignmentQuestion" n:foreach="$form['questions']->controls as $name => $question">
 			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 			{label $question /}
-			{? $form['questions'][$name]->setValue(is_null($solution) ? '' : $answers[$name])}
+			{? $form['questions'][$name]->setValue(!isset($solution) ? '' : $answers[$name])}
 			{input $question, 'rows' => '10'}
 			<p n:ifcontent>{inputError $question}</p>
 		</div>
@@ -49,7 +49,7 @@
 				{label attachment /}
 				{input attachment}
 				
-				<p n:if="$solution && $solution->attachment">
+				<p n:if="isset($solution) && $solution->attachment">
 					{_messages.unit.submittedAttachment}: 
 					<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
 					{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>

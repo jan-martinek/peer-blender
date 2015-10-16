@@ -16,7 +16,7 @@ class UserPresenter extends BasePresenter
     {
         $this->userProfile = $this->userRepository->find($id);
         $this->userProfile->setFavoriteRepository($this->favoriteRepository);
-        $this->template->isFavorited = $this->userProfile->isFavoritedBy($this->userEntity); 
+        $this->template->isFavorited = $this->userProfile->isFavoritedBy($this->userInfo); 
 	}
 	
     public function renderDefault($id)

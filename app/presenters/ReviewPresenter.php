@@ -41,7 +41,7 @@ class ReviewPresenter extends BasePresenter
     {
         $this->review = $this->reviewRepository->find($id);
         $this->review->setFavoriteRepository($this->favoriteRepository);
-        $this->template->isFavorited = $this->review->isFavoritedBy($this->userEntity);
+        $this->template->isFavorited = $this->review->isFavoritedBy($this->userInfo);
         $this->template->uploadPath = $this->uploadStorage->path;
     }
 

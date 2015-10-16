@@ -39,21 +39,24 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /** @var \Nette\Http\Response @inject */
     public $response;        
     
-    protected $questionsControlFactory;
     /** @var \App\Components\IQuestionsControlFactory @inject */
     public $questionsControlFactory;
     
-    protected $userEntity;
     /** @var \App\Components\IChatControlFactory @inject */
     public $chatControlFactory;
     
+    /** @var \Model\CourseInfo @inject */
+    public $courseInfo;
+    
+    /** @var \Model\Entity\User */
+    public $userInfo;
 
     public function startup()
     {
         parent::startup();
         
         if ($this->user->isLoggedIn() OR in_array($this->getName(), array('Homepage', 'Sign', 'Password'))) {
-            $this->userEntity = $this->user->id ? $this->userRepository->find($this->user->id) : NULL;
+            $this->userInfo = $this->user->id ? $this->userRepository->find($this->user->id) : NULL;
         } else {
             $this->flashMessage('Please sign in.');
             
@@ -96,15 +99,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     public function handleLogout()
     {
         $user = $this->getUser();
-        $this->logEvent($this->userEntity, 'logout');
+        $this->logEvent($this->userInfo, 'logout');
         $user->logout();
         $this->redirect('Homepage:default');
     }
     
-    public function injectQuestionsControlFactory(IQuestionsControlFactory $factory)
     protected function createComponentChatRenderer()
     {
-        $this->questionsControlFactory = $factory;
         $chatControl = $this->chatControlFactory->create();
         return $chatControl;
     }

@@ -53,7 +53,7 @@ class SignPresenter extends BasePresenter
     
     public function actionOut()
     {
-        $this->logEvent($this->userEntity, 'logout');
+        $this->logEvent($this->userInfo, 'logout');
         $this->getUser()->logout();
         $this->flashMessage('You have been signed out.');
         $this->redirect('in');

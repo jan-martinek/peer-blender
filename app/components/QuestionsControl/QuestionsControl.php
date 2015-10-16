@@ -14,7 +14,8 @@ class QuestionsControl extends Control
         $this->uploadStorage = $storage;    
     }
     
-    public function setTemplateFilters($template) {
+    public function setTemplateFilters($template) 
+    {
     	//markdown
         $template->addFilter('md', function ($s) {
             return \Michelf\Markdown::defaultTransform($s);

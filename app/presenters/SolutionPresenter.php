@@ -46,7 +46,7 @@ class SolutionPresenter extends BasePresenter
         $solution = $assignment->solution;
         $solution->setFavoriteRepository($this->favoriteRepository);
         
-        $this->template->isFavorited = $solution->isFavoritedBy($this->userEntity);
+        $this->template->isFavorited = $solution->isFavoritedBy($this->userInfo);
         $this->template->unit = $unit; 
         $this->template->assignment = $assignment;
         $this->template->course = $course;

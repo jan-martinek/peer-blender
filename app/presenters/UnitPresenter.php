@@ -31,64 +31,54 @@ class UnitPresenter extends BasePresenter
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;
     
-    public $questions;    
-    public $course;
-    
-    private $unit;
-    private $assignment;
-    private $solution;
+    /** @var array */
+    public $questions;
     
     public function actionDefault($id) 
-    {
-        $this->unit = $this->unitRepository->find($id);
-        $this->course = $this->unit->course;
+    {   
+        $unit = $this->courseInfo->init($this->unitRepository->find($id));
+        $unit->setFavoriteRepository($this->favoriteRepository);
+        $this->template->isFavorited = $unit->isFavoritedBy($this->userInfo);
         
-        $this->unit->setFavoriteRepository($this->favoriteRepository);
-        $this->template->isFavorited = $this->unit->isFavoritedBy($this->userEntity);
+        $assignment = $this->assignmentRepository->getMyAssignment($this->courseInfo->unit, $this->userInfo);
+        $this->questions = $assignment->questionSet;
+        $this->courseInfo->setSolution($assignment->solution);
         
-        $this->assignment = $this->assignmentRepository->getMyAssignment($this->unit, $this->userEntity);        
-        $this->questions = $this->assignment->questionSet;
-        
-        $this->solution = $this->assignment->solution;
-        
-        $this->logEvent($this->unit, 'open');
+        $this->logEvent($unit, 'open');
     }
 
     public function renderDefault($id)
     {
-        $this->template->unit = $this->unit; 
-        $this->template->assignment = $this->assignment;
-        $this->template->course = $this->course;
-        $this->template->solution = $this->solution;
+        $this->template->unit = $this->courseInfo->unit;
+        $this->template->assignment = $this->courseInfo->assignment;
+        $this->template->course = $this->courseInfo->course;
+        $this->template->solution = $this->courseInfo->solution;
         
-        if ($this->solution) {
-            $this->template->answers = $this->solution->answerSet;
+        if ($this->courseInfo->solution) {
+            $this->template->answers = $this->courseInfo->solution->answerSet;
         }
         
         $this->template->uploadPath = $this->uploadStorage->path;
-        
-        $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($this->unit, $this->userEntity);
+        $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($this->courseInfo->unit, $this->userInfo);
     }
     
     public function actionTest($id) 
     {
-        $this->unit = $this->unitRepository->find($id);
-        $this->course = $this->unit->course;
-        $this->assignment = $this->assignmentRepository->getMyAssignment($this->unit, $this->userEntity, TRUE);        
-        $this->questions = $this->assignment->questionSet;    
+        $unit = $this->courseInfo->init($this->unitRepository->find($id));
+        $assignment = $this->courseInfo->setAssignment($this->assignmentRepository->getMyAssignment($unit, $this->userInfo, TRUE));
+        $this->questions = $this->courseInfo->assignment->questionSet;
     }    
     
     public function renderTest($id) 
     {
-        $this->template->unit = $this->unit; 
-        $this->template->assignment = $this->assignment;
-        $this->template->course = $this->course;
-        $this->template->solution = $this->solution;
+        $this->template->unit = $this->courseInfo->unit; 
+        $this->template->assignment = $this->courseInfo->assignment;
+        $this->template->course = $this->courseInfo->course;
     }
     
     public function handleFavorite() 
     {
-        $this->unit->favorite($this->userRepository->find($this->user->id));
+        $this->courseInfo->unit->favorite($this->userRepository->find($this->user->id));
         $this->redirect('this');
     }
     
@@ -98,14 +88,14 @@ class UnitPresenter extends BasePresenter
             throw new \Nette\Application\BadRequestException;
         }
         
-        $form = new HomeworkForm($this, $this->course);
+        $form = new HomeworkForm($this, $this->courseInfo->course);
         $form->onSuccess[] = array($this, 'homeworkFormSucceeded');
         return $form;
     }
     
     public function homeworkFormSucceeded(HomeworkForm $form, $values) 
     {
-        if ($solution = $this->assignment->solution) {
+        if ($solution = $this->courseInfo->assignment->solution) {
             $solution->edited_at = new DateTime;
             $solution->answerSet = $values->questions;
             if ($values->attachment->isOK()) 
@@ -114,8 +104,8 @@ class UnitPresenter extends BasePresenter
                 
                 $solution->attachment = $this->saveHomeworkFile(
                     $values->attachment, 
-                    $this->course->id,
-                    $this->unit->id,
+                    $this->courseInfo->course->id,
+                    $this->courseInfo->unit->id,
                     $this->user->id
                 );    
             }
@@ -123,9 +113,9 @@ class UnitPresenter extends BasePresenter
             $this->logEvent($solution, 'edit');
         } else {
             $solution = new Solution;
-            $solution->unit = $this->unit;
-            $solution->assignment = $this->assignment;
-            $solution->user = $this->userEntity;
+            $solution->unit = $this->courseInfo->unit;
+            $solution->assignment = $this->courseInfo->assignment;
+            $solution->user = $this->userInfo;
             $solution->submitted_at = new DateTime;
             $solution->edited_at = new DateTime;
             $solution->answerSet = $values->questions;
@@ -133,8 +123,8 @@ class UnitPresenter extends BasePresenter
             {
                 $solution->attachment = $this->saveHomeworkFile(
                     $values->attachment, 
-                    $this->course->id,
-                    $this->unit->id,
+                    $this->courseInfo->course->id,
+                    $this->courseInfo->unit->id,
                     $this->user->id
                 ); 
             }

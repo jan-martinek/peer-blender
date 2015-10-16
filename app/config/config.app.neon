@@ -33,6 +33,7 @@ services:
 	- Model\Entity\Solution
 	- Model\Entity\Unit
 	- Model\Entity\User	
+	- Model\CourseInfo
 	- App\Forms\SignFormFactory
 	- App\Components\IQuestionsControlFactory
 	- App\Components\IChatControlFactory
