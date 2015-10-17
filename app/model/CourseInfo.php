@@ -23,8 +23,20 @@ class CourseInfo extends \Nette\Object
 	/** @var \Model\Entity\Objection */
 	public $objection;
 	
-	public function init($entity) 
+	/** @var \Model\Repository\FavoriteRepository */
+    public $favoriteRepository;
+    
+    public function setFavoriteRepository($favoriteRepository)
+    {
+    	$this->favoriteRepository = $favoriteRepository;
+    }
+	
+	public function insert($entity) 
 	{
+		if ($entity instanceof \Model\Entity\FavoritableEntity) {
+			$entity->setFavoriteRepository($this->favoriteRepository);
+		}
+		
 		$classname = get_class($entity);
 		
 		switch ($classname) {
@@ -47,54 +59,101 @@ class CourseInfo extends \Nette\Object
 				$this->setObjection($entity);
 				break;
 			default:
-				throw new \Exception('"' . $classname . '" is not an object describing course.');	
+				throw new \Exception('"' . $classname . '" is not an object describing course.');
 		}	
 		
 		return $entity;
 	}
 	
-	public function setObjection($objection) 
+	public function setObjection($objection)
 	{
-		$this->objection = $objection;
+		if (is_null($this->objection)) {
+			$this->objection = $objection;	
+		} else {
+			throw new CourseInfoEntityAlreadyDefined;
+		}
+		
 		if (is_null($this->review)) {
 			$this->setReview($objection->review);	
+		} else if ($this->review->id !== $objection->review->id) {
+			throw new InconsistentCourseInfoChainException;
 		}
 	}
 	
-	public function setReview($review) 
+	public function setReview($review)
 	{
-		$this->review = $review;
+		if (is_null($this->review)) {
+			$this->review = $review;	
+		} else {
+			throw new CourseInfoEntityAlreadyDefined;
+		}
+		
 		if (is_null($this->solution)) {
 			$this->setSolution($review->solution);
+		} else if ($this->solution->id !== $review->solution->id) {
+			throw new InconsistentCourseInfoChainException;
 		}
 	}
 	
-	public function setSolution($solution) 
+	public function setSolution($solution)
 	{
-		$this->solution = $solution;
+		if (is_null($this->solution)) {
+			$this->solution = $solution;	
+		} else {
+			throw new CourseInfoEntityAlreadyDefined;
+		}
+		
 		if (is_null($this->assignment)) {
 			$this->setAssignment($solution->assignment);
+		} else if ($this->assignment->id !== $solution->assignment->id) {
+			throw new InconsistentCourseInfoChainException;
 		}
 	}
 	
 	public function setAssignment($assignment)
 	{
-		$this->assignment = $assignment;
+		if (is_null($this->assignment)) {
+			$this->assignment = $assignment;	
+		} else {
+			throw new CourseInfoEntityAlreadyDefined;
+		}
+		
 		if (is_null($this->unit)) {
 			$this->setUnit($assignment->unit);	
+		} else if ($this->unit->id !== $assignment->unit->id) {
+			throw new InconsistentCourseInfoChainException;
 		}
 	}
 	
 	public function setUnit($unit)
 	{
-		$this->unit = $unit;
+		if (is_null($this->unit)) {
+			$this->unit = $unit;	
+		} else {
+			throw new CourseInfoEntityAlreadyDefined;
+		}
+		
 		if (is_null($this->course)) {
 			$this->setCourse($unit->course);	
+		} else if ($this->course->id !== $unit->course->id) {
+			throw new InconsistentCourseInfoChainException;
 		}
 	}
 	
 	public function setCourse($course)
 	{
-		$this->course = $course;
+		if (is_null($this->course)) {
+			$this->course = $course;	
+		} else {
+			throw new CourseInfoEntityAlreadyDefined;
+		}
 	}
+}
+
+class CourseInfoEntityAlreadyDefined extends \Exception
+{
+}
+
+class InconsistentCourseInfoChainException extends \Exception
+{
 }

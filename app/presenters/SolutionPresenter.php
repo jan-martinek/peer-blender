@@ -2,7 +2,6 @@
 
 namespace App\Presenters;
 
-use App\Components\HomeworkForm;
 use DateTime;
 use Model\Entity\Log;
 use Model\Entity\Solution;
@@ -34,8 +33,7 @@ class SolutionPresenter extends BasePresenter
     public function actionDefault($id) 
     {     
         $solution = $this->solutionRepository->find($id);
-        $solution->setFavoriteRepository($this->favoriteRepository);
-        $this->courseInfo->init($solution);
+        $this->courseInfo->insert($solution);
     }    
     
     public function renderDefault($id)

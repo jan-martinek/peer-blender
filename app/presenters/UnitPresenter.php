@@ -38,24 +38,21 @@ class UnitPresenter extends BasePresenter
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;
     
-    /** @var array */
-    public $questions;
-    
     public function actionDefault($id) 
     {   
-        $unit = $this->courseInfo->init($this->unitRepository->find($id));
+        $unit = $this->courseInfo->insert($this->unitRepository->find($id));
         if (!$unit->hasBeenPublished()) {
             throw new \Nette\Application\BadRequestException(NULL, 404);
             return;
         }
         
-        $unit->setFavoriteRepository($this->favoriteRepository);
+        $assignment = $this->assignmentRepository->getMyAssignment($this->courseInfo->unit, $this->userInfo, $this->questionRepository);
+        $this->courseInfo->insert($assignment);
+        if (isset($assignment->solution)) {
+            $this->courseInfo->setSolution($assignment->solution);
+        }
+        
         $this->template->isFavorited = $unit->isFavoritedBy($this->userInfo);
-        
-        $assignment = $this->assignmentRepository->getMyAssignment($this->courseInfo->unit, $this->userInfo);
-        $this->questions = $assignment->questions;
-        $this->courseInfo->setSolution($assignment->solution);
-        
         $this->logEvent($unit, 'open');
     }
 
@@ -76,9 +73,8 @@ class UnitPresenter extends BasePresenter
     
     public function actionTest($id) 
     {
-        $unit = $this->courseInfo->init($this->unitRepository->find($id));
+        $unit = $this->courseInfo->insert($this->unitRepository->find($id));
         $assignment = $this->courseInfo->setAssignment($this->assignmentRepository->getMyAssignment($unit, $this->userInfo, TRUE));
-        $this->questions = $this->courseInfo->assignment->questions;
     }    
     
     public function renderTest($id) 
@@ -96,7 +92,7 @@ class UnitPresenter extends BasePresenter
     
     protected function createComponentHomeworkForm() 
     {
-        if (is_null($this->questions)) {
+        if (!$this->courseInfo->assignment) {
             throw new \Nette\Application\BadRequestException;
         }
         
@@ -111,13 +107,12 @@ class UnitPresenter extends BasePresenter
     
     public function homeworkFormSucceeded(HomeworkForm $form, $values) 
     {
-        if ($solution = $this->courseInfo->assignment->solution) {
+        if ($solution = $this->courseInfo->solution) {
             $solution->edited_at = new DateTime;
             $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
             if ($values->attachment->isOK()) 
             {
                 $this->removeHomeworkFile($solution->attachment);
-                
                 $solution->attachment = $this->saveHomeworkFile(
                     $values->attachment, 
                     $this->courseInfo->course->id,

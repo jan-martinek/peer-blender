@@ -33,23 +33,21 @@ class ReviewPresenter extends BasePresenter
     
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;    
-    
-    private $review;
-
 
     public function actionDefault($id) 
     {
-        $this->review = $this->reviewRepository->find($id);
-        $this->review->setFavoriteRepository($this->favoriteRepository);
-        $this->template->isFavorited = $this->review->isFavoritedBy($this->userInfo);
+        $this->courseInfo->insert($this->reviewRepository->find($id));
+        $this->template->isFavorited = $this->courseInfo->review->isFavoritedBy($this->userInfo);
         $this->template->uploadPath = $this->uploadStorage->path;
     }
 
     public function renderDefault($id)
     {   
-        $this->template->review = $this->review;
-        $this->template->solution = $this->review->solution;
-        $this->template->assignment = $this->review->solution->assignment;
+        $review = $this->courseInfo->review;
+        
+        $this->template->review = $review;
+        $this->template->solution = $review->solution;
+        $this->template->assignment = $review->solution->assignment;
     }
     
     public function actionWriteForUnit($id) 
@@ -76,7 +74,7 @@ class ReviewPresenter extends BasePresenter
                 $solution = $review->solution;
             }
 
-            $this->review = $this->template->review = $review;
+            $this->template->review = $this->courseInfo->insert($review);
             $this->template->solution = $solution;
             $this->template->assignment = $assignment = $solution->assignment;
         } catch (\Model\Repository\SolutionToReviewNotFoundException $e) {
@@ -97,29 +95,29 @@ class ReviewPresenter extends BasePresenter
     
     public function handleFavorite() 
     {
-        $this->review->favorite($this->userRepository->find($this->user->id));
+        $this->courseInfo->review->favorite($this->userRepository->find($this->user->id));
         $this->redirect('this');
     }    
     
     protected function createComponentReviewForm() 
     {
-        if (!$this->review->solution->assignment->rubrics) {
+        if (!$this->courseInfo->assignment->rubrics) {
             throw new \Nette\Application\BadRequestException;
         }
         
-        $form = new ReviewForm($this->review, $this->reviewRepository, $this->translator);
+        $form = new ReviewForm($this->courseInfo->review, $this->reviewRepository, $this->translator);
         $form->onSuccess[] = array($this, 'reviewFormSucceeded');
         return $form;
     }
     
     public function reviewFormSucceeded(ReviewForm $form, $values) 
     {
-        $this->review->score = $values->score;
-        $this->review->assessmentSet = $values->rubrics;
-        $this->review->comments = $values->comments;
-        $this->review->submitted_at = new DateTime;
-        $this->reviewRepository->persist($this->review);
-        $this->logEvent($this->review, 'submit');
+        $review->score = $values->score;
+        $review->assessmentSet = $values->rubrics;
+        $review->comments = $values->comments;
+        $review->submitted_at = new DateTime;
+        $this->reviewRepository->persist($review);
+        $this->logEvent($review, 'submit');
         $this->redirect('this');
     }
     
@@ -141,7 +139,7 @@ class ReviewPresenter extends BasePresenter
     {   
         $objection = new Objection;
         $objection->objection = $values->objection;
-        $objection->review = $this->review;
+        $objection->review = $this->courseInfo->review;
         $objection->user = $this->userRepository->find($this->user->id);
         $objection->submitted_at = new DateTime;        
         $this->objectionRepository->persist($objection);

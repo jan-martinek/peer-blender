@@ -18,7 +18,7 @@ class CoursePresenter extends BasePresenter
     
     public function actionDefault($id)
     {
-        $this->courseInfo->init($this->courseRepository->find($id));
+        $this->courseInfo->insert($this->courseRepository->find($id));
     }
     
     public function renderDefault($id)
@@ -31,7 +31,7 @@ class CoursePresenter extends BasePresenter
     
     public function actionEnrolled($id)
     {
-        $this->courseInfo->init($this->courseRepository->find($id));
+        $this->courseInfo->insert($this->courseRepository->find($id));
     }
     
     public function renderEnrolled($id) 
