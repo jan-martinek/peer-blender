@@ -90,7 +90,7 @@
 {block myReviewsOfOthers}
 	<h2>{_messages.unit.myReviewsOfOthers}</h2>
 	
-	{control reviewsRenderer $reviews}
+	{control reviewsRenderer $reviews, TRUE}
 	
 	{if count($reviews) < $course->reviewCount}
 		<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>

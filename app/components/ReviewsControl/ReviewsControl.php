@@ -18,11 +18,12 @@ class ReviewsControl extends Control
         });
     }	
 	
-    public function render(Array $reviews)
+    public function render(Array $reviews, $showIncomplete = FALSE)
     {
         $template = $this->template;
         $this->setTemplateFilters($template);
         $template->setFile(__DIR__ . '/reviews.latte');
+        $template->showIncomplete = $showIncomplete;
         $template->reviews = $reviews;
         $template->render();
     }
