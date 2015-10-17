@@ -10,12 +10,12 @@ use DateTime;
 
 class HomeworkForm extends Form
 {   
-    public function __construct($presenter, $course) 
+    public function __construct($course, $questions, $translator) 
     {    
         parent::__construct();
         
         $questionsContainer = $this->addContainer('questions');
-        foreach ($presenter->questions as $id => $question) {
+        foreach ($questions as $id => $question) {
             $input = $questionsContainer->addTextarea($id, 
                 Html::el()->setHtml(Markdown::defaultTransform($question->text))
             ); 
@@ -25,19 +25,19 @@ class HomeworkForm extends Form
             }
         }
         
-        $uploadLabel = $presenter->translator->translate('messages.unit.homeworkAttachment');
+        $uploadLabel = $translator->translate('messages.unit.homeworkAttachment');
         $this->addUpload('attachment', $uploadLabel)
             ->addRule(
                 Form::MAX_FILE_SIZE, 
                 $uploadLabel, 
                 $course->uploadMaxFilesizeKb * 1024
-            )->setOption('description', $presenter->translator->translate(
+            )->setOption('description', $translator->translate(
                 'messages.unit.homeworkAttachmentNote',
                 NULL, 
                 array('filesize' => $course->uploadMaxFilesizeKb)
             ));
         
-        $submitLabel = $presenter->translator->translate('messages.unit.submitHomework');
+        $submitLabel = $translator->translate('messages.unit.submitHomework');
         $this->addSubmit('submit', $submitLabel);
     }
 }

@@ -100,7 +100,11 @@ class UnitPresenter extends BasePresenter
             throw new \Nette\Application\BadRequestException;
         }
         
-        $form = new HomeworkForm($this, $this->courseInfo->course);
+        $form = new HomeworkForm(
+            $this->courseInfo->course, 
+            $this->courseInfo->assignment->questions,
+            $this->translator
+        );
         $form->onSuccess[] = array($this, 'homeworkFormSucceeded');
         return $form;
     }
