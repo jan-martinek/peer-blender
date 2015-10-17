@@ -37,6 +37,11 @@ class UnitPresenter extends BasePresenter
     public function actionDefault($id) 
     {   
         $unit = $this->courseInfo->init($this->unitRepository->find($id));
+        if (!$unit->hasBeenPublished()) {
+            throw new \Nette\Application\BadRequestException(NULL, 404);
+            return;
+        }
+        
         $unit->setFavoriteRepository($this->favoriteRepository);
         $this->template->isFavorited = $unit->isFavoritedBy($this->userInfo);
         

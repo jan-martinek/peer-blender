@@ -15,7 +15,7 @@
 		<ul class="units">
 			<li n:foreach="$units as $unit">
 				<h3>
-					<a n:href="Unit:default $unit->id">{$unit->name}</a>
+					<a n:tag-if="$unit->hasBeenPublished()" n:href="Unit:default $unit->id">{$unit->name}</a>
 				</h3>
 				{control phasesRenderer $unit}
 				
