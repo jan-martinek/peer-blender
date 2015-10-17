@@ -3,6 +3,7 @@
 namespace Model\Generator;
 
 use Nette;
+use Model\Entity\Question;
 
 class SimpleQuestionset extends Questionset implements IQuestionset
 {
@@ -56,9 +57,12 @@ class SimpleQuestionset extends Questionset implements IQuestionset
         }
         
         for ($i = 1; $i <= $count; $i++) {
-            $assignedQuestions[] = array_pop($questions);  
+            $question = new Question;
+            $question->text = array_pop($questions);
+            $question->type = 'plaintext';
+            $assignedQuestions[] = $question;
         }
-        
+
         return $assignedQuestions;
     }
     

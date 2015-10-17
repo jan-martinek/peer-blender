@@ -6,6 +6,7 @@ use App\Components\HomeworkForm;
 use DateTime;
 use Model\Entity\Log;
 use Model\Entity\Solution;
+use Model\Entity\Answer;
 use Nette\Utils\Strings;
 
 /**
@@ -27,6 +28,12 @@ class UnitPresenter extends BasePresenter
     
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
+
+    /** @var \Model\Repository\AnswerRepository @inject */
+    public $answerRepository;
+    
+    /** @var \Model\Repository\QuestionRepository @inject */
+    public $questionRepository;
     
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;
@@ -46,7 +53,7 @@ class UnitPresenter extends BasePresenter
         $this->template->isFavorited = $unit->isFavoritedBy($this->userInfo);
         
         $assignment = $this->assignmentRepository->getMyAssignment($this->courseInfo->unit, $this->userInfo);
-        $this->questions = $assignment->questionSet;
+        $this->questions = $assignment->questions;
         $this->courseInfo->setSolution($assignment->solution);
         
         $this->logEvent($unit, 'open');
@@ -60,7 +67,7 @@ class UnitPresenter extends BasePresenter
         $this->template->solution = $this->courseInfo->solution;
         
         if ($this->courseInfo->solution) {
-            $this->template->answers = $this->courseInfo->solution->answerSet;
+            $this->template->answers = $this->courseInfo->solution->answers;
         }
         
         $this->template->uploadPath = $this->uploadStorage->path;
@@ -71,7 +78,7 @@ class UnitPresenter extends BasePresenter
     {
         $unit = $this->courseInfo->init($this->unitRepository->find($id));
         $assignment = $this->courseInfo->setAssignment($this->assignmentRepository->getMyAssignment($unit, $this->userInfo, TRUE));
-        $this->questions = $this->courseInfo->assignment->questionSet;
+        $this->questions = $this->courseInfo->assignment->questions;
     }    
     
     public function renderTest($id) 
@@ -102,7 +109,7 @@ class UnitPresenter extends BasePresenter
     {
         if ($solution = $this->courseInfo->assignment->solution) {
             $solution->edited_at = new DateTime;
-            $solution->answerSet = $values->questions;
+            $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
             if ($values->attachment->isOK()) 
             {
                 $this->removeHomeworkFile($solution->attachment);
@@ -123,7 +130,7 @@ class UnitPresenter extends BasePresenter
             $solution->user = $this->userInfo;
             $solution->submitted_at = new DateTime;
             $solution->edited_at = new DateTime;
-            $solution->answerSet = $values->questions;
+            $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
             if ($values->attachment->isOK()) 
             {
                 $solution->attachment = $this->saveHomeworkFile(
@@ -138,6 +145,22 @@ class UnitPresenter extends BasePresenter
         }
 
         $this->redirect('this');
+    }
+    
+    public function saveAnswers($questions, $answers) 
+    {
+        foreach ($questions as $order => $question) {
+            if (isset($question->answer)) {
+                $answer = $question->answer; 
+                $answer->text = $answers[$order];
+            } else {
+                $answer = new Answer;
+                $answer->text = $answers[$order];
+                $answer->solution = $question->assignment->solution;
+                $answer->question = $question;
+            }
+            $this->answerRepository->persist($answer);
+        }
     }
     
     /**

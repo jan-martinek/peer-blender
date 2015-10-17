@@ -11,6 +11,7 @@ services:
 	leanmapper.connection: LeanMapper\Connection(%leanmapper%)
 	- LeanMapper\DefaultMapper
 	- LeanMapper\DefaultEntityFactory
+	- Model\Repository\AnswerRepository
 	- Model\Repository\AssignmentRepository
 	- Model\Repository\CourseRepository
 	- Model\Repository\EnrollmentRepository
@@ -18,10 +19,12 @@ services:
 	- Model\Repository\LogRepository
 	- Model\Repository\MessageRepository
 	- Model\Repository\ObjectionRepository
+	- Model\Repository\QuestionRepository
 	- Model\Repository\ReviewRepository
 	- Model\Repository\SolutionRepository
 	- Model\Repository\UnitRepository
 	- Model\Repository\UserRepository
+	- Model\Entity\Answer
 	- Model\Entity\Assignment
 	- Model\Entity\Course
 	- Model\Entity\Enrollment
@@ -29,6 +32,7 @@ services:
 	- Model\Entity\Log
 	- Model\Entity\Message
 	- Model\Entity\Objection
+	- Model\Entity\Question
 	- Model\Entity\Review
 	- Model\Entity\Solution
 	- Model\Entity\Unit

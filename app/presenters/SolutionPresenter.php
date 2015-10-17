@@ -42,7 +42,7 @@ class SolutionPresenter extends BasePresenter
     {
         $solution = $this->courseInfo->solution;
         $this->template->solution = $solution;
-        $this->template->answers = $solution->answerSet;
+        $this->template->answers = $solution->answers;
         
         $this->template->isFavorited = $solution->isFavoritedBy($this->userInfo);
         $this->template->unit = $this->courseInfo->unit; 

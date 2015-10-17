@@ -72,11 +72,23 @@ class FavoritableEntity extends Entity
 
 /**
  * @property int $id
+ * @property string $text
+ * @property Solution $solution m:hasOne
+ * @property Question $question m:hasOne
+ */
+class Answer extends Entity
+{
+}
+
+/**
+ * @property int $id
  * @property Unit $unit m:hasOne
  * @property User $student m:hasOne(student_id)
  * @property DateTime $generated_at
  * @property string $preface
- * @property string $questions
+ * @property Question[] $questions m:belongsToMany
+ * @property string $questionsx (questions)
+ * @property Answer[] $answers m:belongsToMany
  * @property string $rubrics
  * @property Solution|NULL $solution m:belongsToOne(assignment_id)
  */
@@ -87,18 +99,13 @@ class Assignment extends Entity
      */
     public function getQuestionSet() 
     {
-        $set = @unserialize($this->questions);
+        $set = @unserialize($this->questionsx);
         if ($set !== FALSE) {
             return $set;
         } else {
-            return json_decode($this->questions, true);
+            return json_decode($this->questionsx, true);
         }
         
-    }
-    
-    public function setQuestionSet($questions) 
-    {
-        $this->questions = json_encode((array) $questions);
     }
     
     /**
@@ -188,6 +195,19 @@ class Objection extends Entity
 
 /**
  * @property int $id
+ * @property int $order
+ * @property string $type
+ * @property string $text
+ * @property string $prefill
+ * @property Assignment $assignment m:hasOne 
+ * @property Answer|NULL $answer m:belongsToOne
+ */
+class Question extends Entity
+{
+}
+
+/**
+ * @property int $id
  * @property Solution $solution m:hasOne
  * @property User $reviewed_by m:hasOne(reviewed_by_id)
  * @property DateTime $opened_at
@@ -199,6 +219,7 @@ class Objection extends Entity
  */
 class Review extends FavoritableEntity
 {
+    
     /**
      * @return array
      */
@@ -226,12 +247,27 @@ class Review extends FavoritableEntity
  * @property User $user m:hasOne
  * @property DateTime $submitted_at
  * @property DateTime $edited_at
- * @property string $answer
+ * @property Answer[] $answers m:belongsToMany
+ * @property string $answerx (answer)
  * @property string|NULL $attachment
  * @property Review[]|NULL $reviews m:belongsToMany(solution_id)
  */
 class Solution extends FavoritableEntity
 {   
+    /**
+     * @return array
+     */
+    public function getAnswerSet() 
+    {
+        $set = @unserialize($this->answerx);
+        if ($set !== FALSE) {
+            return $set;
+        } else {
+            return json_decode($this->answerx, true);
+        }
+        
+    }
+    
     public function getScore() 
     {
         if (is_null($this->reviews)) {
@@ -248,25 +284,7 @@ class Solution extends FavoritableEntity
         
         return count($scores) ? array_sum($scores) / count($scores) : FALSE;
     }
-    
-    /**
-     * @return array
-     */
-    public function getAnswerSet() 
-    {
-        $set = @unserialize($this->answer);
-        if ($set !== FALSE) {
-            return $set;
-        } else {
-            return json_decode($this->answer, true);
-        }
-        
-    }
-    
-    public function setAnswerSet($answer) 
-    {
-        $this->answer = json_encode((array) $answer);
-    }
+
 }
 
 /**

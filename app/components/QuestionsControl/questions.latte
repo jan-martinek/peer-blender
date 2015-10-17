@@ -1,8 +1,8 @@
 {define question}
-	<label>{!$question|md}</label>
-	{if $answer}
-		<div class="panel" n:if="$answer">
-			{!=nl2br(htmlspecialchars($answer))}
+	<label>{!$question->text|md}</label>
+	{if isset($question->answer)}
+		<div class="panel" n:if="$question->answer">
+			{!=nl2br(htmlspecialchars($question->answer->text))}
 		</div>
 	{else}
 		<div class="panel callout">
@@ -13,10 +13,9 @@
 {/define}
 
 {block content}
-{var answers = $solution->answerSet}
-<div n:foreach="$assignment->questionSet as $id => $question" class="assignmentQuestion">
+<div n:foreach="$assignment->questions as $question" class="assignmentQuestion">
 	<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-	{include question, question => $question, answer => $answers[$id]}
+	{include question, question => $question}
 </div>
 
 <div class="assignmentQuestion">

@@ -16,9 +16,13 @@ class HomeworkForm extends Form
         
         $questionsContainer = $this->addContainer('questions');
         foreach ($presenter->questions as $id => $question) {
-            $questionsContainer->addTextarea($id, 
-                Html::el()->setHtml(Markdown::defaultTransform($question))
+            $input = $questionsContainer->addTextarea($id, 
+                Html::el()->setHtml(Markdown::defaultTransform($question->text))
             ); 
+            
+            if (isset($question->answer)) {
+                $input->setValue($question->answer->text);
+            }
         }
         
         $uploadLabel = $presenter->translator->translate('messages.unit.homeworkAttachment');

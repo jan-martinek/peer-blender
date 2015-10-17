@@ -33,18 +33,18 @@ abstract class Repository extends \LeanMapper\Repository
     }
 }
 
-class AssignmentRepository extends Repository
+class AnswerRepository extends Repository
 {
-    public function getMyAssignment($unit, $student, $test = FALSE) 
+}
+
+class AssignmentRepository extends Repository
+{   
+    public function getMyAssignment($unit, $student, $questionRepository) 
     {
-        if ($test) {
-            return $this->generateAssignment($unit, $student, TRUE);
-        }
-        
         if ($assignment = $this->findByUnitAndUser($unit, $student)) {
             return $assignment;
         } else {
-            return $this->generateAssignment($unit, $student);
+            return $this->generateAssignment($unit, $student, $questionRepository);
         }
     }
     
@@ -61,14 +61,13 @@ class AssignmentRepository extends Repository
         }
     }
     
-    private function generateAssignment($unit, $student, $test = FALSE) 
+    private function generateAssignment($unit, $student, $questionRepository) 
     {
         $generatorClassname = $unit->generator ? '\Model\Generator\\' . $unit->generator : '\Model\Generator\AttachmentGenerator';
         $generator = new $generatorClassname;
         
         $assignment = new \Model\Entity\Assignment;
         $assignment->preface = $generator->getPreface();
-        $assignment->questionSet = $generator->getQuestions();
         if ($generator instanceof \Model\Generator\AttachmentGenerator) {
             $rubrics = array();
             foreach (explode("\n", $unit->rubrics) as $rubric) {
@@ -84,9 +83,13 @@ class AssignmentRepository extends Repository
         }
         $assignment->unit = $unit;
         $assignment->generated_at = new DateTime;
-        if (!$test) {
-            $assignment->student = $student;
-            $this->persist($assignment);    
+        $assignment->student = $student;
+        $this->persist($assignment);    
+        
+        $questions = $generator->getQuestions();
+        foreach ($questions as $question) {
+            $question->assignment = $assignment;
+            $questionRepository->persist($question);
         }
         
         return $assignment;
@@ -226,6 +229,10 @@ class MessageRepository extends Repository
 }
 
 class ObjectionRepository extends Repository
+{
+}
+
+class QuestionRepository extends Repository
 {
 }
 
