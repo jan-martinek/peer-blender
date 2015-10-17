@@ -63,7 +63,7 @@ class MarkdownGenerator extends Nette\Object implements IGenerator
             vlastního uvážení). Do vstupního pole vepište jakékoli postřehy a poznámky související s úkolem.'
             . "\n\n"
             . 'Následně soubor se syntaxí Markdown **vložte do [nějakého webového generátoru](https://www.google.cz/search?rls=en&q=markdown+convertor&ie=UTF-8&oe=UTF-8&gfe_rd=cr&ei=kr0XVrLqEcyk8weihYCQBQ) HTML z Markdownu** a 
-            oba soubory (výsledné HTML i zdrojový soubor v Markdownu) zazipujte. Soubor ZIP vložte jako přílohu k úkolu.**',
+            oba soubory (výsledné HTML i zdrojový soubor v Markdownu) zazipujte. Soubor ZIP vložte jako přílohu k úkolu.',
             array(
                 'book' => array(     
                     'http://www.gutenberg.org/ebooks/133',
