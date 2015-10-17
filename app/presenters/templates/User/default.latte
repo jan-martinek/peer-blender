@@ -14,7 +14,7 @@
 				<b><a n:href="Course:default $course->id">{$course->name}</a></b>
 				<ul>
 					<li n:foreach="$course->units as $unit">
-						<a n:href="Unit:default $unit->id">{$unit->name}</a>:
+						<b><a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a></b>:
 						
 						{if $unit->isFinalized()}
 							{var assignment = $assignmentRepository->findByUnitAndUser($unit, $userProfile)}
@@ -25,13 +25,15 @@
 								
 								{var reviews = $reviewRepository->findByUnitAndUser($unit, $userProfile)}
 								{if $reviews}
-									({_messages.unit.reviews}:  <span n:foreach="$reviews as $review">
-										{block |strip}{if !is_null($review->score)}
-											<a n:href="Review:default $review->id">{$review->id} ({$review->score})</a>
-										{else}
-											&mdash;
-										{/if}{sep}, {/sep}
-									{/block}</span>)
+									<ul>
+										<li n:foreach="$reviews as $review">
+											{if !is_null($review->score)}
+												<a n:href="Review:default $review->id">{_messages.unit.review} #{$review->id} ({$review->score} &star;)</a>
+											{else}
+												&mdash;
+											{/if}
+										</li>
+									</ul>
 								{/if}
 							{/if}
 					
