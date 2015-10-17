@@ -109,7 +109,6 @@ class UnitPresenter extends BasePresenter
     {
         if ($solution = $this->courseInfo->solution) {
             $solution->edited_at = new DateTime;
-            $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
             if ($values->attachment->isOK()) 
             {
                 $this->removeHomeworkFile($solution->attachment);
@@ -121,6 +120,7 @@ class UnitPresenter extends BasePresenter
                 );    
             }
             $this->solutionRepository->persist($solution);
+            $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
             $this->logEvent($solution, 'edit');
         } else {
             $solution = new Solution;
@@ -129,7 +129,6 @@ class UnitPresenter extends BasePresenter
             $solution->user = $this->userInfo;
             $solution->submitted_at = new DateTime;
             $solution->edited_at = new DateTime;
-            $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
             if ($values->attachment->isOK()) 
             {
                 $solution->attachment = $this->saveHomeworkFile(
@@ -139,7 +138,8 @@ class UnitPresenter extends BasePresenter
                     $this->user->id
                 ); 
             }
-            $this->solutionRepository->persist($solution);            
+            $this->solutionRepository->persist($solution);    
+            $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);        
             $this->logEvent($solution, 'create');
         }
 
