@@ -101,8 +101,8 @@ review:
 	isItWrong: "Je toto hodnocení nesprávné? Vzneste námitku. Pokud se ukáže, že hodnocení bylo skutečně špatné, hodnotitel ztratí bod. Ale pozor &mdash; pokud je hodnocení oprávněné, ztratíte bod vy."
 	writtenIn:
 		moreThanADay: "Recenze byla napsaná za déle než den."
-		inHours: "Recenze byla napsaná za %hours% hodin a %minutes% minut."	
-		inMinutes: "Recenze byla napsaná za %minutes% minut."
+		hours: "Recenze byla napsaná za %hours% hodin a %minutes% minut."	
+		minutes: "Recenze byla napsaná za %minutes% minut."
 objection: 
 	raise: "Vznést námitku"
 	raised: "Námitka byla vznesena"
