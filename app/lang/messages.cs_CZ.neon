@@ -93,6 +93,7 @@ review:
 	verbalAsssessmentCompulsory: "Vyplňte prosím slovní hodnocení úkolu."
 	assessmentMinimumLength: "Slovní hodnocení musí být dlouhé alespoň %count% znaků. I u uzavřených otázek doplňte vlastní komentář."
 	noComment: "bez komentáře"
+	unfinished: "nedokončeno"
 	useRubricsWhileChoosingScore: "Hodnoťte na základě toho, co jste uvedli v písemném hodnocení."
 	editUntilScoring: "Hodnocení můžete průběžně ukládat — ale pouze do chvíle, kdy vyberete konkrétní hodnocení (hvězdičky). Pak se recenze odešle a dostanete další úkol k recenzi."
 	comments: "Komentáře"

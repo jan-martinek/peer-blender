@@ -7,13 +7,19 @@
 	<ul class="no-bullet">
 		{foreach $reviews as $review}
 			{var unit = $review->solution->unit}
-			{if $showIncomplete && is_null($review->score) && !$unit->isFinalized()}
-				<li>
-					<a href="{plink Review:writeForUnit}">{$review->opened_at|date:'j. n. Y, H.i'}</a>
-					&mdash;
-					{_messages.unit.evaluationInProgress},
-					<a href="{plink Review:writeForUnit $unit->id}">{_messages.unit.continue} &rarr;</a>
-				</li>
+			{if $showIncomplete && is_null($review->score)}
+				
+					<li>
+						<a n:tag-if="!$unit->isFinalized()" href="{plink Review:writeForUnit}">{$review->opened_at|date:'j. n. Y, H.i'}</a>
+						&mdash;
+						{if !$unit->isFinalized()}
+							{_messages.unit.evaluationInProgress},
+							<a href="{plink Review:writeForUnit $unit->id}">{_messages.unit.continue} &rarr;</a>
+						{else}
+							{_messages.review.unfinished}
+						{/if}
+					</li>
+				
 			{elseif !is_null($review->score)}
 				<li>
 					<span style="color: #f90; font-weight: bold">{_messages.review.shortScore.$review->score}</span>
