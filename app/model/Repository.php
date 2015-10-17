@@ -87,8 +87,10 @@ class AssignmentRepository extends Repository
         $this->persist($assignment);    
         
         $questions = $generator->getQuestions();
+        $i = 0;
         foreach ($questions as $question) {
             $question->assignment = $assignment;
+            $question->order = $i++;
             $questionRepository->persist($question);
         }
         
