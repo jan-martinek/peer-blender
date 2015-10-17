@@ -71,7 +71,7 @@ unit:
 solution:
 	writtenBy: "Odevzdal/a"
 	writtenIn:
-		moreThanADay: "po více 24 hodinách od vygenerování úkolu."
+		moreThanADay: "po více než dni od vygenerování úkolu."
 		hours: "po %hours% hodinách a %minutes% minutách od vygenerování úkolu."
 		minutes: "po %minutes% minutách od vygenerování úkolu."
 review:
