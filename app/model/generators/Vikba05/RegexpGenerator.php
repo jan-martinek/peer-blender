@@ -52,7 +52,7 @@ class RegexpGenerator extends Nette\Object implements IGenerator
             '[a-z]+@[a-z]+\.[a-z]+',
             '(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?',
             '<[a-z0-9]+>.+</[a-z0-9]+>',
-            '**.+**',
+            '\*\*[^*]+\*\*',
             '\[.+\]\(.+\)',
             '\n#+ .+',
             '.+',
