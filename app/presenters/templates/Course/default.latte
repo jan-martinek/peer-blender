@@ -11,6 +11,18 @@
 <div id="content" class="row">
 	<div class="columns">
 		<p><a n:href="Course:enrolled, $course->id">{_messages.course.totalEnrolled, [count => count($course->enrollments)]}</a></p>
+	</div>
+
+	<div class="columns large-6">
+		{!$course->methods|md}
+	</div>
+	
+	<div class="columns large-6">
+		{!$course->support|md}
+	</div>
+
+	<div class="columns">
+		<h2>{_messages.app.units}</h2>
 	
 		<ul class="units">
 			<li n:foreach="$units as $unit">

@@ -3,6 +3,7 @@ app:
 	subtitle: "Peer assessment-based homework tool"
 	courses: "Courses"
 	unit: "Unit"
+	units: "Units"
 	review: "Review"
 	solution: "Solution"
 	home: "Home"

@@ -117,6 +117,8 @@ class Assignment extends Entity
  * @property int $id
  * @property string $name
  * @property string $goals
+ * @property string $methods
+ * @property string $support
  * @property Unit[] $units m:belongsToMany
  * @property Enrollment[] $enrollments m:belongsToMany
  * @property int $reviewCount (review_count)

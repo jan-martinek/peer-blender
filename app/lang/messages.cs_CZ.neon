@@ -3,6 +3,7 @@ app:
 	subtitle: "Nástroj pro vzájemné hodnocení domácích úkolů („peer assessment“)"
 	courses: "Kurzy"
 	unit: "Lekce"
+	units: "Lekce"
 	review: "Hodnocení"
 	solution: "Řešení"
 	home: "Domů"
