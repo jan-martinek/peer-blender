@@ -112,6 +112,7 @@ class ReviewPresenter extends BasePresenter
     
     public function reviewFormSucceeded(ReviewForm $form, $values) 
     {
+        $review = $this->courseInfo->review;
         $review->score = $values->score;
         $review->assessmentSet = $values->rubrics;
         $review->comments = $values->comments;
