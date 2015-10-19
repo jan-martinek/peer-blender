@@ -30,11 +30,20 @@
 
 
 {block homeworkForm}
-	<h2>{_messages.unit.myHomework}</h2>
+	<h2>
+		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
+		{_messages.unit.myHomework}</h2>
 	
 	<div n:if="$solution" class="panel callout">
-		<p>{!_messages.unit.homeworkSaved, [date => $unit->reviews_since->format('j. n. Y H.i')]|imd}</p>
-	</div>
+		<p>{!_messages.unit.homeworkSaved|imd}<br>
+		
+		{if $solution && $solution->isComplete()}
+			<span style="color: green">●</span> {_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+		{else}
+			<span style="color: red">●</span> {_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+		{/if}
+		</p>
+	</div>	
 	
 	{form homeworkForm}
 		<div class="assignmentQuestion" n:foreach="$form['questions']->controls as $name => $question">
@@ -108,7 +117,7 @@
 
 		{if $unit->isCurrentPhase($unit::PUBLISHED)}
 			{include homeworkForm}
-		{elseif !is_null($solution)}
+		{elseif !is_null($solution) && $solution->isComplete()}
 			{include finishedHomework}
 			
 			<hr>

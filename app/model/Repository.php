@@ -290,47 +290,78 @@ class ReviewRepository extends Repository
 }
 
 class SolutionRepository extends Repository
-{
-    public function findSolutionToReview($unit, $reviewer) 
+{    
+    public function findSolutionToReview($unit, $reviewer, $userLimit = TRUE, $unitLimit = TRUE) 
     {
-        $alreadyReviewedByMe = $this->connection->query(
-            'SELECT solution.id AS id 
-              FROM solution
-              LEFT JOIN review ON solution.id = review.solution_id
-              WHERE solution.unit_id = %i', $unit->id, 'AND reviewed_by_id = %i', $reviewer->id)->fetchAssoc('id');
+        $completeIds = $this->findAllComplete($unit);
+        if (!count($completeIds)) {
+            throw new SolutionToReviewNotFoundException();
+            return FALSE;
+        }
         
-        
-        if (count($alreadyReviewedByMe) >= $unit->course->reviewCount) {
+        $reviewedByMeIds = $this->findReviewedByMe($reviewer, $unit);
+        if ($userLimit && count($reviewedByMeIds) >= $unit->course->reviewCount) {
             throw new ReviewLimitReachedException();
             return FALSE;
         }
         
-        $reviewStats = $this->connection->query(
+        $groupedByReviewCount = $this->groupCompletedByReviewCount(
+            $completeIds,
+            $reviewedByMeIds,
+            $reviewer->id  
+        );
+        
+        $lowestReviewCount = min(array_keys($groupedByReviewCount));
+        if ($unitLimit && $lowestReviewCount >= $unit->course->reviewCount) {
+            throw new SolutionToReviewNotFoundException();
+            return FALSE;
+        }
+        
+        $randomId = array_rand($groupedByReviewCount[$lowestReviewCount]);
+        
+        return $this->find($randomId);
+    }
+    
+    public function groupCompletedByReviewCount($completeIds, $reviewedByMeIds, $reviewerId) 
+    {        
+         return $this->connection->query(
             'SELECT solution.id, count(*) as reviewCount
               FROM solution
               LEFT JOIN review ON solution.id = review.solution_id
-              WHERE solution.unit_id = %i', $unit->id,
-              'AND solution.id NOT IN %in', count($alreadyReviewedByMe) ? array_keys($alreadyReviewedByMe) : array(0),
-              'AND solution.user_id != %i', $reviewer->id,
-            'GROUP BY solution.id')->fetchAssoc('reviewCount,id');
-        
-        if (!count($reviewStats)) {
-            throw new SolutionToReviewNotFoundException();
-            return FALSE;
-        }
-        
-        $lowestReviewCount = min(array_keys($reviewStats));
-        
-        if ($lowestReviewCount >= $unit->course->reviewCount) {
-            throw new SolutionToReviewNotFoundException();
-            return FALSE;
-        }
-        
-        $randomlyPickedSolutionId = array_rand($reviewStats[$lowestReviewCount]);
-        
-        return $this->find($randomlyPickedSolutionId);
+              WHERE solution.id IN %in', $completeIds,
+              'AND solution.id NOT IN %in', $reviewedByMeIds,
+              'AND solution.user_id != %i', $reviewerId,
+            'GROUP BY solution.id')->fetchAssoc('reviewCount,id');     
     }
     
+    public function findReviewedByMe($reviewer, $unit = null) {
+        $ids = $this->connection->query(
+            'SELECT solution.id AS id 
+              FROM solution
+              LEFT JOIN review ON solution.id = review.solution_id
+              WHERE solution.unit_id = %i', $unit->id, 
+              'AND reviewed_by_id = %i', $reviewer->id)
+        ->fetchAssoc('id');
+        
+        return array_keys($ids);
+    }
+    
+    public function findAllComplete($unit)
+    {
+        $attachmentOK = $this->connection->query(
+            'SELECT id FROM solution WHERE unit_id = %i', $unit->id, 'AND attachment != ""'
+        )->fetchAssoc('id');
+        
+        $incompleteIds = $this->connection->query(
+            'SELECT solution.id
+              FROM solution
+              LEFT JOIN answer ON solution.id = answer.solution_id
+              WHERE solution.unit_id = %i', $unit->id,
+              'AND [answer].[text] = ""'
+        )->fetchAssoc('id');
+        
+        return array_diff(array_keys($attachmentOK), array_keys($incompleteIds));
+    }  
 }
 
 class SolutionToReviewNotFoundException extends Exception {

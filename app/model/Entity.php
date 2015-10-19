@@ -285,6 +285,23 @@ class Solution extends FavoritableEntity
         return count($scores) ? array_sum($scores) / count($scores) : FALSE;
     }
 
+    /**
+     * Checks whether all questions have been answered and a file has been submitted
+     */
+    public function isComplete()
+    {
+        foreach($this->answers as $answer) {
+            if (trim($answer->text) === '') {
+                return FALSE;
+            }
+        }
+        
+        if (!$this->attachment) {
+            return FALSE;
+        }
+        
+        return TRUE;
+    }
 }
 
 /**

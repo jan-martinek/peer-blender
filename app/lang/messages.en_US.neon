@@ -39,7 +39,7 @@ unit:
 	instructions: "Instructions"
 	solution: "Solution"
 	notAnswered: "Not answered."
-	homeworkSaved: "**Your homework has been saved.** You can edit it until the review phase comes (%date%)."
+	homeworkSaved: "**Your homework has been saved.**"
 	homeworkAttachment: "Attachment"
 	homeworkAttachmentNote: "maximum size is %filesize% kB; archive files into ZIP if needed"
 	submittedAttachment: "Submitted attachment"
@@ -74,6 +74,8 @@ solution:
 		moreThanADay: "after more than 24 hours since the assignment has been generated."
 		hours: "after %hours% hours and %minutes% minutes since the assignment has been generated."
 		minutes: "after %minutes% minutes since the assignment has been generated."
+	complete: "Assignment has been completed and will be submitted to the review process. You can still edit it until the review phase comes (%date%)."
+	notComplete: "Assignment has not been completed yet and will not get reviews in the next phase. You can edit it until the review phase comes (%date%)."
 review:
 	score: 
 		title: "Score"

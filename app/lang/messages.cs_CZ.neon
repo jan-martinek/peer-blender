@@ -39,7 +39,7 @@ unit:
 	instructions: "Pokyny"
 	solution: "Řešení"
 	notAnswered: "Nezodpovězeno."
-	homeworkSaved: "**Váš úkol byl uložen.** Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
+	homeworkSaved: "**Váš úkol byl uložen.**"
 	homeworkAttachment: "Příloha"
 	homeworkAttachmentNote: "maximální velikost souboru je %filesize% kB, pokud je to potřeba, můžete soubor zazipovat"
 	submittedAttachment: "Uložené přílohy"
@@ -74,6 +74,8 @@ solution:
 		moreThanADay: "po více než dni od vygenerování úkolu."
 		hours: "po %hours% hodinách a %minutes% minutách od vygenerování úkolu."
 		minutes: "po %minutes% minutách od vygenerování úkolu."
+	complete: "Úkol je hotový a bude připuštěn k hodnocení.	 Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
+	notComplete: "Úkol zatím není hotový a v současném stavu nebude připuštěn k hodnocení. Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
 review:
 	score: 
 		title: "Hodnocení"
