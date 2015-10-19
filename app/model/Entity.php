@@ -87,27 +87,12 @@ class Answer extends Entity
  * @property DateTime $generated_at
  * @property string $preface
  * @property Question[] $questions m:belongsToMany
- * @property string $questionsx (questions)
  * @property Answer[] $answers m:belongsToMany
  * @property string $rubrics
  * @property Solution|NULL $solution m:belongsToOne(assignment_id)
  */
 class Assignment extends Entity
-{
-    /**
-     * @return array
-     */
-    public function getQuestionSet() 
-    {
-        $set = @unserialize($this->questionsx);
-        if ($set !== FALSE) {
-            return $set;
-        } else {
-            return json_decode($this->questionsx, true);
-        }
-        
-    }
-    
+{   
     /**
      * @return array
      */
@@ -248,26 +233,11 @@ class Review extends FavoritableEntity
  * @property DateTime $submitted_at
  * @property DateTime $edited_at
  * @property Answer[] $answers m:belongsToMany
- * @property string $answerx (answer)
  * @property string|NULL $attachment
  * @property Review[]|NULL $reviews m:belongsToMany(solution_id)
  */
 class Solution extends FavoritableEntity
 {   
-    /**
-     * @return array
-     */
-    public function getAnswerSet() 
-    {
-        $set = @unserialize($this->answerx);
-        if ($set !== FALSE) {
-            return $set;
-        } else {
-            return json_decode($this->answerx, true);
-        }
-        
-    }
-    
     public function getScore() 
     {
         if (is_null($this->reviews)) {
