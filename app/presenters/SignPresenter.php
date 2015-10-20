@@ -35,7 +35,13 @@ class SignPresenter extends BasePresenter
                 $this->logEvent($this->userRepository->find($this->user->id), 'login');
             }
             if (!empty($this->backlink)) {
-                $this->getPresenter()->redirect($this->getPresenter()->restoreRequest($this->backlink));
+                try {
+                    $this->getPresenter()->redirect($this->getPresenter()->restoreRequest($this->backlink));    
+                } catch (Nette\Application\UI\InvalidLinkException $e) {
+                    $form->getPresenter()->redirect('Homepage:');
+                }
+                
+                
             } else {
                 $form->getPresenter()->redirect('Homepage:');
             }
