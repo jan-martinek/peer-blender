@@ -32,7 +32,8 @@
 {block homeworkForm}
 	<h2>
 		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
-		{_messages.unit.myHomework}</h2>
+		{_messages.unit.myHomework}
+	</h2>
 	
 	<div n:if="$solution" class="panel callout">
 		<p>{!_messages.unit.homeworkSaved|imd}<br>

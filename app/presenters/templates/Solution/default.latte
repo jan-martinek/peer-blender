@@ -30,7 +30,10 @@
 {/block}
 
 {block finishedHomework}
-	<h2>{_messages.unit.homework}</h2>
+	<h2>
+		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
+		{_messages.unit.homework}
+	</h2>
 	
 	<div class="panel callout" n:if="$solution->unit->isFinalized()">
 		<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a></p>
