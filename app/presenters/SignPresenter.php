@@ -47,7 +47,9 @@ class SignPresenter extends BasePresenter
     
     public function actionIn($backlink = null) 
     {
-        
+        if ($this->user->isLoggedIn()) {
+            $this->redirect('Homepage:default');
+        }   
     }
     
     
