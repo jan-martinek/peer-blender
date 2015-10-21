@@ -52,7 +52,7 @@ class ReviewPresenter extends BasePresenter
     
     public function actionWriteForUnit($id) 
     {
-        $unit = $this->unitRepository->find($id);
+        $unit = $this->courseInfo->insert($this->unitRepository->find($id));
         $this->template->uploadPath = $this->uploadStorage->path;
         
         $this->template->unit = $unit;
