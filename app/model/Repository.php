@@ -106,7 +106,7 @@ class CourseRepository extends Repository
             $units[] = $unit->id;
         }
         return $this->connection->query('SELECT solution.unit_id, count(*), AVG(score), std(score) FROM review
-            JOIN solution ON solution.id = review.id
+            JOIN solution ON solution.id = review.solution_id
             WHERE unit_id IN %in', $units,
             'GROUP BY unit_id')->fetchAll();
     }
