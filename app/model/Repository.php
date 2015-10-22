@@ -287,6 +287,36 @@ class ReviewRepository extends Repository
         
         return $this->createEntities($query->fetchAll());
     }    
+    
+    public function findByUnit($unit) {
+        $query = $this->connection->query(
+            'SELECT review.* FROM review 
+            LEFT JOIN solution ON solution_id = solution.id 
+            WHERE solution.unit_id = %i', $unit->id,
+            'ORDER BY opened_at');
+        
+        return $this->createEntities($query->fetchAll());
+    }  
+    
+    public function findFavoriteByUnit($unit) 
+    {   
+        $reviewIds = array_keys($this->connection->query(
+            'SELECT review.* FROM review 
+            LEFT JOIN solution ON solution_id = solution.id 
+            WHERE solution.unit_id = %i', $unit->id,
+            'ORDER BY opened_at')->fetchAssoc('id'));
+        
+        $reviews = $this->connection->query('SELECT review.*, count(favorite.id) as favorites
+            FROM review 
+            LEFT JOIN favorite ON (favorite.entity = "Review" AND favorite.entity_id = review.id) 
+            WHERE review.id IN %in', $reviewIds, '
+            GROUP BY favorite.id
+            HAVING favorites > 0
+            ORDER BY favorites
+            LIMIT 0, 5')->fetchAll();
+        
+        return $this->createEntities($reviews);
+    }
 }
 
 class SolutionRepository extends Repository
@@ -362,6 +392,20 @@ class SolutionRepository extends Repository
         
         return array_diff(array_keys($attachmentOK), array_keys($incompleteIds));
     }  
+    
+    public function findFavoriteByUnit($unit) 
+    {   
+        $solutions = $this->connection->query('SELECT solution.*, count(favorite.id) as favorites
+            FROM solution 
+            LEFT JOIN favorite ON (favorite.entity = "Solution" AND favorite.entity_id = solution.id) 
+            WHERE unit_id = %i', $unit->id, '
+            GROUP BY favorite.id
+            HAVING favorites > 0
+            ORDER BY favorites
+            LIMIT 0, 5')->fetchAll();
+        
+        return count($solutions) ? $this->createEntities($solutions) : array();
+    }
 }
 
 class SolutionToReviewNotFoundException extends Exception {

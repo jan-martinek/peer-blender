@@ -30,10 +30,34 @@
 					<a n:tag-if="$unit->hasBeenPublished()" n:href="Unit:default $unit->id">{$unit->name}</a>
 				</h3>
 				{control phasesRenderer $unit}
+			
+				<div class="row">
+					{var goalsWidth = '4'}
+					{if !count($favoriteSolutions[$unit->id])}{? $goalsWidth += 2}{/if}
+					{if !count($favoriteReviews[$unit->id])}{? $goalsWidth += 4}{/if}
 				
-				{if $unit->goals}
-					{!$unit->goals|md}
-				{/if}
+					<div class="columns large-{$goalsWidth}">
+						<h4>{_messages.unit.goals}</h4>
+						{if $unit->goals}
+							{!$unit->goals|md}
+						{/if}
+					</div>
+					{dump count($favoriteSolutions[$unit->id])}
+					<div n:if="count($favoriteSolutions[$unit->id])" class="columns large-2">
+						<h4>★{_messages.unit.solutions}</h4>
+						<ul>
+							
+							<li n:foreach="$favoriteSolutions[$unit->id] as $solution">
+								<a n:href="Solution:default $solution->id">{_messages.app.solution} {$solution->id}</a>
+							</li>
+						</ul>
+						
+					</div>
+					<div n:if="count($favoriteReviews[$unit->id])" class="columns large-6">
+						<h4>★{_messages.unit.reviews}</h4>
+						{control reviewsRenderer $favoriteReviews[$unit->id]}
+					</div>
+				</div>
 			</li>
 		</ul>
 	</div>

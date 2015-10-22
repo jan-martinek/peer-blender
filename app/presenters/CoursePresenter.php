@@ -16,6 +16,12 @@ class CoursePresenter extends BasePresenter
     /** @var \Model\Repository\UnitRepository @inject */
     public $unitRepository;
     
+    /** @var \Model\Repository\SolutionRepository @inject */
+    public $solutionRepository;
+        
+    /** @var \Model\Repository\ReviewRepository @inject */
+    public $reviewRepository;
+    
     public function actionDefault($id)
     {
         $this->courseInfo->insert($this->courseRepository->find($id));
@@ -27,6 +33,20 @@ class CoursePresenter extends BasePresenter
         
         $this->template->course = $course;
         $this->template->units  = $course->units;
+        
+        $favoriteSolutions = array();
+        foreach ($course->units as $unit) {
+            $favoriteSolutions[$unit->id] = $this->solutionRepository->findFavoriteByUnit($unit);
+        }
+        
+        $this->template->favoriteSolutions = $favoriteSolutions;
+        
+        $favoriteReviews = array();
+        foreach ($course->units as $unit) {
+            $favoriteReviews[$unit->id] = $this->reviewRepository->findFavoriteByUnit($unit);
+        }
+        
+        $this->template->favoriteReviews = $favoriteReviews;
     }
     
     public function actionEnrolled($id)

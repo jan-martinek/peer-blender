@@ -39,6 +39,7 @@ unit:
 	myHomework: "Můj domácí úkol"
 	instructions: "Pokyny"
 	solution: "Řešení"
+	solutions: "Řešení"
 	notAnswered: "Nezodpovězeno."
 	homeworkSaved: "**Váš úkol byl uložen.**"
 	homeworkAttachment: "Příloha"

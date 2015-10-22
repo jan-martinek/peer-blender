@@ -39,6 +39,7 @@ unit:
 	myHomework: "My homework"
 	instructions: "Instructions"
 	solution: "Solution"
+	solutions: "Solutions"
 	notAnswered: "Not answered."
 	homeworkSaved: "**Your homework has been saved.**"
 	homeworkAttachment: "Attachment"
