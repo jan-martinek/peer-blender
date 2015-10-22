@@ -1,0 +1,14 @@
+{block title}Log{/block}
+
+{block content}
+<div id="content" class="row">
+	<div class="columns">
+		<ul>
+			<li n:foreach="$files as $file">
+				<a n:href="ErrorLog:exception, filename => substr($file, strrpos($file, '/')+1)">
+					{=substr($file, strrpos($file, '/')+1)}
+				</a>
+			</li>
+		</ul>
+	</div>
+</div>

@@ -40,7 +40,9 @@ class UserRepository extends Repository implements Nette\Security\IAuthenticator
         $arr = $row->toArray();
         unset($arr[self::COLUMN_PASSWORD_HASH]);
 
-        return new Nette\Security\Identity($row[self::COLUMN_ID], array('registered'), $arr);
+        $roles = $row->role ? explode(',', $row->role) : array('registered');
+
+        return new Nette\Security\Identity($row[self::COLUMN_ID], $roles, $arr);
     }
 
     /**

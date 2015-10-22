@@ -185,12 +185,13 @@ CREATE TABLE `user` (
   `password` varchar(255) COLLATE utf8_czech_ci NOT NULL,
   `password_reset_token` varchar(10) COLLATE utf8_czech_ci DEFAULT NULL,
   `password_reset_valid_until` datetime DEFAULT NULL,
+  `role` enum('admin','registered') COLLATE utf8_czech_ci DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `user` (`id`, `name`, `email`, `password`, `password_reset_token`, `password_reset_valid_until`) VALUES
-(1, 'Test Admin', 'admin@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00'),
-(2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', 'b39b0361a2', '2015-09-30 02:38:31'),
-(3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00');
+INSERT INTO `user` (`id`, `name`, `email`, `password`, `password_reset_token`, `password_reset_valid_until`, `role`) VALUES
+(1, 'Test Admin', 'admin@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00',  'admin'),
+(2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', 'b39b0361a2', '2015-09-30 02:38:31',  NULL),
+(3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00',  NULL);
 
--- 2015-10-14 14:38:16
+-- 2015-10-22 11:36:04
