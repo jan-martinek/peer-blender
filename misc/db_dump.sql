@@ -5,6 +5,20 @@ SET foreign_key_checks = 0;
 SET time_zone = '+02:00';
 SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
+DROP TABLE IF EXISTS `answer`;
+CREATE TABLE `answer` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `solution_id` int(10) unsigned NOT NULL,
+  `question_id` int(10) unsigned NOT NULL,
+  `text` text COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `solution_id` (`solution_id`),
+  KEY `question_id` (`question_id`),
+  CONSTRAINT `answer_ibfk_3` FOREIGN KEY (`solution_id`) REFERENCES `solution` (`id`),
+  CONSTRAINT `answer_ibfk_4` FOREIGN KEY (`question_id`) REFERENCES `question` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
 DROP TABLE IF EXISTS `assignment`;
 CREATE TABLE `assignment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -27,6 +41,9 @@ CREATE TABLE `course` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(255) COLLATE utf8_czech_ci NOT NULL,
   `goals` text COLLATE utf8_czech_ci NOT NULL,
+  `methods` text COLLATE utf8_czech_ci NOT NULL,
+  `support` text COLLATE utf8_czech_ci NOT NULL,
+  `footer` text COLLATE utf8_czech_ci NOT NULL,
   `contact_email` text COLLATE utf8_czech_ci NOT NULL,
   `review_count` tinyint(4) NOT NULL DEFAULT '5',
   `upload_max_filesize_kb` smallint(6) NOT NULL,
@@ -34,9 +51,8 @@ CREATE TABLE `course` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `course` (`id`, `name`, `goals`, `contact_email`, `review_count`, `upload_max_filesize_kb`, `ga_code`) VALUES
-(1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  '', 5,  500,  'BB');
-
+INSERT INTO `course` (`id`, `name`, `goals`, `methods`, `support`, `footer`, `contact_email`, `review_count`, `upload_max_filesize_kb`, `ga_code`) VALUES
+(1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  '', '', '', '', 5,  500,  'BB');
 DROP TABLE IF EXISTS `enrollment`;
 CREATE TABLE `enrollment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -82,6 +98,24 @@ CREATE TABLE `log` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(10) unsigned NOT NULL,
+  `course_id` int(10) unsigned NOT NULL,
+  `unit_id` int(10) unsigned DEFAULT NULL,
+  `submitted_at` datetime NOT NULL,
+  `text` text COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `course_id` (`course_id`),
+  KEY `unit_id` (`unit_id`),
+  CONSTRAINT `message_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
+  CONSTRAINT `message_ibfk_2` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
+  CONSTRAINT `message_ibfk_3` FOREIGN KEY (`unit_id`) REFERENCES `unit` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
 DROP TABLE IF EXISTS `objection`;
 CREATE TABLE `objection` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -115,6 +149,20 @@ CREATE TABLE `objection_open` (
   KEY `arbiter_id` (`arbiter_id`),
   CONSTRAINT `objection_open_ibfk_1` FOREIGN KEY (`objection_id`) REFERENCES `objection` (`id`),
   CONSTRAINT `objection_open_ibfk_2` FOREIGN KEY (`arbiter_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
+DROP TABLE IF EXISTS `question`;
+CREATE TABLE `question` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `assignment_id` int(10) unsigned NOT NULL,
+  `order` smallint(6) NOT NULL,
+  `type` enum('plaintext','markdown') COLLATE utf8_czech_ci NOT NULL,
+  `text` text COLLATE utf8_czech_ci NOT NULL,
+  `prefill` text COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `assignment_id` (`assignment_id`),
+  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`assignment_id`) REFERENCES `assignment` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
