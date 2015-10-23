@@ -67,11 +67,11 @@ class TablesGenerator extends Nette\Object implements IGenerator
         );
         
         $entityDescription = new SimpleQuestionset('apply');
-        $entityDescription->addRandomizedQuestion('Vymyslete 3 atributy entity „%entita%“, které budete zapisovat jako celé číslo, reálné číslo, text, datum/čas a logickou pravdu či nepravdu.', array('entita' => $entitiesDict), 2);  
+        $entityDescription->addRandomizedQuestion('Vymyslete k entitě „%entita%“ 3 atributy, které budete zapisovat jako celé číslo, reálné číslo, text, datum/čas a logickou pravdu či nepravdu (tedy celkem 15 atributů).', array('entita' => $entitiesDict), 2);  
 
 
         $create1 = new SimpleQuestionset('create');
-        $create1->addRandomizedQuestion('Vytvořte tabulku, která bude mít alespoň %rows% řádků a %cols% sloupců + hlavička. Tabulka bude popisovat %objects% objektů, které mají podobné vlastnosti. V každém sloupci bude jeden atribut. Až budete mít tabulku vytvořenou, zamyslete se, jaký typ hodnot mají jednotlivé atributy. Data v tabulce mohou být reálná nebo smyšlená. Soustřeďte se na konzistenci dat.'
+        $create1->addRandomizedQuestion('Vytvořte tabulku, která bude mít alespoň %rows% řádků (+ hlavička) a %cols% sloupců. Tabulka bude popisovat %rows% objektů, které mají podobné vlastnosti. V každém sloupci bude jeden atribut. Až budete mít tabulku vytvořenou, zamyslete se, jaký typ hodnot mají jednotlivé atributy. Data v tabulce mohou být reálná nebo smyšlená. Soustřeďte se na konzistenci dat.'
             . "\n\n"
             . '> Příklad: Tabulka automobilů, ve sloupcích např. výrobce (text), model (text), SPZ (šestimístný kód), barva (text, popř. kód barvy), počet míst k sezení (celé číslo), objem válců (celé číslo), rok výroby (čtyřmístné číslo).',
             array(
@@ -91,9 +91,11 @@ class TablesGenerator extends Nette\Object implements IGenerator
         
         $nameparts = array('křestní jméno', 'příjmení');
         $create3 = new SimpleQuestionset('create');
-        $create3->addRandomizedQuestion('Ze [sdíleného souboru](https://goo.gl/9D2Rk1) si zkopírujte data do vašeho tabulkového procesoru. Odstraňte z něj duplicity, vyfiltrujte záznamy, které začínají na stejné písmeno jako vaše %name1% a ostatní vymažte. Ve druhém sloupci zvýrazněte vaší oblíbenou barvou záznamy, které začínají na písmeno jako vaše %name2%. (Pokud takové položky v seznamu nejsou, tak si vyberte jiné písmeno a napište to do komentáře.) Ve třetím sloupci zvýrazněte kladné záznamy zelenou výplní a záporné červenou výplní.'
+        $create3->addRandomizedQuestion('Ze [sdíleného souboru](https://goo.gl/9D2Rk1) si zkopírujte data do vašeho tabulkového procesoru. Odstraňte z něj duplicity, vyfiltrujte záznamy, které začínají na stejné písmeno jako vaše %name1% a ostatní vymažte. Ve druhém sloupci zvýrazněte vaší oblíbenou barvou záznamy, které začínají na písmeno jako vaše %name2%. (Pokud takové záznamy v seznamu nejsou, tak si vyberte jiné písmeno a napište to do komentáře.) Ve třetím sloupci zvýrazněte kladné záznamy zelenou výplní a záporné červenou výplní.'
             . "\n\n"
-            . 'Své jméno do úkolu neuvádějte.',
+            . 'Své jméno do úkolu neuvádějte.'
+            . "\n\n"
+            . '> Všechny praktické úkoly uložte do jednoho sešitu, každý úkol na jeden list. Sešit uložte jako ukoly.xls a odevzdejte.',
             array(
                 'name1' => $nameparts,
                 'name2' => $nameparts
