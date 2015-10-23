@@ -33,12 +33,14 @@ class SimpleQuestionset extends Questionset implements IQuestionset
     public function addRandomizedQuestion($questionTemplate, array $params, $count = 1) 
     {
         for ($i = 1; $i <= $count; $i++) {
+            $question = $questionTemplate;
             foreach ($params as $name => $group) {
                 $key = array_rand($group);
-                $this->questions[] = strtr($questionTemplate, array('%' . $name . '%' => $group[$key]));
+                $question = strtr($question, array('%' . $name . '%' => $group[$key]));
                 unset($params[$name][$key]);
                 unset($group[$key]);
             }
+            $this->questions[] = $question;
         }
     }
     
