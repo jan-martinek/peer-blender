@@ -46,6 +46,8 @@
 		</p>
 	</div>	
 	
+	{!$assignment->preface|md}
+	
 	{form homeworkForm}
 		<div class="assignmentQuestion" n:foreach="$form['questions']->controls as $name => $question">
 			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
