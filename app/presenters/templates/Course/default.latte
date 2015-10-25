@@ -32,9 +32,10 @@
 				{control phasesRenderer $unit}
 			
 				<div class="row">
-					{var goalsWidth = '4'}
-					{if !count($favoriteSolutions[$unit->id])}{? $goalsWidth += 2}{/if}
-					{if !count($favoriteReviews[$unit->id])}{? $goalsWidth += 4}{/if}
+					{var goalsWidth = '12'}
+					{var reviewsStarted = $unit->hasReviewsPhaseStarted()}
+					{if $reviewsStarted && count($favoriteSolutions[$unit->id])}{? $goalsWidth -= 2}{/if}
+					{if $reviewsStarted && count($favoriteReviews[$unit->id])}{? $goalsWidth -= 6}{/if}
 				
 					<div class="columns large-{$goalsWidth}">
 						<h4>{_messages.unit.goals}</h4>
@@ -42,8 +43,8 @@
 							{!$unit->goals|md}
 						{/if}
 					</div>
-					{dump count($favoriteSolutions[$unit->id])}
-					<div n:if="count($favoriteSolutions[$unit->id])" class="columns large-2">
+
+					<div n:if="$reviewsStarted && count($favoriteSolutions[$unit->id])" class="columns large-2">
 						<h4>★{_messages.unit.solutions}</h4>
 						<ul>
 							
@@ -53,7 +54,7 @@
 						</ul>
 						
 					</div>
-					<div n:if="count($favoriteReviews[$unit->id])" class="columns large-6">
+					<div n:if="$reviewsStarted && count($favoriteReviews[$unit->id])" class="columns large-6">
 						<h4>★{_messages.unit.reviews}</h4>
 						{control reviewsRenderer $favoriteReviews[$unit->id]}
 					</div>

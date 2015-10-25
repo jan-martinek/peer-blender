@@ -40,6 +40,11 @@ class SolutionPresenter extends BasePresenter
     {
         $solution = $this->courseInfo->solution;
         $this->template->solution = $solution;
+        
+        if (!$this->courseInfo->unit->hasReviewsPhaseStarted()) {
+            throw new \Nette\Application\BadRequestException('Forbidden', 403);
+        }
+        
         $this->template->answers = $solution->answers;
         
         $this->template->isFavorited = $solution->isFavoritedBy($this->userInfo);
