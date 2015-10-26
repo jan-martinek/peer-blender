@@ -15,7 +15,7 @@ abstract class Repository extends \LeanMapper\Repository
             ->fetch();
 
         if ($row === false) {
-            throw new \Exception('Entity was not found.');
+            throw new \Nette\Application\BadRequestException('Entity does not exist.', 404);
         }
 
         return $this->createEntity($row);
