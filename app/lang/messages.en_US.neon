@@ -50,7 +50,7 @@ unit:
 	submitRepeatedly: "**Tip:** You can save your homework multiple times, until this phase ends. Feel easy about saving your work half-way through."
 	review: "Review"
 	reviews: "Reviews"
-	myAssesment: "My assessment"
+	myAssessment: "My assessment"
 	myReviewsOfOthers: "Reviews I've written"
 	evaluationInProgress: "evaluation in progress"
 	noReviewsFound: "No reviews have been found."

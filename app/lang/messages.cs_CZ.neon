@@ -50,7 +50,7 @@ unit:
 	submitRepeatedly: "**Tip:** Úkol můžete průběžně ukládat, včetně přílohy, kterou můžete nahrát znovu a starý soubor se přepíše novým."
 	review: "Hodnocení"
 	reviews: "Hodnocení"
-	myAssesment: "Hodnocení mého úkolu"
+	myAssessment: "Hodnocení mého úkolu"
 	myReviewsOfOthers: "Hodnocení ostatních"
 	evaluationInProgress: "hodnocení probíhá"
 	noReviewsFound: "Nenalezena žádná hodnocení."
