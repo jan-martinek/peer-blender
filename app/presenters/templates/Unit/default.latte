@@ -8,7 +8,13 @@
 	<p>
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
 		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
-		{_messages.app.unit}
+		{if $lateEdits}
+			<a n:href="Unit:default $unit->id">{_messages.app.unit}</a> &rsaquo; 
+			{_messages.unit.homeworkEdit}
+		{else}
+			{_messages.app.unit}			
+		{/if}
+		
 	</p>
 {/block}
 
@@ -38,10 +44,12 @@
 	<div n:if="$solution" class="panel callout">
 		<p>{!_messages.unit.homeworkSaved|imd}<br>
 		
-		{if $solution && $solution->isComplete()}
-			<span style="color: green">●</span> {_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
-		{else}
-			<span style="color: red">●</span> {_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+		{if $unit->isCurrentPhase($unit::PUBLISHED)}
+			{if $solution && $solution->isComplete()}
+				<span style="color: green">●</span> {_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+			{else}
+				<span style="color: red">●</span> {_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+			{/if}
 		{/if}
 		</p>
 	</div>	
@@ -112,34 +120,44 @@
 	{/if}
 {/block}
 
+{block editAfterDeadline}
+	<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
+	<a n:href="this, lateEdits => TRUE" class="button">{_messages.unit.editAfterDeadline}</a>
+{/block}
 
 {block content}
+{var lateEditsAcceptable = $unit->hasObjectionsPhaseStarted() && (is_null($solution) || !count($solution->reviews))}
+
 <div id="content" class="row">
 	<div class="columns">
 		{include unitInfo}
 
 		{if $unit->isCurrentPhase($unit::PUBLISHED)}
 			{include homeworkForm}
+		{elseif $lateEdits && $lateEditsAcceptable}
+			<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
+			{include homeworkForm}
 		{elseif !is_null($solution) && $solution->isComplete()}
 			{include finishedHomework}
 			
 			<hr>
 			
-			<div class="row">
-				<div class="columns large-6">
-					{include myAssessment}
+			{if $lateEditsAcceptable}
+				{include editAfterDeadline}
+			{else}
+				<div class="row">
+					<div class="columns large-6">
+						{include myAssessment}
+					</div>
+					<div class="columns large-6">
+						{include myReviewsOfOthers}
+					</div>
 				</div>
-				<div class="columns large-6">
-					{include myReviewsOfOthers}
-				</div>
-			</div>
-			
-		
-			
+			{/if}
+		{elseif $lateEditsAcceptable}
+			{include editAfterDeadline}
 		{else}
-			<div class="panel callout">
-				{_messages.unit.cannotReviewOthers}
-			</div>
+			<div class="panel callout">{_messages.unit.cannotReviewOthers}</div>
 		{/if}
 	</div>
 </div>

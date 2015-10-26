@@ -60,7 +60,10 @@ unit:
 	reviewMore: "You need to review %count% homeworks."
 	enoughReviews: "Great! You reviewed %count% homeworks! Thanks!"
 	averageScore: "Score (average)"
-	cannotReviewOthers: "You cannot review other's work without submitting your own assignment."
+	cannotReviewOthers: "You cannot review other's work without submitting your own assignment in time. After the phase of reviews is finished you can work on your assignment, but you won't be rewarded any points."
+	submittingAfterDeadline: "When you miss the deadline, you can still work on your assignment (after the reviews phase is over). You won't be rewarded any points, though."
+	editAfterDeadline: "Edit the assignment"
+	homeworkEdit: "Edits"
 	phase:
 		finalized: "finalized"
 		objections: "objections"

@@ -38,7 +38,7 @@ class UnitPresenter extends BasePresenter
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;
     
-    public function actionDefault($id) 
+    public function actionDefault($id, $lateEdits = FALSE) 
     {   
         $unit = $this->courseInfo->insert($this->unitRepository->find($id));
         if (!$unit->hasBeenPublished()) {
@@ -51,6 +51,8 @@ class UnitPresenter extends BasePresenter
         if (isset($assignment->solution)) {
             $this->courseInfo->setSolution($assignment->solution);
         }
+        
+        $this->template->lateEdits = $lateEdits;
         
         $this->template->isFavorited = $unit->isFavoritedBy($this->userInfo);
         $this->logEvent($unit, 'open');
