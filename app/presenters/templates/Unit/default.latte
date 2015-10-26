@@ -80,7 +80,10 @@
 
 
 {block finishedHomework}
-	<h2>{_messages.unit.myHomework}</h2>
+	<h2>
+		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
+		{_messages.unit.myHomework}
+	</h2>
 
 	{!$assignment->preface|md}
 
