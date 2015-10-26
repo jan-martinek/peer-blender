@@ -32,6 +32,7 @@ course:
 		admin: "admin"
 user:
 	courses: "User's courses"
+	reviews: "User's reviews"
 unit:
 	goals: "Unit goals"
 	reading: "Assigned reading"
@@ -64,6 +65,12 @@ unit:
 	submittingAfterDeadline: "When you miss the deadline, you can still work on your assignment (after the reviews phase is over). You won't be rewarded any points, though."
 	editAfterDeadline: "Edit the assignment"
 	homeworkEdit: "Edits"
+	table:
+		finishedReviews: "Finished"
+		accepted: "Reviews"
+		acceptedPoints: "Accepted"
+		total: "Total"
+		notComplete: "Not submitted"
 	phase:
 		finalized: "finalized"
 		objections: "objections"

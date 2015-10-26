@@ -266,23 +266,20 @@ class ReviewRepository extends Repository
         }
     }
     
-    public function findByUnitAndReviewer($unit, $user) {
-        $query = $this->connection->query(
-            'SELECT review.* FROM review 
-            LEFT JOIN solution ON solution_id = solution.id 
-            WHERE solution.unit_id = %i', $unit->id,
-            'AND review.reviewed_by_id = %i', $user->id,
-            'ORDER BY opened_at');
+    public function findByUnitAndReviewer($unit, $user, $onlyFinished = FALSE) {
+        $where = array(
+            'solution.unit_id%i' => $unit->id,
+            'review.reviewed_by_id' => $user->id
+        );
         
-        return $this->createEntities($query->fetchAll());
-    }
-
-    public function findByUnitAndUser($unit, $user) {
+        if ($onlyFinished) {
+            $where[] = array('review.score IS NOT %sN', '');
+        }
+        
         $query = $this->connection->query(
             'SELECT review.* FROM review 
             LEFT JOIN solution ON solution_id = solution.id 
-            WHERE solution.unit_id = %i', $unit->id,
-            'AND review.reviewed_by_id = %i', $user->id,
+            WHERE %and', $where,
             'ORDER BY opened_at');
         
         return $this->createEntities($query->fetchAll());

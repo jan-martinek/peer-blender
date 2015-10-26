@@ -32,6 +32,7 @@ course:
 		admin: "administrátor"
 user:
 	courses: "Kurzy"
+	reviews: "Recenze"
 unit:
 	goals: "Cíle lekce"
 	reading: "Zadaná četba"
@@ -64,6 +65,12 @@ unit:
 	submittingAfterDeadline: "Po uzávěrce můžete zpracovat svůj úkol (po skončení fáze hodnocení), ale nedostanete žádné body."
 	editAfterDeadline: "Otevřít úkol"
 	homeworkEdit: "Úpravy"
+	table:
+		finishedReviews: "Ohodnoceno"
+		accepted: "Započteno"
+		acceptedPoints: "Započteno bodů"
+		total: "Celkem získáno bodů"
+		notComplete: "Neodevzdáno"
 	phase:
 		finalized: "ukončená"
 		objections: "námitky"

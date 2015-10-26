@@ -4,48 +4,89 @@
 	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$userProfile->countFavorites()}</small>
 {/block}
 
+{block reviews}
+	<ul>
+		<li n:foreach="$reviews as $review">
+			{if !is_null($review->score)}
+				{$review->score} &star; <a n:href="Review:default $review->id">{_messages.unit.review} #{$review->id}</a>
+			{else}
+				&mdash;{sep}, {/sep}
+			{/if}
+		</li>
+	</ul>
+{/block}
+
 {block content}
 <div id="content" class="row">
 	<div class="columns large-8">
 		<h2>{_messages.user.courses}</h2>
-		<ul>
-			<li n:foreach="$userProfile->enrollments as $enrollment">
-				{var course = $enrollment->course}
-				<b><a n:href="Course:default $course->id">{$course->name}</a></b>
-				<ul>
-					<li n:foreach="$course->units as $unit">
-						<b><a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a></b>:
-						
+		{foreach $userProfile->enrollments as $enrollment}
+			{var course = $enrollment->course}
+			{var courseTotal = 0}
+			<h3><a n:href="Course:default $course->id">{$course->name}</a></h3>
+			<div class="panel">
+				<h4>{_messages.app.unit}</h4>
+				<style> .accepted { background: #dfd;} .notAccepted { background: #fdd;} </style>
+				<table>
+					<tr>
+						<th>{_messages.app.unit}</th>
+						<th>{_messages.unit.solution}</th>
+						<th>{_messages.review.score.title}</th>
+						<th>{_messages.unit.table.finishedReviews}</th>
+						<th>{_messages.unit.table.acceptedPoints}</th>
+					</tr>
+					<tr n:foreach="$course->units as $unit">
+						<th><a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a></th>
+					
 						{if $unit->isFinalized()}
 							{var assignment = $assignmentRepository->findByUnitAndUser($unit, $userProfile)}
 							{if $assignment && $assignment->solution}
+								
 								{var id = $assignment->solution->id}
 								{var score = $assignment->solution->score}
-								<a n:href="Solution:default $id">Solution {$id} {if $score}(score {$score|number: 2}){/if}</a>
-								
-								{var reviews = $reviewRepository->findByUnitAndUser($unit, $userProfile)}
-								{if $reviews}
-									<ul>
-										<li n:foreach="$reviews as $review">
-											{if !is_null($review->score)}
-												<a n:href="Review:default $review->id">{_messages.unit.review} #{$review->id} ({$review->score} &star;)</a>
-											{else}
-												&mdash;
-											{/if}
-										</li>
-									</ul>
-								{/if}
+								<td>
+									<a n:href="Solution:default $id">{_messages.unit.solution} {$id}</a>
+								</td>
+								<td>
+									{if $score}{$score|number: 2}{/if}
+								</td>
+								{var reviewCount = count($reviewRepository->findByUnitAndReviewer($unit, $userProfile, TRUE))}
+								{var $countUnit = $unit->course->reviewCount <= $reviewCount}
+								<td n:class="$countUnit ? accepted : notAccepted">
+									{$reviewCount|number}
+									{if $countUnit}✔{else}×{/if}
+								</td>
+								<td n:class="$countUnit ? accepted : notAccepted">
+									{if $countUnit}
+										{$score|number: 2}
+										{? $courseTotal += $score}
+									{else}
+										0
+									{/if}
+								</td>
+							{else}
+								<td colspan="4" style="color: #aaa">{_messages.unit.table.notComplete}</td>
 							{/if}
-					
-						
 						{else}
-							<span style="color: #aaa">{_messages.unit.phase.isNotFinalized}</span>
+							<td colspan="4" style="color: #aaa">{_messages.unit.phase.isNotFinalized}</td>
 						{/if}	
-					
+					</tr>
+					<tr>
+						<th>Total</th>
+						<td colspan="3"></td>
+						<td><strong>{$courseTotal|number: 2}</strong></td>
+					</tr>
+				</table>
+				
+				<h4>{_messages.user.reviews}</h4>
+				<ul>
+					<li n:foreach="$course->units as $unit">
+						<a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a>
+						{include reviews, reviews => $reviewRepository->findByUnitAndReviewer($unit, $userProfile)}
 					</li>
 				</ul>
-			</li>
-		</ul>
+			</div>
+		{/foreach}
 	</div>
 </div>
 {/block}
