@@ -351,12 +351,12 @@ class SolutionRepository extends Repository
     
     public function groupCompletedByReviewCount($completeIds, $reviewedByMeIds, $reviewerId) 
     {        
-         return $this->connection->query(
+        return $this->connection->query(
             'SELECT solution.id, count(review.id) as reviewCount
-              FROM review 
-              LEFT JOIN solution ON review.solution_id = solution.id 
-              WHERE solution_id IN %in', $completeIds,
-              'AND solution_id NOT IN %in', $reviewedByMeIds,
+              FROM solution 
+              LEFT JOIN review ON review.solution_id = solution.id 
+              WHERE solution.id IN %in', $completeIds,
+              'AND solution.id NOT IN %in', $reviewedByMeIds,
               'AND solution.user_id != %i', $reviewerId,
             'GROUP BY solution.id')->fetchAssoc('reviewCount,id');     
     }
