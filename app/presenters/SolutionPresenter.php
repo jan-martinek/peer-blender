@@ -34,16 +34,17 @@ class SolutionPresenter extends BasePresenter
     {     
         $solution = $this->solutionRepository->find($id);
         $this->courseInfo->insert($solution);
+        
+        $role = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);
+        if (!$this->courseInfo->unit->hasReviewsPhaseStarted() && !in_array($role, array('admin', 'assistant'))) {
+            throw new \Nette\Application\BadRequestException('Forbidden', 403);
+        }
     }    
     
     public function renderDefault($id)
     {
         $solution = $this->courseInfo->solution;
         $this->template->solution = $solution;
-        
-        if (!$this->courseInfo->unit->hasReviewsPhaseStarted()) {
-            throw new \Nette\Application\BadRequestException('Forbidden', 403);
-        }
         
         $this->template->answers = $solution->answers;
         
