@@ -53,6 +53,11 @@ class ReviewPresenter extends BasePresenter
     public function actionWriteForUnit($id) 
     {
         $unit = $this->courseInfo->insert($this->unitRepository->find($id));
+        $role = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);
+        if (!$unit->isCurrentPhase($unit::REVIEWS) && !in_array($role, array('admin', 'assistant'))) {
+            throw new \Nette\Application\BadRequestException('Forbidden', 403);
+        }
+        
         $this->template->uploadPath = $this->uploadStorage->path;
         
         $this->template->unit = $unit;
