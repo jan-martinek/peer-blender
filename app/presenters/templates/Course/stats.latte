@@ -12,32 +12,43 @@
 <div id="content" class="row">
 	<div class="columns">
 		<p>Enrolled: {count($course->enrollments)} students</p>
-		<table>
-			<tr n:foreach="$course->enrollments as $enrollment">
-				<th><a n:href="User:default $enrollment->user->id">{$enrollment->user->name}</a></th>
-				{var courseTotal = 0}
-				{foreach $course->units as $unit}
-					{var solutionFound = FALSE}
-					
-					{foreach $enrollment->user->solutions as $solution}
-						{if $solution->unit->id == $unit->id}
-							{? $solutionFound = TRUE}
-							{var reviewsSubmitted = isset($submittedReviews[$enrollment->user->id][$unit->id]) ? $submittedReviews[$enrollment->user->id][$unit->id]->reviewCount : 0}
-							{var enoughReviews = $reviewsSubmitted >= $course->reviewCount ? TRUE : FALSE}
-							<td style="text-align: right; background-color: {if $enoughReviews}#dfd{else}#fdd{/if}">
-							<a n:href="Solution:default $solution->id">
-								{if $solution->score}<strong>{$solution->score|number:2}</strong>{else}&mdash;{/if}
-							</a>
-							
-							{if $enoughReviews}{? $courseTotal += $solution->score}{/if}
-							&middot; {$reviewsSubmitted}
-							</td>
-						{/if}
-					{/foreach}					
-					<td n:if="!$solutionFound"></td>
-				{/foreach}
-				<td class="right"><strong>{$courseTotal|number:2}</strong></td>
-			</tr>
+		<table class="tablesorter">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th n:foreach="$course->units as $unit">
+						Unit {$unit->id}
+					</th>
+					<th>{_messages.unit.table.total}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr n:foreach="$course->enrollments as $enrollment">
+					<th><a n:href="User:default $enrollment->user->id">{$enrollment->user->name}</a></th>
+					{var courseTotal = 0}
+					{foreach $course->units as $unit}
+						{var solutionFound = FALSE}
+						
+						{foreach $enrollment->user->solutions as $solution}
+							{if $solution->unit->id == $unit->id}
+								{? $solutionFound = TRUE}
+								{var reviewsSubmitted = isset($submittedReviews[$enrollment->user->id][$unit->id]) ? $submittedReviews[$enrollment->user->id][$unit->id]->reviewCount : 0}
+								{var enoughReviews = $reviewsSubmitted >= $course->reviewCount ? TRUE : FALSE}
+								<td style="text-align: right; background-color: {if $enoughReviews}#dfd{else}#fdd{/if}">
+								<a n:href="Solution:default $solution->id">
+									{if $solution->score}<strong>{$solution->score|number:2}</strong>{else}&mdash;{/if}
+								</a>
+								
+								{if $enoughReviews}{? $courseTotal += $solution->score}{/if}
+								&middot; {$reviewsSubmitted}
+								</td>
+							{/if}
+						{/foreach}					
+						<td n:if="!$solutionFound"></td>
+					{/foreach}
+					<td class="right"><strong>{$courseTotal|number:2}</strong></td>
+				</tr>
+			</tbody>
 		</table>
 			
 		<ul>

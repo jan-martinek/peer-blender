@@ -29,7 +29,7 @@ var PeerBlender = {
 	
 	Chat: {		
 		init: function() {			
-			if ($('#chat')) {
+			if ($('#chat').length) {
 				autosize($('#chat textarea'));
 				$('#chat').show();
 				
