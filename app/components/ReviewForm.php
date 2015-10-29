@@ -44,8 +44,8 @@ class ReviewForm extends Form
         $scorePlaceholder = $translator->translate('messages.review.useRubricsWhileChoosingScore');
         $this->addSelect('score', $scoreLabel, $options)->setPrompt($scorePlaceholder);
         
-        $commentsLabel = $translator->translate('messages.review.comments');
-        $this->addTextarea('comments', $commentsLabel);
+        $notesLabel = $translator->translate('messages.review.notes');
+        $this->addTextarea('notes', $notesLabel);
         
         $submitLabel = $translator->translate('messages.review.submit');
         $this->addSubmit('submit', $submitLabel);

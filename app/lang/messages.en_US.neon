@@ -111,7 +111,7 @@ review:
 	assessmentMinimumLength: "Verbal assessment needs to be at least %count% characters long. Even closed questions require some commentary."
 	useRubricsWhileChoosingScore: "Score the homework with regard to your verbal rating above."
 	editUntilScoring: "You can save the review repeatedly — but only after you give the final score (stars). Then the review is submitted and you'll get another homework to review."
-	comments: "Comments"
+	notes: "Notes"
 	submit: "Submit review"
 	writtenBy: "Reviewed by"
 	isItWrong: "Is this review wrong? Raise an objection. If it's proven wrong, reviewer loses one point &mdash; be careful though: if proven right, it's you who loses that point."

@@ -120,7 +120,7 @@ class ReviewPresenter extends BasePresenter
         $review = $this->courseInfo->review;
         $review->score = $values->score;
         $review->assessmentSet = $values->rubrics;
-        $review->comments = $values->comments;
+        $review->notes = $values->notes;
         $review->submitted_at = new DateTime;
         $this->reviewRepository->persist($review);
         $this->logEvent($review, 'submit');

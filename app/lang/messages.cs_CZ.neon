@@ -111,7 +111,7 @@ review:
 	unfinished: "nedokončeno"
 	useRubricsWhileChoosingScore: "Hodnoťte na základě toho, co jste uvedli v písemném hodnocení."
 	editUntilScoring: "Hodnocení můžete průběžně ukládat — ale pouze do chvíle, kdy vyberete konkrétní hodnocení (hvězdičky). Pak se recenze odešle a dostanete další úkol k recenzi."
-	comments: "Komentáře"
+	notes: "Poznámky"
 	submit: "Odeslat hodnocení"
 	writtenBy: "Zhodnotil/a"
 	isItWrong: "Je toto hodnocení nesprávné? Vzneste námitku. Pokud se ukáže, že hodnocení bylo skutečně špatné, hodnotitel ztratí bod. Ale pozor &mdash; pokud je hodnocení oprávněné, ztratíte bod vy."

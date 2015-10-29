@@ -62,8 +62,8 @@
 			{/if}
 		</p>
 		
-		<h3>{_messages.review.comments}</h3>
-		{if $review->comments}{!$review->comments|md}{else}<p><span style="color: #aaa">{_messages.review.noComment}</a></p>{/if}
+		<h3>{_messages.review.notes}</h3>
+		{if $review->notes}{!$review->notes|md}{else}<p><span style="color: #aaa">{_messages.review.noComment}</a></p>{/if}
 		
 		<div class="panel">
 			{if $review->objection}

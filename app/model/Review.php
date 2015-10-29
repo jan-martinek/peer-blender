@@ -11,7 +11,7 @@ use DateTime;
  * @property DateTime $opened_at
  * @property int|NULL $score
  * @property string|NULL $assessment
- * @property string|NULL $comments
+ * @property string|NULL $notes
  * @property DateTime|NULL $submitted_at
  * @property Objection|NULL $objection m:belongsToOne
  */
