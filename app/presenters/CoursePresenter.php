@@ -73,5 +73,6 @@ class CoursePresenter extends BasePresenter
         }
         
         $this->template->reviewStats = $this->courseRepository->getReviewStats($this->template->course);  
+        $this->template->submittedReviews = $this->courseRepository->getSubmittedReviewsStats($this->template->course);
     }
 }
