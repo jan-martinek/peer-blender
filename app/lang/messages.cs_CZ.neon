@@ -60,6 +60,7 @@ unit:
 	noSolutionAvailable: "V databázi nejsou žádné úkoly, které byste nyní mohli hodnotit."
 	reviewMore: "Potřebujete ohodnotit ještě %count% úkolů."
 	enoughReviews: "Skvělé! Ohodnotili jste %count% úkolů! Díky."
+	notEnoughReviews: "Neohodnotili jste dostatečné množství úkolů."
 	averageScore: "Celkové hodnocení (průměr)"
 	cannotReviewOthers: "Bez odevzdání vlastního úkolu nemůžete hodnotit práci jiných. Úkol můžete vypracovat po skončení fáze hodnocení, ale nedostanete za to žádné body."
 	submittingAfterDeadline: "Po uzávěrce můžete zpracovat svůj úkol (po skončení fáze hodnocení), ale nedostanete žádné body."

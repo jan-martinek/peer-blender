@@ -112,9 +112,14 @@
 	
 	{control reviewsRenderer $reviews, TRUE}
 	
+	
 	{if count($reviews) < $course->reviewCount}
-		<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
-		{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}
+		{if $unit->isCurrentPhase($unit::REVIEWS)}
+			<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
+			{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}
+		{else}
+			{!_messages.unit.notEnoughReviews|md}	
+		{/if}
 	{else}
 		{!_messages.unit.enoughReviews, [count => $course->reviewCount]|md}
 	{/if}
