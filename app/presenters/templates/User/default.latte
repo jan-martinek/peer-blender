@@ -23,6 +23,7 @@
 		{foreach $userProfile->enrollments as $enrollment}
 			{var course = $enrollment->course}
 			{var courseTotal = 0}
+			{var viewerCourseRole = $presenter->enrollmentRepository->getRoleInCourse($presenter->userInfo, $course)}
 			<h3><a n:href="Course:default $course->id">{$course->name}</a></h3>
 			<div class="panel">
 				<h4>{_messages.app.unit}</h4>
@@ -36,9 +37,15 @@
 						<th>{_messages.unit.table.acceptedPoints}</th>
 					</tr>
 					<tr n:foreach="$course->units as $unit">
-						<th><a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a></th>
-					
-						{if $unit->isFinalized()}
+						<th>
+							<a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a>
+							<i n:if="!$unit->isFinalized() && in_array($viewerCourseRole, array('admin', 'assistant'))">
+								<br>
+								(admin preview)
+							</i>
+						</th>
+						
+						{if $unit->isFinalized() || in_array($viewerCourseRole, array('admin', 'assistant'))}
 							{var assignment = $assignmentRepository->findByUnitAndUser($unit, $userProfile)}
 							{if $assignment && $assignment->solution}
 								
