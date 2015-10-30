@@ -1,4 +1,16 @@
-{block title}Homework peer-review{/block}
+{block header}
+	<span class="label secondary" n:if="$review->isInPrep()">{_messages.review.statusLong.prep}</span>
+	<span class="label warning" n:if="$review->isObjected()">{_messages.review.statusLong.objection}</span>
+	<span class="label alert" n:if="$review->hasProblem()">{_messages.review.statusLong.problem}</span>
+	<span class="label warning" n:if="$review->isFixed()">{_messages.review.statusLong.fixed}</span>
+
+	<h1>
+		{include title}
+		{include favorites}
+	</h1>
+{/block}
+
+{block title}{_messages.review.title}{/block}
 
 {block favorites}
 	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$review->countFavorites()}</small>
@@ -63,32 +75,58 @@
 		</p>
 		
 		<h3>{_messages.review.notes}</h3>
-		{if $review->notes}{!$review->notes|md}{else}<p><span style="color: #aaa">{_messages.review.noComment}</a></p>{/if}
+		{if $review->notes}{!$review->notes|md}{else}<p><span style="color: #aaa">&mdash;</a></p>{/if}
 		
-		<div class="panel">
-			{if $review->objection}
-				<h2>{_messages.objection.raised}</h2>
-				{!$review->objection->objection|md}
-				<hr>
-				<p><strong>{_messages.objection.raisedAt}</strong>: {$review->objection->submitted_at|date:'j. n. Y, H.i'}</p>
-				<p><strong>{_messages.objection.result}</strong>: {_messages.objection.notEvaluatedYet}</p>
-			{elseif $solution->user->id == $user->id}
-				{!_messages.review.isItWrong|md}
-				<a href="#" class="button alert" onclick="$('#objectionFormWrapper').show(); $(this).hide(); return false;">{_messages.objection.raise}</a>
-				<div id="objectionFormWrapper" style="display: none">
-					{form objectionForm}
-						<p>{label objection /}
-						{input objection, 'rows' => 10}</p>
-						
-						<p>{input ratingIsWrong}</p>
-						<p>{input reasonsGiven}</p>
-						
-						<p>{input submit, 'class' => 'button alert'}</p>
-					{/form}
+		<h2>{_messages.review.comments.title}</h2>
+		
+		{if count($review->comments)}
+			{foreach $review->comments as $comment}
+				<div class="panel">
+				<p style="margin-bottom: 0"><strong>{$comment->author->name}</strong>,
+				{$comment->submitted_at|date:'j. n. Y H.i'}
+				<span n:class="
+					label, 
+					$comment->review_status == 'ok' ? 'success', 
+					$comment->review_status == 'problem' ? 'alert', 
+					in_array($comment->review_status, array('objection', 'fixed')) ? 'warning'
+				">{$comment->review_status}</span>
+				{if $comment->comment}
+					{!$comment->comment|md}
+				{else}
+					
+				{/if}
 				</div>
-			{else}
-				<p style="color: #aaa">{_messages.objection.notRaised}</a>
-			{/if}
-		</div>
+			{/foreach}
+		{else}
+			&mdash;
+		{/if}
+		
+		{var viewerCourseRole = $presenter->enrollmentRepository->getRoleInCourse($presenter->userInfo, $solution->unit->course)}
+		
+		<a class="button alert" n:if="$review->hasProblem() && $review->reviewed_by->id == $user->id">
+			{_messages.review.fixNow} &rarr;
+		</a>
+		
+		{if in_array($viewerCourseRole, array('admin', 'assistant')) || $presenter->userInfo->id == $review->solution->user->id}
+			{form reviewCommentForm}
+				{input comment, 'rows' => 5, 'placeholder' => $presenter->translator->translate('messages.review.comments.write')}
+				
+				<div class="row">
+					<div class="columns medium-5 right">
+						<div class="row collapse">
+							<div class="small-2 columns">
+								{label reviewStatus, 'class' => 'prefix' /}
+							</div>
+							<div class="small-4 columns">
+								{input reviewStatus}
+							</div>
+							<div class="small-5 columns">
+								{input submit, 'class' => 'button postfix'}
+							</div>
+						</div>
+					</div>
+				</div>	
+			{/form}
+		{/if}
 	</div>
 </div>

@@ -7,8 +7,8 @@
 	<ul class="no-bullet">
 		{foreach $reviews as $review}
 			{var unit = $review->solution->unit}
-			{if $showIncomplete && is_null($review->score)}
 				
+			{if $showIncomplete && $review->isInPrep()}
 					<li>
 						<a n:tag-if="!$unit->isFinalized()" href="{plink Review:writeForUnit}">{$review->opened_at|date:'j. n. Y, H.i'}</a>
 						&mdash;
@@ -20,7 +20,7 @@
 						{/if}
 					</li>
 				
-			{elseif !is_null($review->score)}
+			{elseif $review->status != $review->isInPrep()}
 				<li>
 					<span style="color: #f90; font-weight: bold">{_messages.review.shortScore.$review->score}</span>
 					{if $unit->isFinalized()}<a href="{plink User:default $review->reviewed_by->id}">{$review->reviewed_by->name}</a>, {/if}

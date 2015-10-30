@@ -16,6 +16,7 @@ class CourseRepository extends Repository
         return $this->connection->query('SELECT solution.unit_id, count(*), AVG(score), std(score) FROM review
             JOIN solution ON solution.id = review.solution_id
             WHERE unit_id IN %in', $units,
+            'AND review.status = %s', Review::OK,
             'GROUP BY unit_id')->fetchAll();
     }
     
@@ -26,7 +27,7 @@ class CourseRepository extends Repository
             JOIN solution ON review.solution_id = solution.id
             JOIN unit ON solution.unit_id = unit.id
             WHERE course_id = %i', $course->id,
-            'AND review.score IS NOT NULL',
+            'AND review.status = %s', Review::OK,
             'GROUP BY reviewed_by_id,unit_id'
         )->fetchAssoc('reviewed_by_id,unit_id');
     }

@@ -3,10 +3,14 @@
 namespace App\Presenters;
 
 use App\Components\ReviewForm;
+use App\Components\ReviewCommentForm;
 use Nette\Application\UI\Form;
 use Nette\Utils\Html;
 use Model\Entity\Objection;
+use Model\Entity\Review;
+use Model\Entity\ReviewComment;
 use DateTime;
+use Exception;
 
 /**
  * Review presenter.
@@ -30,6 +34,9 @@ class ReviewPresenter extends BasePresenter
     
     /** @var \Model\Repository\ObjectionRepository @inject */
     public $objectionRepository;
+    
+    /** @var \Model\Repository\ReviewCommentRepository @inject */
+    public $reviewCommentRepository;
     
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;    
@@ -95,7 +102,28 @@ class ReviewPresenter extends BasePresenter
     
     public function renderWriteForUnit($id) 
     {
-
+    }
+    
+    public function actionFix($id)
+    {        
+        $review = $this->reviewRepository->find($id);
+        if (!$review->hasProblem()) {
+            $this->flashMessage($this->translator->translate('messages.review.fixingIsNotPossibleNow'), 'alert');
+            $this->redirect('Review:default', $id);
+        }
+        if ($review->reviewed_by->id != $this->userInfo->id) {
+            $this->flashMessage($this->translator->translate('messages.review.fixOnlyYourOwn'), 'alert');
+            $this->redirect('Review:default', $id);   
+        }
+        $this->courseInfo->insert($review);
+    }
+    
+    public function renderFix($id) 
+    {
+        $this->template->review = $this->courseInfo->review;
+        $this->template->assignment = $this->courseInfo->assignment;
+        $this->template->solution = $this->courseInfo->solution;
+        $this->template->unit = $this->courseInfo->unit;
     }
     
     public function handleFavorite() 
@@ -116,16 +144,120 @@ class ReviewPresenter extends BasePresenter
     }
     
     public function reviewFormSucceeded(ReviewForm $form, $values) 
-    {
+    {   
         $review = $this->courseInfo->review;
         $review->score = $values->score;
         $review->assessmentSet = $values->rubrics;
         $review->notes = $values->notes;
         $review->submitted_at = new DateTime;
+        if ($values->complete) {
+            switch ($this->getAction()) {
+                case 'writeForUnit':
+                    $review->status = Review::OK;
+                    break;
+                case 'fix':
+                    $review->status = Review::FIXED;
+                    break;      
+            }
+        }
         $this->reviewRepository->persist($review);
         $this->logEvent($review, 'submit');
-        $this->redirect('this');
+        
+        switch ($this->getAction()) {
+            case 'fix':
+                $this->redirect('Review:default', $review->id);
+                break;      
+            default:
+                $this->redirect('this');
+        }
     }
+    
+    protected function createComponentReviewCommentForm()
+    {
+        $review = $this->courseInfo->review;
+        $user = $this->userInfo;
+        $courseRole = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);        
+        
+        if ($review->isOk() && $review->reviewed_by->id == $user->id) {
+            $statuses = $this->getReviewCommentFormStatuses('objectionRaisingOrCommenting');
+        } elseif ($review->hasProblem() && $review->reviewed_by->id == $user->id) {
+            $statuses = $this->getReviewCommentFormStatuses('reviewFixing');
+        } elseif ($review->isObjected() && in_array($courseRole, array('admin', 'assistant'))) {
+            $statuses = $this->getReviewCommentFormStatuses('objectionEvaluation');
+        } elseif ($review->isFixed() && in_array($courseRole, array('admin', 'assistant'))) {
+            $statuses = $this->getReviewCommentFormStatuses('fixEvaluation');
+        } else {
+            $statuses = $this->getReviewCommentFormStatuses($this->review->status);
+        }
+        
+        $form = new Form;
+        $form->addTextarea('comment', $this->translator->translate('messages.review.comments.label'));
+        $form->addSelect('reviewStatus', $this->translator->translate('messages.review.status.title'), $statuses);
+        $form->addSubmit('submit', $this->translator->translate('messages.review.comments.post'));
+    
+        $form->onSuccess[] = array($this, 'reviewCommentFormSucceeded');
+        return $form;
+    }
+    
+    private function getReviewCommentFormStatuses($kind) 
+    {
+        $statuses = array(
+            'prep' => $this->translator->translate('messages.review.status.prep'),
+            'ok' => $this->translator->translate('messages.review.status.ok'),
+            'problem' => $this->translator->translate('messages.review.status.problem'),
+            'objection' => $this->translator->translate('messages.review.status.objection'),
+            'fixed' => $this->translator->translate('messages.review.status.fixed')
+        );
+        
+        $availableStatuses = array();
+        
+        switch($kind) {
+            case 'objectionRaisingOrCommenting':
+                $availableStatuses['ok'] = $statuses['ok'];
+                $availableStatuses['objection'] = $statuses['objection'];
+                break;
+            case 'objectionEvaluation':
+                $availableStatuses['objection'] = $statuses['objection'];
+                $availableStatuses['problem'] = $statuses['problem'];
+                $availableStatuses['ok'] = $statuses['ok'];
+                break;
+            case 'reviewFixing':
+                $availableStatuses['problem'] = $statuses['problem'];
+                $availableStatuses['fixed'] = $statuses['fixed'];
+                break;
+            case 'fixEvaluation':
+                $availableStatuses['fixed'] = $statuses['fixed'];
+                $availableStatuses['problem'] = $statuses['problem'];
+                $availableStatuses['ok'] = $statuses['ok'];
+                break;
+            default:
+                if (in_array($kind, $statuses)) {
+                    $availableStatuses[$kind] = $statuses[$kind];    
+                } else {
+                    throw new \Exception;
+                }
+        }
+        
+        return $availableStatuses;
+    }
+    
+    public function reviewCommentFormSucceeded(Form $form, $values) 
+    {   
+        $comment = new ReviewComment;
+        $comment->comment = $values->comment;
+        $comment->review = $this->courseInfo->review;
+        $comment->review_status = $values->reviewStatus;
+        $comment->author = $this->userRepository->find($this->user->id);
+        $comment->submitted_at = new DateTime;        
+        $this->reviewCommentRepository->persist($comment);
+        
+        $review = $this->courseInfo->review;
+        $review->status = $values->reviewStatus;
+        $this->reviewRepository->persist($review);
+        
+        $this->logEvent($comment, 'submit');
+        $this->redirect('this');
+    }    
     
     protected function createComponentObjectionForm() 
     {

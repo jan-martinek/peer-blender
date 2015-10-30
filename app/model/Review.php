@@ -14,9 +14,17 @@ use DateTime;
  * @property string|NULL $notes
  * @property DateTime|NULL $submitted_at
  * @property Objection|NULL $objection m:belongsToOne
+ * @property string $status
+ * @property ReviewComment[]|NULL $comments m:belongsToMany
  */
 class Review extends FavoritableEntity
 {
+    const
+        PREP = 'prep',
+        OK = 'ok',
+        PROBLEM = 'problem',
+        OBJECTION = 'objection',
+        FIXED = 'fixed';
     
     /**
      * @return array
@@ -35,5 +43,25 @@ class Review extends FavoritableEntity
     public function setAssessmentSet($assessment) 
     {
         $this->assessment = json_encode((array) $assessment);
+    }
+    
+    public function isInPrep() {
+        return $this->status == self::PREP ? true : false;
+    }
+    
+    public function isOk() {
+        return $this->status == self::OK ? true : false;
+    }
+    
+    public function hasProblem() {
+        return $this->status == self::PROBLEM ? true : false;
+    }
+    
+    public function isObjected() {
+        return $this->status == self::OBJECTION ? true : false;
+    }
+    
+    public function isFixed() {
+        return $this->status == self::FIXED ? true : false;
     }
 }

@@ -26,7 +26,7 @@ class Solution extends FavoritableEntity
         $scores = array();
         
         foreach ($this->reviews as $review) {
-            if (!is_null($review->score)) {
+            if ($review->isOk()) {
                 $scores[] = $review->score;    
             }
         }

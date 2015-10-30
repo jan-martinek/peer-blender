@@ -1,3 +1,15 @@
+{block header}
+	<span class="label secondary" n:if="$review->isInPrep()">{_messages.review.statusLong.prep}</span>
+	<span class="label warning" n:if="$review->isObjected()">{_messages.review.statusLong.objection}</span>
+	<span class="label alert" n:if="$review->hasProblem()">{_messages.review.statusLong.problem}</span>
+	<span class="label warning" n:if="$review->isFixed()">{_messages.review.statusLong.fixed}</span>
+
+	<h1>
+		{include title}
+		{include favorites}
+	</h1>
+{/block}
+
 {block title}{_messages.review.title}{/block}
 
 {block breadcrumbs}
@@ -5,7 +17,8 @@
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
 		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
 		<a n:href="Unit:default $unit->id">{$unit->name}</a> &rsaquo;
-		{_messages.app.review}
+		<a n:href="Review:default $review->id">{_messages.app.review} {$review->id}</a> &rsaquo;
+		{_messages.review.edit}
 	</p>
 {/block}
 
@@ -44,6 +57,7 @@
 						<style> input[type="checkbox"] { margin-right: 5px; } .prefix label { display: inline; } </style>
 						<div class="row collapse">
 							<div class="columns small-5">
+								{? $form['complete']->caption = $presenter->translator->translate('messages.review.isFixed')}
 								<span class="prefix">{input complete, 'class' => 'inline'}</span>
 							</div>
 							<div class="columns small-7">

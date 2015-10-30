@@ -21,6 +21,7 @@ services:
 	- Model\Repository\ObjectionRepository
 	- Model\Repository\QuestionRepository
 	- Model\Repository\ReviewRepository
+	- Model\Repository\ReviewCommentRepository
 	- Model\Repository\SolutionRepository
 	- Model\Repository\UnitRepository
 	- Model\Repository\UserRepository
@@ -34,6 +35,7 @@ services:
 	- Model\Entity\Objection
 	- Model\Entity\Question
 	- Model\Entity\Review
+	- Model\Entity\ReviewComment
 	- Model\Entity\Solution
 	- Model\Entity\Unit
 	- Model\Entity\User	

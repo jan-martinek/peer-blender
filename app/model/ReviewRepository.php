@@ -24,7 +24,7 @@ class ReviewRepository extends Repository
             LEFT JOIN solution ON solution_id = solution.id 
             WHERE solution.unit_id = %i', $unit->id,
             'AND review.reviewed_by_id = %i', $reviewer->id,
-            'AND (score IS NULL OR comments IS NULL OR review.submitted_at IS NULL)');
+            'AND status = %s', Review::PREP);
         
         if ($openedReview = $query->fetch()) {
             return $this->createEntity($openedReview);
@@ -40,7 +40,7 @@ class ReviewRepository extends Repository
         );
         
         if ($onlyFinished) {
-            $where[] = array('review.score IS NOT %sN', '');
+            $where[] = array('review.status != %s', Review::PREP);
         }
         
         $query = $this->connection->query(

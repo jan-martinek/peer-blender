@@ -47,6 +47,9 @@ class ReviewForm extends Form
         $notesLabel = $translator->translate('messages.review.notes');
         $this->addTextarea('notes', $notesLabel);
         
+        $completeLabel = $translator->translate('messages.review.complete');
+        $this->addCheckbox('complete', $completeLabel);
+        
         $submitLabel = $translator->translate('messages.review.submit');
         $this->addSubmit('submit', $submitLabel);
     }
