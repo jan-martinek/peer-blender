@@ -18,7 +18,7 @@
 						{_messages.review.unfinished}
 					{/if}
 				</li>
-			{elseif $review->status != $review->isInPrep()}
+			{elseif $review->isInPrep()}
 				<li>
 					<span style="color: #f90; font-weight: bold">{_messages.review.shortScore.$review->score}</span>
 					{if $unit->isFinalized()}<a href="{plink User:default $review->reviewed_by->id}">{$review->reviewed_by->name}</a>, {/if}
