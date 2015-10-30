@@ -1,4 +1,4 @@
--- Adminer 4.0.2 MySQL dump
+-- Adminer 4.2.2 MySQL dump
 
 SET NAMES utf8;
 SET foreign_key_checks = 0;
@@ -53,6 +53,8 @@ CREATE TABLE `course` (
 
 INSERT INTO `course` (`id`, `name`, `goals`, `methods`, `support`, `footer`, `contact_email`, `review_count`, `upload_max_filesize_kb`, `ga_code`) VALUES
 (1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  '', '', '', '', 5,  500,  'BB');
+
+
 DROP TABLE IF EXISTS `enrollment`;
 CREATE TABLE `enrollment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -88,7 +90,7 @@ DROP TABLE IF EXISTS `log`;
 CREATE TABLE `log` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(10) unsigned NOT NULL,
-  `entity_name` enum('Objection','Review','Solution','Unit','User') COLLATE utf8_czech_ci NOT NULL,
+  `entity_name` enum('Objection','Review','ReviewComment','Solution','Unit','User') COLLATE utf8_czech_ci NOT NULL,
   `entity_identifier` int(11) NOT NULL,
   `action` enum('create','submit','open','edit','delete','login','logout') COLLATE utf8_czech_ci NOT NULL,
   `logged_at` datetime NOT NULL,
@@ -116,42 +118,6 @@ CREATE TABLE `message` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
-DROP TABLE IF EXISTS `objection`;
-CREATE TABLE `objection` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `review_id` int(10) unsigned NOT NULL,
-  `user_id` int(10) unsigned NOT NULL,
-  `submitted_at` datetime NOT NULL,
-  `objection` text COLLATE utf8_czech_ci NOT NULL,
-  `evaluated` tinyint(1) NOT NULL,
-  `arbiter_id` int(10) unsigned DEFAULT NULL,
-  `legitimate` tinyint(1) NOT NULL,
-  `comment` text COLLATE utf8_czech_ci NOT NULL,
-  `evaluated_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `review_id` (`review_id`),
-  KEY `participant_id` (`user_id`),
-  KEY `arbiter_id` (`arbiter_id`),
-  CONSTRAINT `objection_ibfk_1` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`),
-  CONSTRAINT `objection_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`),
-  CONSTRAINT `objection_ibfk_3` FOREIGN KEY (`arbiter_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
-
-
-DROP TABLE IF EXISTS `objection_open`;
-CREATE TABLE `objection_open` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `objection_id` int(10) unsigned NOT NULL,
-  `arbiter_id` int(10) unsigned NOT NULL,
-  `opened_at` datetime NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `objection_id` (`objection_id`),
-  KEY `arbiter_id` (`arbiter_id`),
-  CONSTRAINT `objection_open_ibfk_1` FOREIGN KEY (`objection_id`) REFERENCES `objection` (`id`),
-  CONSTRAINT `objection_open_ibfk_2` FOREIGN KEY (`arbiter_id`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
-
-
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
@@ -172,15 +138,32 @@ CREATE TABLE `review` (
   `solution_id` int(10) unsigned NOT NULL,
   `reviewed_by_id` int(10) unsigned NOT NULL,
   `opened_at` datetime NOT NULL,
+  `status` enum('prep','ok','problem','objection','fixed') COLLATE utf8_czech_ci NOT NULL,
   `assessment` text COLLATE utf8_czech_ci NOT NULL,
   `score` tinyint(4) DEFAULT NULL,
-  `comments` text COLLATE utf8_czech_ci,
+  `notes` text COLLATE utf8_czech_ci,
   `submitted_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `solution_id` (`solution_id`),
   KEY `reviewed_by_id` (`reviewed_by_id`),
   CONSTRAINT `review_ibfk_1` FOREIGN KEY (`solution_id`) REFERENCES `solution` (`id`),
   CONSTRAINT `review_ibfk_2` FOREIGN KEY (`reviewed_by_id`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
+
+
+DROP TABLE IF EXISTS `reviewcomment`;
+CREATE TABLE `reviewcomment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `review_id` int(10) unsigned NOT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `submitted_at` datetime NOT NULL,
+  `comment` text COLLATE utf8_czech_ci NOT NULL,
+  `review_status` enum('prep','ok','problem','objection','fixed') COLLATE utf8_czech_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `review_id` (`review_id`),
+  KEY `user_id` (`user_id`),
+  CONSTRAINT `reviewcomment_ibfk_1` FOREIGN KEY (`review_id`) REFERENCES `review` (`id`),
+  CONSTRAINT `reviewcomment_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -223,7 +206,8 @@ CREATE TABLE `unit` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `unit` (`id`, `course_id`, `published_since`, `reviews_since`, `objections_since`, `finalized_since`, `name`, `goals`, `reading`, `rubrics`, `generator`) VALUES
-(1, 1,  '2015-08-01 00:00:00',  '2015-06-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  '', 'TestGenerator'),
+(1, 1,  '2015-08-01 00:00:00',  '2015-06-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  '', 'TestGenerator');
+
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -238,8 +222,8 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `password_reset_token`, `password_reset_valid_until`, `role`) VALUES
-(1, 'Test Admin', 'admin@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00',  'admin'),
+(1, 'Test Admin', 'admin@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00',  NULL),
 (2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', 'b39b0361a2', '2015-09-30 02:38:31',  NULL),
 (3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00',  NULL);
 
--- 2015-10-22 11:36:04
+-- 2015-10-30 18:43:07
