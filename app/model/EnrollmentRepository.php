@@ -17,7 +17,7 @@ class EnrollmentRepository extends Repository
             WHERE %and', $params)->fetchSingle();
     }
     
-    public function findAllUserIds($course) {
+    public function findAllUserIds(Course $course) {
         $ids = $this->connection->query('SELECT user_id FROM enrollment 
             WHERE [course_id] = %i', $course->id)->fetchAssoc('user_id');
         

@@ -2,12 +2,16 @@
 
 namespace Model\Repository;
 
+use Model\Generator\AttachmentGenerator;
+use Model\Entity\Assignment;
+use Model\Entity\Unit;
+use Model\Entity\User;
 use Exception;
 use DateTime;
 
 class AssignmentRepository extends Repository
 {   
-    public function getMyAssignment($unit, $student, $questionRepository) 
+    public function getMyAssignment(Unit $unit, User $student, $questionRepository) 
     {
         if ($assignment = $this->findByUnitAndUser($unit, $student)) {
             return $assignment;
@@ -16,7 +20,7 @@ class AssignmentRepository extends Repository
         }
     }
     
-    public function findByUnitAndUser($unit, $student) 
+    public function findByUnitAndUser(Unit $unit, User $student) 
     {   
         $assignment = $this->connection->select('*')
             ->from($this->getTable())
@@ -29,14 +33,14 @@ class AssignmentRepository extends Repository
         }
     }
     
-    private function generateAssignment($unit, $student, $questionRepository) 
+    private function generateAssignment(Unit $unit, User $student, QuestionRepository $questionRepository) 
     {
         $generatorClassname = '\Model\Generator\\' . $unit->generator;
         $generator = new $generatorClassname;
-        $assignment = new \Model\Entity\Assignment;
+        $assignment = new Assignment;
         
         $assignment->preface = $generator->getPreface();
-        if ($generator instanceof \Model\Generator\AttachmentGenerator) {
+        if ($generator instanceof AttachmentGenerator) {
             $rubrics = array();
             foreach (explode("\n", $unit->rubrics) as $rubric) {
                 $rubric = trim($rubric);

@@ -2,11 +2,13 @@
 
 namespace Model\Repository;
 
+use Model\Entity\Unit;
+use Model\Entity\User;
 use Exception;
 
 class SolutionRepository extends Repository
 {    
-    public function findSolutionToReview($unit, $reviewer, $userLimit = TRUE, $unitLimit = TRUE) 
+    public function findSolutionToReview(Unit $unit, User $reviewer, $userLimit = TRUE, $unitLimit = TRUE) 
     {
         $completeIds = $this->findAllComplete($unit);
         if (!count($completeIds)) {
@@ -49,7 +51,7 @@ class SolutionRepository extends Repository
             'GROUP BY solution.id')->fetchAssoc('reviewCount,id');     
     }
     
-    public function findReviewedByMe($reviewer, $unit = null) {
+    public function findReviewedByMe(User $reviewer, Unit $unit = null) {
         $ids = $this->connection->query(
             'SELECT solution.id AS id 
               FROM solution
@@ -61,7 +63,7 @@ class SolutionRepository extends Repository
         return count($ids) ? array_keys($ids) : array(0);
     }
     
-    public function findAllComplete($unit)
+    public function findAllComplete(Unit $unit)
     {
         $attachmentOK = $this->connection->query(
             'SELECT id FROM solution WHERE unit_id = %i', $unit->id, 'AND attachment != ""'
@@ -78,7 +80,7 @@ class SolutionRepository extends Repository
         return array_diff(array_keys($attachmentOK), array_keys($incompleteIds));
     }  
     
-    public function findFavoriteByUnit($unit) 
+    public function findFavoriteByUnit(Unit $unit) 
     {   
         $solutions = $this->connection->query('SELECT solution.*, count(favorite.id) as favorites
             FROM solution 

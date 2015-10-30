@@ -4,12 +4,13 @@ namespace Model\Repository;
 
 use Model\Entity\Course;
 use Model\Entity\Review;
+use Model\Entity\Unit;
 use Model\Entity\User;
 use DateTime;
 
 class ReviewRepository extends Repository
 {
-    public function createReview($solution, $reviewer) 
+    public function createReview(Solution $solution, User $reviewer) 
     {
         $review = new Review;
         $review->solution = $solution;
@@ -20,7 +21,7 @@ class ReviewRepository extends Repository
         return $review;
     }    
     
-    public function findUnfinishedReview($unit, $reviewer) {
+    public function findUnfinishedReview(Unit $unit, User $reviewer) {
         $query = $this->connection->query(
             'SELECT review.* FROM review 
             LEFT JOIN solution ON solution_id = solution.id 
@@ -35,7 +36,7 @@ class ReviewRepository extends Repository
         }
     }
     
-    public function findByUnitAndReviewer($unit, $user, $onlyFinished = FALSE) {
+    public function findByUnitAndReviewer(Unit $unit, User $user, $onlyFinished = FALSE) {
         $where = array(
             'solution.unit_id%i' => $unit->id,
             'review.reviewed_by_id' => $user->id
@@ -54,7 +55,7 @@ class ReviewRepository extends Repository
         return $this->createEntities($query->fetchAll());
     }    
     
-    public function findByUnit($unit) {
+    public function findByUnit(Unit $unit) {
         $query = $this->connection->query(
             'SELECT review.* FROM review 
             LEFT JOIN solution ON solution_id = solution.id 
@@ -64,7 +65,7 @@ class ReviewRepository extends Repository
         return $this->createEntities($query->fetchAll());
     }  
     
-    public function findFavoriteByUnit($unit) 
+    public function findFavoriteByUnit(Unit $unit) 
     {   
         $reviewIds = array_keys($this->connection->query(
             'SELECT review.* FROM review 

@@ -2,9 +2,11 @@
 
 namespace Model\Repository;
 
+use Model\Entity\User;
+
 class FavoriteRepository extends Repository
 {
-    public function findByUserAndId($user, $entity, $entity_id) 
+    public function findByUserAndId(User $user, $entity, $entity_id) 
     {
         $where = array(
             'user_id%i' => $user->id,

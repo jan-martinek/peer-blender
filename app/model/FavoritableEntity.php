@@ -5,12 +5,13 @@ namespace Model\Entity;
 use DateTime;
 use Model\Repository\FavoriteRepository;
 use Model\Entity\Favorite;
+use Model\Entity\User;
 
 class FavoritableEntity extends Entity 
 {
     private $favoriteRepository;
     
-    public function favorite($user) 
+    public function favorite(User $user) 
     {
         if ($favorite = $this->getFavoriteByUser($user))
         {
@@ -27,19 +28,14 @@ class FavoritableEntity extends Entity
         return true;
     }
     
-    public function removeFavorite($user) 
-    {
-        
-    }
-    
-    public function isFavoritedBy($user) 
+    public function isFavoritedBy(User $user) 
     {
         return $this->favoriteRepository->findByUserAndId(
             $user, $this->getConventionalName(), $this->id
         ) ? true : false;
     }
     
-    public function getFavoriteByUser($user)
+    public function getFavoriteByUser(User $user)
     {
         return $this->favoriteRepository->findByUserAndId(
             $user, $this->getConventionalName(), $this->id
