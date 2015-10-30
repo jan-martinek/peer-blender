@@ -13,7 +13,6 @@ use DateTime;
  * @property string|NULL $assessment
  * @property string|NULL $notes
  * @property DateTime|NULL $submitted_at
- * @property Objection|NULL $objection m:belongsToOne
  * @property string $status
  * @property ReviewComment[]|NULL $comments m:belongsToMany
  */

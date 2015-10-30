@@ -18,7 +18,6 @@ services:
 	- Model\Repository\FavoriteRepository
 	- Model\Repository\LogRepository
 	- Model\Repository\MessageRepository
-	- Model\Repository\ObjectionRepository
 	- Model\Repository\QuestionRepository
 	- Model\Repository\ReviewRepository
 	- Model\Repository\ReviewCommentRepository
@@ -32,7 +31,6 @@ services:
 	- Model\Entity\Favorite
 	- Model\Entity\Log
 	- Model\Entity\Message
-	- Model\Entity\Objection
 	- Model\Entity\Question
 	- Model\Entity\Review
 	- Model\Entity\ReviewComment

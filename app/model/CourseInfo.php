@@ -2,26 +2,33 @@
 
 namespace Model;
 
+use Model\Entity\Course;
+use Model\Entity\Unit;
+use Model\Entity\Assignment;
+use Model\Entity\Solution;
+use Model\Entity\Review;
+use Model\Entity\ReviewComment;
+
 class CourseInfo extends \Nette\Object
 {
 	
-	/** @var \Model\Entity\Course */
+	/** @var Course */
 	public $course;
 	
-	/** @var \Model\Entity\Unit */
+	/** @var Unit */
 	public $unit;
 	
-	/** @var \Model\Entity\Assignment */
+	/** @var Assignment */
 	public $assignment;
 	
-	/** @var \Model\Entity\Solution */
+	/** @var Solution */
 	public $solution;
 	
-	/** @var \Model\Entity\Review */
+	/** @var Review */
 	public $review;
 	
-	/** @var \Model\Entity\Objection */
-	public $objection;
+	/** @var ReviewComment */
+	public $reviewComment;
 	
 	/** @var \Model\Repository\FavoriteRepository */
     public $favoriteRepository;
@@ -55,8 +62,8 @@ class CourseInfo extends \Nette\Object
 			case "Model\Entity\Review":
 				$this->setReview($entity);
 				break;
-			case "Model\Entity\Objection":
-				$this->setObjection($entity);
+			case "Model\Entity\ReviewComment":
+				$this->setReviewComment($entity);
 				break;
 			default:
 				throw new \Exception('"' . $classname . '" is not an object describing course.');
@@ -65,22 +72,22 @@ class CourseInfo extends \Nette\Object
 		return $entity;
 	}
 	
-	public function setObjection($objection)
+	public function setReviewComment(ReviewComment $reviewComment)
 	{
-		if (is_null($this->objection)) {
-			$this->objection = $objection;	
+		if (is_null($this->reviewComment)) {
+			$this->reviewComment = $reviewComment;	
 		} else {
 			throw new CourseInfoEntityAlreadyDefined;
 		}
 		
 		if (is_null($this->review)) {
-			$this->setReview($objection->review);	
-		} else if ($this->review->id !== $objection->review->id) {
+			$this->setReview($reviewComment->review);	
+		} else if ($this->review->id !== $reviewComment->review->id) {
 			throw new InconsistentCourseInfoChainException;
 		}
 	}
 	
-	public function setReview($review)
+	public function setReview(Review $review)
 	{
 		if (is_null($this->review)) {
 			$this->review = $review;	
@@ -95,7 +102,7 @@ class CourseInfo extends \Nette\Object
 		}
 	}
 	
-	public function setSolution($solution)
+	public function setSolution(Solution $solution)
 	{
 		if (is_null($this->solution)) {
 			$this->solution = $solution;	
@@ -110,7 +117,7 @@ class CourseInfo extends \Nette\Object
 		}
 	}
 	
-	public function setAssignment($assignment)
+	public function setAssignment(Assignment $assignment)
 	{
 		if (is_null($this->assignment)) {
 			$this->assignment = $assignment;	
@@ -125,7 +132,7 @@ class CourseInfo extends \Nette\Object
 		}
 	}
 	
-	public function setUnit($unit)
+	public function setUnit(Unit $unit)
 	{
 		if (is_null($this->unit)) {
 			$this->unit = $unit;	
@@ -140,7 +147,7 @@ class CourseInfo extends \Nette\Object
 		}
 	}
 	
-	public function setCourse($course)
+	public function setCourse(Course $course)
 	{
 		if (is_null($this->course)) {
 			$this->course = $course;	

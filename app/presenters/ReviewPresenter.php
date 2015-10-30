@@ -6,7 +6,6 @@ use App\Components\ReviewForm;
 use App\Components\ReviewCommentForm;
 use Nette\Application\UI\Form;
 use Nette\Utils\Html;
-use Model\Entity\Objection;
 use Model\Entity\Review;
 use Model\Entity\ReviewComment;
 use DateTime;
@@ -31,9 +30,6 @@ class ReviewPresenter extends BasePresenter
     
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
-    
-    /** @var \Model\Repository\ObjectionRepository @inject */
-    public $objectionRepository;
     
     /** @var \Model\Repository\ReviewCommentRepository @inject */
     public $reviewCommentRepository;
@@ -269,31 +265,5 @@ class ReviewPresenter extends BasePresenter
         
         $this->logEvent($comment, 'submit');
         $this->redirect('this');
-    }    
-    
-    protected function createComponentObjectionForm() 
-    {
-        $form = new Form;
-        $form->addTextarea('objection', $this->translator->translate('messages.objection.description'));
-        $form->addCheckbox('ratingIsWrong', ' '.$this->translator->translate('messages.objection.ratingIsWrong'))
-            ->setRequired($this->translator->translate('messages.objection.ratingIsWrongNeeded'));
-        $form->addCheckbox('reasonsGiven', ' '.$this->translator->translate('messages.objection.reasonsGiven'))
-            ->setRequired($this->translator->translate('messages.objection.reasonsGivenNeeded'));
-        $form->addSubmit('submit', $this->translator->translate('messages.objection.raise'));
-    
-        $form->onSuccess[] = array($this, 'objectionFormSucceeded');
-        return $form;
     }
-    
-    public function objectionFormSucceeded(Form $form, $values) 
-    {   
-        $objection = new Objection;
-        $objection->objection = $values->objection;
-        $objection->review = $this->courseInfo->review;
-        $objection->user = $this->userRepository->find($this->user->id);
-        $objection->submitted_at = new DateTime;        
-        $this->objectionRepository->persist($objection);
-        $this->logEvent($objection, 'submit');
-        $this->redirect('this');
-    }    
 }
