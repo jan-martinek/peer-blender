@@ -3,12 +3,13 @@
 namespace Model\Repository;
 
 use Model\Entity\Course;
+use Model\Entity\Review;
 use Exception;
 use DateTime;
 
 class CourseRepository extends Repository
 {   
-    public function getReviewStats(\Model\Entity\Course $course) {
+    public function getReviewStats(Course $course) {
         $units = array();
         foreach ($course->units as $unit) {
             $units[] = $unit->id;

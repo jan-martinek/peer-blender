@@ -9,9 +9,6 @@ class CoursePresenter extends BasePresenter
 {
     /** @var \Model\Repository\CourseRepository @inject */
     public $courseRepository;
-
-    /** @var \Model\Repository\EnrollmentRepository @inject */
-    public $enrollmentRepository;
     
     /** @var \Model\Repository\UnitRepository @inject */
     public $unitRepository;

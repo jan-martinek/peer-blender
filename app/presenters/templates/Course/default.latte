@@ -1,5 +1,7 @@
 {block title}{$course->name}{/block}
 
+{block footer}{$course->footer|md}{/block}
+
 {block breadcrumbs}
 	<p>
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
