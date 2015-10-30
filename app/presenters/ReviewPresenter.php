@@ -176,16 +176,24 @@ class ReviewPresenter extends BasePresenter
     {
         $review = $this->courseInfo->review;
         $user = $this->userInfo;
-        $courseRole = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);        
-        
-        if ($review->isOk() && $review->reviewed_by->id == $user->id) {
+        $viewerIsAssistant = in_array(
+            $this->enrollmentRepository->getRoleInCourse(
+                $this->userInfo, 
+                $this->courseInfo->course
+            ), 
+            array('admin', 'assistant')
+        );
+
+        if ($review->isObjected() && $viewerIsAssistant) {
+            $statuses = $this->getReviewCommentFormStatuses('objectionEvaluation');
+        } elseif ($review->isFixed() && $viewerIsAssistant) {
+            $statuses = $this->getReviewCommentFormStatuses('fixEvaluation');
+        } elseif ($review->isOk() && $viewerIsAssistant) {
+            $statuses = $this->getReviewCommentFormStatuses('problemAnnouncing');
+        } elseif ($review->isOk() && $review->reviewed_by->id == $user->id) {
             $statuses = $this->getReviewCommentFormStatuses('objectionRaisingOrCommenting');
         } elseif ($review->hasProblem() && $review->reviewed_by->id == $user->id) {
             $statuses = $this->getReviewCommentFormStatuses('reviewFixing');
-        } elseif ($review->isObjected() && in_array($courseRole, array('admin', 'assistant'))) {
-            $statuses = $this->getReviewCommentFormStatuses('objectionEvaluation');
-        } elseif ($review->isFixed() && in_array($courseRole, array('admin', 'assistant'))) {
-            $statuses = $this->getReviewCommentFormStatuses('fixEvaluation');
         } else {
             $statuses = $this->getReviewCommentFormStatuses($review->status);
         }
@@ -215,6 +223,10 @@ class ReviewPresenter extends BasePresenter
             case 'objectionRaisingOrCommenting':
                 $availableStatuses['ok'] = $statuses['ok'];
                 $availableStatuses['objection'] = $statuses['objection'];
+                break;
+            case 'problemAnnouncing':
+                $availableStatuses['ok'] = $statuses['ok'];
+                $availableStatuses['problem'] = $statuses['problem'];
                 break;
             case 'objectionEvaluation':
                 $availableStatuses['objection'] = $statuses['objection'];
