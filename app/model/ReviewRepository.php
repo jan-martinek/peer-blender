@@ -2,7 +2,9 @@
 
 namespace Model\Repository;
 
+use Model\Entity\Course;
 use Model\Entity\Review;
+use Model\Entity\User;
 use DateTime;
 
 class ReviewRepository extends Repository
@@ -80,5 +82,17 @@ class ReviewRepository extends Repository
             LIMIT 0, 5')->fetchAll();
         
         return $this->createEntities($reviews);
+    }
+    
+    public function findReviewsWithProblemsByUserAndCourse(User $user, Course $course) {
+        $query = $this->connection->query('SELECT review.* 
+            FROM review 
+            LEFT JOIN solution ON review.solution_id = solution.id
+            LEFT JOIN unit ON solution.unit_id = unit.id
+            WHERE review.status = %s', Review::PROBLEM,
+            'AND review.reviewed_by_id = %i', $user->id,
+            'AND course_id = %i', $course->id);
+        
+        return $this->createEntities($query->fetchAll());
     }
 }

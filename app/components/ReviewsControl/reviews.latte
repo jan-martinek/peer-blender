@@ -18,12 +18,22 @@
 						{_messages.review.unfinished}
 					{/if}
 				</li>
-			{elseif $review->isInPrep()}
+			{elseif !$review->isInPrep()}
 				<li>
-					<span style="color: #f90; font-weight: bold">{_messages.review.shortScore.$review->score}</span>
+					<span style="color: #f90; font-weight: bold">
+						{if !is_null($review->score)}
+							{_messages.review.shortScore.$review->score}
+						{else}
+							&mdash;
+						{/if}
+					</span>
+					<span class="label secondary" n:if="$review->isInPrep()">{_messages.review.status.prep}</span>
+					<span class="label warning" n:if="$review->isObjected()">{_messages.review.status.objection}</span>
+					<span class="label alert" n:if="$review->hasProblem()">{_messages.review.status.problem}</span>
+					<span class="label warning" n:if="$review->isFixed()">{_messages.review.status.fixed}</span>
 					{if $unit->isFinalized()}<a href="{plink User:default $review->reviewed_by->id}">{$review->reviewed_by->name}</a>, {/if}
 					{$review->submitted_at|date:'j. n. H.i'},
-					<a href="{plink Review:default $review->id}">{_messages.review.showReview} &rarr;</a> 
+					<a href="{plink Review:default $review->id}">{_messages.review.showReview} &rarr;</a>
 				</li>
 			{/if}
 		{/foreach}

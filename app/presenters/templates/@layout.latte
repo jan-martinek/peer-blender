@@ -68,6 +68,13 @@
             <div class="columns" n:ifcontent>
                 <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{!$flash->message|imd}</p>
             </div>
+            
+            <div class="columns" n:if="isset($reviewsWithProblems) && count($reviewsWithProblems)">
+                <div class="panel callout" style="background: #fee">
+                    <h2>{_messages.app.reviewsWithProblems}</h2>
+                    {control reviewsRenderer $reviewsWithProblems}
+                </div>
+            </div>
     </header>
     
     {include content}

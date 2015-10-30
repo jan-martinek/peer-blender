@@ -44,6 +44,11 @@ class CoursePresenter extends BasePresenter
         }
         
         $this->template->favoriteReviews = $favoriteReviews;
+    
+        $this->template->reviewsWithProblems = $this->reviewRepository->findReviewsWithProblemsByUserAndCourse(
+            $this->userInfo, 
+            $this->courseInfo->course
+        );
     }
     
     public function actionEnrolled($id)
