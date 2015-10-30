@@ -231,7 +231,7 @@ class ReviewPresenter extends BasePresenter
                 $availableStatuses['ok'] = $statuses['ok'];
                 break;
             default:
-                if (in_array($kind, $statuses)) {
+                if (array_key_exists($kind, $statuses)) {
                     $availableStatuses[$kind] = $statuses[$kind];    
                 } else {
                     throw new \Exception;
