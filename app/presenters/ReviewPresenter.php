@@ -187,7 +187,7 @@ class ReviewPresenter extends BasePresenter
         } elseif ($review->isFixed() && in_array($courseRole, array('admin', 'assistant'))) {
             $statuses = $this->getReviewCommentFormStatuses('fixEvaluation');
         } else {
-            $statuses = $this->getReviewCommentFormStatuses($this->review->status);
+            $statuses = $this->getReviewCommentFormStatuses($review->status);
         }
         
         $form = new Form;
