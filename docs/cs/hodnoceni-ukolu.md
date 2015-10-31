@@ -2,7 +2,7 @@
 
 Hodnocení vypracovaných úkolů (recenze) jsou součástí vzdělávacího procesu. Proti recenzím je možné podat námitku — pokud je uznána (vyučujícím nebo asistentem), recenzent musí recenzi přepracovat (doplnit argumentaci, citovat zdroje, upravit skóre apod.). Zpochybněné recenze nejsou zahrnuty do celkového hodnocení.
 
-Recente může projít několika fázemi:
+Recenze může projít několika fázemi:
 
 - *Příprava*: recenze ještě není hotová a odeslaná
 - *OK*: hodnocení je v pořádku (pouze tyto recenze se započítávají do celkového hodnocení)
