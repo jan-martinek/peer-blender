@@ -1,0 +1,19 @@
+{block title}{$title}{/block}
+
+{block header}{/block}
+
+{block breadcrumbs}
+	<p>
+		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
+		<a n:href="Docs:default">{_messages.app.docs}</a> &rsaquo;
+		{$title}
+	</p>
+{/block}
+
+{block content}
+<div id="content" class="row">
+	<div class="columns">
+		{!$doc|md}
+	</div>
+</div>
+{/block}

@@ -25,6 +25,7 @@ app:
 	passwordResetRequestSent: "An email with a link to reset your password has been sent to your e-mail address (%address%)."
 	reviewsWithProblems: "Reviews with problems"
 	stats: "Course stats"
+	docs: "Docs"
 	objectionsProcessing: "Objections processing"
 course:
 	totalEnrolled: "%count% people enrolled"

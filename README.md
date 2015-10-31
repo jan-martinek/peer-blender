@@ -4,14 +4,14 @@ Peer Blender is a light-weight on-line homework peer-assessment tool.
 
 ## Docs
 
-- [Principles and features](docs/about.md)
-- Case-study: [VIKBA05 Computer-aided Data Transformation](docs/case-study/vikba05.md) (a freshman course on Masaryk University, Brno)
-- [Installation instructions](docs/setup.md)
+- [Principles and features](docs/en/about.md)
+- Case-study: [VIKBA05 Computer-aided Data Transformation](docs/en/case-study/vikba05.md) (a freshman course on Masaryk University, Brno)
+- [Installation instructions](docs/en/setup.md)
 
 ## Features
 
-- Simple [four-phase structure](docs/about.md#phases) of every learning unit
-- Based on the notion of [*flipped classroom*](docs/about.md)
+- Simple [four-phase structure](docs/en/about.md#phases) of every learning unit
+- Based on the notion of [*flipped classroom*](docs/en/about.md)
 - Learning process consists of
 	- working on assignments, 
 	- assessing work of the others, 
@@ -23,4 +23,4 @@ Peer Blender is a light-weight on-line homework peer-assessment tool.
 ## Limitations
 
 - There's no backend at this time.
-- There's no one-click installation procedure, you need some skills to [set up the application](docs/setup.md).
+- There's no one-click installation procedure, you need some skills to [set up the application](docs/en/setup.md).

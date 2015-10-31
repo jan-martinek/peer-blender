@@ -1,6 +1,6 @@
-# Lifecycle of a review
+# Assessment
 
-Homework's assessment (a review) is a part of the learning process. Reviews are objectionable — if the raised objections are found valid (by teacher or assistants), reviewer needs to correct their review (add arguments, cite sources, correct the score etc.).
+Homework's assessment (a review) is a part of the learning process. Reviews are objectionable — if the raised objections are found valid (by teacher or assistants), reviewer needs to correct their review (add arguments, cite sources, correct the score etc.). Questioned reviews are not included in course scoring.
 
 A review may enter several states:
 
@@ -11,6 +11,8 @@ A review may enter several states:
 - *fixed*: reviewer fixed the review (the fix needs to be approved by teacher or assistant)
 
 There needs to be a *clear justification* in every objection and rejection (of an objection or a fix) written in the comment.
+
+## Review lifecycle
 
 The possible lifecycle is as follows:
 
@@ -28,12 +30,12 @@ The possible lifecycle is as follows:
 	    - *illegitimate* and marks the review as OK **(→&nbsp;OK)**
 - **problem** — there is an identified flaw in the review
 	- the reviewer fixes the review and submits it for evaluation **(→&nbsp;fixed)**
-- **fixed** there is a fix submitted by the reviewer to be evaluated
+- **fixed** — there is a fix submitted by the reviewer to be evaluated
     - an assistant examines the fix and finds it
 	    - *unsatisfactory* and marks the review back as problematic **(→&nbsp;problem)**
 	    - *satisfactory* and marks the review as OK **(→&nbsp;OK)**
 	
 <p style="text-align: center">
-	<img src="illustrations/review-lifecycle.png" alt="review lifecycle diagram">
+	<img src="./../illustrations/review-lifecycle.png" alt="review lifecycle diagram"><br>
 	<caption><i>review lifecycle</i></caption>
 </p>

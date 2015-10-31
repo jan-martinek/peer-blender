@@ -7,10 +7,10 @@ Peer Blender is a light-weight on-line homework peer-assessment tool. It's built
 There are several defining principles of Peer Blender:
 
 - [**flipped classroom**][flipped-classroom] blended learning strategy
-- **learning by teaching**: students learn not only in fulfilling their own assignments, but also when assessing the work of others — lessons should encourage students to give useful advice when the assessed assignment is poorly made
+- **learning by teaching**: students learn not only in fulfilling their own assignments, but also when [assessing the work of others](assessment.md) — lessons should encourage students to give useful advice when the assessed assignment is poorly made
 - every unit consists of **four phases**: <a id="phases"></a>
 	- **learning**: students learn and fulfill the assignments
-    - **assessment**: students assess the assignments submitted by others
+    - **assessment**: students [assess the assignments](assessment.md) submitted by others
     - **objections**: students can raise objections against the validity of the assessments (this is possible in the *assessment phase*, too; only in this phase, no new reviews emerge)
     - **final phase**: students can check who has written the reviews, discuss in detail the problems, browse through all the material that has been created in previous phases
 - **transparency**: during the *assessment phase*, some information is hidden to keep the situation impersonal, but everything is made public in the *final phase* to promote the accountability of every participant
@@ -24,3 +24,5 @@ There are several defining principles of Peer Blender:
 # Use
 
 It is [currently being used](case-study/vikba05.md) to teach a freshman course *VIKBA05 Computer-aided Data Transformation* at Masaryk University, Brno (Czech Republic).
+
+[flipped-classroom]: https://en.wikipedia.org/wiki/Flipped_classroom

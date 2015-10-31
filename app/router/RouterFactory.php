@@ -16,9 +16,9 @@ class RouterFactory
     public static function createRouter()
     {
         $router = new RouteList();
-        $router[] = new Route('/docs[</action>]', array(
-            'presenter' => 'Homepage',
-            'action' => 'docs'
+        $router[] = new Route('/docs[/<doc .+\.md>]', array(
+            'presenter' => 'Docs',
+            'action' => 'default'
         ));
         $router[] = new Route('/[<presenter>][/<action>][/<id>]', array(
             'presenter' => 'Homepage',
