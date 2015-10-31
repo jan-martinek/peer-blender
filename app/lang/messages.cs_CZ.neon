@@ -24,9 +24,10 @@ app:
 	accountNotFoundByEmail: "Žádný účet s e-mailovou adresou **\"%address%\"** nebyl nalezen."
 	passwordResetRequestSent: "E-mail s odkazem, pomocí něhož můžete změnit své heslo, vám odešel na e-mail (%address%)."
 	reviewsWithProblems: "Hodnocení k přepracování"
+	stats: "Statistiky kurzu"
 	objectionsProcessing: "Řešení námitek"
 course:
-	totalEnrolled: "V kurzu je zapsáno %count% lidí."
+	totalEnrolled: "V kurzu je zapsáno %count% lidí"
 	participants: "Účastníci kurzu"
 	roles:
 		student: "student"
