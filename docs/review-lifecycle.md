@@ -34,6 +34,6 @@ The possible lifecycle is as follows:
 	    - *satisfactory* and marks the review as OK **(→&nbsp;OK)**
 	
 <p style="text-align: center">
-	<img src="illustrations/review-lifecycle.svg" width="100%" alt="review lifecycle diagram">
-	<caption><i>review lifecycle ([PNG version](illustrations/review-lifecycle.png))</i></caption>
+	<img src="illustrations/review-lifecycle.png" alt="review lifecycle diagram">
+	<caption><i>review lifecycle</i></caption>
 </p>
