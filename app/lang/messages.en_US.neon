@@ -24,6 +24,7 @@ app:
 	accountNotFoundByEmail: "There's no account using the e-mail address **\"%address%\"**."
 	passwordResetRequestSent: "An email with a link to reset your password has been sent to your e-mail address (%address%)."
 	reviewsWithProblems: "Reviews with problems"
+	objectionsProcessing: "Objections processing"
 course:
 	totalEnrolled: "%count% people enrolled."
 	participants: "Course participants"

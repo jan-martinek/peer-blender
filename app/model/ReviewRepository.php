@@ -96,4 +96,16 @@ class ReviewRepository extends Repository
         
         return $this->createEntities($query->fetchAll());
     }
+    
+    public function findReviewsWithProblemsByCourse(Course $course) {
+        $query = $this->connection->query('SELECT review.* 
+            FROM review 
+            LEFT JOIN solution ON review.solution_id = solution.id
+            LEFT JOIN unit ON solution.unit_id = unit.id
+            WHERE course_id = %i', $course->id,
+            'AND review.status IN %in', array(Review::PROBLEM, Review::FIXED, Review::OBJECTION),
+            'ORDER BY review.status');
+        
+        return $this->createEntities($query->fetchAll());
+    }
 }

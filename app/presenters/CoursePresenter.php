@@ -65,6 +65,13 @@ class CoursePresenter extends BasePresenter
         $this->template->userFavorites = $this->favoriteRepository->findAllByScope('User', $ids);
     }
     
+    public function renderObjections($id)
+    {
+        $this->courseInfo->insert($this->courseRepository->find($id));
+        $this->template->course = $course = $this->courseInfo->course;
+        $this->template->reviews = $this->reviewRepository->findReviewsWithProblemsByCourse($course);
+    }
+    
     public function renderStats($id) 
     {
         $this->template->course = $course = $this->courseRepository->find($id);
