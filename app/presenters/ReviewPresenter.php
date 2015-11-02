@@ -179,16 +179,20 @@ class ReviewPresenter extends BasePresenter
             ), 
             array('admin', 'assistant')
         );
+        $viewerMadeSolution = $review->solution->user->id === $user->id;
+        $viewerWroteReview = $review->reviewed_by->id === $user->id;
 
-        if ($review->isObjected() && $viewerIsAssistant) {
-            $statuses = $this->getReviewCommentFormStatuses('objectionEvaluation');
-        } elseif ($review->isFixed() && $viewerIsAssistant) {
-            $statuses = $this->getReviewCommentFormStatuses('fixEvaluation');
-        } elseif ($review->isOk() && $viewerIsAssistant) {
-            $statuses = $this->getReviewCommentFormStatuses('problemAnnouncing');
-        } elseif ($review->isOk() && $review->solution->user->id == $user->id) {
+        if ($viewerIsAssistant && !$viewerMadeSolution) {
+            if ($review->isObjected()) {
+                $statuses = $this->getReviewCommentFormStatuses('objectionEvaluation');
+            } elseif ($review->isFixed()) {
+                $statuses = $this->getReviewCommentFormStatuses('fixEvaluation');
+            } elseif ($review->isOk()) {
+                $statuses = $this->getReviewCommentFormStatuses('problemAnnouncing');
+            }
+        } elseif ($review->isOk() && $viewerMadeSolution) {
             $statuses = $this->getReviewCommentFormStatuses('objectionRaisingOrCommenting');
-        } elseif ($review->hasProblem() && $review->reviewed_by->id == $user->id) {
+        } elseif ($review->hasProblem() && $viewerWroteReview) {
             $statuses = $this->getReviewCommentFormStatuses('reviewFixing');
         } else {
             $statuses = $this->getReviewCommentFormStatuses($review->status);
