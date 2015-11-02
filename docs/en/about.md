@@ -31,8 +31,17 @@ Peer Blender is built on principles presented in various articles and papers.
 
 - **Active Learning Tip Sheet** ([online](http://provost.tufts.edu/celt/files/activelearningtipsheet_march2010.pdf))
 	- → inspiration in assignment construction
+- **Anderson, L. W., & Krathwohl, D. R. (eds.): A Taxonomy for Learning, Teaching, and Assessing: A Revision of Bloom's Taxonomy of Educational Objectives**
+	- → every question and assignment is constructed so that it respect various levels of Bloom's taxonomy
+	- + **A Revision of Bloom's Taxonomy: An Overview** ([online](http://www.unco.edu/cetl/sir/stating_outcome/documents/Krathwohl.pdf))
+	- → verbs to identify/describe the assignment, classifications
+		- + **A Model of Learning Objectives – a handout** ([online](http://www.celt.iastate.edu/pdfs-docs/teaching/RevisedBloomsHandout.pdf))
+		- + **Bloom's taxonomy action verbs** ([online](http://www.fresnostate.edu/academics/oie/documents/assesments/Blooms%20Level.pdf))
 - **Interactive Classroom Activities** ([online](http://www.brown.edu/about/administration/sheridan-center/teaching-learning/effective-classroom-practices/interactive-classroom-activities))
 	- → largely just inspiration for activites in the seminars
+- **Flipped Classroom** ([Wikipedia](https://en.wikipedia.org/wiki/Flipped_classroom))
+	- → basic info, links to sources on limitations and criticisms
+	- + **7 Things You Should Know About Flipped Classrooms** ([online](https://net.educause.edu/ir/library/pdf/eli7081.pdf))
 - **Kultawanicha, Kulachai et al.: A Proposed Model of Connectivism Learning Using Cloud-based Virtual Classroom to Enhance Information Literacy and Information Literacy Self-efficacy for Undergraduate Students** ([online](http://www.sciencedirect.com/science/article/pii/S1877042815026543))
 	- → structuring the learning process (five core components, esp. role of teacher, learning resources)
 - **Minaříková, Pavla: Konektivistický přístup k výuce informačního vzdělávání (in czech)** ([online](http://is.muni.cz/th/361548/ff_b_b1/))
@@ -41,7 +50,8 @@ Peer Blender is built on principles presented in various articles and papers.
 	- → rubrics play an important role in structuring feedback
 - **UMASS handbook for online teaching** ([online](http://www.umass.edu/oapa/oapa/publications/online_handbooks/Teaching_and_Learning_Online_Handbook.pdf))
 	- → intro to online, preparing students to learn online, recommendations and guidelines, assessment (test, course quality—enrollment, activity, completion, scores, & feedback)
-- ** The University of Edinburgh: Involving students in feedback** ([online](http://www.enhancingfeedback.ed.ac.uk/staff/resources/involvingstudents.html))
+- **The University of Edinburgh: Involving students in feedback** ([online](http://www.enhancingfeedback.ed.ac.uk/staff/resources/involvingstudents.html))
 	- → peer assessment ideas, A LOT of case studies referenced on peer assessment/peer feedback, mostly available online
+
 
 [flipped-classroom]: https://en.wikipedia.org/wiki/Flipped_classroom
