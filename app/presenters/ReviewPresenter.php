@@ -186,7 +186,7 @@ class ReviewPresenter extends BasePresenter
             $statuses = $this->getReviewCommentFormStatuses('fixEvaluation');
         } elseif ($review->isOk() && $viewerIsAssistant) {
             $statuses = $this->getReviewCommentFormStatuses('problemAnnouncing');
-        } elseif ($review->isOk() && $review->reviewed_by->id == $user->id) {
+        } elseif ($review->isOk() && $review->solution->user->id == $user->id) {
             $statuses = $this->getReviewCommentFormStatuses('objectionRaisingOrCommenting');
         } elseif ($review->hasProblem() && $review->reviewed_by->id == $user->id) {
             $statuses = $this->getReviewCommentFormStatuses('reviewFixing');
