@@ -25,4 +25,23 @@ There are several defining principles of Peer Blender:
 
 It is [currently being used](case-study/vikba05.md) to teach a freshman course *VIKBA05 Computer-aided Data Transformation* at Masaryk University, Brno (Czech Republic).
 
+# References
+
+Peer Blender is built on principles presented in various articles and papers.
+
+- Active Learning Tip Sheet ([online](http://provost.tufts.edu/celt/files/activelearningtipsheet_march2010.pdf))
+	- → inspiration in assignment construction
+- Interactive Classroom Activities ([online](http://www.brown.edu/about/administration/sheridan-center/teaching-learning/effective-classroom-practices/interactive-classroom-activities))
+	- → largely just inspiration for activites in the seminars
+- Kultawanicha, Kulachai et al.: A Proposed Model of Connectivism Learning Using Cloud-based Virtual Classroom to Enhance Information Literacy and Information Literacy Self-efficacy for Undergraduate Students ([online](http://www.sciencedirect.com/science/article/pii/S1877042815026543))
+	- → structuring the learning process (five core components, esp. role of teacher, learning resources)
+- Minaříková, Pavla: Konektivistický přístup k výuce informačního vzdělávání (in czech) ([online](http://is.muni.cz/th/361548/ff_b_b1/))
+	- → use some kind of favorites to promote browsing through created content)
+- Nordseth, Hugo et al.: Tools for peer assessment in an e-learning environment ([online](http://www.seminar.net/volume-6-issue-3-2010/163-tools-for-peer-assessment-in-an-e-learning-environment))
+	- → rubrics play an important role in structuring feedback
+- UMASS handbook for online teaching ([online](http://www.umass.edu/oapa/oapa/publications/online_handbooks/Teaching_and_Learning_Online_Handbook.pdf))
+	- → intro to online, preparing students to learn online, reccomendations and guidelines, assessment (test, course quality (enrollment, activity, completion, scores, feedback)) 
+-  The University of Edinburgh: Involving students in feedback ([online](http://www.enhancingfeedback.ed.ac.uk/staff/resources/involvingstudents.html))
+	- → peer assessment ideas, A LOT of case studies referenced on peer assessment/peer feedback, mostly available online
+
 [flipped-classroom]: https://en.wikipedia.org/wiki/Flipped_classroom
