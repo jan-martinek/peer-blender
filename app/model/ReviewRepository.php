@@ -4,6 +4,7 @@ namespace Model\Repository;
 
 use Model\Entity\Course;
 use Model\Entity\Review;
+use Model\Entity\Solution;
 use Model\Entity\Unit;
 use Model\Entity\User;
 use DateTime;
