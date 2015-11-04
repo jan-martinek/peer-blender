@@ -39,13 +39,13 @@
 					<tr n:foreach="$course->units as $unit">
 						<th>
 							<a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a>
-							<i n:if="!$unit->isFinalized() && in_array($viewerCourseRole, array('admin', 'assistant'))">
+							<i n:if="!$unit->isFinalized() && $user->isAllowed('solution', 'viewAnytime')">
 								<br>
 								(admin preview)
 							</i>
 						</th>
 						
-						{if $unit->isFinalized() || in_array($viewerCourseRole, array('admin', 'assistant'))}
+						{if $unit->isFinalized() || $user->isAllowed('solution', 'viewAnytime')}
 							{var assignment = $assignmentRepository->findByUnitAndUser($unit, $userProfile)}
 							{if $assignment && $assignment->solution}
 								

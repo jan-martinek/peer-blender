@@ -33,10 +33,9 @@ class SolutionPresenter extends BasePresenter
     public function actionDefault($id) 
     {     
         $solution = $this->solutionRepository->find($id);
-        $this->courseInfo->insert($solution);
+        $this->setupCourseInfo($solution);
         
-        $role = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);
-        if (!$this->courseInfo->unit->hasReviewsPhaseStarted() && !in_array($role, array('admin', 'assistant'))) {
+        if (!$this->courseInfo->unit->hasReviewsPhaseStarted() && !$this->user->isAllowed('solution', 'viewAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
     }    

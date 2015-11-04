@@ -16,7 +16,7 @@
 			<a n:href="Course:enrolled, $course->id">{_messages.course.totalEnrolled, [count => count($course->enrollments)]}</a>
 			&middot;
 			<a n:href="Course:objections, $course->id">{_messages.app.objectionsProcessing}</a>
-			{if in_array($presenter->enrollmentRepository->getRoleInCourse($presenter->userInfo, $course), array('admin', 'assistant'))}
+			{if $user->isAllowed('course', 'viewStats')}
 				&middot;
 				<a n:href="Course:stats, $course->id">{_messages.app.stats}</a>
 			{/if}

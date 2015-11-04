@@ -66,6 +66,43 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
             $this->redirect('Sign:in', $backlink);
         }
     }
+    
+    public function setupCourseInfo($entity) 
+    {
+        $this->courseInfo->insert($entity);
+        
+        if ($this->user->isLoggedIn()) {
+            $this->setupCourseRole();
+        }
+        
+        return $entity;
+    }
+    
+    public function setupCourseRole() 
+    {
+        $roles = $this->user->identity->roles;
+        foreach ($roles as $key => $role) {
+            if (strpos($role, 'course-') === 0) {
+                unset($roles[$key]);
+            }
+        }
+
+        if (is_null($this->courseInfo)) {
+            throw new Exception('Course is not defined.');
+            return;            
+        }
+        if (is_null($this->userInfo)) {
+            throw new Exception('User is not defined');
+            return;
+        }
+        
+        $courseRole = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);
+        if (!is_null($courseRole)) {
+            $roles[] = 'course-' . $courseRole;
+        }
+        
+        $this->user->identity->roles = $roles;
+    }
 
     public function beforeRender() 
     {
