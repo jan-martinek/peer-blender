@@ -13,7 +13,7 @@ class ErrorLogPresenter extends BasePresenter
     {
         parent::startup();
         
-        if (!$this->user->isInRole('admin')) {
+        if (!$this->user->isAllowed('errors', 'view')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
     }

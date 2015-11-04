@@ -81,12 +81,12 @@ class CoursePresenter extends BasePresenter
     {
         $course = $this->courseInfo->course;
         
-        $role = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $course);
-        if (!in_array($role, array('admin', 'assistant'))) {
+        if (!$this->user->isAllowed('course', 'viewStats')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
         
-        $this->template->reviewStats = $this->courseRepository->getReviewStats($this->template->course);  
-        $this->template->submittedReviews = $this->courseRepository->getSubmittedReviewsStats($this->template->course);
+        $this->template->course = $course;
+        $this->template->reviewStats = $this->courseRepository->getReviewStats($course);  
+        $this->template->submittedReviews = $this->courseRepository->getSubmittedReviewsStats($course);
     }
 }

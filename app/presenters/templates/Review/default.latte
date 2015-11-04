@@ -99,13 +99,11 @@
 			{/foreach}
 		{/if}
 		
-		{var viewerCourseRole = $presenter->enrollmentRepository->getRoleInCourse($presenter->userInfo, $solution->unit->course)}
-		
 		<a class="button alert" n:href="Review:fix $review->id" n:if="$review->hasProblem() && $review->reviewed_by->id == $user->id">
 			{_messages.review.fixNow} &rarr;
 		</a>
 		
-		{if in_array($viewerCourseRole, array('admin', 'assistant')) || $presenter->userInfo->id == $review->solution->user->id}
+		{if $user->isAllowed('review', 'commentAnytime') || $presenter->userInfo->id == $review->solution->user->id}
 			{form reviewCommentForm}
 				{input comment, 'rows' => 5, 'placeholder' => $presenter->translator->translate('messages.review.comments.write')}
 				

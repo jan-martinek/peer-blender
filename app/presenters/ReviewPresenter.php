@@ -55,9 +55,8 @@ class ReviewPresenter extends BasePresenter
     
     public function actionWriteForUnit($id) 
     {
-        $role = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);
-        if (!$unit->isCurrentPhase($unit::REVIEWS) && !in_array($role, array('admin', 'assistant'))) {
         $unit = $this->setupCourseInfo($this->unitRepository->find($id));
+        if (!$unit->isCurrentPhase($unit::REVIEWS) AND !$this->user-isAllowed('review', 'writeAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
         
@@ -171,22 +170,14 @@ class ReviewPresenter extends BasePresenter
     protected function createComponentReviewCommentForm()
     {
         $review = $this->courseInfo->review;
-        $user = $this->userInfo;
-        $viewerIsAssistant = in_array(
-            $this->enrollmentRepository->getRoleInCourse(
-                $this->userInfo, 
-                $this->courseInfo->course
-            ), 
-            array('admin', 'assistant')
-        );
-        $viewerMadeSolution = $review->solution->user->id === $user->id;
-        $viewerWroteReview = $review->reviewed_by->id === $user->id;
+        $viewerMadeSolution = $review->solution->user->id === $this->userInfo->id;
+        $viewerWroteReview = $review->reviewed_by->id === $this->userInfo->id;
         
-        if ($viewerIsAssistant && !$viewerMadeSolution && $review->isObjected()) {
+        if ($this->user->isAllowed('review', 'evaluateObjection') && !$viewerMadeSolution && $review->isObjected()) {
             $statuses = $this->getReviewCommentFormStatuses('objectionEvaluation');
-        } elseif ($viewerIsAssistant && !$viewerMadeSolution && $review->isFixed()) {
+        } elseif ($this->user->isAllowed('review', 'evaluateFix') && !$viewerMadeSolution && $review->isFixed()) {
             $statuses = $this->getReviewCommentFormStatuses('fixEvaluation');
-        } elseif ($viewerIsAssistant && !$viewerMadeSolution && $review->isOk()) {
+        } elseif ($this->user->isAllowed('review', 'announceProblem') && !$viewerMadeSolution && $review->isOk()) {
             $statuses = $this->getReviewCommentFormStatuses('problemAnnouncing');
         } elseif ($review->isOk() && $viewerMadeSolution) {
             $statuses = $this->getReviewCommentFormStatuses('objectionRaisingOrCommenting');
