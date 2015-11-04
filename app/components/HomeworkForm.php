@@ -16,12 +16,24 @@ class HomeworkForm extends Form
         
         $questionsContainer = $this->addContainer('questions');
         foreach ($questions as $id => $question) {
-            $input = $questionsContainer->addTextarea($id, 
-                Html::el()->setHtml(Markdown::defaultTransform($question->text))
-            ); 
+            $questionText = $question->text;
+            if ($question->type != 'plaintext') {
+                $questionText .= "\n\n(" . $translator->translate('messages.unit.highlighting.' . $question->type) . ')';
+            }
+
+            $input = $questionsContainer->addTextarea(
+                $id, 
+                Html::el()->setHtml(Markdown::defaultTransform($questionText))
+            );
+            
+            if ($question->type != 'plaintext') {
+                $input->getControlPrototype()->class('highlight-' . $question->type);
+            }
             
             if (isset($question->answer)) {
                 $input->setValue($question->answer->text);
+            } elseif ($question->prefill) {
+                $input->setValue($question->prefill);
             }
         }
         

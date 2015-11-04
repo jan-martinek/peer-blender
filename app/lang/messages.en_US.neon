@@ -85,6 +85,13 @@ unit:
 		since: "since"
 		timeLeft: "%time% left"
 		isNotFinalized: "Unit has not been finalized yet."
+	highlighting:
+		javascript: "**Javascript** syntax highlighting is active in the input field."
+		markdown: "**Markdown** syntax highlighting is active in the input field."
+		css: "**CSS** syntax highlighting is active in the input field."
+		sql: "**SQL** syntax highlighting is active in the input field."
+		xml: "**XML** syntax highlighting is active in the input field."
+		html: "**HTML** syntax highlighting is active in the input field."
 solution:
 	writtenBy: "Solved by"
 	writtenIn:

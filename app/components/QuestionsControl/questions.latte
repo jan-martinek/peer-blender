@@ -1,15 +1,18 @@
 {define question}
 	<label>{!$question->text|md}</label>
 	{if isset($question->answer)}
-		<div class="panel" n:if="$question->answer">
-			{!=nl2br(htmlspecialchars($question->answer->text))}
-		</div>
+		{if $question->answer}
+			{if $question->type == 'plaintext'}
+				<div class="panel">{!=nl2br(htmlspecialchars($question->answer->text))}</div>
+			{else}
+				<textarea id="question-{$question->id}-viewer" class="highlight-{$question->type} readonly">{$question->answer->text}</textarea>
+			{/if}
+		{/if}
 	{else}
 		<div class="panel callout">
 			<p style="color: #aaa">{_messages.unit.notAnswered}</p>
 		</div>
 	{/if}
-	
 {/define}
 
 {block content}
