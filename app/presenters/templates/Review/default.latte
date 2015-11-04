@@ -21,6 +21,7 @@
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
 		<a n:href="Course:default $solution->unit->course->id">{$solution->unit->course->name}</a> &rsaquo; 
 		<a n:href="Unit:default $solution->unit->id">{$solution->unit->name}</a> &rsaquo;
+		<a n:href="Solution:default $solution->id">{_messages.app.solution} {$solution->id}</a> &rsaquo;
 		{_messages.app.review}
 	</p>
 {/block}
