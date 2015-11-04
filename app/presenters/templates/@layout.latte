@@ -7,24 +7,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-
     <title>{ifset title}{include title|striptags} | {/ifset}{_messages.app.name}</title>
-
-    
-    <link rel="stylesheet" href="{$baseUri}/bower_components/fontawesome/css/font-awesome.min.css">
-
-    <link rel="stylesheet" href="{$basePath}/css/style.css">
     <link rel="shortcut icon" href="{$basePath}/favicon.ico">
     <meta name="viewport" content="width=device-width">
-
-    <!-- Typekit -->
-    <!-- script src="//use.typekit.net/lvs8brj.js"></script -->
-    <!-- script>try{l}Typekit.load();{r}catch(e){l}{r}</script -->
-
-    <!-- choose a theme file -->
+    <link rel="stylesheet" href="{$baseUri}/bower_components/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="{$baseUri}/bower_components/tablesorter/themes/blue/style.css">
-
     <link rel="stylesheet" href="{$baseUri}/bower_components/codemirror/lib/codemirror.css">
+    {block styles}{/block}
+    <link rel="stylesheet" href="{$basePath}/css/style.css">
     {block head}{/block}
 </head>
 
@@ -105,6 +95,8 @@
     <script src="{$baseUri}/bower_components/codemirror/mode/css/css.js"></script>
     <script src="{$baseUri}/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
     
+    {block scripts}{/block}
+    
     <script src="{$baseUri}/js/main.js"></script>
     <script>
         $(document).ready(function() {
@@ -112,6 +104,5 @@
         });
     </script>
     {control courseGaRenderer}
-    {block scripts}{/block}
 </body>
 </html>
