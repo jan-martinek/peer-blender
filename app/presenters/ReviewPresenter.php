@@ -39,7 +39,7 @@ class ReviewPresenter extends BasePresenter
 
     public function actionDefault($id) 
     {
-        $this->courseInfo->insert($this->reviewRepository->find($id));
+        $this->setupCourseInfo($this->reviewRepository->find($id));
         $this->template->isFavorited = $this->courseInfo->review->isFavoritedBy($this->userInfo);
         $this->template->uploadPath = $this->uploadStorage->path;
     }
@@ -55,9 +55,9 @@ class ReviewPresenter extends BasePresenter
     
     public function actionWriteForUnit($id) 
     {
-        $unit = $this->courseInfo->insert($this->unitRepository->find($id));
         $role = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);
         if (!$unit->isCurrentPhase($unit::REVIEWS) && !in_array($role, array('admin', 'assistant'))) {
+        $unit = $this->setupCourseInfo($this->unitRepository->find($id));
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
         
@@ -82,7 +82,7 @@ class ReviewPresenter extends BasePresenter
                 $solution = $review->solution;
             }
 
-            $this->template->review = $this->courseInfo->insert($review);
+            $this->template->review = $this->setupCourseInfo($review);
             $this->template->solution = $solution;
             $this->template->assignment = $assignment = $solution->assignment;
         } catch (\Model\Repository\SolutionToReviewNotFoundException $e) {

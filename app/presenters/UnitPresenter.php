@@ -40,14 +40,14 @@ class UnitPresenter extends BasePresenter
     
     public function actionDefault($id, $lateEdits = FALSE) 
     {   
-        $unit = $this->courseInfo->insert($this->unitRepository->find($id));
+        $unit = $this->setupCourseInfo($this->unitRepository->find($id));
         if (!$unit->hasBeenPublished()) {
             throw new \Nette\Application\BadRequestException(NULL, 404);
             return;
         }
         
         $assignment = $this->assignmentRepository->getMyAssignment($this->courseInfo->unit, $this->userInfo, $this->questionRepository);
-        $this->courseInfo->insert($assignment);
+        $this->setupCourseInfo($assignment);
         if (isset($assignment->solution)) {
             $this->courseInfo->setSolution($assignment->solution);
         }
@@ -75,7 +75,7 @@ class UnitPresenter extends BasePresenter
     
     public function actionTest($id) 
     {
-        $unit = $this->courseInfo->insert($this->unitRepository->find($id));
+        $unit = $this->setupCourseInfo($this->unitRepository->find($id));
         $assignment = $this->courseInfo->setAssignment($this->assignmentRepository->getMyAssignment($unit, $this->userInfo, TRUE));
     }    
     

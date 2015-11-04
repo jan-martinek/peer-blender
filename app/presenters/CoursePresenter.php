@@ -21,7 +21,7 @@ class CoursePresenter extends BasePresenter
     
     public function actionDefault($id)
     {
-        $this->courseInfo->insert($this->courseRepository->find($id));
+        $this->setupCourseInfo($this->courseRepository->find($id));
     }
     
     public function renderDefault($id)
@@ -53,7 +53,7 @@ class CoursePresenter extends BasePresenter
     
     public function actionEnrolled($id)
     {
-        $this->courseInfo->insert($this->courseRepository->find($id));
+        $this->setupCourseInfo($this->courseRepository->find($id));
     }
     
     public function renderEnrolled($id) 
@@ -72,9 +72,14 @@ class CoursePresenter extends BasePresenter
         $this->template->reviews = $this->reviewRepository->findReviewsWithProblemsByCourse($course);
     }
     
+    public function actionStats($id) 
+    {
+        $this->setupCourseInfo($this->courseRepository->find($id));
+    }
+    
     public function renderStats($id) 
     {
-        $this->template->course = $course = $this->courseRepository->find($id);
+        $course = $this->courseInfo->course;
         
         $role = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $course);
         if (!in_array($role, array('admin', 'assistant'))) {
