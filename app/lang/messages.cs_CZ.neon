@@ -85,6 +85,13 @@ unit:
 		since: "od"
 		timeLeft: "zbývá %time%"
 		isNotFinalized: "Lekce ještě není ukončená."
+	highlighting:
+		javascript: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **Javascript**."
+		markdown: "Ve vstupním poli je zapnuto zvýrazňování syntaxe **Markdown**."
+		css: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **CSS**."
+		sql: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **SQL**."
+		xml: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **XML**."
+		html: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **HTML**."
 solution:
 	writtenBy: "Odevzdal/a"
 	writtenIn:
