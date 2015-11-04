@@ -20,6 +20,10 @@ class HomeworkForm extends Form
                 Html::el()->setHtml(Markdown::defaultTransform($question->text))
             ); 
             
+            if ($question->type != 'plaintext') {
+                $input->getControlPrototype()->class('highlight-' . $question->type);
+            }
+            
             if (isset($question->answer)) {
                 $input->setValue($question->answer->text);
             } elseif ($question->prefill) {

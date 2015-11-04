@@ -17,6 +17,16 @@ h1, h2, h3 {
 	background: white;
 }
 
+.CodeMirror {
+	border: 1px solid #ccc;
+	margin-bottom: 20px;
+	height: auto;
+	
+	pre {
+		font-size: 14px;
+	}
+}
+
 #frm-searchForm {
 	padding: 0;
 	margin: 1em 0;

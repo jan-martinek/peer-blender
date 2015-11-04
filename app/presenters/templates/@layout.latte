@@ -24,6 +24,7 @@
     <!-- choose a theme file -->
     <link rel="stylesheet" href="{$baseUri}/bower_components/tablesorter/themes/blue/style.css">
 
+    <link rel="stylesheet" href="{$baseUri}/bower_components/codemirror/lib/codemirror.css">
     {block head}{/block}
 </head>
 
@@ -94,6 +95,16 @@
     <script src="{$baseUri}/bower_components/nette.ajax.js/nette.ajax.js"></script>
     <script src="{$baseUri}/bower_components/tablesorter/jquery.tablesorter.min.js"></script>
     <script src="{$baseUri}/bower_components/autosize/dist/autosize.min.js"></script>
+    
+    <script src="{$baseUri}/bower_components/codemirror/lib/codemirror.js"></script>
+    <script src="{$baseUri}/bower_components/codemirror/mode/javascript/javascript.js"></script>
+    <script src="{$baseUri}/bower_components/codemirror/mode/markdown/markdown.js"></script>
+    <script src="{$baseUri}/bower_components/codemirror/mode/xml/xml.js"></script>
+    <script src="{$baseUri}/bower_components/codemirror/mode/sql/sql.js"></script>
+    <script src="{$baseUri}/bower_components/codemirror/mode/javascript/javascript.js"></script>
+    <script src="{$baseUri}/bower_components/codemirror/mode/css/css.js"></script>
+    <script src="{$baseUri}/bower_components/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    
     <script src="{$baseUri}/js/main.js"></script>
     <script>
         $(document).ready(function() {

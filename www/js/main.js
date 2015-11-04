@@ -14,6 +14,7 @@ var PeerBlender = {
 		$.nette.init();
 		
 		this.ThirdParty.init();
+		this.Highlighting.init();
 		this.Chat.init();
 		
 		$('a[href^=http]').attr('target', '_blank');
@@ -24,6 +25,43 @@ var PeerBlender = {
 			$(document).foundation();
 		
 			$(".tablesorter").tablesorter(); 
+		}	
+	},
+	
+	Highlighting: {	
+		init: function() {
+			$('textarea').each(function() {
+				var textarea = $(this);
+				var className = textarea.attr('class');
+				if (!className) {
+					return;
+				}
+				var mode = className.match(/highlight-([a-z]+)/)[1];
+			
+				switch (mode) {
+					case 'javascript':
+					case 'markdown':
+					case 'css':
+					case 'sql':
+					case 'xml':
+						var highlightingMode = mode;
+						break;
+					case 'html':
+						var highlightingMode = 'htmlmixed';
+						break;
+					default:
+						return;
+				}
+				
+				var myCodeMirror = CodeMirror.fromTextArea(
+					$(this)[0], {
+						lineNumbers: true, 
+						mode: highlightingMode,
+						viewportMargin: Infinity,
+						readOnly: textarea.hasClass('readonly') ? 'nocursor' : false
+					}
+				);
+			});
 		}	
 	},
 	
