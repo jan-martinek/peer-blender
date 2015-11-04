@@ -43,6 +43,8 @@ services:
 	- App\Components\IChatControlFactory
 	router: App\RouterFactory::createRouter
 	uploadStorage: Model\UploadStorage(%wwwDir%/uploads, /uploads)
+	authorizator: 
+		class: Model\Acl
 
 extensions:
 	translation: Kdyby\Translation\DI\TranslationExtension
