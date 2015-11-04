@@ -22,6 +22,8 @@ class HomeworkForm extends Form
             
             if (isset($question->answer)) {
                 $input->setValue($question->answer->text);
+            } elseif ($question->prefill) {
+                $input->setValue($question->prefill);
             }
         }
         
