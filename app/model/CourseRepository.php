@@ -9,7 +9,8 @@ use DateTime;
 
 class CourseRepository extends Repository
 {   
-    public function getReviewStats(Course $course) {
+    public function getReviewStats(Course $course) 
+    {
         $units = array();
         foreach ($course->units as $unit) {
             $units[] = $unit->id;

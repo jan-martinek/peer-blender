@@ -8,7 +8,8 @@ use Nette\Utils\Html;
 
 class Mailer extends \Nette\Object 
 {	
-	public function sendPasswordResetEmail($presenter, $email, $token) {
+	public function sendPasswordResetEmail($presenter, $email, $token) 
+    {
         $mail = new PHPMailer();
         $mail->Subject = 'Password reset';
         $mail->IsHTML(TRUE);

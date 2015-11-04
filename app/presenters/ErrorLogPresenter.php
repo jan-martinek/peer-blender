@@ -23,7 +23,8 @@ class ErrorLogPresenter extends BasePresenter
         $this->template->files = glob($this->logPath . '*');
     }
     
-    public function actionException($filename) {
+    public function actionException($filename) 
+    {
     	$file = $this->logPath . $filename;
     	
     	if (file_exists($file)) {

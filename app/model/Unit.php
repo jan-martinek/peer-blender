@@ -27,7 +27,8 @@ class Unit extends FavoritableEntity
         OBJECTIONS = 3,
         FINALIZED = 4;
     
-    public function getCurrentPhase() {
+    public function getCurrentPhase() 
+    {
         if ($this->finalized_since < new DateTime) {
             return self::FINALIZED;
         } else if ($this->objections_since < new DateTime) {
@@ -41,11 +42,13 @@ class Unit extends FavoritableEntity
         }
     }
     
-    public function isCurrentPhase($phase) {
+    public function isCurrentPhase($phase)
+    {
         return $phase === $this->getCurrentPhase() ? true : false;
     }
     
-    public function getCurrentPhaseName() {
+    public function getCurrentPhaseName() 
+    {
         $phase = $this->getCurrentPhase();
         switch ($phase) {
             case self::FINALIZED:
@@ -61,7 +64,8 @@ class Unit extends FavoritableEntity
         }
     }
     
-    public function getPhaseNames() {
+    public function getPhaseNames() 
+    {
         return array( 
             0 => 'draft', 
             1 => 'published', 
@@ -71,7 +75,8 @@ class Unit extends FavoritableEntity
         );
     }
     
-    public function getNextPhaseName() {
+    public function getNextPhaseName() 
+    {
         $phase = $this->getCurrentPhase();
         switch ($phase) {
             case self::FINALIZED:
@@ -87,19 +92,23 @@ class Unit extends FavoritableEntity
         }
     }
     
-    public function hasBeenPublished() {
+    public function hasBeenPublished() 
+    {
         return in_array($this->getCurrentPhase(), array(self::PUBLISHED, self::REVIEWS, self::OBJECTIONS, self::FINALIZED));
     }
     
-    public function hasReviewsPhaseStarted() {
+    public function hasReviewsPhaseStarted() 
+    {
         return in_array($this->getCurrentPhase(), array(self::REVIEWS, self::OBJECTIONS, self::FINALIZED));
     }
     
-    public function hasObjectionsPhaseStarted() {
+    public function hasObjectionsPhaseStarted() 
+    {
         return in_array($this->getCurrentPhase(), array(self::OBJECTIONS, self::FINALIZED));
     }
     
-    public function isFinalized() {
+    public function isFinalized() 
+    {
         return in_array($this->getCurrentPhase(), array(self::FINALIZED));
     }
 }

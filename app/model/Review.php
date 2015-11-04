@@ -44,23 +44,28 @@ class Review extends FavoritableEntity
         $this->assessment = json_encode((array) $assessment);
     }
     
-    public function isInPrep() {
+    public function isInPrep() 
+    {
         return $this->status == self::PREP ? true : false;
     }
     
-    public function isOk() {
+    public function isOk() 
+    {
         return $this->status == self::OK ? true : false;
     }
     
-    public function hasProblem() {
+    public function hasProblem() 
+    {
         return $this->status == self::PROBLEM ? true : false;
     }
     
-    public function isObjected() {
+    public function isObjected() 
+    {
         return $this->status == self::OBJECTION ? true : false;
     }
     
-    public function isFixed() {
+    public function isFixed() 
+    {
         return $this->status == self::FIXED ? true : false;
     }
 }

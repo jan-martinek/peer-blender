@@ -51,7 +51,8 @@ class SolutionRepository extends Repository
             'GROUP BY solution.id')->fetchAssoc('reviewCount,id');     
     }
     
-    public function findReviewedByMe(User $reviewer, Unit $unit = null) {
+    public function findReviewedByMe(User $reviewer, Unit $unit = null) 
+    {
         $ids = $this->connection->query(
             'SELECT solution.id AS id 
               FROM solution

@@ -47,7 +47,7 @@ class CoursePresenter extends BasePresenter
     
         $this->template->reviewsWithProblems = $this->reviewRepository->findReviewsWithProblemsByUserAndCourse(
             $this->userInfo, 
-            $this->courseInfo->course
+            $course
         );
     }
     

@@ -21,20 +21,24 @@ class User extends FavoritableEntity
 {
     private $passwordResetTimespan = '+ 90 minute';
     
-    public function initiatePasswordReset() {
+    public function initiatePasswordReset() 
+    {
         $this->passwordResetToken = substr(md5(rand()), 0, 10);
         $this->passwordResetValidUntil = new DateTime($this->passwordResetTimespan);
     }
     
-    public function hasPasswordResetBeenInitiated() {
+    public function hasPasswordResetBeenInitiated() 
+    {
         return ($this->passwordResetValidUntil >= new DateTime) ? true : false;
     }
     
-    public function isPasswordResetTokenValid($token) {
+    public function isPasswordResetTokenValid($token) 
+    {
         return ($this->passwordResetToken === $token) ? true : false;
     }
     
-    public function sendPasswordResetEmail($presenter) {
+    public function sendPasswordResetEmail($presenter) 
+    {
         $mailer = new Mailer;
         $mailer->sendPasswordResetEmail($presenter, $this->email, $this->passwordResetToken);
     }

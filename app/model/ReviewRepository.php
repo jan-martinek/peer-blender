@@ -22,7 +22,8 @@ class ReviewRepository extends Repository
         return $review;
     }    
     
-    public function findUnfinishedReview(Unit $unit, User $reviewer) {
+    public function findUnfinishedReview(Unit $unit, User $reviewer) 
+    {
         $query = $this->connection->query(
             'SELECT review.* FROM review 
             LEFT JOIN solution ON solution_id = solution.id 
@@ -37,7 +38,8 @@ class ReviewRepository extends Repository
         }
     }
     
-    public function findByUnitAndReviewer(Unit $unit, User $user, $onlyFinished = FALSE) {
+    public function findByUnitAndReviewer(Unit $unit, User $user, $onlyFinished = FALSE) 
+    {
         $where = array(
             'solution.unit_id%i' => $unit->id,
             'review.reviewed_by_id' => $user->id
@@ -56,7 +58,8 @@ class ReviewRepository extends Repository
         return $this->createEntities($query->fetchAll());
     }    
     
-    public function findByUnit(Unit $unit) {
+    public function findByUnit(Unit $unit) 
+    {
         $query = $this->connection->query(
             'SELECT review.* FROM review 
             LEFT JOIN solution ON solution_id = solution.id 
@@ -86,7 +89,8 @@ class ReviewRepository extends Repository
         return $this->createEntities($reviews);
     }
     
-    public function findReviewsWithProblemsByUserAndCourse(User $user, Course $course) {
+    public function findReviewsWithProblemsByUserAndCourse(User $user, Course $course) 
+    {
         $query = $this->connection->query('SELECT review.* 
             FROM review 
             LEFT JOIN solution ON review.solution_id = solution.id
@@ -98,7 +102,8 @@ class ReviewRepository extends Repository
         return $this->createEntities($query->fetchAll());
     }
     
-    public function findReviewsWithProblemsByCourse(Course $course) {
+    public function findReviewsWithProblemsByCourse(Course $course) 
+    {
         $query = $this->connection->query('SELECT review.* 
             FROM review 
             LEFT JOIN solution ON review.solution_id = solution.id

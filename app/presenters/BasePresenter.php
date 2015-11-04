@@ -67,7 +67,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         }
     }
 
-    public function beforeRender() {
+    public function beforeRender() 
+    {
         //markdown
         $this->template->addFilter('md', function ($s) {
             return \Michelf\Markdown::defaultTransform($s);
@@ -88,7 +89,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         return $template;
     }
     
-    protected function logEvent(\LeanMapper\Entity $entity, $action) {
+    protected function logEvent(\LeanMapper\Entity $entity, $action) 
+    {
         $log = new Log;
         $log->entity_name = $entity->getConventionalName();
         $log->entity_identifier = $entity->id;
