@@ -50,6 +50,8 @@ class ChatPresenter extends BasePresenter
         
         if ($toFile) {
         	$this->generatedFilesStorage->save($content, $id, 'html', '/chat/');
+            echo $content;
+            $this->terminate();
         } else {
         	echo $content;
         }

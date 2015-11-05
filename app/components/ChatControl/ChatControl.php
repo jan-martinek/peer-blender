@@ -71,14 +71,5 @@ class ChatControl extends Control
         
         $form->setValues(array(), TRUE);
         $this->redrawControl('chatForm');
-        $this->redrawControl('messages');
-    }      
-    
-    public function handleRefreshChat() 
-    {
-        if ($this->presenter->isAjax()) {
-            $this->invalidateControl('messages');
-            $this->redrawControl('messages');
-        }
     }
 }

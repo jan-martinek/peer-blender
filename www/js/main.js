@@ -66,6 +66,8 @@ var PeerBlender = {
 	},
 	
 	Chat: {		
+		refresh: null,
+		
 		init: function() {			
 			if ($('#chat').length) {
 				autosize($('#chat textarea'));
@@ -86,7 +88,7 @@ var PeerBlender = {
 					PeerBlender.Chat.resizeTextarea();
 				});
 				
-				setTimeout(function(){PeerBlender.Chat.refreshChat()}, 3*1000);
+				PeerBlender.Chat.refresh = setTimeout(function(){PeerBlender.Chat.refreshChat()}, 3*1000);
 			}
 		},
 		
@@ -103,7 +105,7 @@ var PeerBlender = {
 					var messages = $('#chat .messages');
 					messages.html(payload.responseText);
 					PeerBlender.Chat.resizeTextarea();
-					setTimeout(function(courseId){PeerBlender.Chat.refreshChat(2)}, 3*1000);
+					PeerBlender.Chat.refresh = setTimeout(function(courseId){PeerBlender.Chat.refreshChat(2)}, 3*1000);
 				}
 			});
 		}
