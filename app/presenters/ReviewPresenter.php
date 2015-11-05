@@ -56,7 +56,7 @@ class ReviewPresenter extends BasePresenter
     public function actionWriteForUnit($id) 
     {
         $unit = $this->setupCourseInfo($this->unitRepository->find($id));
-        if (!$unit->isCurrentPhase($unit::REVIEWS) AND !$this->user-isAllowed('review', 'writeAnytime')) {
+        if (!$unit->isCurrentPhase($unit::REVIEWS) AND !$this->user->isAllowed('review', 'writeAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
         
