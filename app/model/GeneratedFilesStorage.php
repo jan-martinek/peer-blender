@@ -19,4 +19,16 @@ class GeneratedFilesStorage extends Storage
         
         return file_put_contents($absoluteFilename, $content);
     }
+    
+    public function remove($filename, $ext, $path)
+    {
+    	$filename = Strings::webalize($filename) . '.' . Strings::webalize($ext);
+    	$absoluteFilename = $this->getAbsolutePath($path . $filename);
+    	
+    	if (file_exists($absoluteFilename)) {
+    		return unlink($absoluteFilename);	
+    	} else {
+    		return TRUE;
+    	}
+    }
 }

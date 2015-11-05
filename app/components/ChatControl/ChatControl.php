@@ -5,6 +5,7 @@ namespace App\Components;
 use Nette\Application\UI\Control;
 use Nette\Application\UI\Form;
 use Model\Repository\MessageRepository;
+use Model\GeneratedFilesStorage;
 use Model\Entity\Message;
 use DateTime;
 
@@ -13,11 +14,14 @@ class ChatControl extends Control
 {
     private $messageRepository;
     
+    private $generatedFilesStorage;
+    
     private $userRepository;
     
-    public function __construct(MessageRepository $messageRepository) 
+    public function __construct(MessageRepository $messageRepository, GeneratedFilesStorage $generatedFilesStorage) 
     {
         $this->messageRepository = $messageRepository;
+        $this->generatedFilesStorage = $generatedFilesStorage;
     }
     
     public function setTemplateFilters() 
@@ -63,6 +67,7 @@ class ChatControl extends Control
         $message->user = $this->presenter->userInfo;
         $message->submitted_at = new DateTime;        
         $this->messageRepository->persist($message);
+        $this->generatedFilesStorage->remove($this->presenter->courseInfo->course->id, 'html', '/chat/');
         
         $form->setValues(array(), TRUE);
         $this->redrawControl('chatForm');
