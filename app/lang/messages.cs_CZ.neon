@@ -146,6 +146,7 @@ review:
 	fixingIsNotPossibleNow: "Nyní není možné recenzi opravovat."
 	fixOnlyYourOwn: "Můžete opravovat pouze své vlastní recenze."
 	isFixed: "hodnocení je opraveno"
+	fixed: "Hodnocení bylo opraveno (automaticky generovaný komentář)."
 	writtenIn:
 		moreThanADay: "Recenze byla napsaná za déle než den."
 		hours: "Recenze byla napsaná za %hours% hodin a %minutes% minut."	

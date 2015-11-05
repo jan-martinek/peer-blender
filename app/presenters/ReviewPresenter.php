@@ -152,6 +152,14 @@ class ReviewPresenter extends BasePresenter
                     break;
                 case 'fix':
                     $review->status = Review::FIXED;
+                    
+                    $comment = new ReviewComment;
+                    $comment->comment = '<span style="color:#aaa">' . $this->translator->translate('messages.review.fixed') . '</span>';
+                    $comment->review = $review;
+                    $comment->review_status = $review->status;
+                    $comment->author = $this->userRepository->find($this->user->id);
+                    $comment->submitted_at = new DateTime;        
+                    $this->reviewCommentRepository->persist($comment);
                     break;      
             }
         }

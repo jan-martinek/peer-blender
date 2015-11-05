@@ -146,6 +146,7 @@ review:
 	fixingIsNotPossibleNow: "It's not possible to fix this review now."
 	fixOnlyYourOwn: "You can fix only the reviews you've written."
 	isFixed: "review is fixed"
+	fixed: "Review has been fixed (automatically generated comment)."
 	writtenIn:
 		moreThanADay: "Review has been submitted after more than a day after it's been opened for the first time."
 		hours: "Review has been written in %hours% hours and %minutes% minutes."
