@@ -43,6 +43,7 @@ services:
 	- App\Components\IChatControlFactory
 	router: App\RouterFactory::createRouter
 	uploadStorage: Model\UploadStorage(%wwwDir%/uploads, /uploads)
+	generatedFilesStorage: Model\GeneratedFilesStorage(%wwwDir%/generated, /generated)
 	authorizator: 
 		class: Model\Acl
 

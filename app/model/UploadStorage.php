@@ -3,25 +3,23 @@
 namespace Model;
 
 use Nette;
+use Nette\Utils\Strings;
 
-class UploadStorage extends Nette\Object
+class UploadStorage extends Storage
 {
-    private $dir;
-    private $path;
+    public function moveUploadedFile($file, $path)
+    {   
+        $filename = Strings::webalize(pathinfo($file->name, PATHINFO_FILENAME))
+            . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
+        
+        if (!file_exists($this->getAbsolutePath($path))) {
+            mkdir($this->getAbsolutePath($path), 0777, TRUE);
+        }
 
-    public function __construct($dir, $path)
-    {
-        $this->dir = $dir;
-        $this->path = $path;
+        $absoluteFilename = $this->getAbsolutePath($path . $filename);
+        
+        $file->move($absoluteFilename);
+        
+        return $path . $filename;
     }
-
-    public function getAbsolutePath($path) 
-    {
-    	return $this->dir . $path;
-    }
- 
- 	public function getPath()
- 	{
- 		return $this->path;
- 	}
 }
