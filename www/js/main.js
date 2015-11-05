@@ -86,7 +86,7 @@ var PeerBlender = {
 					PeerBlender.Chat.resizeTextarea();
 				});
 				
-				setTimeout(function(){PeerBlender.Chat.refreshChat()}, 5*1000);
+				setTimeout(function(){PeerBlender.Chat.refreshChat()}, 3*1000);
 			}
 		},
 		
@@ -96,12 +96,14 @@ var PeerBlender = {
 			$('#chat .messages').scrollTop(document.querySelector('#chat .messages').scrollHeight);
 		},
 			
-		refreshChat: function() {
+		refreshChat: function(courseId) {
 			$.nette.ajax({
-				url: window.location.pathname + '?do=chatRenderer-refreshChat',
+				url: '/generated/chat/' + 2 + '.html',
 				complete: function (payload) {
+					var messages = $('#chat .messages');
+					messages.html(payload.responseText);
 					PeerBlender.Chat.resizeTextarea();
-					setTimeout(function(){PeerBlender.Chat.refreshChat()}, 5*1000);
+					setTimeout(function(courseId){PeerBlender.Chat.refreshChat(2)}, 3*1000);
 				}
 			});
 		}

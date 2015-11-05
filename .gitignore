@@ -3,6 +3,7 @@ temp/*
 vendor/*
 www/bower_components/*
 www/uploads/*
+www/generated/*
 config.neon
 !.gitignore
 !.htaccess

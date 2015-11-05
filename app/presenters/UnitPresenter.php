@@ -168,22 +168,10 @@ class UnitPresenter extends BasePresenter
      * @return string uploaded filename
      */
     private function saveHomeworkFile($file, $courseId, $unitId, $userId) 
-    {
+    {   
         if ($file->isOK()) {
             $path = "/course-$courseId/homeworks/unit-$unitId/user-$userId/";
-            $filename = 
-                Strings::webalize(pathinfo($file->name, PATHINFO_FILENAME))
-                . '.' . pathinfo($file->name, PATHINFO_EXTENSION);
-            
-            if (!file_exists($this->uploadStorage->getAbsolutePath($path))) {
-                mkdir($this->uploadStorage->getAbsolutePath($path), 0777, TRUE);
-            }
-
-            $absoluteFilename = $this->uploadStorage->getAbsolutePath($path . $filename);
-            
-            $file->move($absoluteFilename);
-            
-            return $path . $filename;
+            return $this->uploadStorage->moveUploadedFile($file, $path);
         } else {
             return NULL;
         }
