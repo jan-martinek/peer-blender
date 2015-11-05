@@ -97,7 +97,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         }
         
         $courseRole = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);
-        if (!is_null($courseRole)) {
+        if (!is_null($courseRole) && $courseRole) {
             $roles[] = 'course-' . $courseRole;
         }
         
