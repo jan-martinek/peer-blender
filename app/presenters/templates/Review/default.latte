@@ -104,7 +104,10 @@
 			{_messages.review.fixNow} &rarr;
 		</a>
 		
-		{if $user->isAllowed('review', 'commentAnytime') || $presenter->userInfo->id == $review->solution->user->id}
+		{if $user->isAllowed('review', 'commentAnytime') 
+			|| $presenter->userInfo->id == $review->solution->user->id
+			|| $presenter->userInfo->id == $review->reviewed_by->id
+		}
 			{form reviewCommentForm}
 				{input comment, 'rows' => 5, 'placeholder' => $presenter->translator->translate('messages.review.comments.write')}
 				
