@@ -29,7 +29,7 @@
 {block content}
 <div id="content" class="row">
 	<div class="columns">
-		<div class="panel callout" n:if="$solution->unit->isFinalized()">
+		<div class="panel callout" n:if="$solution->unit->isFinalized() && !is_null($review->submitted_at)">
 			<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a>
 			{var solutionTimespan = $assignment->generated_at->diff($solution->submitted_at)}		
 			{if $solutionTimespan->format('%a') >= 1}
@@ -90,7 +90,7 @@
 					$comment->review_status == 'ok' ? 'success', 
 					$comment->review_status == 'problem' ? 'alert', 
 					in_array($comment->review_status, array('objection', 'fixed')) ? 'warning'
-				">{$comment->review_status}</span>
+				">{_messages.review.status.$comment->review_status}</span>
 				{if $comment->comment}
 					{!$comment->comment|md}
 				{else}
