@@ -38,15 +38,15 @@ class ReviewRepository extends Repository
         }
     }
     
-    public function findByUnitAndReviewer(Unit $unit, User $user, $onlyFinished = FALSE) 
+    public function findByUnitAndReviewer(Unit $unit, User $user, $onlyOk = FALSE) 
     {
         $where = array(
             'solution.unit_id%i' => $unit->id,
             'review.reviewed_by_id' => $user->id
         );
         
-        if ($onlyFinished) {
-            $where[] = array('review.status != %s', Review::PREP);
+        if ($onlyOk) {
+            $where[] = array('review.status = %s', Review::OK);
         }
         
         $query = $this->connection->query(
