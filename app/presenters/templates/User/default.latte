@@ -89,7 +89,7 @@
 				<ul>
 					<li n:foreach="$course->units as $unit">
 						<a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a>
-						{include reviews, reviews => $reviewRepository->findByUnitAndReviewer($unit, $userProfile)}
+						{control reviewsRenderer $reviewRepository->findByUnitAndReviewer($unit, $userProfile)}
 					</li>
 				</ul>
 			</div>
