@@ -30,7 +30,7 @@ class Tables3Generator extends Nette\Object implements IGenerator
         ));        
         
         $apply = new SimpleQuestionset('apply', array(
-            'Roky se často zapisují pomocí [římských čísel](https://cs.wikipedia.org/wiki/%C5%98%C3%ADmsk%C3%A9_%C4%8D%C3%ADslice). Použijte např. funkci `ROMAN` (základní, klasický zápis) a zjistěte, který rok od 1 do 2015 je v zápisu pomocí římských čísel nejdelší (má nejvíce znaků). Využijte při hledání vzorce.' . "\n\n" . 'Do vstupního pole napište rok (pomocí arabských i římských číslic) a délku letopočtu v římských číslících. Stručně popište, jak jste k výsledku došli.'
+            'Roky se často zapisují pomocí [římských číslic](https://cs.wikipedia.org/wiki/%C5%98%C3%ADmsk%C3%A9_%C4%8D%C3%ADslice). Použijte např. funkci `ROMAN` (základní, klasický zápis) a zjistěte, který rok od 1 do 2015 je v zápisu pomocí římských čísel nejdelší (má nejvíce znaků). Využijte při hledání vzorce.' . "\n\n" . 'Do vstupního pole napište rok (pomocí arabských i římských číslic) a délku letopočtu v římských číslících. Stručně popište, jak jste k výsledku došli.'
         ));
         
         $create1 = new SimpleQuestionset('create', array(
@@ -90,9 +90,10 @@ class Tables3Generator extends Nette\Object implements IGenerator
     public function getRubrics() 
     {
         return array(
-            'Používá autor/ka zpracovaného úkolu správně a konzistentně termíny, které se týkají práce s tabulkovými daty?',
-            'Jsou všechny výpočty v tabulkách provedeny správně? Které jsou nedostatečné? Doporučte autorce/autorovi zdroje pro doplnění znalostí.',
-            'Je z výsledku patrné, jaký postup autor/ka použil/a při výpočtech? Které operace by bylo možné provést jednodušeji? Jak by si autor/ka zpracovaného úkolu mohl usnadnit či zpřehlednit práci? (Uveďte konkrétní příklady.)'
+            'Rozumí autor/ka formátu CSV? Povedlo se mu/jí najít soubor a správně z něj získat data to tabulkového procesoru? Popsal/a využitelnost těchto dat?',
+            'Rozumí autor/ka formátování čísel a dat v tabulkovém procesoru? Podařilo se mu/jí formáty prakticky upravit? Mění se správně naformátované hodnoty, pokud se změní vstupní (otestujte na posledním, vlastním datu)? Počítá se správně doba mezi daty? (Pokud autor/ka narazil/a na omezení způsobené tabulkovým procesorem, např. formátování dat před rokem 1900, nepovažujte to za chybu.)',
+            'Podařilo se autorovi/autorce najít nejdelší letopočet v zápisu pomocí římských číslic? Popsal/a dostatečně a pochopitelně postup, jak k výsledku došel/došla?',
+            'Popsal/a autor/ka dostatečně práci s rozdělováním e-mailové adresy? Mění se výsledné hodnoty, pokud změníte vstupní? (Pokud se nepodařilo správně vyextrahovat hodnoty doména a doména nejvyššího řádu, tak to nepovažujte za chybu, když je vidět, že autor/ka nad prací pracoval/a a svůj postup popsal/a.)'
         );
     }
 
