@@ -85,11 +85,11 @@ class DbGenerator extends Nette\Object implements IGenerator
             
         $select = new SimpleQuestionset('apply', array(
             $selectOpening . 'pouze názvy všech států' . $selectClosing,
-            $selectOpening . 'název státu a plochu na jednoho obyvatele' . $selectClosing,
+            $selectOpening . 'název státu a velikost území na jednoho obyvatele' . $selectClosing,
             $selectOpening . 'všechno, co tabulka s informacemi o státech obsahuje' . $selectClosing,
             $selectOpening . 'všechy státy seřazené podle rychosti populačního růstu' . $selectClosing,
-            $selectOpening . 'všechy státy seřazené podle rychosti plochy (seřazené od nejvyšší hodnoty sestupně)' . $selectClosing,
-            $selectOpening . 'plochu Japonska. Následně sestavte druhý dotaz, který vypíše názvy všech států, které mají větší plochu než Japonsko' . $selectClosing,
+            $selectOpening . 'všechy státy seřazené podle velikosti území (seřazené od nejvyšší hodnoty sestupně)' . $selectClosing,
+            $selectOpening . 'velikost území Japonska. Následně sestavte druhý dotaz, který vypíše názvy všech států, které mají větší velikost území než Japonsko' . $selectClosing,
             $selectOpening . 'počet států, jejichž zkratka končí na "a"' . $selectClosing,
             $selectOpening . 'počet států, jejichž zkratka začíná na "a"' . $selectClosing,
         ));                
