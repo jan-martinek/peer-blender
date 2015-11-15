@@ -80,7 +80,7 @@
 				</p>
 				
 				<p n:if="!($solution && $solution->attachment) || pathinfo($solution->attachment, PATHINFO_BASENAME) == '@nothing.txt'">
-					{if pathinfo($solution->attachment, PATHINFO_BASENAME) == '@nothing.txt'}
+					{if $solution && $solution->attachment && pathinfo($solution->attachment, PATHINFO_BASENAME) == '@nothing.txt'}
 						{? $form['attachmentNotNeeded']->setValue(TRUE)}
 					{/if}
 					{input attachmentNotNeeded}
