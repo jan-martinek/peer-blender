@@ -73,10 +73,17 @@
 					</p>
 				{/label}
 				
-				<p n:if="$solution && $solution->attachment">
+				<p n:if="$solution && $solution->attachment && pathinfo($solution->attachment, PATHINFO_BASENAME) != '@nothing.txt'">
 					{_messages.unit.submittedAttachment}: 
 					<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
 					{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
+				</p>
+				
+				<p n:if="!($solution && $solution->attachment) || pathinfo($solution->attachment, PATHINFO_BASENAME) == '@nothing.txt'">
+					{if pathinfo($solution->attachment, PATHINFO_BASENAME) == '@nothing.txt'}
+						{? $form['attachmentNotNeeded']->setValue(TRUE)}
+					{/if}
+					{input attachmentNotNeeded}
 				</p>
 			</div>
 			

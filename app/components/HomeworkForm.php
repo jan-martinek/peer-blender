@@ -48,6 +48,9 @@ class HomeworkForm extends Form
                 NULL, 
                 array('filesize' => $course->uploadMaxFilesizeKb)
             ));
+            
+        $attachmentNotNeededLabel = $translator->translate('messages.unit.homeworkAttachmentNotNeeded');
+        $this->addCheckbox('attachmentNotNeeded', ' ' . $attachmentNotNeededLabel);
         
         $submitLabel = $translator->translate('messages.unit.submitHomework');
         $this->addSubmit('submit', $submitLabel);

@@ -49,6 +49,7 @@ unit:
 	homeworkSaved: "**Your homework has been saved.**"
 	homeworkAttachment: "Attachment"
 	homeworkAttachmentNote: "maximum size is %filesize% kB; archive files into ZIP if needed"
+	homeworkAttachmentNotNeeded: "No attachment is required to complete this assignment."
 	submittedAttachment: "Submitted attachment"
 	noAttachment: "No attachment submitted"
 	submitHomework: "Submit homework"
