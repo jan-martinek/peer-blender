@@ -120,6 +120,13 @@ class UnitPresenter extends BasePresenter
                     $this->courseInfo->unit->id,
                     $this->user->id
                 );    
+            } else if ($values->attachmentNotNeeded) {
+                $this->removeHomeworkFile($solution->attachment);
+                $solution->attachment = $this->saveBlankHomeworkFile(
+                    $this->courseInfo->course->id,
+                    $this->courseInfo->unit->id,
+                    $this->user->id
+                );
             }
             $this->solutionRepository->persist($solution);
             $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
@@ -139,6 +146,12 @@ class UnitPresenter extends BasePresenter
                     $this->courseInfo->unit->id,
                     $this->user->id
                 ); 
+            } else if ($values->attachmentNotNeeded) {
+                $solution->attachment = $this->saveBlankHomeworkFile(
+                    $this->courseInfo->course->id,
+                    $this->courseInfo->unit->id,
+                    $this->user->id
+                );
             }
             $this->solutionRepository->persist($solution);    
             $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);        
@@ -176,6 +189,15 @@ class UnitPresenter extends BasePresenter
             return NULL;
         }
     }
+    
+    private function saveBlankHomeworkFile($courseId, $unitId, $userId) 
+    {   
+        $path = "/course-$courseId/homeworks/unit-$unitId/user-$userId/";
+        return $this->uploadStorage->createFile(
+            $this->translator->translate('messages.unit.homeworkAttachmentNotNeeded'),
+            $path
+        );
+    }    
     
     private function removeHomeworkFile($filename) 
     {
