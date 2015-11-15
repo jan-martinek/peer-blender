@@ -25,9 +25,15 @@
 	<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
 	<p class="panel">
 		{if $solution->attachment}
-			{_messages.unit.submittedAttachment}: 
-			<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
-			{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
+			{var $filename = pathinfo($solution->attachment, PATHINFO_BASENAME)}
+			{if $filename == '@nothing.txt'}
+				<span style="color: #aaa">{_messages.unit.homeworkAttachmentNotNeeded}</span>
+			{else}
+				{_messages.unit.submittedAttachment}: 
+				<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
+					{$filename}
+				</a>
+			{/if}
 		{else}
 			<span style="color: #aaa">{_messages.unit.noAttachment}</a>
 		{/if}
