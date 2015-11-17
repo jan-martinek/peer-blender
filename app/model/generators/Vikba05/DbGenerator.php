@@ -328,9 +328,7 @@ class DbGenerator extends Nette\Object implements IGenerator
     
     public function getRubrics() 
     {
-        return array(
-            ''
-        );
+        return array();
     }
 
 }
