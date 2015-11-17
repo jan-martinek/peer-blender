@@ -56,7 +56,6 @@ class DbGenerator extends Nette\Object implements IGenerator
             'operátor',
             'datový typ',
             'podmínka',
-            'datový typ',
             'návrh databáze'
         );
         $terms = new SimpleQuestionset('remember');
