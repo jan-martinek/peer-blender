@@ -63,7 +63,7 @@
 		<div n:foreach="$assignment->rubricSet as $id => $rubric" class="assignmentQuestion">
 			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 			<label>{!$rubric|md}</label>
-			<div class="panel">{!$answers[$id]|md}</div>
+			<div class="panel">{!=nl2br(htmlspecialchars($answers[$id]))}</div>
 		</div>
 
 		<h3>{_messages.review.score.title}<h3>
