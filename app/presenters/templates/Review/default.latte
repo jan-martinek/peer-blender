@@ -60,10 +60,11 @@
 		<h2>{_messages.unit.review}</h2>
 
 		{var answers = $review->assessmentSet}
-		{foreach $assignment->rubricSet as $id => $rubric}
-		<h3>{!$rubric|imd}</h3>
-		{!$answers[$id]|md}
-		{/foreach}
+		<div n:foreach="$assignment->rubricSet as $id => $rubric" class="assignmentQuestion">
+			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
+			<label>{!$rubric|md}</label>
+			<div class="panel">{!$answers[$id]|md}</div>
+		</div>
 
 		<h3>{_messages.review.score.title}<h3>
 		
