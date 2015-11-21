@@ -12,7 +12,7 @@ class Db2Generator extends Nette\Object implements IGenerator
     
     public function getPreface() 
     {
-        return 'Důraz je tentokrát kladen na kvalitu kreativních úkolů: V případě, že se zaseknete na neznalosti technikálií, neváhejte se obrátit na kolegy v [diskusním fóru předmětu](https://is.muni.cz/auth/diskuse/diskusni_forum_predmet?guz=58445984).';
+        return 'Důraz je tentokrát kladen na kvalitu zpracování kreativních úkolů. V případě, že se zaseknete na neznalosti technikálií a ani Google nepomáhá, neváhejte se obrátit na kolegy v [diskusním fóru předmětu](https://is.muni.cz/auth/diskuse/diskusni_forum_predmet?guz=58445984).';
     }
 
     public function getQuestions() 
@@ -50,7 +50,7 @@ class Db2Generator extends Nette\Object implements IGenerator
             "SELECT agent.id, agent.name, agent.email, country.name, population_growth  \nFROM agent  \nLEFT JOIN country ON country.id = agent.country_id  \nWHERE population_growth > 2",
         );        
         $play = new SimpleQuestionset('apply');
-        $play->addRandomizedQuestion("Bez toho, že byste si příliš pročítali materiály, si otevřete [zkušební aplikaci](http://jan-martinek.com/tmp/db/?sqlite=&username=&db=factbook.db&sql=) a vložte do pole pro SQL příkaz tento příkaz:\n\n`%select%`\n\n- Popište, co obsahuje výsledná tabulka (pokud se objeví chyba, nejspíše jste příkaz zkopírovali špatně — nevíte-li si rady, optejte se na fóru).\n- Zkuste měnit parametry v dotazu a popište, jak se výsledky mění, když pozměněný příkaz spustíte (pomocí tlačítka *Execute*).\n- Zkuste o agentech najít o agentech další informace a vysvětlete podivné hodnoty, které se týkají města, kde agent pobývá.",
+        $play->addRandomizedQuestion("Bez toho, že byste si příliš pročítali materiály, si otevřete [zkušební aplikaci](http://jan-martinek.com/tmp/db/?sqlite=&username=&db=factbook.db&sql=) a vložte do pole pro SQL příkaz tento příkaz:\n\n`%select%`\n\n- Popište, co obsahuje výsledná tabulka (pokud se objeví chyba, nejspíše jste příkaz zkopírovali špatně — nevíte-li si rady, optejte se na fóru).\n- Zkuste měnit parametry v dotazu a popište, jak se výsledky mění, když pozměněný příkaz spustíte (pomocí tlačítka *Execute*).\n- Zkuste o agentech najít o agentech další informace a vysvětlete *podivné hodnoty*, které se týkají města, kde agent pobývá.",
             array('select' => $playDict), 1);
         
         $play2 = new SimpleQuestionset('apply', array(
@@ -102,17 +102,17 @@ class Db2Generator extends Nette\Object implements IGenerator
         );
         $model = new SimpleQuestionset('create');
         $model->addRandomizedQuestion(
-            'V tomto úkolu budete vytvářet zjednodušené ER (Entity-Relationship) diagramy, **přetvoříte do tabulky** a následně zrevidujete, zda je Váš diagram správný.'
+            'V tomto úkolu budete opět vytvářet zjednodušené ER (Entity-Relationship) diagramy, přetvoříte je do tabulky a následně zrevidujete, zda je Váš diagram správný.'
             . "\n\n"
             . 'Pomocí papíru a tužky nebo webového nástroje [Gliffy](https://www.gliffy.com) **vytvořte schéma**, které popisuje objekt **„%object%“** pomocí alespoň pěti různých entit, každou s alespoň třemi atributy. Vyznačte vazby mezi entitami včetně jejich [kardinality](https://www.google.cz/search?q=kardinalita+datab%C3%A1ze). Stejně jako minule si uvědomujte, že jde o *popis*, který je selektivní — nikdy nepopíšete vše — takže to, jak sestavíte třídy entit závisí na účelu, který váš *ER model* plní. **Účel si předem vymyslete a popište do vstupního pole.**'
             . "\n\n"
-            . "Druhá část úkolu je vytvoření samotných tabulek pomocí nástroje [*Adminer*](http://jan-martinek.com/tmp/db/?sqlite=) a databáze *SQLite*. Oba již trochu znáte z předchozích příkladů. Díky Admineru nebudete muset v tomto úkolu používat přímo SQL příkazů."
+            . "**Druhá část úkolu je vytvoření samotných tabulek** pomocí nástroje [*Adminer*](http://jan-martinek.com/tmp/db/?sqlite=) a databáze *SQLite*. Oba již trochu znáte z předchozích příkladů. Díky Admineru nebudete muset v tomto úkolu používat přímo SQL příkazů."
             . "\n\n"
             . "Na [přihlašovací stránce](http://jan-martinek.com/tmp/db/?sqlite=) se připojte do své vlastní databáze, která má název ve tvaru `UČO.db` (tedy např. `123456.db`). Poté pomocí odkazu `Create table` vytvořte tabulku pro každou z vašich entit — název entity bude názvem tabulky a každý atribut vytvoří sloupec v tabulce, pozor dejte na správný výběr datových typů. Nezapomeňte na identifikátory a propojení mezi tabulkami pomocí cizích klíčů (když sloupec nazvete jako *existující tabulku* s koncovkou \"\_id\" (tedy např. \"akcie\_id\", Adminer vám napoví)."
             . "\n\n"
-            . "Poté, co tabulky vytvoříte zbývá poslední krok: plnění. Do každé tabulek vyplňte alespoň 5 vzorových *smysluplných* řádků (pomocí odkazu `New item`). Jak takové tabulky mohou vypadat znáte z původního příkladu se zeměmi a agenty. Po naplnění tabulek zkontrolujte, zda vaše schéma odpovídá výsledné databázi a vše odevzdejte do přílohy: "
+            . "**Poté, co tabulky vytvoříte, zbývá poslední krok: plnění.** Do každé tabulek vyplňte alespoň 5 vzorových *smysluplných* řádků (pomocí odkazu `New item`). Jak takové tabulky mohou vypadat znáte z původního příkladu se zeměmi a agenty. Po naplnění tabulek zkontrolujte, zda vaše schéma odpovídá výsledné databázi a vše odevzdejte do přílohy: "
             . "\n\n"
-            . 'Výsledné schéma na papíru vyfoťte a nahrejte do přílohy nebo publikujte veřejně webovou verzi a odkaz zkopírujte do odpovědi. Výslednou databázi vyexportujte (odkaz `Export`, vyberte Output "gzip" a Format "SQL"). Vše zazipujte dohromady i s úkolem z následující úlohy a nahrejte do odevzdávárny.',
+            . 'Výsledné schéma na papíru vyfoťte a nahrejte do přílohy nebo publikujte veřejně webovou verzi a odkaz zkopírujte do odpovědi. Výslednou databázi vyexportujte (odkaz `Export`, vyberte Output "gzip" a Format "SQL"). Vše zazipujte dohromady i s úkolem z následující úlohy a nahrajte do odevzdávárny.',
             array('object' => $modelDict), 1);
 
 
@@ -381,19 +381,19 @@ class Db2Generator extends Nette\Object implements IGenerator
 
         $normalize = new SimpleQuestionset('create');
         $normalize->addRandomizedQuestion(
-            'V tomto úkolu budete normalizovat databázi do třetí normální formy. Prakticky jde o pragmatické roztřídění různých atributů do entit tak, aby data nebyla redundantní (aby nezabírala příliš mnoho místa), aby se s nimi dalo dobře pracovat (vše není v jedné tabulce, ale vzájemně závislé atributy jsou společně) a aby nedocházelo k nekonzistenci dat. Pokud bychom například měli u každého zaměstnance uvedenou adresu s městem a PSČ, může se stát, že stejná obec bude mít různá PSČ — tomu se můžeme vyhnout tím, že vytvoříme samostatnou tabulku, kde ke každému PSČ uvedeme město a názvy měst z tabulky zaměstnanců úplně odstraníme.'
+            '**V tomto úkolu budete normalizovat databázi do třetí normální formy.** Prakticky jde o pragmatické roztřídění různých atributů do entit tak, aby data nebyla redundantní (aby nezabírala příliš mnoho místa), aby se s nimi dalo dobře pracovat (vše není v jedné tabulce, ale vzájemně závislé atributy jsou společně) a aby nedocházelo k nekonzistenci dat. Pokud bychom například měli u každého zaměstnance uvedenou adresu s městem a PSČ, může se stát, že stejná obec bude mít různá PSČ — tomu se můžeme vyhnout tím, že vytvoříme samostatnou tabulku, kde ke každému PSČ uvedeme město a názvy měst z tabulky zaměstnanců úplně odstraníme.'
             . "\n\n"
             . '> Více informací najdete zejména [na české Wikipedii](https://www.google.cz/search?q=datab%C3%A1ze+normalizace+wiki). Byť Wikipedie není určena ke sdílení návodů, právě návod na stránce [Třetí normální forma](https://cs.wikipedia.org/wiki/Třet%C3%AD_normáln%C3%AD_forma) ilustruje principy normalizace poměrně hezky.'
             . "\n\n"
-            . "Druhá část úkolu je vytvoření samotných tabulek pomocí nástroje [*Adminer*](http://jan-martinek.com/tmp/db/?sqlite=), obdobně jako v předchozím úkolu. Vytvořte tabulky (alespoň tři), nezapomeňte na cizí klíče, vložte do každé tabulky alespoň tři vzorové smysluplné řádky. Schéma i obsah databáze odevzdejte stejným způsobem jako v předchozím úkolu. Do vstupního pole popište, co taková databáze nejspíše popisuje."
+            . "**Druhá část úkolu je vytvoření samotných tabulek** pomocí nástroje [*Adminer*](http://jan-martinek.com/tmp/db/?sqlite=), obdobně jako v předchozím úkolu. Vytvořte tabulky (alespoň tři), nezapomeňte na cizí klíče, vložte do každé tabulky alespoň tři vzorové smysluplné řádky. Schéma i obsah databáze odevzdejte stejným způsobem jako v předchozím úkolu. Do vstupního pole popište, co taková databáze nejspíše popisuje."
             . "\n\n"
             . "> Databázi si před začátkem práce na novém úkolu pročistěte. Tabulky smažete pomocí tlačítka `Drop`. Dejte pozor, abyste si předtím vyexportovali výsledky předchozího úkolu. Pokud se budete chtít k původnímu úkolu vrátit, můžete vyexportovaný soubor importovat zpět."
             . "\n\n"
-            . "A teď samotný úkol: normalizujte databázi s %table%",
+            . "**A teď samotný úkol:** Normalizujte databázi s %table%",
             array('table' => $normalizeDict), 1);
 
         $join = new SimpleQuestionset('apply', array(
-            "Využijte libovolnou databázi, se kterou jste pracovali v tomto úkolu (využití vlastní databáze si cením více a bude zdůrazněno v peer-assessmentu) a vytvořte několik dotazů (alespoň 3), které spojují více tabulek.\n\nTyto dotazy vlastními slovy popište: co vybírají a k čemu by takový výsledek bylo možné využít (např. seznam agentů v zemích, kde je vysoký populační růst, by mohl být použitelný jako seznam kontaktů pro sociologický výzkum)."
+            "Využijte libovolnou databázi, se kterou jste pracovali v tomto úkolu (využití vlastní databáze si cením více a bude zdůrazněno v peer-assessmentu) a **vytvořte několik dotazů (alespoň 3), které spojují více tabulek**.\n\nTyto dotazy vlastními slovy popište: co vybírají a k čemu by takový výsledek bylo možné využít (např. seznam agentů v zemích, kde je vysoký populační růst, by mohl být použitelný jako seznam kontaktů pro sociologický výzkum)."
         ));
 
         $questions = array_merge(
