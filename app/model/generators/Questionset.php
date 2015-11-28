@@ -8,6 +8,8 @@ abstract class Questionset extends Nette\Object implements IQuestionset
 {
     protected $questions;
     protected $bloom;
+    protected $type = 'plaintext';
+    public $prefill = '';
     
     /**
      * Sets the classification of the question in Revised 
@@ -45,4 +47,28 @@ abstract class Questionset extends Nette\Object implements IQuestionset
         return $this->bloom;
     }
     
+    public function setType($type)
+    {
+        $types = array(
+            'plaintext',
+            'code',
+            'markdown',
+            'javascript',
+            'html',
+            'sql',
+            'css',
+            'xml'
+        );
+        
+        if (in_array($type, $types)) {
+            $this->type = $type;
+        } else {
+            throw new Exception('This type is not supported.');
+        }
+    }
+    
+    public final function getType() 
+    {
+        return $this->type;
+    }
 }

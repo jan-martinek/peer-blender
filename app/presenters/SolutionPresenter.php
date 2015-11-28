@@ -30,6 +30,9 @@ class SolutionPresenter extends BasePresenter
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;
     
+    /** @var \Nette\Http\Request @inject */
+    public $request;    
+    
     public function actionDefault($id) 
     {     
         $solution = $this->solutionRepository->find($id);
@@ -52,6 +55,12 @@ class SolutionPresenter extends BasePresenter
         $this->template->assignment = $this->courseInfo->assignment;
         $this->template->course = $this->courseInfo->course;   
         $this->template->uploadPath = $this->uploadStorage->path;
+    }
+    
+    public function actionPreview()
+    {
+        $post = $this->request->getPost();
+        $this->template->answer = $post['answer'];
     }
     
     public function handleFavorite() 

@@ -87,6 +87,7 @@ unit:
 		timeLeft: "%time% left"
 		isNotFinalized: "Unit has not been finalized yet."
 	highlighting:
+		code: "Code editing (without syntax highlighting) is active in the input field."
 		javascript: "**Javascript** syntax highlighting is active in the input field."
 		markdown: "**Markdown** syntax highlighting is active in the input field."
 		css: "**CSS** syntax highlighting is active in the input field."
@@ -101,6 +102,7 @@ solution:
 		minutes: "after %minutes% minutes since the assignment has been generated."
 	complete: "Assignment has been completed and will be submitted to the review process. You can still edit it until the review phase comes (%date%)."
 	notComplete: "Assignment has not been completed yet and will not get reviews in the next phase. You can edit it until the review phase comes (%date%)."
+	runCode: "Run code"
 review:
 	title: "Peer-assessment"
 	score: 

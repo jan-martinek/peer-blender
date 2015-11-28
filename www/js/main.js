@@ -29,7 +29,23 @@ var PeerBlender = {
 	},
 	
 	Highlighting: {	
+		editors: [],
+		
 		init: function() {
+			$('button.answerPreview').click(function(e) {
+				var editorCount = PeerBlender.Highlighting.editors.length;
+				for (var i = 0; i < editorCount; i++) {
+				    PeerBlender.Highlighting.editors[i].save();
+				}
+				
+				var answer = $(this).closest('.assignmentQuestion').find('textarea').val();
+				$('#previewForm textarea[name="answer"]').text(answer);
+				$('#previewForm')[0].submit();
+				
+				e.preventDefault();
+			});
+			
+			
 			$('textarea').each(function() {
 				var textarea = $(this);
 				var className = textarea.attr('class');
@@ -37,14 +53,21 @@ var PeerBlender = {
 					return;
 				}
 				var mode = className.match(/highlight-([a-z]+)/)[1];
+				var gutters = [];
+    			var lint = false;
 			
 				switch (mode) {
-					case 'javascript':
+					case 'code':
 					case 'markdown':
 					case 'css':
 					case 'sql':
 					case 'xml':
 						var highlightingMode = mode;
+						break;
+					case 'javascript':
+						var highlightingMode = mode;
+						lint = true;
+						gutters = ["CodeMirror-lint-markers"];
 						break;
 					case 'html':
 						var highlightingMode = 'htmlmixed';
@@ -57,10 +80,14 @@ var PeerBlender = {
 					$(this)[0], {
 						lineNumbers: true, 
 						mode: highlightingMode,
+						lint: true,
+						gutters: ["CodeMirror-lint-markers"],
 						viewportMargin: Infinity,
 						readOnly: textarea.hasClass('readonly') ? 'nocursor' : false
 					}
 				);
+				
+				PeerBlender.Highlighting.editors.push(myCodeMirror);
 			});
 		}	
 	},

@@ -61,7 +61,8 @@ class SimpleQuestionset extends Questionset implements IQuestionset
         for ($i = 1; $i <= $count; $i++) {
             $question = new Question;
             $question->text = array_pop($questions);
-            $question->type = 'plaintext';
+            $question->type = $this->type;
+            $question->prefill = $this->prefill;
             $assignedQuestions[] = $question;
         }
 
