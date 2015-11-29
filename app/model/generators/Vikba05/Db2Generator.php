@@ -410,7 +410,12 @@ class Db2Generator extends Nette\Object implements IGenerator
     
     public function getRubrics() 
     {
-        return array();
+        return array(
+            'Jsou pojmy v příkladech 1 a 2 vysvětleny správně? Kladnou i zápornou odpověď okomentujte a doprovoďte odkazem na zdroje, které vaše hodnocení obou úkolů potvrzují (pokud je zdroj uveden v odpovědi na příklad, najděte jiný).',
+            'Odpovídá autor/ka příkladu č. 3 správně na všechny položené otázky?',
+            'Jaké chyby dělá autor/ka při popisování *databázového schématu* v příkladu č. 5 a při normalizaci v příkladu č. 6? Definuje správně třídy entit a jejich atributy? Vysvětlete případné nejasnosti.',
+            'Jsou příkazy v příkladu č. 7 vytvořeny správně? Pokud ne, popište chyby a vysvětlete, v čem je problém. Odkažte se při vysvětlování na konkrétní dokumentaci. Pokud autor/ka využívá vlastní databázi, buďte tolerantnější k chybám, ale o to lépe vysvětlete, jak úkol správně uchopit.'
+        );
     }
 
 }
