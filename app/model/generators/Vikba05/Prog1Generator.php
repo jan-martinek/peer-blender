@@ -42,7 +42,7 @@ alert(vysledek);
             'proměnnou',
             'definici proměnné',
             'volání funkce',
-            'atribut'
+            'parametr'
         );
         
         $identify = new SimpleQuestionset('apply');
@@ -102,7 +102,7 @@ alert('počet zvířat: ' + pocetZvirat + '\\n' + 'třetí zvíře: ' + zvirata[
             
             'pojem **funkce** v kontextu javascriptu',
             'pojem **proměnná** v kontextu javascriptu',
-            'pojem **atribut** v kontextu funkcí v javascriptu',
+            'pojem **parametr** v kontextu funkcí v javascriptu',
             'pojem **návratová hodnota** v kontextu funkcí v javascriptu',
             'pojem **literál** v kontextu javascriptu',
             'pojem **operátor** v kontextu javascriptu',
