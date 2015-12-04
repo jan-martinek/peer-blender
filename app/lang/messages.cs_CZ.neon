@@ -103,6 +103,7 @@ solution:
 	complete: "Úkol je hotový a bude připuštěn k hodnocení.	 Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
 	notComplete: "Úkol zatím není hotový a v současném stavu nebude připuštěn k hodnocení. Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
 	runCode: "Spustit kód"
+	viewPrefill: "Zobrazit původní kód"
 review:
 	title: "Peer-assessment"
 	score: 

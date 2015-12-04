@@ -35,6 +35,8 @@ class HomeworkForm extends Form
             } elseif ($question->prefill) {
                 $input->setValue($question->prefill);
             }
+            
+            $input->setOption('prefill', $question->prefill);
         }
         
         $uploadLabel = $translator->translate('messages.unit.homeworkAttachment');

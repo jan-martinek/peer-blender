@@ -66,6 +66,14 @@
 			<button n:if="is_int(strpos('highlight-javascript', $questionClass))" class="answerPreview" type="{$questionClass}">
 				&#9654; {_messages.solution.runCode}
 			</button>
+			
+			{if is_int(strpos('highlight-javascript', $questionClass))}
+				<button class="showPrefill secondary" type="{$questionClass}">
+					<b>{ }</b>  {_messages.solution.viewPrefill}
+				</button>
+				<pre class="prefill">{$question->getOption('prefill')}</pre>
+			{/if}
+			
 		</div>
 
 		<div class="assignmentQuestion">

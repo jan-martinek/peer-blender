@@ -45,6 +45,11 @@ var PeerBlender = {
 				e.preventDefault();
 			});
 			
+			$('button.showPrefill').click(function(e) {
+				$(this).closest('.assignmentQuestion').find('pre.prefill').toggle('fast');
+				e.preventDefault();
+			});
+			
 			
 			$('textarea').each(function() {
 				var textarea = $(this);

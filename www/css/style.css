@@ -6401,6 +6401,13 @@ header .select2 input[type="search"] {
   float: right;
   margin-bottom: 0; }
 
+pre.prefill {
+  border: 1px solid #aaa;
+  background: #eee;
+  padding: 20px;
+  margin-bottom: 30px;
+  display: none; }
+
 .breadcrumbs {
   margin-top: 20px;
   padding: 0;
