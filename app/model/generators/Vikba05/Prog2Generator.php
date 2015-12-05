@@ -175,7 +175,7 @@ Tvorba této hry by vám měla zabrat 90–120 minut (od návrhu konceptu až po
 
 Nakonec nezapomeňte vyplnit komentáře na konci kódu — reflektujte jak hru, tak to, co vám tento úkol přinesl.
 
-Pokud nevíte, jak taková textová hra může vypadat, podívejte se na [tento vzorový příklad](http://jsfiddle.net/wmh9vryw/1/) a případně si vygooglete nějaké jiné [textovky](http://google.com/search?q=textovky).'
+Pokud nevíte, jak taková textová hra může vypadat, podívejte se na [tento vzorový příklad](http://jsfiddle.net/wmh9vryw/1/) a případně si vygooglete nějaké jiné [textovky](http://google.com/search?q=textovky). **Vzorový příklad nekopírujte — vytvořte vlastní příběh i strukturu.**'
         ));
         $game->type = 'javascript';
         $game->prefill = 'var hra = {};
