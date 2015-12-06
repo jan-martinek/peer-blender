@@ -28,6 +28,11 @@ class SolutionRepository extends Repository
             $reviewer->id  
         );
         
+        if (count($groupedByReviewCount) === 0) {
+            throw new SolutionToReviewNotFoundException();
+            return FALSE;
+        }
+        
         $lowestReviewCount = min(array_keys($groupedByReviewCount));
         if ($unitLimit && $lowestReviewCount >= $unit->course->reviewCount) {
             throw new SolutionToReviewNotFoundException();
