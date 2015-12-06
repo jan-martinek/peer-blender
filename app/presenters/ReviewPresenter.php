@@ -125,7 +125,24 @@ class ReviewPresenter extends BasePresenter
     {
         $this->courseInfo->review->favorite($this->userRepository->find($this->user->id));
         $this->redirect('this');
-    }    
+    }   
+    
+    public function handleUnlock($id)
+    {
+        $review = $this->courseInfo->review;
+        $review->status = 'prep';
+        $this->reviewRepository->persist($review);
+        
+        $comment = new ReviewComment;
+        $comment->comment = '<span style="color:#aaa">' . $this->translator->translate('messages.review.unlocked') . '</span>';
+        $comment->review = $review;
+        $comment->review_status = $review->status;
+        $comment->author = $this->userRepository->find($this->user->id);
+        $comment->submitted_at = new DateTime;        
+        $this->reviewCommentRepository->persist($comment);
+        
+        $this->redirect('this');
+    } 
     
     protected function createComponentReviewForm() 
     {

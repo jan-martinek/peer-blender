@@ -151,6 +151,8 @@ review:
 	fixOnlyYourOwn: "Můžete opravovat pouze své vlastní recenze."
 	isFixed: "hodnocení je opraveno"
 	fixed: "Hodnocení bylo opraveno (automaticky generovaný komentář)."
+	unlock: "Odemknout k úpravám"
+	unlocked: "Hodnocení bylo odemknuto k úpravám"
 	writtenIn:
 		moreThanADay: "Recenze byla napsaná za déle než den."
 		hours: "Recenze byla napsaná za %hours% hodin a %minutes% minut."	

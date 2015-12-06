@@ -32,7 +32,8 @@ class Acl extends Permission
 			'commentAnytime',
 			'evaluateFix',
 			'evaluateObjection',
-			'announceProblem'
+			'announceProblem',
+			'unlock'
 		));
 		
 		$this->allow('admin', 'errors', 'view');
