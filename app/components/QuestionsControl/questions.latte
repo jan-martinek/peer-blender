@@ -6,6 +6,17 @@
 				<div class="panel">{!=nl2br(htmlspecialchars($question->answer->text))}</div>
 			{else}
 				<textarea id="question-{$question->id}-viewer" class="highlight-{$question->type} readonly">{$question->answer->text}</textarea>
+
+				<button n:if="$question->type == 'javascript'" class="answerPreview" type="highlight-{$question->type}">
+					&#9654; {_messages.solution.runCode}
+				</button>
+				
+				{if $question->type == 'javascript'}
+					<button class="showPrefill secondary" type="highlight-{$question->type}">
+						<b>{ }</b>  {_messages.solution.viewPrefill}
+					</button>
+					<pre class="prefill">{$question->prefill}</pre>
+				{/if}
 			{/if}
 		{/if}
 	{else}
@@ -19,6 +30,11 @@
 <div n:foreach="$assignment->questions as $question" class="assignmentQuestion">
 	<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 	{include question, question => $question}
+	
+	<form id="previewForm" action="{plink Solution:preview}" target="preview_iframe" method="post" style="display: none;">
+		<textarea name="answer"></textarea>
+	</form>
+	<iframe id="preview_iframe" name="preview_iframe" style="display: none;"></iframe>
 </div>
 
 <div class="assignmentQuestion">
