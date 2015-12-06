@@ -23,7 +23,9 @@
 				{var assessment = $review->assessmentSet}
 				<div n:foreach="$form['rubrics']->controls as $name => $rubric" class="assignmentQuestion">
 					<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-					{?  $rubric->setValue($assessment[$name])}
+					{if isset($assessment[$name])} 
+						{? $rubric->setValue($assessment[$name])}
+					{/if}
 					{label $rubric /}
 					{input $rubric, 'rows' => '5'}
 					<p n:ifcontent>{inputError $rubric}</p>
