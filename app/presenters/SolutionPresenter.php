@@ -60,7 +60,7 @@ class SolutionPresenter extends BasePresenter
     public function actionPreview()
     {
         $post = $this->request->getPost();
-        $this->template->answer = $post['answer'];
+        $this->template->answer = isset($post['answer']) ? $post['answer'] : '';
     }
     
     public function handleFavorite() 
