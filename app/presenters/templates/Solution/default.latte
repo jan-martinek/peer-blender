@@ -16,6 +16,16 @@
 {block unitInfo}
 	{control phasesRenderer $unit}
 
+	<div n:if="isset($solutionLog)" class="panel" style="float: right">
+		<h2>Log</h2>
+		<ul>
+			<li n:foreach="$solutionLog as $log">
+				{$log->logged_at} ({$log->action})
+			</li>
+		</ul>
+	</div>
+	
+
 	{if $unit->goals}
 		<h2>{_messages.unit.goals}</h2>
 		{!$unit->goals|md}

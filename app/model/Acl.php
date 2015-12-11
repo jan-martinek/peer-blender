@@ -27,6 +27,7 @@ class Acl extends Permission
 		
 		$this->allow('course-assistant', 'course', 'viewStats');
 		$this->allow('course-assistant', 'solution', 'viewAnytime');
+		$this->allow('course-assistant', 'solution', 'viewLog');
 		$this->allow('course-assistant', 'review', array(
 			'writeAnytime',
 			'commentAnytime',

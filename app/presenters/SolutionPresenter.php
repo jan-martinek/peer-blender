@@ -29,6 +29,9 @@ class SolutionPresenter extends BasePresenter
     
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;
+
+    /** @var \Model\Repository\LogRepository @inject */
+    public $logRepository;
     
     /** @var \Nette\Http\Request @inject */
     public $request;    
@@ -41,6 +44,10 @@ class SolutionPresenter extends BasePresenter
         if (!$this->courseInfo->unit->hasReviewsPhaseStarted() && !$this->user->isAllowed('solution', 'viewAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
+        
+        if ($this->user->isAllowed('solution', 'viewLog')) {
+            $this->template->solutionLog = $this->logRepository->findByEntity('Solution', $id);    
+        }        
     }    
     
     public function renderDefault($id)
