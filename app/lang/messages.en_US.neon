@@ -104,6 +104,7 @@ solution:
 	notComplete: "Assignment has not been completed yet and will not get reviews in the next phase. You can edit it until the review phase comes (%date%)."
 	runCode: "Run code"
 	viewPrefill: "Show pre-filled code"
+	quickSave: "Quick save"
 review:
 	title: "Peer-assessment"
 	score: 
