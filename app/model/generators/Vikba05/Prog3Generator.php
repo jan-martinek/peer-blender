@@ -196,11 +196,11 @@ var pozice = "doma";
 
 while (true) {
     
-  if (pozice == "doma") {
-        pozice = prompt("Kam chceš jít? Zadej „nikam“, „ven“ nebo „omrknout maily“.");
-        continue;
+if (pozice == "doma") {
+    pozice = prompt("Kam chceš jít? Zadej „nikam“, „ven“ nebo „omrknout maily“.");
+    continue;
     
-  } else if (pozice == "ven") {
+    } else if (pozice == "ven") {
         alert(hrac.mesto + " halí mlha. Vyšel jsi ven a je ti úzko.");
         if (confirm("Chceš jít na hřbitov?")) {
             pozice = "hřbitov";
@@ -210,15 +210,15 @@ while (true) {
             pozice = "ulice";
             continue;
         }
-  } 
+    } 
   
-  else if (pozice == "omrknout maily") {
-    alert("Čteš maily a dosáhneš zenu.");
-    alert("Zen je často právě tam, kde ho nehledáš.");
-    break;
-  }
+    else if (pozice == "omrknout maily") {
+        alert("Čteš maily a dosáhneš zenu.");
+        alert("Zen je často právě tam, kde ho nehledáš.");
+        break;
+    }
   
-  else if (pozice == "ulice") {
+    else if (pozice == "ulice") {
         if (confirm("Chceš vzít kámen, který leží na zemi?")) {
             hrac.taska.push("kámen");   
         }
@@ -227,7 +227,7 @@ while (true) {
         continue;
     }
   
-  else if (pozice == "servis") {
+    else if (pozice == "servis") {
         alert("— o měsíc později —");
         alert("Pán za přepážkou říká: bude to 14 tisíc za nový displej a základní desku. A pětikačku za písmeno Q, které beztak skoro nepoužíváte.");
     alert("Na účtence je skutečně napsáno: " + hrac.jmeno);
@@ -235,19 +235,19 @@ while (true) {
         break;
     } 
   
-  else if (pozice == "hřbitov") {
+    else if (pozice == "hřbitov") {
         alert("Přišel jsi na hřbitov a je tam krásně.");
-    vek = hrac.vek - 2;
-    alert("Na jednom z hrobů je napsáno: " + hrac.jmeno + ", " + vek + " let.");
-    alert("Zděšeně prcháš domů.");
-    if (confirm("Chceš vzít kámen, který leží u cesty?")) {
+        var vek = hrac.vek - 2;
+        alert("Na jednom z hrobů je napsáno: " + hrac.jmeno + ", " + vek + " let.");
+        alert("Zděšeně prcháš domů.");
+        if (confirm("Chceš vzít kámen, který leží u cesty?")) {
             hrac.taska.push("kámen");   
         }
-    pozice = "nikam";
+        pozice = "nikam";
         continue;
     } 
   
-  else if (pozice == "nikam") {
+    else if (pozice == "nikam") {
         alert("Jsi doma a teď musíš dodělat úkol do Transformace dat.");
         if (hrac.taska.indexOf("kámen") != -1) {
             var pouzitKamen = confirm("V tašce máš kámen. Chceš s ním ze zlosti rozbít notebook?");
@@ -262,7 +262,7 @@ while (true) {
         break;
     } 
   
-  else {
+    else {
         alert("Zadal/a jsi něco špatně! S takovou se nikam nedostaneš.");
         break;
     }
