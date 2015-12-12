@@ -196,11 +196,12 @@ var pozice = "doma";
 
 while (true) {
     
-if (pozice == "doma") {
-    pozice = prompt("Kam chceš jít? Zadej „nikam“, „ven“ nebo „omrknout maily“.");
-    continue;
+    if (pozice == "doma") {
+        pozice = prompt("Kam chceš jít? Zadej „nikam“, „ven“ nebo „omrknout maily“.");
+        continue;
+    }
     
-    } else if (pozice == "ven") {
+    else if (pozice == "ven") {
         alert(hrac.mesto + " halí mlha. Vyšel jsi ven a je ti úzko.");
         if (confirm("Chceš jít na hřbitov?")) {
             pozice = "hřbitov";
@@ -230,7 +231,7 @@ if (pozice == "doma") {
     else if (pozice == "servis") {
         alert("— o měsíc později —");
         alert("Pán za přepážkou říká: bude to 14 tisíc za nový displej a základní desku. A pětikačku za písmeno Q, které beztak skoro nepoužíváte.");
-    alert("Na účtence je skutečně napsáno: " + hrac.jmeno);
+        alert("Na účtence je skutečně napsáno: " + hrac.jmeno);
         alert("„Kvůli pitomým databázím jsem napsal q mraky!“ křičíte na nebohého servisáka.");
         break;
     } 
