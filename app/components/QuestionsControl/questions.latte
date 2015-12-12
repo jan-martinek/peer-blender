@@ -32,12 +32,12 @@
 <div n:foreach="$assignment->questions as $question" class="assignmentQuestion">
 	<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 	{include question, question => $question}
-	
-	<form id="previewForm" action="{plink Solution:preview}" target="preview_iframe" method="post" style="display: none;">
-		<textarea name="answer"></textarea>
-	</form>
-	<iframe id="preview_iframe" name="preview_iframe" style="display: none;"></iframe>
 </div>
+
+<form id="previewForm" action="{plink Solution:preview}" target="preview_iframe" method="post" style="display: none;">
+	<textarea name="answer"></textarea>
+</form>
+<iframe id="preview_iframe" name="preview_iframe" style="display: none;"></iframe>
 
 <div class="assignmentQuestion">
 	<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
