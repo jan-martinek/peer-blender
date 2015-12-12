@@ -18,7 +18,7 @@ class Prog3Generator extends Nette\Object implements IGenerator
     {
         $while = new SimpleQuestionset('apply', array('Nic negooglujte (sic!), spusťte si párkrát kód a popište vlastními slovy, jak pracuje cyklus `while`. 
 
-Neomezujte svou představivost a popište, jaké nepříliš kreativní činnosti děláte a co by tak bylo možné pomocí cyklu [while] zautomatizovat (inspirace: *příkladem by mohla být automatická kontrola e-mailů — když se v mailu objeví kód kurzu VIKBA05, označí jej program vykřičníkem*).'));
+Neomezujte svou představivost a popište, jaké nepříliš kreativní činnosti děláte a co by tak bylo možné pomocí cyklu `while` zautomatizovat (inspirace: *příkladem by mohla být automatická kontrola e-mailů — když se v mailu objeví kód kurzu VIKBA05, označí jej program vykřičníkem*).'));
         $while->type = 'javascript';
         $while->prefill = 'var pokracuj = true;
 
@@ -39,7 +39,7 @@ while (pokracuj) {
 ';
         
         
-        $while2 = new SimpleQuestionset('apply', array('Spusťte si párkrát kód a popište vlastními slovy, jak pracuje cyklus [while] s číselnou proměnnou v podmínce.'
+        $while2 = new SimpleQuestionset('apply', array('Spusťte si párkrát kód a popište vlastními slovy, jak pracuje cyklus `while` s číselnou proměnnou v podmínce.'
         ));
         $while2->type = 'javascript';
         $while2->prefill = 'var i = 0;
