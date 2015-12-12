@@ -46,55 +46,64 @@ var PeerBlender = {
 			});
 			
 			$('button.showPrefill').click(function(e) {
-				$(this).closest('.assignmentQuestion').find('pre.prefill').toggle('fast');
+				var prefillViewer = $(this).closest('.assignmentQuestion').find('.prefill');
+				prefillViewer.toggle('fast');
+				if (!prefillViewer.hasClass('ready')) {
+					PeerBlender.Highlighting.initCodeMirror(prefillViewer.find('textarea'));
+					prefillViewer.addClass('ready');
+				}
+				
 				e.preventDefault();
 			});
 			
 			
-			$('textarea').each(function() {
-				var textarea = $(this);
-				var className = textarea.attr('class');
-				if (!className) {
-					return;
-				}
-				var mode = className.match(/highlight-([a-z]+)/)[1];
-				var gutters = [];
-    			var lint = false;
-			
-				switch (mode) {
-					case 'code':
-					case 'markdown':
-					case 'css':
-					case 'sql':
-					case 'xml':
-						var highlightingMode = mode;
-						break;
-					case 'javascript':
-						var highlightingMode = mode;
-						lint = true;
-						gutters = ["CodeMirror-lint-markers"];
-						break;
-					case 'html':
-						var highlightingMode = 'htmlmixed';
-						break;
-					default:
-						return;
-				}
-				
-				var myCodeMirror = CodeMirror.fromTextArea(
-					$(this)[0], {
-						lineNumbers: true, 
-						mode: highlightingMode,
-						lint: true,
-						gutters: ["CodeMirror-lint-markers"],
-						viewportMargin: Infinity,
-						readOnly: textarea.hasClass('readonly') ? 'nocursor' : false
-					}
-				);
-				
-				PeerBlender.Highlighting.editors.push(myCodeMirror);
+			$('.assignmentQuestion > textarea').each(function() {
+				PeerBlender.Highlighting.initCodeMirror($(this));
 			});
-		}	
+		},
+		
+		initCodeMirror: function(textarea) {
+			var className = textarea.attr('class');
+			if (!className) {
+				return;
+			}
+			var mode = className.match(/highlight-([a-z]+)/)[1];
+			var gutters = [];
+			var lint = false;
+		
+			switch (mode) {
+				case 'code':
+				case 'markdown':
+				case 'css':
+				case 'sql':
+				case 'xml':
+					var highlightingMode = mode;
+					break;
+				case 'javascript':
+					var highlightingMode = mode;
+					lint = true;
+					gutters = ["CodeMirror-lint-markers"];
+					break;
+				case 'html':
+					var highlightingMode = 'htmlmixed';
+					break;
+				default:
+					return;
+			}
+			
+			var myCodeMirror = CodeMirror.fromTextArea(
+				textarea[0], {
+					lineNumbers: true, 
+					mode: highlightingMode,
+					lint: true,
+					gutters: ["CodeMirror-lint-markers"],
+					viewportMargin: Infinity,
+					readOnly: textarea.hasClass('readonly') ? 'true' : false
+				}
+			);
+			
+			PeerBlender.Highlighting.editors.push(myCodeMirror);
+		}
 	},
 	
 	Chat: {		

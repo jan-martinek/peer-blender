@@ -71,7 +71,10 @@
 				<button class="showPrefill secondary" type="{$questionClass}">
 					<b>{ }</b>  {_messages.solution.viewPrefill}
 				</button>
-				<pre class="prefill">{$question->getOption('prefill')}</pre>
+				
+				<div class="prefill">
+					<textarea class="highlight-javascript readonly">{$question->getOption('prefill')}</textarea>
+				</div>
 			{/if}
 			
 		</div>

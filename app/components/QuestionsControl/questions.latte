@@ -15,7 +15,9 @@
 					<button class="showPrefill secondary" type="highlight-{$question->type}">
 						<b>{ }</b>  {_messages.solution.viewPrefill}
 					</button>
-					<pre class="prefill">{$question->prefill}</pre>
+					<div class="prefill">
+						<textarea class="highlight-javascript readonly">{$question->prefill}</textarea>
+					</div>
 				{/if}
 			{/if}
 		{/if}

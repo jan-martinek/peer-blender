@@ -108,12 +108,14 @@ header {
 	margin-bottom: 0;
 }
 
-pre.prefill {
+.prefill {
 	border: 1px solid #aaa;
 	background: #eee;
 	padding: 20px;
 	margin-bottom: 30px;
 	display: none;
+	
+	.CodeMirror-focused .CodeMirror-cursor { visibility: hidden; }
 }
 
 .breadcrumbs {
