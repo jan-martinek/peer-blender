@@ -130,7 +130,12 @@ var zviratka = ["muflon", "žirafa", "tuleň", "prase"];
 for (var i in zviratka) {
     var zviratko = zviratka[i];
     alert("Zvířátko číslo " + i + " je " + zviratko + ".");
-}';
+}
+
+/*
+    místo pro komentář
+*/
+';
 
     
         $forin2Dict = array(
@@ -157,7 +162,7 @@ for (var i in zviratka) {
 vety = text.split(",");
 
 for (var poradi in vety) {
-    alert(text[poradi]);
+    alert(vety[poradi]);
 }
 
 /*
