@@ -157,8 +157,16 @@ class UnitPresenter extends BasePresenter
             $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);        
             $this->logEvent($solution, 'create');
         }
-
-        $this->redirect('this');
+        
+        $backToButton = '';
+        $httpData = $form->getHttpData();
+        foreach (array_keys($httpData) as $k) {
+            if (preg_match('/^quick-save-button-[0-9]+$/', $k)) {
+                 $backToButton = '#' . $k;
+            }
+        }
+        
+        $this->redirect('this' . $backToButton);
     }
     
     public function saveAnswers($questions, $answers) 
