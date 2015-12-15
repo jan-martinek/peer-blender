@@ -59,6 +59,20 @@
 	
 	{control reviewsRenderer $solution->reviews}
 	
+	{if $user->isAllowed('review', 'createAdHoc')} 
+		{form addReviewForm}
+			<div class="row collapse">
+				<div class="large-3 columns">
+					{input user_id}
+				</div>
+				<div class="large-3 columns">
+					{input submit, class => "button postfix"}
+				</div>
+				<div></div>
+			</div>
+		{/form}
+	{/if}
+	
 	<p n:if="!is_null($solution->score)"><strong>{_messages.unit.averageScore}: <big>{$solution->score|number:2}</big></strong></p>
 {/block}
 

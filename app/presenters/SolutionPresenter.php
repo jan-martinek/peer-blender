@@ -5,7 +5,9 @@ namespace App\Presenters;
 use DateTime;
 use Model\Entity\Log;
 use Model\Entity\Solution;
+use Model\Entity\Review;
 use Nette\Utils\Strings;
+use Nette\Application\UI\Form;
 
 /**
  * Unit presenter.
@@ -73,6 +75,40 @@ class SolutionPresenter extends BasePresenter
     public function handleFavorite() 
     {
         $this->courseInfo->solution->favorite($this->userRepository->find($this->user->id));
+        $this->redirect('this');
+    }
+    
+    
+    protected function createComponentAddReviewForm() 
+    {
+        $enrollments = $this->enrollmentRepository->findAllByCourse($this->courseInfo->course);
+        $options = array();
+        foreach ($enrollments as $enrollment) {
+            $user = $enrollment->user;
+            $options[$user->id] = $user->name;    
+        }
+
+        $form = new Form;
+        $form->addSelect(
+            'user_id', 
+            $this->translator->translate('messages.course.roles.student'),
+            $options
+        )->setPrompt($this->translator->translate('messages.course.roles.student'));
+        
+        $form->addSubmit('submit', $this->translator->translate('messages.solution.createAdHoc'));
+        $form->onSuccess[] = array($this, 'addReviewFormSucceeded');
+        return $form;
+    }
+    
+    public function addReviewFormSucceeded(Form $form, $values) 
+    {
+        $reviewer = $this->userRepository->find($values->user_id);
+        $solution = $this->courseInfo->solution;
+        
+        $review = $this->reviewRepository->createReview($solution, $reviewer);
+        $review->status = Review::PROBLEM;
+        $this->reviewRepository->persist($review);  
+        
         $this->redirect('this');
     }
     

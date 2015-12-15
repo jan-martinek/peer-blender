@@ -34,6 +34,7 @@ class Acl extends Permission
 			'evaluateFix',
 			'evaluateObjection',
 			'announceProblem',
+			'createAdHoc',
 			'unlock'
 		));
 		

@@ -26,4 +26,14 @@ class EnrollmentRepository extends Repository
         $keys = array_keys($ids);
         return $keys;
     }
+    
+    public function findAllByCourse(Course $course) 
+    {
+        $rows = $this->connection->query('SELECT enrollment.* FROM enrollment
+            LEFT JOIN user ON user_id = user.id
+            WHERE [course_id] = %i', $course->id, 
+            'ORDER BY user.name')->fetchAll();
+        
+        return $this->createEntities($rows);
+    }
 }

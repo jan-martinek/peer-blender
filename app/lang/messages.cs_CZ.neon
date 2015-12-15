@@ -105,6 +105,7 @@ solution:
 	runCode: "Spustit kód"
 	viewPrefill: "Zobrazit původní kód"
 	quickSave: "Průběžně uložit"
+	createAdHoc: "vytvořit ad hoc recenzi"
 review:
 	title: "Peer-assessment"
 	score: 

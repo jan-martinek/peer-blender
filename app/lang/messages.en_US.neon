@@ -105,6 +105,7 @@ solution:
 	runCode: "Run code"
 	viewPrefill: "Show pre-filled code"
 	quickSave: "Quick save"
+	createAdHoc: "create ad hoc review"
 review:
 	title: "Peer-assessment"
 	score: 
