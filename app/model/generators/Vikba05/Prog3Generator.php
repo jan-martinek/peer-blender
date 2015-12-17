@@ -287,11 +287,10 @@ alert("KONEC");';
     {
         return array(
             'Jsou všechny skripty funkční?',
-            'Jsou úkoly č. 6 a 7 splněny správně? Pokud ne, vysvětlete, kde je problém.',
-            'Jsou naprogramované hříčky logické?',
-            'Jsou naprogramované hříčky vtipné?',
-            'Využívá autor/ka funkci `test()` v závěrečném příkladu? Pokud ne, velmi dobře si rozmyslete, zda za úkol chcete udělit 3 hvězdičky. Takové rozhodnutí případně pečlivě zdůvodněte.',
-            'Jaké chyby či nedostatky mají zpracované úkoly? Předveďte, vysvětlete a podložte zdrojem, který autor/ka v odpovědích nezmiňuje. (V [každém programu je možné najít chybu](http://vtipy.cyberserver.cz/sest-programatorskych-zakonu1-v-kazdem-programu-je-alespon-jedna-chyba2/d4496.htm), takže záporná odpověď není přípustná.)'   
+            'Jsou vysvětlení fungování cyklů v úkolech 1–3 správná? Pokud ne, popište chyby, které autor/ka úkolu dělá.',
+            'Je u některého z úkolů možné jednodušší řešení? Doporučte, jak by takové řešení mohlo vypadat.',
+            'Zhodnoťte zpracování sedmého úkolu. V čem autor/ka exceluje a co by šlo zlepšit?',
+            'Využívá autor/ka cyklus `for…in` v závěrečném příkladu? Pokud ne, velmi dobře si rozmyslete, zda za úkol chcete udělit 3 hvězdičky. Takové rozhodnutí případně pečlivě zdůvodněte.'
         );
     }
 
