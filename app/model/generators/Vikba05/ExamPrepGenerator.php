@@ -85,16 +85,16 @@ class ExamPrepGenerator extends Nette\Object implements IGenerator
             . "\n\n"
             . 'Postup stručně popište a vypište funkce, které jste použili.'
             . "\n\n"
-            . '*Jména a známky jsou smyšlené.*'
+            . 'Pokud nevíte, jak se počítá vážený průměr, poradí Vám [např. Wikipedie](https://cs.wikipedia.org/wiki/V%C3%A1%C5%BEen%C3%BD_pr%C5%AFm%C4%9Br).'
             . "\n\n"
-            . 'Pokud nevíte, jak se počítá vážený průměr, poradí Vám [např. Wikipedie](https://cs.wikipedia.org/wiki/V%C3%A1%C5%BEen%C3%BD_pr%C5%AFm%C4%9Br).',
+            . "Výsledek odevzdejte ve formátu XLS v příloze tohoto úkolu.",
             '*(Úkoly jsou shodné jako u lekce č. 2. V testu bude využit jiný spreadsheet.)* Ze [sdíleného souboru](https://goo.gl/n2blnx) si do tabulkového procesoru zkopírujte list “Akcie”. Do sloupce “Hodnota (Kč)” vypočítejte hodnotu akcií podle kurzu v tabulce vlevo. Do políčka “Celkem” pak hodnotu celého portfolia. Všechny hodnoty upravte na 2 desetinná místa (pomocí formátování).'
             . "\n\n"
             . 'Použijte vzorce tak, aby se automaticky přepočítala hodnota portfolia a jeho položek, když se změní počet akcií, stav kurzu nebo název společnosti v portfoliu..'
             . "\n\n"
             . 'Použijte funkci `SVYHLEDAT` (v angličtině `VLOOKUP`). Postup stručně popište a vypište funkce, které jste použili.'
             . "\n\n"
-            . '*Jedná se o skutečný kurzovní lístek. Portfolio je smyšlené.*',
+            . "Výsledek odevzdejte ve formátu XLS v příloze tohoto úkolu.",
             '*(Úkoly jsou shodné jako u lekce č. 2. V testu bude využit jiný spreadsheet.)* Ze [sdíleného souboru](https://goo.gl/n2blnx) si do tabulkového procesoru zkopírujte list „Seznam zaměstnanců“.'
             . "\n\n"
             . 'Pomocí vzorců vypočítejte hodnoty:'
@@ -108,14 +108,12 @@ class ExamPrepGenerator extends Nette\Object implements IGenerator
             . "\n\n"
             . 'Postup stručně popište a vypište funkce, které jste použili.'
             . "\n\n"
-            . '*Instituce a jména jsou smyšlená.*',
+            . "Výsledek odevzdejte ve formátu XLS v příloze tohoto úkolu.",
             '*(Úkoly jsou shodné jako u lekce č. 2. V testu bude využit jiný spreadsheet.)* U seznamu žádostí do programu Erasmus ještě chvilku zůstaneme. Ze [sdíleného souboru](https://goo.gl/n2blnx) si do tabulkového procesoru zkopírujte list “Kód Erasmus+”. Vytvořte vzorec, který z kódu vyextrahuje rok podání žádosti. Dále vytvořte vzorec, který z kódu vyextrahuje kód státu. V tabulce je uveden příklad.'
             . "\n\n"
             . 'Úkol vypracujte tak, aby když se změní kód žádosti, automaticky se přepočítají jak rok, tak kód státu.'
             . "\n\n"
             . 'Postup stručně popište a vypište funkce, které jste použili.'
-            . "\n\n"
-            . '*Jedná se o skutečná data.*'
         ));
 
         // 7 db understand
@@ -207,13 +205,11 @@ class ExamPrepGenerator extends Nette\Object implements IGenerator
         $db2->addRandomizedQuestion(
             'Pomocí papíru a tužky nebo webového nástroje [Gliffy](https://www.gliffy.com) **vytvořte schéma**, které popisuje objekt **„%object%“** pomocí alespoň pěti různých entit, každou s alespoň třemi atributy. Vyznačte vazby mezi entitami včetně jejich [kardinality](https://www.google.cz/search?q=kardinalita+datab%C3%A1ze). Stejně jako minule si uvědomujte, že jde o *popis*, který je selektivní — nikdy nepopíšete vše — takže to, jak sestavíte třídy entit závisí na účelu, který váš *ER model* plní. **Účel si předem vymyslete a popište do vstupního pole.**'
             . "\n\n"
-            . "**Druhá část úkolu je vytvoření samotných tabulek** pomocí nástroje [*Adminer*](http://jan-martinek.com/tmp/db/?sqlite=) a databáze *SQLite*. Oba již trochu znáte z předchozích příkladů. Díky Admineru nebudete muset v tomto úkolu používat přímo SQL příkazů."
+            . "**Dále vytvořte samotné tabulky** pomocí nástroje [*Adminer*](http://jan-martinek.com/tmp/db/?sqlite=) a databáze *SQLite*. Oba již trochu znáte z předchozích příkladů. Díky Admineru nebudete muset v tomto úkolu používat přímo SQL příkazů. Na [přihlašovací stránce](http://jan-martinek.com/tmp/db/?sqlite=) se připojte do své vlastní databáze, která má název ve tvaru `UČO.db` (tedy např. `123456.db`). Poté pomocí odkazu `Create table` vytvořte tabulku pro každou z vašich entit — název entity bude názvem tabulky a každý atribut vytvoří sloupec v tabulce, pozor dejte na správný výběr datových typů. Nezapomeňte na identifikátory a propojení mezi tabulkami pomocí cizích klíčů (když sloupec nazvete jako *existující tabulku* s koncovkou \"\_id\" (tedy např. \"akcie\_id\", Adminer vám napoví)."
             . "\n\n"
-            . "Na [přihlašovací stránce](http://jan-martinek.com/tmp/db/?sqlite=) se připojte do své vlastní databáze, která má název ve tvaru `UČO.db` (tedy např. `123456.db`). Poté pomocí odkazu `Create table` vytvořte tabulku pro každou z vašich entit — název entity bude názvem tabulky a každý atribut vytvoří sloupec v tabulce, pozor dejte na správný výběr datových typů. Nezapomeňte na identifikátory a propojení mezi tabulkami pomocí cizích klíčů (když sloupec nazvete jako *existující tabulku* s koncovkou \"\_id\" (tedy např. \"akcie\_id\", Adminer vám napoví)."
+            . "Poté, co tabulky vytvoříte, **vyplňte do každé z nich 1 vzorový řádek**. Po naplnění tabulek zkontrolujte, zda vaše schéma odpovídá výsledné databázi."
             . "\n\n"
-            . "**Poté, co tabulky vytvoříte, zbývá poslední krok: plnění.** Do každé tabulek vyplňte 1 vzorový řádek (pomocí odkazu `New item`). Jak takové tabulky mohou vypadat znáte z původního příkladu se zeměmi a agenty. Po naplnění tabulek zkontrolujte, zda vaše schéma odpovídá výsledné databázi a vše odevzdejte do přílohy: "
-            . "\n\n"
-            . 'Výsledné schéma na papíru vyfoťte a nahrejte do přílohy nebo publikujte veřejně webovou verzi a odkaz zkopírujte do odpovědi. Výslednou databázi vyexportujte (odkaz `Export`, vyberte Output "plain" a Format "SQL") a vložte do odpovědi.',
+            . '**Výsledné schéma na papíru vyfoťte** a nahrejte do přílohy **nebo publikujte veřejně webovou verzi** a odkaz zkopírujte do odpovědi. **Výslednou databázi vyexportujte** (odkaz `Export`, vyberte Output "plain" a Format "SQL") a vložte do vstupního pole.',
             array('object' => $dbDict), 1);
         $db2->type = 'sql';
         
