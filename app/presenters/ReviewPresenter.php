@@ -134,7 +134,7 @@ class ReviewPresenter extends BasePresenter
         $this->reviewRepository->persist($review);
         
         $comment = new ReviewComment;
-        $comment->comment = '<span style="color:#aaa">' . $this->translator->translate('messages.review.unlocked') . '</span>';
+        $comment->comment = '<span style="color:#aaa">— ' . $this->translator->translate('messages.review.unlocked') . ' —</span>';
         $comment->review = $review;
         $comment->review_status = $review->status;
         $comment->author = $this->userRepository->find($this->user->id);

@@ -155,6 +155,7 @@ review:
 	fixed: "Hodnocení bylo opraveno (automaticky generovaný komentář)."
 	unlock: "Odemknout k úpravám"
 	unlocked: "Hodnocení bylo odemknuto k úpravám"
+	addedAdHoc: "manuálně vytvořená ad hoc recenze"
 	writtenIn:
 		moreThanADay: "Recenze byla napsaná za déle než den."
 		hours: "Recenze byla napsaná za %hours% hodin a %minutes% minut."	

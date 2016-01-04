@@ -6,6 +6,7 @@ use DateTime;
 use Model\Entity\Log;
 use Model\Entity\Solution;
 use Model\Entity\Review;
+use Model\Entity\ReviewComment;
 use Nette\Utils\Strings;
 use Nette\Application\UI\Form;
 
@@ -25,6 +26,9 @@ class SolutionPresenter extends BasePresenter
 
     /** @var \Model\Repository\ReviewRepository @inject */
     public $reviewRepository;
+    
+    /** @var \Model\Repository\ReviewCommentRepository @inject */
+    public $reviewCommentRepository;
     
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
@@ -108,6 +112,14 @@ class SolutionPresenter extends BasePresenter
         $review = $this->reviewRepository->createReview($solution, $reviewer);
         $review->status = Review::PROBLEM;
         $this->reviewRepository->persist($review);  
+        
+        $comment = new ReviewComment;
+        $comment->comment = '<span style="color:#aaa">— ' . $this->translator->translate('messages.review.addedAdHoc') . ' —</span>';
+        $comment->review = $review;
+        $comment->review_status = $review->status;
+        $comment->author = $this->userRepository->find($this->user->id);
+        $comment->submitted_at = new DateTime;        
+        $this->reviewCommentRepository->persist($comment);
         
         $this->redirect('this');
     }

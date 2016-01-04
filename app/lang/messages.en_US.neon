@@ -155,6 +155,7 @@ review:
 	fixed: "Review has been fixed (automatically generated comment)."
 	unlock: "Unlock review for editing"
 	unlocked: "Review has been unlocked for editing"
+	addedAdHoc: "manually created ad hoc review"
 	writtenIn:
 		moreThanADay: "Review has been submitted after more than a day after it's been opened for the first time."
 		hours: "Review has been written in %hours% hours and %minutes% minutes."
