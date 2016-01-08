@@ -93,7 +93,7 @@ Test můžete průběžně ukládat tlačítkem uložit pod poslední otázkou n
         
         // 6 tables create --> příloha
         $tables2 = new SimpleQuestionset('create', array(
-            '`tabulky` Ze [sdíleného spreadsheetu](https://docs.google.com/spreadsheets/d/1qA5gqGbgH70H5zD4lmRbOdAfr0cyoEICK7IX5DukSR8/edit#gid=0) si stáhněte či zkopírujte list „Výsledky předmětu“. Do sloupců `P` a `Q` vypočítejte celkové hodnocení a přiřaďte studentům výsledné hodnocení dle tabulky pomocí funkce `VYHLEDAT` (popř. `LOOKUP`; jako první parametr použijte výsledné hodnocení). Průměr zformátujte na 2 desetinná místa, u hodnocení známkou F nastavte červené pozadí pomocí podmíněného formátování.'
+            '`tabulky` Ze [sdíleného spreadsheetu](https://docs.google.com/spreadsheets/d/1qA5gqGbgH70H5zD4lmRbOdAfr0cyoEICK7IX5DukSR8/edit#gid=0) si stáhněte či zkopírujte list „Výsledky předmětu“. Do sloupců `P` a `Q` vypočítejte celkové hodnocení a přiřaďte studentům výsledné hodnocení dle tabulky pomocí funkce `VYHLEDAT` (popř. `LOOKUP`; jako první parametr použijte výsledné hodnocení). U hodnocení známkou F nastavte červené pozadí pomocí podmíněného formátování.'
             . "\n\n"
             . ' Poté pomocí funkce najděte 1) **nejlepší bodový výsledek** a v dalším poli **jméno a příjmení** studenta či studentky s tímto výsledkem. (**Tip:** Pro spojení jména a příjmení můžete využít prázdný sloupec `R`, to vám pomůže i s následným využitím funkce  `SVYHLEDAT`, popř. `VLOOKUP`.)'
             . "\n\n"
