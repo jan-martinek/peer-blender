@@ -191,7 +191,7 @@ Test můžete průběžně ukládat tlačítkem uložit pod poslední otázkou n
             . "\n\n"
             . "**Dále vytvořte samotné tabulky** pomocí nástroje *Adminer*. Na [přihlašovací stránce](http://jan-martinek.com/tmp/db.test/?sqlite=) se připojte do své vlastní databáze, která má název ve tvaru `UČO/db` (tedy např. `123456/db`). Poté pomocí odkazu `Create table` vytvořte tabulku pro každou z vašich entit — název entity bude názvem tabulky a každý atribut vytvoří sloupec v tabulce. Dejte pozor na správný výběr datových typů. Nezapomeňte na identifikátory a propojení mezi tabulkami pomocí cizích klíčů (když sloupec nazvete jako *existující tabulku* s koncovkou \"\_id\" (tedy např. \"akcie\_id\"), Adminer vám napoví. Poté, co tabulky vytvoříte, **vyplňte do každé z nich 1 vzorový řádek**."
             . "\n\n"
-            . 'Zkontrolujte, zda vaše schéma odpovídá výsledné databázi. **Schéma na papíru odevzdejte na konci testu**. **Databázi vyexportujte** (odkaz `Export`, vyberte Output "plain" a Format "SQL") a vložte do vstupního pole.',
+            . 'Zkontrolujte, zda vaše schéma odpovídá výsledné databázi. **Schéma na papíru odevzdejte na konci testu**. **Databázi vyexportujte** (odkaz `Export`, vyberte Output "plain" nebo "open" a Format "SQL") a vložte do vstupního pole.',
             array('object' => $dbDict), 1);
         $db2->type = 'sql';
         
@@ -278,6 +278,8 @@ while (auto.ujetaVzdalenost < 100) {
     auto.spotrebovanyBenzin = auto.spotrebovanyBenzin + auto.spotreba / 100;
 }
 
+alert("Konec.");
+
 /* místo pro komentář, můžete využít i řádkových komentářů (uvozeny dvěma lomítky) */
 ';
 
@@ -297,6 +299,8 @@ author.books = [
 ];
 author.bookCount = author.books.length;
 author.lifespan = (author.deceased - author.born)/1000/60/60/24/365;
+
+alert("Konec.");
 
 /* místo pro komentář, můžete využít i řádkových komentářů (uvozeny dvěma lomítky) */
 ';
