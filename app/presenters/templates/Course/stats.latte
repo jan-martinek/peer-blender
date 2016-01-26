@@ -15,16 +15,19 @@
 		<table class="tablesorter">
 			<thead>
 				<tr>
-					<th>Name</th>
+					<th>Name/E-mail</th>
 					<th n:foreach="$course->units as $unit">
 						Unit {$unit->id}
+					</th>
+					<th>
+						Unfinished reviews
 					</th>
 					<th>{_messages.unit.table.total}</th>
 				</tr>
 			</thead>
 			<tbody>
 				<tr n:foreach="$course->enrollments as $enrollment">
-					<th><a n:href="User:default $enrollment->user->id">{$enrollment->user->name}</a></th>
+					<th><a n:href="User:default $enrollment->user->id">{$enrollment->user->name}</a><br>{$enrollment->user->email}</th>
 					{var courseTotal = 0}
 					{foreach $course->units as $unit}
 						{var solutionFound = FALSE}
@@ -46,6 +49,16 @@
 						{/foreach}					
 						<td n:if="!$solutionFound"></td>
 					{/foreach}
+					{var anyProblems = isset($problems[$enrollment->user->id])}
+					<td style="text-align: right; background-color: {if !$anyProblems}#dfd{else}#fdd{/if}">
+						{if !$anyProblems}
+							0, 0
+						{else}
+							{var usersProblems = $problems[$enrollment->user->id]}
+							{if isset($usersProblems['own'])}{$usersProblems['own']->reviewCount}{else}0{/if},
+							{if isset($usersProblems['fromOthers'])}{$usersProblems['fromOthers']->reviewCount}{else}0{/if}
+						{/if}
+					</td>
 					<td class="right"><strong>{$courseTotal|number:2}</strong></td>
 				</tr>
 			</tbody>

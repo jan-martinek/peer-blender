@@ -33,4 +33,36 @@ class CourseRepository extends Repository
             'GROUP BY reviewed_by_id,unit_id'
         )->fetchAssoc('reviewed_by_id,unit_id');
     }
+    
+    public function getProblemReviewsStats(Course $course)
+    {
+        $own = $this->connection->query('SELECT reviewed_by_id, count(review.id) as reviewCount, GROUP_CONCAT(review.status) as statuses
+            FROM review 
+            JOIN solution ON review.solution_id = solution.id
+            JOIN unit ON solution.unit_id = unit.id
+            WHERE course_id = %i', $course->id,
+            'AND review.status != %s', Review::OK,
+            'GROUP BY reviewed_by_id'
+        )->fetchAssoc('reviewed_by_id');
+        
+        $fromOthers = $this->connection->query('SELECT solution.user_id as reviewed_user_id, count(review.id) as reviewCount,  GROUP_CONCAT(review.status) as statuses 
+            FROM review 
+            JOIN solution ON review.solution_id = solution.id
+            JOIN unit ON solution.unit_id = unit.id
+            WHERE course_id = %i', $course->id,
+            'AND review.status != %s', Review::OK,
+            'AND review.status != %s', Review::PREP,
+            'GROUP BY reviewed_user_id'
+        )->fetchAssoc('reviewed_user_id');
+
+        $problems = array();
+        foreach ($own as $userId => $desc) {
+            $problems[$userId]['own'] = $desc;
+        }
+        foreach ($fromOthers as $userId => $desc) {
+            $problems[$userId]['fromOthers'] = $desc;
+        }
+        
+        return $problems;
+    }
 }
