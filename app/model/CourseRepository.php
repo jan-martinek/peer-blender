@@ -42,6 +42,7 @@ class CourseRepository extends Repository
             JOIN unit ON solution.unit_id = unit.id
             WHERE course_id = %i', $course->id,
             'AND review.status != %s', Review::OK,
+            'AND review.status != %s', Review::PREP,
             'GROUP BY reviewed_by_id'
         )->fetchAssoc('reviewed_by_id');
         
