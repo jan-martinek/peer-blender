@@ -63,7 +63,7 @@ class AssignmentRepository extends Repository
         foreach ($definitions as $def) {
             $questions = array();
             $def = array_merge($inherit, $def);
-            $count = isset($def['count'])) ? $def['count'] : 1;
+            $count = isset($def['count']) ? $def['count'] : 1;
                 
             if (isset($def['questions'][0]['questions'])) {
                 $questions = array_merge(
