@@ -2,22 +2,23 @@
 
 namespace Model\Repository;
 
-use Model\Generator\AttachmentGenerator;
 use Model\CourseDefinition;
 use Model\Entity\Assignment;
 use Model\Entity\Unit;
 use Model\Entity\User;
+use Model\Entity\Question;
+
 use Exception;
 use DateTime;
 
 class AssignmentRepository extends Repository
 {   
-    public function getMyAssignment(Unit $unit, User $student, $questionRepository) 
+    public function getMyAssignment(Unit $unit, User $student, $questionRepository, CourseDefinition $courseDefinition) 
     {
         if ($assignment = $this->findByUnitAndUser($unit, $student)) {
             return $assignment;
         } else {
-            return $this->generateAssignment($unit, $student, $questionRepository);
+            return $this->generateAssignment($unit, $student, $questionRepository, $courseDefinition);       
         }
     }
     
@@ -34,39 +35,61 @@ class AssignmentRepository extends Repository
         }
     }
     
-    private function generateAssignment(Unit $unit, User $student, QuestionRepository $questionRepository) 
+    private function generateAssignment(Unit $unit, User $student, QuestionRepository $questionRepository, CourseDefinition $courseDefinition) 
     {
-        $generatorClassname = '\Model\Generator\\' . $unit->generator;
-        $generator = new $generatorClassname;
         $assignment = new Assignment;
         
-        $assignment->preface = $generator->getPreface();
-        if ($generator instanceof AttachmentGenerator) {
-            $rubrics = array();
-            foreach (explode("\n", $unit->rubrics) as $rubric) {
-                $rubric = trim($rubric);
-                
-                if ($rubric) {
-                    $rubrics[] = $rubric;    
-                }
-            }
-            $assignment->rubricSet = $rubrics;
-        } else {
-            $assignment->rubricSet = $generator->getRubrics();
-        }
         $assignment->unit = $unit;
         $assignment->generated_at = new DateTime;
         $assignment->student = $student;
         $this->persist($assignment);    
         
-        $questions = $generator->getQuestions();
-        $i = 0;
-        foreach ($questions as $question) {
+        $questions = $this->generateQuestions(
+            $courseDefinition->get($unit, CourseDefinition::QUESTIONS)
+        );
+        
+        foreach ($questions as $i => $question) {
+            $question->order = $i + 1;
             $question->assignment = $assignment;
-            $question->order = $i++;
             $questionRepository->persist($question);
         }
         
         return $assignment;
+    }
+    
+    private function generateQuestions($definitions, $inherit = array()) 
+    {
+        $questionSet = array();
+        foreach ($definitions as $def) {
+            $questions = array();
+            $def = array_merge($inherit, $def);
+            $count = isset($def['count'])) ? $def['count'] : 1;
+                
+            if (isset($def['questions'][0]['questions'])) {
+                $questions = array_merge(
+                    $questions, 
+                    $this->generateQuestions($def['questions'], $def)
+                );
+            } else {
+                $question = new Question;
+                $question->definition = (object) $def;
+                $question->generateFromDefinition();
+                $questions[] = $question;
+                
+                if ($count > 1) {
+                    for($i = 1; $i < $count; $i++) {
+                        $question = unserialize(serialize($question));
+                        $questions[] = $question->variate();
+                    }
+                }
+            }
+
+            shuffle($questions);
+            for ($i = 0; $i < $count; $i++) {
+                $questionSet[] = $questions[$i];
+            }
+        }
+        
+        return $questionSet;
     }
 }
