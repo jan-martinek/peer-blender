@@ -18,7 +18,8 @@
 		"kdyby/translation": "2.0.3",
 		"dibi/dibi": "^2.3@dev",
 		"michelf/php-markdown": "~1.5",
-		"tharos/leanmapper": "~2.2"
+		"tharos/leanmapper": "~2.2",
+		"symfony/yaml": "^2.8"
 	},
 	"require-dev": {
 		"nette/tester": "~1.3"

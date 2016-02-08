@@ -4,7 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dc7b0271f2d00ff51a92074575d5ae18",
+    "hash": "c8791232f2c9e711d4fb9d8a0d2e4b06",
+    "content-hash": "c9c7990c6a6dc56dfdbca509c4ae42bb",
     "packages": [
         {
             "name": "dg/adminer-custom",
@@ -184,7 +185,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/latte/zipball/7d9c89b0e2aeca25a93b9cf6be6e9f41c8fec34a",
+                "url": "https://api.github.com/repos/nette/latte/zipball/86ec0a1f70785d2b3a975958ba9ced4f4ae8a2e1",
                 "reference": "7d9c89b0e2aeca25a93b9cf6be6e9f41c8fec34a",
                 "shasum": ""
             },
@@ -290,7 +291,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/application/zipball/c22340f82e3205dba841c8a655e47b07ab170935",
+                "url": "https://api.github.com/repos/nette/application/zipball/a74d6618c8fb7c8aae389a67fe7c01a84a9d35e7",
                 "reference": "c22340f82e3205dba841c8a655e47b07ab170935",
                 "shasum": ""
             },
@@ -352,7 +353,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/bootstrap/zipball/c1df1a45eb67bc5196ca06315592446a09437579",
+                "url": "https://api.github.com/repos/nette/bootstrap/zipball/e32964df66f2c5a3a50b229204f583d20c1f6829",
                 "reference": "c1df1a45eb67bc5196ca06315592446a09437579",
                 "shasum": ""
             },
@@ -418,7 +419,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/caching/zipball/ce04a24e03230a3ad163540aab46635c220163ed",
+                "url": "https://api.github.com/repos/nette/caching/zipball/a2293a7dab07036b606938923cd9ee10c4bbba69",
                 "reference": "ce04a24e03230a3ad163540aab46635c220163ed",
                 "shasum": ""
             },
@@ -476,7 +477,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/component-model/zipball/fe13e630a307ef4585b3573eae0a161dc1c3d428",
+                "url": "https://api.github.com/repos/nette/component-model/zipball/07bce436051fd92d084642ce7a47f00045e0d1e5",
                 "reference": "fe13e630a307ef4585b3573eae0a161dc1c3d428",
                 "shasum": ""
             },
@@ -526,7 +527,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/database/zipball/1c7eba65dbe83effe162c3d7d6bf0023c75fe223",
+                "url": "https://api.github.com/repos/nette/database/zipball/1e12005c73411cade4691ca8e1c3b96c1d09a05e",
                 "reference": "1c7eba65dbe83effe162c3d7d6bf0023c75fe223",
                 "shasum": ""
             },
@@ -580,7 +581,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/deprecated/zipball/84764258aeeb1d9f7605f4b4200fe7bb1a4e309c",
+                "url": "https://api.github.com/repos/nette/deprecated/zipball/109241171a950ce0d33bd9c55b7cdccba369c6f6",
                 "reference": "84764258aeeb1d9f7605f4b4200fe7bb1a4e309c",
                 "shasum": ""
             },
@@ -636,7 +637,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/di/zipball/12d68e2c611a3c1778a2fa0608aa54c72fc930cb",
+                "url": "https://api.github.com/repos/nette/di/zipball/d8778100be121937b6e9fba6eadff5691744d727",
                 "reference": "12d68e2c611a3c1778a2fa0608aa54c72fc930cb",
                 "shasum": ""
             },
@@ -688,7 +689,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/finder/zipball/8ebfebb6c7480473c368258ab3e3dc305aa3306f",
+                "url": "https://api.github.com/repos/nette/finder/zipball/ea8e796b42d542bd90e76f5b2a41c2c86a008256",
                 "reference": "8ebfebb6c7480473c368258ab3e3dc305aa3306f",
                 "shasum": ""
             },
@@ -738,7 +739,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/forms/zipball/e4e3777c7a783f1877eda4a07ff2f128bdd05bf9",
+                "url": "https://api.github.com/repos/nette/forms/zipball/0d04e4a8d0c497229eec77359df33534b991a8fc",
                 "reference": "e4e3777c7a783f1877eda4a07ff2f128bdd05bf9",
                 "shasum": ""
             },
@@ -793,7 +794,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/http/zipball/ff2e4608391bca2444df9af6eaf8666ac853eb02",
+                "url": "https://api.github.com/repos/nette/http/zipball/551f06cba60d3b8e08d0e7f6c19591b59f36f22d",
                 "reference": "ff2e4608391bca2444df9af6eaf8666ac853eb02",
                 "shasum": ""
             },
@@ -847,7 +848,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/mail/zipball/4d473639d5f50b501f14e1d3443b43debe06dced",
+                "url": "https://api.github.com/repos/nette/mail/zipball/e6e406be4e9249237e31620a71cc77a2dc2f9d58",
                 "reference": "4d473639d5f50b501f14e1d3443b43debe06dced",
                 "shasum": ""
             },
@@ -902,7 +903,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/neon/zipball/12bbb0e85ba8521dd291f4df0fe20a1b79aae32c",
+                "url": "https://api.github.com/repos/nette/neon/zipball/0042f72a2c51b24f5de3ca5f365494cd9b0d45f0",
                 "reference": "12bbb0e85ba8521dd291f4df0fe20a1b79aae32c",
                 "shasum": ""
             },
@@ -949,7 +950,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/nette/zipball/76d9148a8ee2af08d1bef614e4dcd7eca7b8e7ba",
+                "url": "https://api.github.com/repos/nette/nette/zipball/4fdb5bff44ae1b45ee2247c70430142b9677d7a6",
                 "reference": "76d9148a8ee2af08d1bef614e4dcd7eca7b8e7ba",
                 "shasum": ""
             },
@@ -1026,7 +1027,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/eef9df86ca6fa9ad5366b4c9862062ba272942bb",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/92b7a1875745d3047461a5baeb8b0e1988e41df1",
                 "reference": "eef9df86ca6fa9ad5366b4c9862062ba272942bb",
                 "shasum": ""
             },
@@ -1076,7 +1077,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/reflection/zipball/02ef2d6727d61cbd721645840573c91c43ea2fba",
+                "url": "https://api.github.com/repos/nette/reflection/zipball/717229188e422446c5941c0fa344b91190e1503d",
                 "reference": "02ef2d6727d61cbd721645840573c91c43ea2fba",
                 "shasum": ""
             },
@@ -1134,7 +1135,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/robot-loader/zipball/69331d359bbc9e5f911c12b82187cac914d983fb",
+                "url": "https://api.github.com/repos/nette/robot-loader/zipball/4614e9d6616e14137f4b51d3333a5060d80e6e33",
                 "reference": "69331d359bbc9e5f911c12b82187cac914d983fb",
                 "shasum": ""
             },
@@ -1186,7 +1187,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/safe-stream/zipball/bf30db367b51a0932c44dcb9a378927644d48b2e",
+                "url": "https://api.github.com/repos/nette/safe-stream/zipball/f9108a5fbbc02bfe325edaff0bc70dceffdb1574",
                 "reference": "bf30db367b51a0932c44dcb9a378927644d48b2e",
                 "shasum": ""
             },
@@ -1240,7 +1241,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/security/zipball/d5bf182b625aa4a0ab842a621799b2563c87e9ab",
+                "url": "https://api.github.com/repos/nette/security/zipball/c8459fa3a403fb506ba205ced3d4b9a762a4fa42",
                 "reference": "d5bf182b625aa4a0ab842a621799b2563c87e9ab",
                 "shasum": ""
             },
@@ -1292,7 +1293,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tokenizer/zipball/1355355af259156ec49adb2d76d8346a06eba1cb",
+                "url": "https://api.github.com/repos/nette/tokenizer/zipball/901ccdbcdd8d60b6cecca4ca928fdb54835b5ef4",
                 "reference": "1355355af259156ec49adb2d76d8346a06eba1cb",
                 "shasum": ""
             },
@@ -1346,7 +1347,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/298e955ad903c212dc766aa3f9f8ca840b6936eb",
+                "url": "https://api.github.com/repos/nette/utils/zipball/face1fe641a10c20a36cf6786c012d9169becebe",
                 "reference": "298e955ad903c212dc766aa3f9f8ca840b6936eb",
                 "shasum": ""
             },
@@ -1449,12 +1450,12 @@
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Config.git",
-                "reference": "546b5c41f8e0c3b18e55e4450ec51444adf3e61e"
+                "url": "https://github.com/symfony/config.git",
+                "reference": "f4d8e2236db888c708d934975070ff6f0a332a24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Config/zipball/546b5c41f8e0c3b18e55e4450ec51444adf3e61e",
+                "url": "https://api.github.com/repos/symfony/config/zipball/f4d8e2236db888c708d934975070ff6f0a332a24",
                 "reference": "546b5c41f8e0c3b18e55e4450ec51444adf3e61e",
                 "shasum": ""
             },
@@ -1499,12 +1500,12 @@
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Filesystem.git",
-                "reference": "287fc0b1dcb11ff729eeefc20441c08eaf628f29"
+                "url": "https://github.com/symfony/filesystem.git",
+                "reference": "cbfaa8a24c38911d2d14ef12118514a504c09dd0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Filesystem/zipball/287fc0b1dcb11ff729eeefc20441c08eaf628f29",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/cbfaa8a24c38911d2d14ef12118514a504c09dd0",
                 "reference": "287fc0b1dcb11ff729eeefc20441c08eaf628f29",
                 "shasum": ""
             },
@@ -1548,12 +1549,12 @@
             "version": "2.8.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/symfony/Translation.git",
-                "reference": "5f026ceec48381afc544777527c8ff999b15ecb2"
+                "url": "https://github.com/symfony/translation.git",
+                "reference": "b7b4ebadd2b5e614ff7d2d6fc63e0ed0578909c7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Translation/zipball/5f026ceec48381afc544777527c8ff999b15ecb2",
+                "url": "https://api.github.com/repos/symfony/translation/zipball/b7b4ebadd2b5e614ff7d2d6fc63e0ed0578909c7",
                 "reference": "5f026ceec48381afc544777527c8ff999b15ecb2",
                 "shasum": ""
             },
@@ -1605,6 +1606,55 @@
             "time": "2015-09-11 09:07:49"
         },
         {
+            "name": "symfony/yaml",
+            "version": "2.8.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/yaml.git",
+                "reference": "33fd1b2cfdde601704665fad343014bba04b0753"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/33fd1b2cfdde601704665fad343014bba04b0753",
+                "reference": "33fd1b2cfdde601704665fad343014bba04b0753",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.9"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.8-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\Yaml\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "https://symfony.com",
+            "time": "2016-02-02 09:49:18"
+        },
+        {
             "name": "tharos/leanmapper",
             "version": "v2.2.0",
             "source": {
@@ -1653,7 +1703,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tracy/zipball/692a33d530850ee563ad0ee1e1e9eb95a1dab1eb",
+                "url": "https://api.github.com/repos/nette/tracy/zipball/f755ac7535109934f24ec0e056a112e868427a9d",
                 "reference": "692a33d530850ee563ad0ee1e1e9eb95a1dab1eb",
                 "shasum": ""
             },
@@ -1710,7 +1760,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/tester/zipball/1a4b434b93fe6786a7499b674533d29f303718a5",
+                "url": "https://api.github.com/repos/nette/tester/zipball/3db6187df83a8c9efc591bffac9184dbe32642d8",
                 "reference": "1a4b434b93fe6786a7499b674533d29f303718a5",
                 "shasum": ""
             },
