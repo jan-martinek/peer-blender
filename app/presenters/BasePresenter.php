@@ -50,12 +50,16 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     
     /** @var \Model\Entity\User */
     public $userInfo;
+    
+    /** @var \Model\CourseDefinition @inject */
+    public $courseDefinition;    
 
     public function startup()
     {
         parent::startup();
         
         $this->courseInfo->setFavoriteRepository($this->favoriteRepository);
+        $this->template->def = $this->courseDefinition;
         
         if ($this->user->isLoggedIn() OR in_array($this->getName(), array('Homepage', 'Sign', 'Password'))) {
             $this->userInfo = $this->user->id ? $this->userRepository->find($this->user->id) : NULL;

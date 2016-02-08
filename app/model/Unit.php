@@ -11,11 +11,7 @@ use DateTime;
  * @property DateTime $reviews_since
  * @property DateTime $objections_since
  * @property DateTime $finalized_since
- * @property string $name
- * @property string $goals
- * @property string $reading
- * @property string $rubrics
- * @property string $generator
+ * @property string $def
  * @property Assignment[] $assignments m:belongsToMany
  */
 class Unit extends FavoritableEntity

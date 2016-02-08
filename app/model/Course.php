@@ -4,11 +4,7 @@ namespace Model\Entity;
 
 /**
  * @property int $id
- * @property string $name
- * @property string $goals
- * @property string $methods
- * @property string $support
- * @property string $footer
+ * @property string $dir
  * @property Unit[] $units m:belongsToMany
  * @property Enrollment[] $enrollments m:belongsToMany
  * @property int $reviewCount (review_count)

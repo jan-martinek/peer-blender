@@ -46,7 +46,7 @@ class UnitPresenter extends BasePresenter
             return;
         }
         
-        $assignment = $this->assignmentRepository->getMyAssignment($this->courseInfo->unit, $this->userInfo, $this->questionRepository);
+        $assignment = $this->assignmentRepository->getMyAssignment($this->courseInfo->unit, $this->userInfo, $this->questionRepository, $this->courseDefinition);
         $this->setupCourseInfo($assignment);
         if (isset($assignment->solution)) {
             $this->courseInfo->setSolution($assignment->solution);

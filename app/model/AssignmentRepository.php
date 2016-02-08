@@ -3,6 +3,7 @@
 namespace Model\Repository;
 
 use Model\Generator\AttachmentGenerator;
+use Model\CourseDefinition;
 use Model\Entity\Assignment;
 use Model\Entity\Unit;
 use Model\Entity\User;

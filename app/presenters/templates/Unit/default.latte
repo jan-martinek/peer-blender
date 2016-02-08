@@ -1,4 +1,4 @@
-{block title}{$unit->name}{/block}
+{block title}{$def->get($unit)->name}{/block}
 
 {block favorites}
 	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$unit->countFavorites()}</small>
@@ -7,7 +7,7 @@
 {block breadcrumbs}
 	<p>
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
-		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
+		<a n:href="Course:default $unit->course->id">{$def->get($unit->course)->name}</a> &rsaquo; 
 		{if $lateEdits}
 			<a n:href="Unit:default $unit->id">{_messages.app.unit}</a> &rsaquo; 
 			{_messages.unit.homeworkEdit}
@@ -21,15 +21,15 @@
 {block unitInfo}
 	{control phasesRenderer $unit}
 
-	{if $unit->goals}
+	{if $def->get($unit)->goals}
 		<h2>{_messages.unit.goals}</h2>
-		{!$unit->goals|md}
+		{!$def->get($unit)->goals|md}
 		<hr>
 	{/if}
 	
-	{if $unit->reading}
+	{if $def->get($unit)->reading}
 		<h2>{_messages.unit.reading}</h2>
-		{!$unit->reading|md}
+		{!$def->get($unit)->reading|md}
 		<hr>
 	{/if}
 {/block}
@@ -54,7 +54,7 @@
 		</p>
 	</div>	
 	
-	{!$assignment->preface|md}
+	{!$def->get($unit)->preface|md}
 	
 	{form homeworkForm}
 		<div class="assignmentQuestion" n:foreach="$form['questions']->controls as $name => $question">
@@ -124,7 +124,7 @@
 		{_messages.unit.myHomework}
 	</h2>
 
-	{!$assignment->preface|md}
+	{!$def->get($unit)->preface|md}
 
 	{control questionsRenderer $assignment, $solution}
 {/block}
