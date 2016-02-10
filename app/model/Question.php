@@ -192,7 +192,7 @@ class Question extends Entity
         
         //bloom is valid
         if (   !isset($definition->bloom) 
-            || !$this->bloomIsValid($definition->bloom)
+            || !$this->isBloomValid($definition->bloom)
         ) {
             throw new InvalidQuestionDefinitionException(
                 'This objective does not belong to the revised Bloom\'s taxonomy.'
@@ -201,7 +201,7 @@ class Question extends Entity
         
         //input is valid
         if (   isset($definition->input) 
-            && !$this->inputIsValid($definition->input)
+            && !$this->isInputValid($definition->input)
         ) {
             throw new Exception('This input method is not supported.');
         }
@@ -218,7 +218,7 @@ class Question extends Entity
      * Educational Objectives. New York: Longman.)
      * @return bool
      */
-    private final function bloomIsValid($objective) 
+    private final function isBloomValid($objective) 
     {
         return in_array($objective, array(
             'remember',
@@ -230,7 +230,11 @@ class Question extends Entity
         ));
     }
     
-    private function inputIsValid($input)
+    /**
+     * Checks if selected input method is available
+     * @return bool
+     */   
+    private function isInputValid($input)
     {
         return in_array($input, array(
             'plaintext',
