@@ -32,11 +32,14 @@ class HomeworkForm extends Form
                 case 'file':
                     $maxKb = $course->uploadMaxFilesizeKb;
                     $input = $questionsContainer->addUpload($id, $label)
-                        ->addRule(Form::MAX_FILE_SIZE, $label, $maxKb * 1024)
-                        ->setOption('description', $translator->translate(
-                            'messages.unit.homeworkAttachmentNote',
-                            NULL, array('filesize' => $maxKb)
-                        )
+                        ->addRule(
+                            Form::MAX_FILE_SIZE, 
+                            $translator->translate(
+                                'messages.unit.homeworkAttachmentNote', 
+                                NULL, 
+                                array('filesize' => $maxKb)
+                            ), 
+                            $maxKb * 1024
                     );
                     break;
                 default:
