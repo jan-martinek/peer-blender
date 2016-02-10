@@ -4,7 +4,7 @@ namespace Model\Entity;
 
 /**
  * @property int $id
- * @property string $text
+ * @property string|NULL $text
  * @property Solution $solution m:hasOne
  * @property Question $question m:hasOne
  */

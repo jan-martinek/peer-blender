@@ -48,7 +48,7 @@ unit:
 	notAnswered: "Nezodpovězeno."
 	homeworkSaved: "**Váš úkol byl uložen.**"
 	homeworkAttachment: "Příloha"
-	homeworkAttachmentNote: "maximální velikost souboru je %filesize% kB, pokud je to potřeba, můžete soubor zazipovat"
+	homeworkAttachmentNote: "Maximální velikost souboru je %filesize% kB. Pokud je to potřeba, můžete soubor zazipovat."
 	homeworkAttachmentNotNeeded: "Příloha není v úkolu vyžadována."
 	submittedAttachment: "Uložené přílohy"
 	noAttachment: "Žádné přílohy nebyly přiloženy"

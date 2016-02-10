@@ -6,8 +6,8 @@ namespace Model\Entity;
  * @property int $id
  * @property int $order
  * @property string $variant
- * @property string $type
  * @property string $text
+ * @property string $input
  * @property string $prefill
  * @property Assignment $assignment m:hasOne 
  * @property Answer|NULL $answer m:belongsToOne
@@ -55,7 +55,7 @@ class Question extends Entity
         $this->text = $this->applyVars(
             $this->definition->questions[$this->selectedQuestion]
         );
-        $this->type = isset($this->definition->input) 
+        $this->input = isset($this->definition->input) 
             ? $this->applyVars($this->definition->input) : 'plaintext';
         $this->prefill = isset($this->definition->prefill) 
             ? $this->applyVars($this->definition->prefill) : '';
@@ -180,14 +180,31 @@ class Question extends Entity
      */
     public function setDefinition($definition) 
     {    
+        
+        if($this->isDefinitionValid($definition)) {
+            $this->definition = $definition;
+            
+            if (is_string($this->definition->questions)) {
+                $this->definition->questions = array(
+                    $this->definition->questions
+                );
+            }
+            
+            $this->definitionHash = substr(
+                sha1(serialize($definition)), 0, 6
+            );    
+        }
+        
+    }
+    
+    public function isDefinitionValid($definition) 
+    {
         // questions are set
         if (!isset($definition->questions)) {
             throw new InvalidQuestionDefinitionException(
                 'No questions found.'
             );
-            return;
-        } elseif (is_string($definition->questions)) {
-            $definition->questions = array($definition->questions);
+            return false;
         }
         
         //bloom is valid
@@ -197,17 +214,10 @@ class Question extends Entity
             throw new InvalidQuestionDefinitionException(
                 'This objective does not belong to the revised Bloom\'s taxonomy.'
             );
+            return false;
         }
         
-        //input is valid
-        if (   isset($definition->input) 
-            && !$this->isInputValid($definition->input)
-        ) {
-            throw new Exception('This input method is not supported.');
-        }
-        
-        $this->definition = $definition;
-        $this->definitionHash = substr(sha1(serialize($definition)), 0, 6);
+        return true;
     }
     
     /**
@@ -244,9 +254,37 @@ class Question extends Entity
             'html',
             'sql',
             'css',
+            'xml',
+            'file'
+        ));
+    }
+
+    private function setInput($input) {
+        if (!$this->isInputValid($input)) {
+            throw new InvalidQuestionDefinitionException(
+                'This input method is not supported.'
+            );
+        }
+        
+        $this->input = $input;
+    }
+
+
+    /**
+     * Checks whether syntax highlighting is available for the selected input method
+     * @return bool
+     */    
+    public function isHighlightingAvailable() 
+    {
+        return in_array($this->input, array(
+            'markdown',
+            'javascript',
+            'html',
+            'sql',
+            'css',
             'xml'
         ));
-    } 
+    }
     
     public function __clone()
     {

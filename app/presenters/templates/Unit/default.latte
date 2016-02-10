@@ -57,58 +57,12 @@
 	{!$def->get($unit)->preface|md}
 	
 	{form homeworkForm}
-		<div class="assignmentQuestion" n:foreach="$form['questions']->controls as $name => $question">
-			<h3 class="questionNumber">{$iterator->getCounter()}<br>
-			<button id="quick-save-button-{$name}" name="quick-save-button-{$name}" type="submit" title="{_messages.solution.quickSave}">
-				<i class="fa fa-save"></i>
-			</button>
-			</h3>
-			{label $question /}
-			{input $question, 'rows' => '10'}
-			<p n:ifcontent>{inputError $question}</p>
-			{var questionClass = $question->getControlPrototype()->class}
-			<button n:if="is_int(strpos('highlight-javascript', $questionClass))" class="answerPreview" type="{$questionClass}">
-				&#9654; {_messages.solution.runCode}
-			</button>
-			
-			{if is_int(strpos('highlight-javascript', $questionClass))}
-				<button class="showPrefill secondary" type="{$questionClass}">
-					<b>{ }</b>  {_messages.solution.viewPrefill}
-				</button>
-				
-				<div class="prefill">
-					<textarea class="highlight-javascript readonly">{$question->getOption('prefill')}</textarea>
-				</div>
-			{/if}
-			
-		</div>
-
-		<div class="assignmentQuestion">
-			<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
-			<div class="panel">
-				{label attachment}
-					<p><strong>Attachment</strong> ({$form['attachment']->getOption('description')})<br>
-					{input attachment}
-					</p>
-				{/label}
-				
-				<p n:if="$solution && $solution->attachment && pathinfo($solution->attachment, PATHINFO_BASENAME) != '@nothing.txt'">
-					{_messages.unit.submittedAttachment}: 
-					<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
-					{=pathinfo($solution->attachment, PATHINFO_BASENAME)}</a>
-				</p>
-				
-				<p n:if="!($solution && $solution->attachment) || pathinfo($solution->attachment, PATHINFO_BASENAME) == '@nothing.txt'">
-					{if $solution && $solution->attachment && pathinfo($solution->attachment, PATHINFO_BASENAME) == '@nothing.txt'}
-						{? $form['attachmentNotNeeded']->setValue(TRUE)}
-					{/if}
-					{input attachmentNotNeeded}
-				</p>
-			</div>
-			
-			{input submit, 'class' => 'button'} 
-			<p>{!_messages.unit.submitRepeatedly|imd}</p>
-		</div>
+		{control questionsRenderer $assignment, $solution, $form}
+		
+		<hr>
+		
+		{input submit, 'class' => 'button'} 
+		<p>{!_messages.unit.submitRepeatedly|imd}</p>
 	{/form}
 	
 	<form id="previewForm" action="{link Solution:preview}" target="preview_iframe" method="post" style="display: none;">

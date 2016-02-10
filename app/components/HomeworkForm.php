@@ -16,18 +16,26 @@ class HomeworkForm extends Form
         
         $questionsContainer = $this->addContainer('questions');
         foreach ($questions as $id => $question) {
-            $questionText = $question->text;
-            if ($question->type != 'plaintext') {
-                $questionText .= "\n\n(" . $translator->translate('messages.unit.highlighting.' . $question->type) . ')';
-            }
-
-            $input = $questionsContainer->addTextarea(
-                $id, 
-                Html::el()->setHtml(Markdown::defaultTransform($questionText))
+            $label = Html::el()->setHtml(
+                Markdown::defaultTransform($question->text)
             );
             
-            if ($question->type != 'plaintext') {
-                $input->getControlPrototype()->class('highlight-' . $question->type);
+            switch ($question->input) {
+                case 'file':
+                    $maxKb = $course->uploadMaxFilesizeKb;
+                    $input = $questionsContainer->addUpload($id, $label)
+                        ->addRule(Form::MAX_FILE_SIZE, $label, $maxKb * 1024)
+                        ->setOption('description', $translator->translate(
+                            'messages.unit.homeworkAttachmentNote',
+                            NULL, array('filesize' => $maxKb)
+                        )
+                    );
+                    break;
+                default:
+                    $input = $questionsContainer->addTextarea($id, $label);                        
+                    if ($question->isHighlightingAvailable()) {
+                        $input->getControlPrototype()->class('highlight-' . $question->input);
+                    }
             }
             
             if (isset($question->answer)) {
@@ -35,24 +43,7 @@ class HomeworkForm extends Form
             } elseif ($question->prefill) {
                 $input->setValue($question->prefill);
             }
-            
-            $input->setOption('prefill', $question->prefill);
-        }
-        
-        $uploadLabel = $translator->translate('messages.unit.homeworkAttachment');
-        $this->addUpload('attachment', $uploadLabel)
-            ->addRule(
-                Form::MAX_FILE_SIZE, 
-                $uploadLabel, 
-                $course->uploadMaxFilesizeKb * 1024
-            )->setOption('description', $translator->translate(
-                'messages.unit.homeworkAttachmentNote',
-                NULL, 
-                array('filesize' => $course->uploadMaxFilesizeKb)
-            ));
-            
-        $attachmentNotNeededLabel = $translator->translate('messages.unit.homeworkAttachmentNotNeeded');
-        $this->addCheckbox('attachmentNotNeeded', ' ' . $attachmentNotNeededLabel);
+        }    
         
         $submitLabel = $translator->translate('messages.unit.submitHomework');
         $this->addSubmit('submit', $submitLabel);

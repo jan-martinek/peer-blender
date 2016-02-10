@@ -26,7 +26,7 @@ class QuestionsControl extends Control
         });
     }	
 	
-    public function render(\Model\Entity\Assignment $assignment, \Model\Entity\Solution $solution)
+    public function render(\Model\Entity\Assignment $assignment, \Model\Entity\Solution $solution = null, \App\Components\HomeworkForm $form = null)
     {
         $template = $this->template;
         $this->setTemplateFilters($template);
@@ -34,6 +34,7 @@ class QuestionsControl extends Control
         $template->uploadPath = $this->uploadStorage->path;
         $template->assignment = $assignment;
         $template->solution = $solution;
+        $template->form = $form;
         $template->render();
     }
 }

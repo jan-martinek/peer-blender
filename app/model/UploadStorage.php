@@ -22,21 +22,4 @@ class UploadStorage extends Storage
         
         return $path . $filename;
     }
-    
-    public function createFile($contents, $path)
-    {
-        $filename = '@nothing.txt';
-        
-        if (!file_exists($this->getAbsolutePath($path))) {
-            mkdir($this->getAbsolutePath($path), 0777, TRUE);
-        }
-
-        $absoluteFilename = $this->getAbsolutePath($path . $filename);
-        
-        if (file_put_contents($absoluteFilename, $contents)) {
-            return $path . $filename;    
-        } else {
-            return NULL;
-        }      
-    }
 }

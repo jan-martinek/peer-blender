@@ -111,25 +111,6 @@ class UnitPresenter extends BasePresenter
     {
         if ($solution = $this->courseInfo->solution) {
             $solution->edited_at = new DateTime;
-            if ($values->attachment->isOK()) 
-            {
-                $this->removeHomeworkFile($solution->attachment);
-                $solution->attachment = $this->saveHomeworkFile(
-                    $values->attachment, 
-                    $this->courseInfo->course->id,
-                    $this->courseInfo->unit->id,
-                    $this->user->id
-                );    
-            } else if ($values->attachmentNotNeeded) {
-                $this->removeHomeworkFile($solution->attachment);
-                $solution->attachment = $this->saveBlankHomeworkFile(
-                    $this->courseInfo->course->id,
-                    $this->courseInfo->unit->id,
-                    $this->user->id
-                );
-            }
-            $this->solutionRepository->persist($solution);
-            $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
             $this->logEvent($solution, 'edit');
         } else {
             $solution = new Solution;
@@ -137,26 +118,12 @@ class UnitPresenter extends BasePresenter
             $solution->assignment = $this->courseInfo->assignment;
             $solution->user = $this->userInfo;
             $solution->submitted_at = new DateTime;
-            $solution->edited_at = new DateTime;
-            if ($values->attachment->isOK()) 
-            {
-                $solution->attachment = $this->saveHomeworkFile(
-                    $values->attachment, 
-                    $this->courseInfo->course->id,
-                    $this->courseInfo->unit->id,
-                    $this->user->id
-                ); 
-            } else if ($values->attachmentNotNeeded) {
-                $solution->attachment = $this->saveBlankHomeworkFile(
-                    $this->courseInfo->course->id,
-                    $this->courseInfo->unit->id,
-                    $this->user->id
-                );
-            }
-            $this->solutionRepository->persist($solution);    
-            $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);        
             $this->logEvent($solution, 'create');
         }
+        
+        $solution->edited_at = new DateTime;
+        $this->solutionRepository->persist($solution);
+        $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
         
         $backToButton = '';
         $httpData = $form->getHttpData();
@@ -169,18 +136,29 @@ class UnitPresenter extends BasePresenter
         $this->redirect('this' . $backToButton);
     }
     
-    public function saveAnswers($questions, $answers) 
+    public function saveAnswers($questions, $values) 
     {
         foreach ($questions as $order => $question) {
             if (isset($question->answer)) {
                 $answer = $question->answer; 
-                $answer->text = $answers[$order];
             } else {
                 $answer = new Answer;
-                $answer->text = $answers[$order];
                 $answer->solution = $question->assignment->solution;
                 $answer->question = $question;
             }
+            
+            if ($question->input == 'file') {
+                $answer->text = $this->saveHomeworkFile(
+                    $this->courseInfo->course->id,
+                    $this->courseInfo->unit->id,
+                    $this->user->id,
+                    $values[$order],
+                    $answer->text
+                );
+            } else {
+                $answer->text = $values[$order];    
+            }
+            
             $this->answerRepository->persist($answer);
         }
     }
@@ -188,24 +166,16 @@ class UnitPresenter extends BasePresenter
     /**
      * @return string uploaded filename
      */
-    private function saveHomeworkFile($file, $courseId, $unitId, $userId) 
+    private function saveHomeworkFile($courseId, $unitId, $userId, $file, $current) 
     {   
         if ($file->isOK()) {
+            $this->removeHomeworkFile($current);   
             $path = "/course-$courseId/homeworks/unit-$unitId/user-$userId/";
             return $this->uploadStorage->moveUploadedFile($file, $path);
         } else {
-            return NULL;
+            return $current;
         }
     }
-    
-    private function saveBlankHomeworkFile($courseId, $unitId, $userId) 
-    {   
-        $path = "/course-$courseId/homeworks/unit-$unitId/user-$userId/";
-        return $this->uploadStorage->createFile(
-            $this->translator->translate('messages.unit.homeworkAttachmentNotNeeded'),
-            $path
-        );
-    }    
     
     private function removeHomeworkFile($filename) 
     {

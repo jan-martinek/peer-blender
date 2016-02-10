@@ -1,60 +1,75 @@
 {define question}
-	<label>{!$question->text|md}</label>
-	{if isset($question->answer)}
-		{if $question->answer}
-			{if $question->type == 'plaintext'}
+	<label>
+		{!$question->text|md}
+		{if $question->isHighlightingAvailable()}
+			{!_messages.unit.highlighting.$question->input|md}
+		{/if}
+	</label>
+	
+	{if $form}
+		{var formQuestion = $form['questions'][$key]}
+	{/if}
+	
+	{if $question->input == 'file'}
+		<div class="panel">
+			{if $form}
+				{label $formQuestion}
+					<p>{input $formQuestion}</p>
+					<p>{$formQuestion->getOption('description')}</p>
+				{/label}
+			{/if}
+			
+			<p>
+				{if isset($question->answer)}
+					<b>{_messages.unit.submittedAttachment}</b>:
+					<a href="{$baseUri}{$uploadPath}{$question->answer->text}">
+						{=pathinfo($question->answer->text, PATHINFO_BASENAME)}
+					</a>
+				{elseif !$form}
+					<span style="color: #aaa">{_messages.unit.notAnswered}</a>
+				{/if}
+			</p>
+		</div>
+	{else}
+		{if $form}
+			{input $formQuestion, 'rows' => '10'}
+			<p n:ifcontent>{inputError $formQuestion}</p>
+		{elseif isset($question->answer)}
+			{if $question->input == 'plaintext'}
 				<div class="panel">{!=nl2br(htmlspecialchars($question->answer->text))}</div>
 			{else}
-				<textarea id="question-{$question->id}-viewer" class="highlight-{$question->type} readonly">{$question->answer->text}</textarea>
-
-				<button n:if="$question->type == 'javascript'" class="answerPreview" type="highlight-{$question->type}">
-					&#9654; {_messages.solution.runCode}
+				<textarea id="question-{$question->id}-viewer" class="highlight-{$question->input} readonly">{$question->answer->text}</textarea>
+			{/if}
+		{else}
+			<div class="panel callout">
+				<p style="color: #aaa">{_messages.unit.notAnswered}</p>
+			</div>
+		{/if}
+		
+		{if $question->input == 'javascript'}
+			<button class="answerPreview" type="highlight-{$question->input}">
+				&#9654; {_messages.solution.runCode}
+			</button>
+			
+			{if $question->prefill}
+				<button class="showPrefill secondary" type="highlight-{$question->input}">
+					<b>{l} {r}</b>  {_messages.solution.viewPrefill}
 				</button>
-				
-				{if $question->type == 'javascript'}
-					<button class="showPrefill secondary" type="highlight-{$question->type}">
-						<b>{ }</b>  {_messages.solution.viewPrefill}
-					</button>
-					<div class="prefill">
-						<textarea class="highlight-javascript readonly">{$question->prefill}</textarea>
-					</div>
-				{/if}
+				<div class="prefill">
+					<textarea class="highlight-javascript readonly">{$question->prefill}</textarea>
+				</div>
 			{/if}
 		{/if}
-	{else}
-		<div class="panel callout">
-			<p style="color: #aaa">{_messages.unit.notAnswered}</p>
-		</div>
 	{/if}
 {/define}
 
 {block content}
-<div n:foreach="$assignment->questions as $question" class="assignmentQuestion">
-	<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-	{include question, question => $question}
-</div>
-
-<form id="previewForm" action="{plink Solution:preview}" target="preview_iframe" method="post" style="display: none;">
-	<textarea name="answer"></textarea>
-</form>
-<iframe id="preview_iframe" name="preview_iframe" style="display: none;"></iframe>
-
-<div class="assignmentQuestion">
-	<h3 class="questionNumber"><i class="fa fa-file"></i></h3>
-	<p class="panel">
-		{if $solution->attachment}
-			{var $filename = pathinfo($solution->attachment, PATHINFO_BASENAME)}
-			{if $filename == '@nothing.txt'}
-				<span style="color: #aaa">{_messages.unit.homeworkAttachmentNotNeeded}</span>
-			{else}
-				{_messages.unit.submittedAttachment}: 
-				<a href="{$baseUri}{$uploadPath}{$solution->attachment}">
-					{$filename}
-				</a>
-			{/if}
-		{else}
-			<span style="color: #aaa">{_messages.unit.noAttachment}</a>
-		{/if}
-	</p>
+<div n:foreach="$assignment->questions as $key => $question" class="assignmentQuestion">
+	<h3 class="questionNumber">{$iterator->getCounter()}<br>
+		<button n:if="$form" id="quick-save-button-{$key}" name="quick-save-button-{$key}" type="submit" title="{_messages.solution.quickSave}">
+			<i class="fa fa-save"></i>
+		</button>
+	</h3>
+	{include question, key => $key, question => $question}
 </div>
 {/block}
