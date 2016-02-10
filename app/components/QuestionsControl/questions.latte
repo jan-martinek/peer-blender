@@ -61,6 +61,19 @@
 			{/if}
 		{/if}
 	{/if}
+	
+	{if $question->comments > 0}
+		{if $form}
+			{input $form['comments'][$key], 'rows' => $question->comments}
+		{else}
+			{if isset($question->answer->comments)}
+				<b>{_messages.solution.comments}:</b>
+				{!=nl2br(htmlspecialchars($question->answer->comments))}
+			{else}
+				<b>{_messages.solution.noComment}</b>
+			{/if}
+		{/if}
+	{/if}
 {/define}
 
 {block content}

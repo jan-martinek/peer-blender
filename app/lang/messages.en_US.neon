@@ -106,6 +106,9 @@ solution:
 	viewPrefill: "Show pre-filled code"
 	quickSave: "Quick save"
 	createAdHoc: "create ad hoc review"
+	addComments: "Add additional comments here."
+	comments: "Comments"
+	noComment: "Left without any comment."
 review:
 	title: "Peer-assessment"
 	score: 

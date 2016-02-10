@@ -15,6 +15,7 @@ class HomeworkForm extends Form
         parent::__construct();
         
         $questionsContainer = $this->addContainer('questions');
+        $commentsContainer = $this->addContainer('comments');
         foreach ($questions as $id => $question) {
             $label = Html::el()->setHtml(
                 Markdown::defaultTransform($question->text)
@@ -42,6 +43,14 @@ class HomeworkForm extends Form
                 $input->setValue($question->answer->text);
             } elseif ($question->prefill) {
                 $input->setValue($question->prefill);
+            }
+            
+            $comments = $commentsContainer->addTextarea($id)
+                ->setAttribute('placeholder', 
+                    $translator->translate('messages.solution.addComments')
+                );
+            if (isset($question->answer->comments)) {
+                $comments->setValue($question->answer->comments);
             }
         }    
         

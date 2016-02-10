@@ -123,8 +123,8 @@ class UnitPresenter extends BasePresenter
         
         $solution->edited_at = new DateTime;
         $this->solutionRepository->persist($solution);
-        $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions);
         
+        $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions, $values->comments);
         $backToButton = '';
         $httpData = $form->getHttpData();
         foreach (array_keys($httpData) as $k) {
@@ -136,7 +136,7 @@ class UnitPresenter extends BasePresenter
         $this->redirect('this' . $backToButton);
     }
     
-    public function saveAnswers($questions, $values) 
+    public function saveAnswers($questions, $values, $comments) 
     {
         foreach ($questions as $order => $question) {
             if (isset($question->answer)) {
@@ -157,6 +157,10 @@ class UnitPresenter extends BasePresenter
                 );
             } else {
                 $answer->text = $values[$order];    
+            }
+            
+            if ($comments[$order] != '') {
+                $answer->comments = $comments[$order];
             }
             
             $this->answerRepository->persist($answer);

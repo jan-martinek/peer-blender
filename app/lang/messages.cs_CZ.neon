@@ -106,6 +106,9 @@ solution:
 	viewPrefill: "Zobrazit původní kód"
 	quickSave: "Průběžně uložit"
 	createAdHoc: "vytvořit ad hoc recenzi"
+	addComments: "Zde můžete okomentovat zpracovaný úkol."
+	comments: "Komentář"
+	noComment: "Ponecháno bez komentáře."
 review:
 	title: "Peer-assessment"
 	score: 

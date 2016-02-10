@@ -9,6 +9,7 @@ namespace Model\Entity;
  * @property string $text
  * @property string $input
  * @property string $prefill
+ * @property int $comments
  * @property Assignment $assignment m:hasOne 
  * @property Answer|NULL $answer m:belongsToOne
  */
@@ -59,6 +60,8 @@ class Question extends Entity
             ? $this->applyVars($this->definition->input) : 'plaintext';
         $this->prefill = isset($this->definition->prefill) 
             ? $this->applyVars($this->definition->prefill) : '';
+        $this->comments = isset($this->definition->comments) 
+            ? $this->definition->comments : 0;
     }
     
     public function variate() 
