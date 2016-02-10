@@ -5,9 +5,6 @@ namespace App\Presenters;
 use App\Components\HomeworkForm;
 use DateTime;
 use Model\Entity\Log;
-use Model\Entity\Solution;
-use Model\Entity\Answer;
-use Nette\Utils\Strings;
 
 /**
  * Unit presenter.
@@ -73,19 +70,6 @@ class UnitPresenter extends BasePresenter
         $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($this->courseInfo->unit, $this->userInfo);
     }
     
-    public function actionTest($id) 
-    {
-        $unit = $this->setupCourseInfo($this->unitRepository->find($id));
-        $assignment = $this->courseInfo->setAssignment($this->assignmentRepository->getMyAssignment($unit, $this->userInfo, TRUE));
-    }    
-    
-    public function renderTest($id) 
-    {
-        $this->template->unit = $this->courseInfo->unit; 
-        $this->template->assignment = $this->courseInfo->assignment;
-        $this->template->course = $this->courseInfo->course;
-    }
-    
     public function handleFavorite() 
     {
         $this->courseInfo->unit->favorite($this->userRepository->find($this->user->id));
@@ -99,96 +83,12 @@ class UnitPresenter extends BasePresenter
         }
         
         $form = new HomeworkForm(
-            $this->courseInfo->course, 
-            $this->courseInfo->assignment->questions,
-            $this->translator
+            $this,
+            $this->courseInfo->assignment->questions
         );
-        $form->onSuccess[] = array($this, 'homeworkFormSucceeded');
+        
         return $form;
     }
     
-    public function homeworkFormSucceeded(HomeworkForm $form, $values) 
-    {
-        if ($solution = $this->courseInfo->solution) {
-            $event = 'edit';
-        } else {
-            $event = 'create';
-            $solution = new Solution;
-            $solution->unit = $this->courseInfo->unit;
-            $solution->assignment = $this->courseInfo->assignment;
-            $solution->user = $this->userInfo;
-            $solution->submitted_at = new DateTime;
-        }
-        
-        $solution->edited_at = new DateTime;
-        $this->solutionRepository->persist($solution);
-        
-        $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions, $values->comments);
-        
-        $backToButton = '';
-        $httpData = $form->getHttpData();
-        foreach (array_keys($httpData) as $k) {
-            if (preg_match('/^quick-save-button-[0-9]+$/', $k)) {
-                 $backToButton = '#' . $k;
-            }
-        }
-        
-        $this->logEvent($solution, $event);
-        $this->redirect('this' . $backToButton);
-    }
     
-    public function saveAnswers($questions, $values, $comments) 
-    {
-        foreach ($questions as $order => $question) {
-            if (isset($question->answer)) {
-                $answer = $question->answer; 
-            } else {
-                $answer = new Answer;
-                $answer->solution = $question->assignment->solution;
-                $answer->question = $question;
-                $answer->text = null;
-            }
-            
-            if ($question->input == 'file') {
-                $answer->text = $this->saveHomeworkFile(
-                    $this->courseInfo->course->id,
-                    $this->courseInfo->unit->id,
-                    $this->user->id,
-                    $values[$order],
-                    $answer->text
-                );
-            } else {
-                $answer->text = $values[$order];    
-            }
-            
-            if ($comments[$order] != '') {
-                $answer->comments = $comments[$order];
-            }
-            
-            $this->answerRepository->persist($answer);
-        }
-    }
-    
-    /**
-     * @return string uploaded filename
-     */
-    private function saveHomeworkFile($courseId, $unitId, $userId, $file, $current) 
-    {   
-        if ($file->isOK()) {
-            $this->removeHomeworkFile($current);   
-            $path = "/course-$courseId/homeworks/unit-$unitId/user-$userId/";
-            return $this->uploadStorage->moveUploadedFile($file, $path);
-        } else {
-            return $current;
-        }
-    }
-    
-    private function removeHomeworkFile($filename) 
-    {
-        $absoluteFilename = $this->uploadStorage->getAbsolutePath($filename);
-        
-        if (file_exists($absoluteFilename) && is_file($absoluteFilename)) {
-            return unlink($absoluteFilename);    
-        } 
-    }
 }

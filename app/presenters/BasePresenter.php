@@ -130,7 +130,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         return $template;
     }
     
-    protected function logEvent(\LeanMapper\Entity $entity, $action) 
+    public function logEvent(\LeanMapper\Entity $entity, $action) 
     {
         $log = new Log;
         $log->entity_name = $entity->getConventionalName();
