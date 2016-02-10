@@ -20,7 +20,7 @@
 			{/if}
 			
 			<p>
-				{if isset($question->answer)}
+				{if isset($question->answer) && $question->answer->text}
 					<b>{_messages.unit.submittedAttachment}</b>:
 					<a href="{$baseUri}{$uploadPath}{$question->answer->text}">
 						{=pathinfo($question->answer->text, PATHINFO_BASENAME)}

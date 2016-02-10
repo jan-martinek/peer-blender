@@ -110,21 +110,21 @@ class UnitPresenter extends BasePresenter
     public function homeworkFormSucceeded(HomeworkForm $form, $values) 
     {
         if ($solution = $this->courseInfo->solution) {
-            $solution->edited_at = new DateTime;
-            $this->logEvent($solution, 'edit');
+            $event = 'edit';
         } else {
+            $event = 'create';
             $solution = new Solution;
             $solution->unit = $this->courseInfo->unit;
             $solution->assignment = $this->courseInfo->assignment;
             $solution->user = $this->userInfo;
             $solution->submitted_at = new DateTime;
-            $this->logEvent($solution, 'create');
         }
         
         $solution->edited_at = new DateTime;
         $this->solutionRepository->persist($solution);
         
         $this->saveAnswers($this->courseInfo->assignment->questions, $values->questions, $values->comments);
+        
         $backToButton = '';
         $httpData = $form->getHttpData();
         foreach (array_keys($httpData) as $k) {
@@ -133,6 +133,7 @@ class UnitPresenter extends BasePresenter
             }
         }
         
+        $this->logEvent($solution, $event);
         $this->redirect('this' . $backToButton);
     }
     
@@ -145,6 +146,7 @@ class UnitPresenter extends BasePresenter
                 $answer = new Answer;
                 $answer->solution = $question->assignment->solution;
                 $answer->question = $question;
+                $answer->text = null;
             }
             
             if ($question->input == 'file') {
