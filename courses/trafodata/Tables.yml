@@ -1,0 +1,130 @@
+name: Práce s tabulkovými daty
+goals: |
+    Po práci s textem nyní přejdeme k práci se **strukturovanými daty v tabulkách**. Budeme pracovat se *seznamem záznamů*. Budeme jej navrhovat, hledat v nich, řadit je a filtrovat. K práci s takovými daty si osvojíme tabulkové procesory. 
+    
+    Během studia a následně v praxi budete pracovat např. s otevřenými daty, korporátními daty, odpovědmi na dotazníky, výzkumnými daty a tato data budou často reprezentována právě v tabulkách.
+reading: |
+    Nejprve se podívejte na TEDx video o tom, jak lidé s tabulkami pracují: [What Archimedes has to say about spreadsheets](https://www.youtube.com/watch?v=yda2cm7D_cQ) (Felienne Hermans, TEDx Delft). Pokud byste nevěděli, co je Pythagorejská trojice, [mrkněte na Wikipedii](https://cs.wikipedia.org/wiki/Pythagorejsk%C3%A1_trojice).
+    
+    ### Návrh seznamu
+    
+    Seznamte se s pojmy: řádek a sloupec tabulky, hodnota, entita, objekt, atribut, seznam a záznam, filtrování. Dobrým zdrojem může být třeba [tato stránka](http://lorenc.info/3MA381/seznamy.htm) (sekci Formulář můžete přeskočit). Zkuste se podívat i po jiných zdrojích informací (tradičně použivejte [Google](http://google.com/?q=spreasheet+basics) a [Wikipedii](https://en.wikipedia.org/wiki/Table_(information))).
+    
+    ### Konzistence dat
+    
+    Pro práci s tabulkou je důležité ji udržovat konzistentní a bez chyb (to již znáte z videa). Dohledejte si, co jsou to datové typy (text, celé číslo, reálné číslo, logická hodnota, datum a čas a další) — [Wikipedie napoví](https://cs.wikipedia.org/wiki/Datov%C3%BD_typ). Dohledejte si také jak se používají tyto funkce: kopírování, formátování (nástroj štětec), vložení bez formátování (pouze hodnoty).
+    
+    ### Tabulkové procesory
+    
+    Vyberte si některý z dostupných tabulkových procesorů (MS Excel, Google Tabulky, OpenOffice Calc, LibreOffice Calc) a seznamte se s ním. (Mimochodem, jako studenti FF MU [máte možnost](http://www.phil.muni.cz/wcit/home/pocitace/software/ms-office-365/) zdarma používat MS Office.) 
+    
+    Tabulkový procesor umožňuje pracovat s větším množstvím záznamů najednou. Je velmi orientovaný na uživatele a vše se realizuje pomocí grafického uživatelského rozhraní.
+    
+    Pro teoretický úvod si z odborného článku [Spreadsheet Engineering](https://is.muni.cz/auth/el/1421/podzim2015/VIKBA05/um/Spreadsheet-Engineering.pdf) si přečtěte kapitolky: 
+    
+    - *Introduction* (cca 2 strany)
+    - *Spreadsheets: A History of Success?* (cca 3 strany)
+    - a pro zvídavé kapitolu *Spreadsheet Analysis*
+    
+    Původně jsem chtěl z článku vyjmout tyto první 3 kapitoly, ale nechávám k dispozici celý článek, pokud chcete, tak se můžete podívat, jak odborný článek vypadá. (Článek je velmi zajímavý, ale od 3. kapitoly začíná být dost složitý.)
+    
+    ### Filtry
+    
+    V tabulkovém procesoru si vyzkoušejte používání filtrů a podmíněného formátování. O filtrování jste si už přečetli v článku od Miroslava Lorence a znalosti si můžete doplnit např na [stránkách Pavla Lasáka](http://office.lasakovi.com/excel/data/seradit-a-filtrovat-excel/). Na stejném místě najdete i informace o podmíněném formátování.
+    
+    ### Doplňující literatura
+    
+    Pokud se chcete dozvědět více o práci v Excelu v přístupné formě, mrkněte na knížku [Excel for dummies](http://eds.a.ebscohost.com.ezproxy.muni.cz/eds/ebookviewer/ebook/bmxlYmtfXzMxOTU2Nl9fQU41?sid=f113e303-014c-4b7f-9505-315c77e9d53d@sessionmgr4004&vid=39&hid=4105&format=EB).
+rubrics:
+    - "Používá autor/ka zpracovaného úkolu správně a konzistentně termíny, které se týkají práce s tabulkovými daty?"
+    - "Jsou data v předposlední úloze vložena správně do tabulky?"
+    - "Jsou praktické úkoly zpracovány správně a odevzdány ve správné podobě? Na základě poslední praktické úlohy vymyslete jméno (či jeho část), která se dá odvodit ze zpracovaného úkolu."
+preface: |
+    Dejte si pozor na správné užívání pojmů.
+    
+    Všechny praktické úkoly uložte *do jednoho sešitu, každý úkol na jeden list*. Sešit uložte jako `ukoly.xls` a odevzdejte.
+---
+bloom: remember
+allowRepeat: question
+count: 2
+vars:
+    term:
+        - "buňka (cell)"
+        - "řádek (row)"
+        - "sloupec (column)"
+        - "záhlaví (hlavička)"
+        - "záznam (record)"
+        - "seznam (list)"
+        - "list (sheet)"
+        - "sešit (workbook)"
+questions: |
+    Popište pojem *%term%* v kontextu práce s tabulkovými daty.
+---
+bloom: understand
+questions:
+    - "Definujte *vlastními slovy* co nejpřesněji pojem *objekt* a vysvětlete, jak se k němu vztahují pojmy *entita* a *atribut*."
+    - "Definujte *vlastními slovy* co nejpřesněji pojem *entita* a vysvětlete, jak se k němu vztahují pojmy *objekt* a *atribut*."
+    - "Definujte *vlastními slovy* co nejpřesněji pojem *atribut* a vysvětlete, jak se k němu vztahují pojmy *objekt* a *atribut*."
+---
+bloom: analyze
+questions:
+    - "Jaké znáte tabulkové procesory?"
+    - "Najděte na internetu oficiální stránku uživatelské podpory tabulkového procesoru, který používáte. Název procesoru a odkaz vložte do odpovědi."
+---
+bloom: apply
+questions:
+    - "Jak byste zapsali data do tabulky pomocí jazyka HTML? Uveďte vzorek kódu 2 řádky, 2 sloupce."
+    - "Jak byste zapsali data do tabulky pomocí jazyka Markdown (dialekt [Multimarkdown](https://github.com/fletcher/MultiMarkdown/wiki/MultiMarkdown-Syntax-Guide))? Uveďte vzorek kódu 2 řádky, 2 sloupce."
+    - "Vytvořte seznam textových řetězců, které začínají na malá i VELKÁ písmena, číslice i ostatní znaky (např. `#@$%` atp.). Seřaďte je pomocí tabulkového procesoru od nejmenšího po největší. Popište, jak je procesor seřadil (zda jsou čísla před písmeny a podobně). Připište v jakém prostředí (aplikaci) jste test provedli."
+---
+bloom: apply
+count: 2
+allowRepeat: question
+vars:
+    entita:
+        - kniha
+        - počítač
+        - student
+        - vyučovací předmět
+        - počítačový program
+        - databáze knih
+        - sociální síť
+        - knihovna
+        - zoologická zahrada
+        - muzeum
+        - univerzita
+questions: |
+    Vymyslete k entitě „%entita%“ 3 atributy, které budete zapisovat jako celé číslo, reálné číslo, text, datum/čas a logickou pravdu či nepravdu (tedy celkem 15 atributů).
+---
+bloom: create
+input: file
+comments: 10
+vars:
+    rows: [6, 7, 8, 9, 10]
+    cols: [6, 7, 8, 9, 10]
+    objects: [6, 7, 8, 9, 10]
+questions: |
+    Vytvořte tabulku, která bude mít alespoň %rows% řádků (+ hlavička) a %cols% sloupců. Tabulka bude popisovat %rows% objektů, které mají podobné vlastnosti. V každém sloupci bude jeden atribut. Až budete mít tabulku vytvořenou, zamyslete se, jaký typ hodnot mají jednotlivé atributy. Data v tabulce mohou být reálná nebo smyšlená. Soustřeďte se na konzistenci dat.
+    
+    > Příklad: Tabulka automobilů, ve sloupcích např. výrobce (text), model (text), SPZ (šestimístný kód), barva (text, popř. kód barvy), počet míst k sezení (celé číslo), objem válců (celé číslo), rok výroby (čtyřmístné číslo).
+---   
+bloom: create
+input: file
+comments: 10
+vars:
+    cols: [6, 7]
+questions: |
+    Najděte kdekoli na internetu webovou stránku, na které bude tabulka dat, která bude mít aspoň %cols% sloupců a 100 řádků. Tabulku vložte do tabulkové procesoru tak, aby to byla čistá data bez formátování. Do komentáře vložte odkaz na stránku, ze které máte data. Stručně popište jak jste postupovali s převodem dat do tabulkového procesoru.
+---
+bloom: create
+input: file
+comments: 10
+vars:
+    name1: ['křestní jméno', 'příjmení']
+    name2: ['křestní jméno', 'příjmení']
+questions: |
+    Ze [sdíleného souboru](https://goo.gl/9D2Rk1) si zkopírujte data do vašeho tabulkového procesoru. Odstraňte z něj duplicity, vyfiltrujte záznamy, které začínají na stejné písmeno jako vaše %name1% a ostatní vymažte. Ve druhém sloupci zvýrazněte vaší oblíbenou barvou záznamy, které začínají na písmeno jako vaše %name2%. (Pokud takové záznamy v seznamu nejsou, tak si vyberte jiné písmeno a napište to do komentáře.) Ve třetím sloupci zvýrazněte kladné záznamy zelenou výplní a záporné červenou výplní.
+    
+    Své jméno do úkolu neuvádějte.
+    
+    > Všechny praktické úkoly uložte do jednoho sešitu, každý úkol na jeden list. Sešit uložte jako ukoly.xls a odevzdejte.

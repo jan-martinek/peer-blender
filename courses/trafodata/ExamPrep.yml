@@ -1,0 +1,268 @@
+name: Náhled závěrečného testu
+goals: |
+    Zde můžete získat představu o podobě závěrečného testu (úkoly nebudou stejné, ale budou typově odpovídat). Zkouška bude trvat 1.5 hodiny a budete mít přístup k internetu. 
+    
+    **Jde o tzv. open-book test:** Jediná nepovolená aktivita během testu je komunikace s dalšími osobami v jakékoli formě, jinak můžete využít libovolných informačních prostředků, které vám pomohou k naplnění zadání.
+    
+    Důraz je kladen na schopnost aplikace zvládnuté látky. V závěrečném testu naleznete 10 úkolů, které jsou hodnoceny po dvou bodech (0 = nesplněno, 1 = nesplněno, ale je zřejmé pochopení principů, 2 = splněno). Více k hodnocení najdete na [stránce předmětu](https://is.muni.cz/predmet/phil/podzim2015/VIKBA05).
+reading:
+rubrics:
+    - "Lekce není určena k peer-assessmentu."
+preface:
+---
+bloom: understand
+count: 2
+questions:
+    - "Popište vlastními slovy, co je to nepravá kurziva a proč ji někdo používá?"
+    - "Odpovězte vlastními slovy: jsou typografická pravidla univerzální po celém světě?"
+    - "Popište vlastními slovy jaké jsou užívány uvozovky v České republice a v sousedních zemích."
+    - "Popište vlastními slovy, co je to kerning."
+    - "Co je to střední výška písma? Proč je podstatná?"
+    - "Popište vlastními slovy, co umožňuje užívání HTML. (Popište, co umožňuje jak v rámci jedné stránky, tak mezi stránkami.)"
+    - "Popište vlastními slovy, k čemu slouží atributy `src` a `alt` u obrázku v HTML."
+    - "Popište vlastními slovy rozdíl mezi seznamem značeným `<ol> … </ol>` a seznamem uzavřeným ve značkách `<ul> … </ul>` v HTML. Pro jaké seznamy je vhodný první a druhý typ seznamu?"
+    - "Popište vlastními slovy k čemu se používají regulární výrazy."
+    - "Popište vlastními slovy, co jsou to zástupné znaky v aplikacích MS Word a OpenOffice Writer."
+    - "Vypište běžné klávesové zkratky pro funkce *Najít* a *Najít a nahradit* v alespoň třech programech ve vašem operačním systému (uveďte, jaký operační systém používáte)."
+---
+bloom: create
+count: 1
+vars:
+    formats:
+        - 
+            format: "html"
+            description: "coby validní HTML (ověřte validátorem HTML5)"
+        -
+            format: "markdown"
+            description: "ve formátu Markdown"
+questions: |
+    Na webu KISKu jsou zveřejněny [důležité dokumenty](http://kisk.phil.muni.cz/cs/rejstriky/dulezite-dokumenty). Zpracujte jeden z níže vyjmenovaných dokumentů %description%. Při zpracování dbejte na sémanticky správné využívání typografických a syntaktických prostředků. Vybírejte z následujících dokumentů:
+                
+    - Antiplagiátorská politika KISKu
+    - Informace pro diplomanty – jaro 2015
+    - Nejčastější stylistické nedostatky v závěrečných pracích   
+input: %format%
+---
+bloom: apply
+input: javascript
+vars:
+    regex:
+        - "jakákoli e-mailová adresa"
+        - "jakékoli české telefonní číslo"
+        - "jakékoli PSČ"
+        - "jakékoli jméno a příjmení"
+        - "jakékoli desetinné číslo"
+        - "jakýkoli odkaz zapsaný pomocí markdownu"
+        - "jakákoli báseň o třech strofách po čtyřech verších (řádcích)"
+questions: |
+    `regulární výrazy` Vytvořte regulární výraz, kterým můžete poměrně spolehlivě zkontrolovat, zda je obsahem řetězce *%regex%*. Doplňte pak vzorový řetězec, s nímž bude ověření v závěru skriptu hlásit **OK**.
+prefill: |
+    var string = " ... ";
+    
+    var regex = /^ ... $/;
+    
+    if (regex.test(string)) alert("OK");
+    else alert("Chyba");
+---
+bloom: understand
+vars:
+    function: [SUMIF, COUNTIF, SUMPRODUCT, VLOOKUP, FIND, TRIM, INDEX, FLOOR, CEILING, MATCH]
+questions:
+    -
+        questions:
+            - "`tabulky` Definujte *vlastními slovy* v kontextu tabulkových procesorů co nejpřesněji pojem *entita* a vysvětlete, jak se k němu vztahují pojmy *objekt* a *atribut*."
+            - "`tabulky` Co znamenají symboly dolaru (`$`) v zápisu buňky ve vzorci? Např. `=A1 + $D$1`. Jak byste tuto možnost využili?"
+            - "`tabulky` Jaký je rozdíl mezi vzorcem (formula) a funkcí (function)?"
+    -
+        questions: "`tabulky` Popište vlastními slovy funkci `%function%` v kontextu tabulkových procesorů. Jaké má parametry a k čemu byste ji použili?"
+---
+bloom: create
+questions:
+    - |
+        *(Úkoly jsou shodné jako u lekce č. 2. V testu bude využit jiný spreadsheet.)* Ze [sdíleného souboru](https://goo.gl/n2blnx) si do tabulkového procesoru zkopírujte list “Klasifikační arch ZŠ”. Do sloupce “Vážený průměr” vypočítejte pro každého studenta vážený průměr (2 desetinná místa). Do sloupce navržená známka pak zaokrouhlete vážený průměr na nejbližší celé číslo. Použijte vzorce tak, aby když se změní zadaná hodnota známky nebo váha, tak se automaticky přepočítá i vážený průměr a navržená známka.
+        
+        Postup stručně popište a vypište funkce, které jste použili.
+        
+        Pokud nevíte, jak se počítá vážený průměr, poradí Vám [např. Wikipedie](https://cs.wikipedia.org/wiki/V%C3%A1%C5%BEen%C3%BD_pr%C5%AFm%C4%9Br).
+        
+        Výsledek odevzdejte ve formátu XLS v příloze tohoto úkolu.
+    - |
+        *(Úkoly jsou shodné jako u lekce č. 2. V testu bude využit jiný spreadsheet.)* Ze [sdíleného souboru](https://goo.gl/n2blnx) si do tabulkového procesoru zkopírujte list “Akcie”. Do sloupce “Hodnota (Kč)” vypočítejte hodnotu akcií podle kurzu v tabulce vlevo. Do políčka “Celkem” pak hodnotu celého portfolia. Všechny hodnoty upravte na 2 desetinná místa (pomocí formátování).
+            
+        Použijte vzorce tak, aby se automaticky přepočítala hodnota portfolia a jeho položek, když se změní počet akcií, stav kurzu nebo název společnosti v portfoliu..
+            
+        Použijte funkci `SVYHLEDAT` (v angličtině `VLOOKUP`). Postup stručně popište a vypište funkce, které jste použili.
+        
+        Výsledek odevzdejte ve formátu XLS v příloze tohoto úkolu.
+            
+    - |
+        *(Úkoly jsou shodné jako u lekce č. 2. V testu bude využit jiný spreadsheet.)* Ze [sdíleného souboru](https://goo.gl/n2blnx) si do tabulkového procesoru zkopírujte list „Seznam zaměstnanců“.
+        
+        Pomocí vzorců vypočítejte hodnoty:
+            
+        - Počet neproškolených BZOP,
+        - Celková prémie pro knihovníky,
+        - Průměrná prémie pro knihovníky,
+        - Příjmení zaměstnance s nejvyšší prémií.
+            
+        Použijte vzorce tak, aby když se změní pozice, informace o proškolení nebo výše prémie, tak se hodnoty automaticky přepočítají. Hodnoty o prémiích naformátujte na 2 desetinná místa + symbol „Kč“.
+            
+        Postup stručně popište a vypište funkce, které jste použili.
+            
+        Výsledek odevzdejte ve formátu XLS v příloze tohoto úkolu.
+    - |
+        *(Úkoly jsou shodné jako u lekce č. 2. V testu bude využit jiný spreadsheet.)* U seznamu žádostí do programu Erasmus ještě chvilku zůstaneme. Ze [sdíleného souboru](https://goo.gl/n2blnx) si do tabulkového procesoru zkopírujte list “Kód Erasmus+”. Vytvořte vzorec, který z kódu vyextrahuje rok podání žádosti. Dále vytvořte vzorec, který z kódu vyextrahuje kód státu. V tabulce je uveden příklad.
+            
+        Úkol vypracujte tak, aby když se změní kód žádosti, automaticky se přepočítají jak rok, tak kód státu.
+            
+        Postup stručně popište a vypište funkce, které jste použili.
+---
+bloom: understand
+vars:
+    term:
+        - "pojem *relační model*'"
+        - "pojem *objekt*'"
+        - "pojem *entita*'"
+        - "pojem *atribut*"
+        - "pojem *vztah mezi entitami*"
+        - "pojem *záznam*'"
+        - "pojem *tabulka*'"
+        - "pojem *hodnota*"
+        - "pojem *funkce*"
+        - "pojem *dotaz*'"
+        - "pojem *index*'"
+        - "pojem *id*'"
+        - "pojem *identifikátor*'"
+        - "pojem *cizí klíč*"
+        - "pojem *relace*"
+        - "pojem *data*"
+        - "pojem *řádek*"
+        - "pojem *sloupec*"
+        - "pojem *operátor*"
+        - "pojem *datový typ*"
+        - "pojem *podmínka*"
+        - "pojem *návrh databáze*"
+        - "pojem *relace 1:1*"
+        - "pojem *relace 1:N*"
+        - "pojem *relace M:N*"
+        - "pojem *spojování tabulek*"
+        - "pojem *cizí klíč*"
+        - "pojem *primární klíč*"
+        - "pojem *normalizace*"
+        - "pojem *třetí normální forma*"
+        - "hodnotu `NULL`"
+        - "pojem *agregace*"
+        - "pojem *agregační funkce*"
+        - "funkci `SUM`"
+        - "funkci `AVG`"
+        - "funkci `MIN`"
+        - "funkci `MAX`"
+questions: "Popište vlastními slovy %term% v kontextu relačních databází. Ilustrujte popis alespoň třemi příklady použití."
+---
+bloom: create
+input: file
+comments: 5
+vars:
+    object: [zoo, kaštan, návštěva, mandarinka, sedačka, spínač, úvaha, topol, lupínek, dítě, hůl, tanec, bříza, píšťala, peklo, špek, ječmen, les, pero, opona, parapet, raketa, šachy, brzda, tkaničky, kolečko, kozel, slabina, klient, dům, stodola, mrakodrap, kontejner, osa, ampérmetr, posel, režisér, jelen]
+questions: |
+    Pomocí papíru a tužky nebo webového nástroje [Gliffy](https://www.gliffy.com) **vytvořte schéma**, které popisuje objekt **„%object%“** pomocí alespoň pěti různých entit, každou s alespoň třemi atributy. Vyznačte vazby mezi entitami včetně jejich [kardinality](https://www.google.cz/search?q=kardinalita+datab%C3%A1ze). Stejně jako minule si uvědomujte, že jde o *popis*, který je selektivní — nikdy nepopíšete vše — takže to, jak sestavíte třídy entit závisí na účelu, který váš *ER model* plní. **Účel si předem vymyslete a popište do vstupního pole.**
+    
+    **Dále vytvořte samotné tabulky** pomocí nástroje [*Adminer*](http://jan-martinek.com/tmp/db/?sqlite=) a databáze *SQLite*. Oba již trochu znáte z předchozích příkladů. Díky Admineru nebudete muset v tomto úkolu používat přímo SQL příkazů. Na [přihlašovací stránce](http://jan-martinek.com/tmp/db/?sqlite=) se připojte do své vlastní databáze, která má název ve tvaru `UČO.db` (tedy např. `123456.db`). Poté pomocí odkazu `Create table` vytvořte tabulku pro každou z vašich entit — název entity bude názvem tabulky a každý atribut vytvoří sloupec v tabulce, pozor dejte na správný výběr datových typů. Nezapomeňte na identifikátory a propojení mezi tabulkami pomocí cizích klíčů (když sloupec nazvete jako *existující tabulku* s koncovkou "_id" (tedy např. "akcie_id", Adminer vám napoví).
+    
+    Poté, co tabulky vytvoříte, **vyplňte do každé z nich 1 vzorový řádek**. Po naplnění tabulek zkontrolujte, zda vaše schéma odpovídá výsledné databázi.
+    
+    **Výsledné schéma na papíru vyfoťte** a nahrejte do přílohy **nebo publikujte veřejně webovou verzi** a odkaz zkopírujte do odpovědi. **Výslednou databázi vyexportujte** (odkaz `Export`, vyberte Output "plain" a Format "SQL") a vložte do vstupního pole.
+input: sql
+---
+count: 1
+questions:
+    -   
+        bloom: remember
+        vars:
+            terms:
+                - "**programování**"
+                - "**program**"
+                - "**skriptování**"
+                - "**skript**"
+                - "**javascript**"
+                - "**programovací jazyk**"
+                - "jak snadno vygooglit něco o javascriptu"
+                - "jak snadno vygooglit něco o programování"
+                - "jak snadno vygooglit něco o skriptování"
+                - "**objektově orientované programování**"
+                - "pojem **třída** v kontextu objektově orientovaného programování"
+                - "pojem **metoda** v kontextu objektově orientovaného programování"
+                - "pojem **objekt** v kontextu objektově orientovaného programování"
+                - "pojem **funkce** v kontextu javascriptu"
+                - "pojem **proměnná** v kontextu javascriptu"
+                - "pojem **parametr** v kontextu funkcí v javascriptu"
+                - "pojem **návratová hodnota** v kontextu funkcí v javascriptu"
+                - "pojem **literál** v kontextu javascriptu"
+                - "pojem **operátor** v kontextu javascriptu"
+                - "pojem **syntaxe** v kontextu javascriptu"
+                - "pojem **klíčové slovo** v kontextu javascriptu"
+        questions: "Popište *vlastními slovy* %term%. Ilustrujte popis alespoň třemi praktickými příklady a odkažte se při vysvětlení na zdroj, z něhož jste čerpali."
+    -
+        bloom: apply
+        vars:
+            thing:
+                - "literál"
+                - "název funkce"
+                - "řetězec"
+                - "proměnnou"
+                - "definici proměnné"
+                - "volání funkce"
+                - "parametr"
+        questions: "Najděte v kódu **%thing%** a popište do komentáře vlastními slovy k čemu slouží."
+        input: javascript
+        prefill: |
+            function umyj(zvire) {
+                return "umytý " + zvire;
+            }
+
+            var naseZvire = "velbloud";
+            var vysledek = umyj(naseZvire);
+
+            alert(vysledek);
+
+            /* 
+                okomentujte zde
+            */
+---
+bloom: apply
+questions: |
+    Doplňte objektu v proměnné `auto` metodu `popojed()`, která ho posune o 20 km a vyčerpá 1 litr benzínu. Neměňte žádnou jinou část kódu a dejte pozor, aby průběžné hlášky byly správné. Kód si hned na začátku spusťte a pozorujte co se děje a pak ho postupně proměňujte. Pokud už auto nemá benzín, nemělo by popojet.
+input: javascript
+prefill: |
+    var auto = {};
+    auto.ujetaVzdalenost = 0; // v kilometrech
+    auto.zbyvaBenzinu = 2; // v litrech
+    auto.popojed = function() {
+        // kód měňte pouze zde
+    };
+
+    alert("Auto je na začátku, zbývá " + auto.zbyvaBenzinu + " l benzínu.");
+
+    for (i = 0; i < 3; i = i + 1) {
+        
+        var vychoziVzdalenost = auto.ujetaVzdalenost;
+        
+        auto.popojed();
+        
+        if (vychoziVzdalenost < auto.ujetaVzdalenost) {
+
+            alert(
+                "Auto popojelo, máme za sebou " + 
+                auto.ujetaVzdalenost + 
+                " km a zbývá " + 
+                auto.zbyvaBenzinu + 
+                " l benzínu."
+            );
+
+        } else {
+            
+             alert("Auto už nepopojelo, celková ujetá vzdálenost je " + auto.ujetaVzdalenost + ".");
+             break;
+
+        }
+    }

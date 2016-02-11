@@ -1,0 +1,18 @@
+name: Test Unit
+goals: |
+    The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.
+reading: |
+    With this test stuff, you're lucky: you don't need to read anything. You can even do [something useless](http://www.theuselessweb.com).
+rubrics:
+    - Is the answer truthful?
+    - Is the answer emotionally fulfilling?
+    - Are there any references to *\'Night at Roxbury\'* in the answer?
+preface: "This is a fairly easy task to begin with."
+---
+bloom: understand
+count: 4
+questions:
+    - "What is *love*?"
+    - "Find an essay on \"sad sharks\" on the internet and sum it up in three sentences."
+    - "What is the weather outside?"
+    - "Explain something about your specific way of doing things."

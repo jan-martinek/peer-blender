@@ -1,0 +1,102 @@
+name: Formátování čísel, čas v počítači a tabulky v textu
+goals: |
+    Tento týden završíme blok, kde jsme se věnovali datům pomocí tabulkových procesorů. Prošli jsme, jak data vytvářet, jak je získat odjinud. Udržet je konzistentní tak, abychom s nimi mohli následně pracovat - filtrovat je a provádět s nimi výpočty.
+    
+    
+reading: |
+    ### Formátování čísel
+    
+    V této lekci si projdeme formátování dat. V první lekci tohoto bloku jsme se seznámili s datovými typy. Víme, že s čísly umí procesor snadno pracovat — sčítat je, odečítat, počítat průměry apod. 
+    
+    Pro přehlednost ale občas chceme, aby číslo obsahovalo další prvky např. mezery pro lepší čitelnost, lomítko v rodném čísle, doplnit nuly v čísle bankovního účtu, přidat symbol € u měny apod.
+    
+    Jak čísla formátovat a vytvořit si i vlastní formáty se dočtete např. na:
+    
+    - stránkách [Miroslava Lorence](http://lorenc.info/3MA381/vlastni-format-bunky.htm)
+    - stránkách [Pavla Lasáka](http://office.lasakovi.com/excel/formatovani/vlastni-format-bunek-pokrocile-nastaveni/)
+    
+    ### Datum a jeho formát
+    
+    Důležitým prvkem je si uvědomit, že i datum je v počítači uloženo jako číslo. A to jak ho vidíme je [pouze formátování](https://support.office.com/cs-cz/article/Nastaven%C3%AD-po%C5%BEadovan%C3%A9ho-form%C3%A1tu-data-8e10019e-d5d8-47a1-ba95-db95123d273e).
+    
+    ### Importování dat a formát CSV
+    
+    V úplně prvních lekcích tohoto kurzu jsme se zaobírali tím, jak psát dokumenty v prostém textu (plain text). Podobná možnost existuje i pro tabulky, např. pomocí souboru typu CSV. CSV se používá především pro přenos dat mezi různými aplikacemi, je snadno editovatelný a čitelný i bez speciálního editoru.
+    
+    Přečtěte si např. [heslo CSV na Wikipedii](https://cs.wikipedia.org/wiki/CSV). 
+    
+    > #### Vizualizace dat
+    >
+    > Po formátování by dalším krokem byla např. vizualizace dat: vytváření grafů, infografik, interaktivních nástrojů apod. Na tuto kapitolu už v tomto předmětu není prostor. Pokud by vás lákal i tento směr, tak se podívejte např. na předmět [VIKMB37 Vizualizace dat](https://is.muni.cz/predmet/phil/podzim2015/VIKMB37).
+rubrics:
+    - "Rozumí autor/ka formátu CSV? Povedlo se mu/jí najít soubor a správně z něj získat data to tabulkového procesoru? Popsal/a využitelnost těchto dat?"
+    - "Rozumí autor/ka formátování čísel a dat v tabulkovém procesoru? Podařilo se mu/jí formáty prakticky upravit? Mění se správně naformátované hodnoty, pokud se změní vstupní (otestujte na posledním, vlastním datu)? Počítá se správně doba mezi daty? (Pokud autor/ka narazil/a na omezení způsobené tabulkovým procesorem, např. formátování dat před rokem 1900, nepovažujte to za chybu.)"
+    - "Podařilo se autorovi/autorce najít nejdelší letopočet v zápisu pomocí římských číslic? Popsal/a dostatečně a pochopitelně postup, jak k výsledku došel/došla?"
+    - "Popsal/a autor/ka dostatečně práci s rozdělováním e-mailové adresy? Mění se výsledné hodnoty, pokud změníte vstupní? (Pokud se nepodařilo správně vyextrahovat hodnoty doména a doména nejvyššího řádu, tak to nepovažujte za chybu, když je vidět, že autor/ka nad prací pracoval/a a svůj postup popsal/a.)"
+preface: |
+    Praktické úkoly 4—7 řešte v jednom sešitu, každý úkol na jeden list. Výsledný soubor uložte jako `ukoly3.xls` a odevzdejte. V případě potřeby jej můžete zazipovat, ale nemělo by to být nutné.
+    
+    > Tip: [Sdílený soubor](https://goo.gl/q92YbV) si můžete stáhnout celý (nebo si vytvořit vlastní kopii) a pracovat přímo v něm.
+---
+bloom: remember
+count: 2
+questions:
+    - "Jaké datum je reprezentované číslem 0 ve vašem tabulkovém procesoru? Uveďte datum a tabulkový procesor."
+    - "Co znamená zkratka CSV v kontextu tabulkových souborů?"
+    - "Jaký je rozdíl mezi soubory typu XLS a CSV?"
+---
+bloom: apply
+questions: |
+    Roky se často zapisují pomocí [římských číslic](https://cs.wikipedia.org/wiki/%C5%98%C3%ADmsk%C3%A9_%C4%8D%C3%ADslice). Použijte např. funkci `ROMAN` (základní, klasický zápis) a zjistěte, který rok od 1 do 2015 je v zápisu pomocí římských čísel nejdelší (má nejvíce znaků). Využijte při hledání vzorce.
+    
+    Do vstupního pole napište rok (pomocí arabských i římských číslic) a délku letopočtu v římských číslících. Stručně popište, jak jste k výsledku došli.
+---
+bloom: create
+input: file
+comments: 8
+questions: |
+    Ze [sdíleného souboru](https://goo.gl/q92YbV) si do tabulkového procesoru zkopírujte list „Formátování čísel“.
+    
+    List obsahuje 6 skupinek dat, které si jsou podobné. V levém sloupci je vždy číslo. V právem sloupci je stejné číslo jako vlevo. Vašim úkolem je číslo vpravo naformátovat tak, aby vypadalo jako podle vzoru (označeny zeleně). V prvním bloku je to přidání znaku procentu, v druhém bloku (PSČ) vložit mezeru mezi 3. a 4. číslici, atd.
+    
+    K řešení *nepoužívejte* vzorce, řešte *pouze pomocí formátování*. Pokud se číslo vlevo změní, automaticky se změní i číslo vpravo (neplatí pro vzory, ty jsou zadané pevně).
+            
+    Postup stručně popište.
+---
+bloom: create
+input: file
+comments: 8
+questions: |
+    Ze [sdíleného souboru](https://goo.gl/q92YbV) si do tabulkového procesoru zkopírujte list „Formátování data“.
+    
+    List obsahuje předvyplněnou tabulku. V první sloupci jsou zadaná data (podle [Gregoriánského kalendáře](https://cs.wikipedia.org/wiki/Gregori%C3%A1nsk%C3%BD_kalend%C3%A1%C5%99)). Vašim úkolem je v jednotlivých sloupcích data naformátovat tak, aby odpovídala podle vzoru (zvýrazněný zeleně). V této části nepoužívejte vzorce, pouze formátování.
+    
+    Do buňky **A9** pak vložte nějaké vlastní datum a buňky **I9** dopište zajímavost, která se k tomuto datu váže. Poté v buňce **B11** vypočtěte počet let mezi dnešním datem a datem v buňce **A9** (zaokrouhlete na celé číslo dolů).
+            
+    Pokud změníte datum v prvním sloupci, tak se automaticky změní všude v celém řádku. Pokud změníte datum v buňce **A9**, automaticky se přepočítá buňka **B11**.
+            
+    Postup stručně popište a uveďte vzorec pro výpočet z buňky **B11**.
+---
+bloom: create
+input: file
+comments: 8
+questions: |
+    Na serveru [datahub.io](http://datahub.io) najděte dataset (tabulkový soubor s daty), který je ve formátu CSV a přijde vám zajímavý. CSV soubor naimportujte do [sdíleného souboru](https://goo.gl/q92YbV) do listu „Import CSV“.
+    
+    Pokud bude příliš velký, zkraťte ho na prvních 100 řádků.
+    
+    Do komentáře vložte odkaz na původní CSV soubor. Stručně popište postup, proč jste si vybrali tento soubor a jak by se s ním dalo dále pracovat, k čemu by se data dala použít apod.
+---
+bloom: create
+input: file
+comments: 8
+questions: |
+    Ze [sdíleného souboru](https://goo.gl/q92YbV) si do tabulkového procesoru zkopírujte list „E-maily“.
+    
+    List obsahuje předvyplněnou tabulku, kde jsou v první sloupci emailové adresy. Vaším úkolem je pomocí vzorců rozdělit emailovou adresu na:
+        
+    - jméno (část před zavináčem)
+    - doména (část za zavináčem)
+    - doména nejvyššího řádu (část za poslední tečkou)
+            
+    V tabulce jsou 3 vzory (zvýrazněny zeleně).

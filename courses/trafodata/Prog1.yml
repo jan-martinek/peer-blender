@@ -1,0 +1,205 @@
+name: Úvod do skriptování
+goals: |
+    Ve skutečnosti byl úvodem ke skriptování celý dosavadní průběh kurzu: mnoho konceptů jsme si již vyzkoušeli. Práci s funkcemi, texty, proměnnými — pokaždé to bylo trochu jiné, ale především tabulkové procesory a databáze se skriptování dotýkají velmi těsně i v námi probíraných oblastech.
+    
+    Javascript je jazyk, který funguje v internetových prohlížečích: díky tomu si nemusíte nic instalovat. Vše si vyzkoušíte přímo v Blenderu.
+reading:
+rubrics:
+    - Je rozbor kódu v prvních třech úkolech proveden správně? Je komentář vhodně umístěn v kódu?
+    - Jsou úkoly č. 4 a 10 splněny beze zbytku správně?
+    - Používá autor/ka zpracovaných úkolů v úkolech 5—7 korektní zdroje? Jsou odpovědi vlastnoručně psané nebo jsou zkopírované z původního zdroje? (Ověřte pomocí vyhledávání frází v Google.)
+    - Je úkol č. 11 splněn beze zbytku správně?
+preface: |
+    Úvodů do programování v javascriptu a programování obecně je na [internetu mnoho](http://google.com/search?q=úvod+do+javascriptu). Podstatné je, že pro naši výuku nebudete potřebovat znalost ničeho jiného (HTML si jistě pamatujete, ale zatím ho nebudeme používat). Podstatné bude, abyste si našli a zažili základní termíny a syntaxi.
+    
+    Kód můžete spouštět přímo v Blenderu, takže nejlepším způsobem, jak se skriptování naučit, je experimentování. Když v kódu uděláte syntaktickou chybu, přímo v editoru se vám objeví varování — pokud nebudete vědět, jak si s nečím poradit, obraťte se na kolegy ve fóru.
+---
+bloom: remember
+questions: "Bez přípravy si přečtěte následující kód a spusťte ho. Vyhledejte si, k čemu je funkce [alert v javascriptu](http://google.com/search?q=alert+javascript). Následně okomentujte, co daný kód dělá. Vaši odpověď vložte jako komentář kódu, jak je naznačeno."
+input: javascript
+prefill: |
+    function umyj(zvire) {
+        return "umytý " + zvire;
+    }
+
+    var naseZvire = "velbloud";
+    var vysledek = umyj(naseZvire);
+
+    alert(vysledek);
+
+    /* 
+        okomentujte zde
+    */
+---
+bloom: apply
+count: 2
+allowRepeat: question
+vars:
+    thing:
+        - "literál"
+        - "název funkce"
+        - "řetězec"
+        - "proměnnou"
+        - "definici proměnné"
+        - "volání funkce"
+        - "parametr"
+questions: "Najděte v kódu z prvního úkolu **%thing%** a popište vlastními slovy k čemu slouží."
+---
+bloom: remember
+vars:
+    num: [7, 9, 17, 19, 21, 24, 29]
+    animal: [medvěd, netopýr, plch, sysel, tchoř, vlk, vrápenec, bobr, křeček, los, plšík, rejsek, rys, bělozubka, břehouš, bukač, bukáček, drop, dytík, chřástal, jeřáb, kolpík, kulík, luňák, mandelík, morčák]
+questions: |
+    Bez přípravy si přečtěte následující kód a spusťte ho.
+    
+    Následně jej okomentujte: **popište, co kód dělá**, a **vysvětlete nesoulad** mezi číslovkou, která je na 11. řádku kódu uvedena dvakrát (nejprve slovně, a pak literálem v hranatých závorkách).
+    
+    Vaši odpověď vložte jako komentář kódu, jak je naznačeno.
+    
+    Kód pak ještě pozměňte tak, aby ve vyskakovacím okně bylo číslo **%num%** a vypisovaným zvířetem v tabulce byl **%animal%**.
+input: javascript
+prefill: |
+    var zvirata = ['kočka', 'medvěd', 'netopýr', 'plch', 
+       'sysel', 'tchoř', 'vlk', 'vrápenec', 'bobr', 
+       'křeček', 'los', 'myšivka', 'plšík', 'rejsek', 
+       'rys', 'vydra', 'bělozubka', 'veverka', 'břehouš', 
+       'bukač', 'bukáček', 'drop', 'dytík', 'chřástal', 
+       'jeřáb', 'koliha', 'kolpík', 'kulík', 'luňák', 
+       'mandelík', 'morčák'];
+
+    var pocetZvirat = zvirata.length;
+
+    alert('počet zvířat: ' + pocetZvirat + '\n' + 'třetí zvíře: ' + zvirata[2]);
+
+    /* 
+        okomentujte zde
+    */
+---
+bloom: remember
+count: 3
+allowRepeat: question
+vars:
+    term:
+        - "**programování**"
+        - "**program**"
+        - "**skriptování**"
+        - "**skript**"
+        - "**javascript**"
+        - "**programovací jazyk**"
+        - "jak snadno vygooglit něco o javascriptu"
+        - "jak snadno vygooglit něco o programování"
+        - "jak snadno vygooglit něco o skriptování"
+        - "**objektově orientované programování**"
+        - "pojem **třída** v kontextu objektově orientovaného programování"
+        - "pojem **metoda** v kontextu objektově orientovaného programování"
+        - "pojem **objekt** v kontextu objektově orientovaného programování"
+        - "pojem **funkce** v kontextu javascriptu"
+        - "pojem **proměnná** v kontextu javascriptu"
+        - "pojem **parametr** v kontextu funkcí v javascriptu"
+        - "pojem **návratová hodnota** v kontextu funkcí v javascriptu"
+        - "pojem **literál** v kontextu javascriptu"
+        - "pojem **operátor** v kontextu javascriptu"
+        - "pojem **syntaxe** v kontextu javascriptu"
+        - "pojem **klíčové slovo** v kontextu javascriptu"
+questions: "Popište *vlastními slovy* %term%. Ilustrujte popis alespoň třemi praktickými příklady a odkažte se při vysvětlení na zdroj, z něhož jste čerpali."
+---
+bloom: remember
+count: 2
+allowRepeat: question
+vars:
+    expression:
+        - "var jmenoZvirete = \"Leonard\";"
+        - "var vekOsoby = db.exec(\"SELECT vek FROM osoba WHERE id = \" + idOsoby);"
+        - "var vysledek = pocetJablek + 5;"
+        - "var vysledek = pocetDni * 60 * 60 * 12;"
+        - "var jmenoAPrijmeni = \"Martin\" + \" \" + \"Krčál\";"
+        - "var auto = { barva: \"červená\", typ: \"kombi\", znacka: \"Škoda\" };"
+        - "var nakupniSeznam = [\"toaletní papír\", \"mrkev\"];"
+questions: |
+    Popište *vlastními slovy* javascriptový výraz `%expression%`.
+    
+    Popište užívaný datový typ a vysvětlete, k čemu by takový kousek kódu mohl sloužit.
+---
+bloom: apply
+vars:
+    animal: [medvěd, netopýr, plch, sysel, tchoř, vlk, vrápenec, bobr, křeček, los, plšík, rejsek, rys, bělozubka, břehouš, bukač, bukáček, drop, dytík, chřástal, jeřáb, kolpík, kulík, luňák, mandelík, morčák]
+questions: |
+    Pozměňte kód tak, abyste zjistili, na kterém místě v poli se nachází **%animal%**.
+    
+    Potřebnou změnu popište do kódu. Popište, proč se na řádku 11 přičítá jednička.
+input: javascript
+prefill: |
+    var zvirata = ['kočka', 'medvěd', 'netopýr', 'plch', 
+       'sysel', 'tchoř', 'vlk', 'vrápenec', 'bobr', 
+       'křeček', 'los', 'myšivka', 'plšík', 'rejsek', 
+       'rys', 'vydra', 'bělozubka', 'veverka', 'břehouš', 
+       'bukač', 'bukáček', 'drop', 'dytík', 'chřástal', 
+       'jeřáb', 'koliha', 'kolpík', 'kulík', 'luňák', 
+       'mandelík', 'morčák'];
+
+    var zvire = 'kočka';
+
+    var poradi = zvirata.indexOf(zvire) + 1;
+
+    alert(zvire + ' je ' + poradi + '. v pořadí');
+
+    /* 
+        okomentujte zde
+    */
+---
+bloom: remember
+questions: |
+    **Následující kód není složitý, je pouze dlouhý.** Popište vlastními slovy, co popisuje následující kód, na místech určených komentáři (datové typy na začátku a poté další komentáře níže).
+    
+    Všimněte si, že jde o popis — stejně jako jsme se s tím setkali u databází (anebo třeba ve slohovce na střední škole).
+input: javascript
+prefill: |
+    // budeme popisovat auto
+    var auto = {}; // datový typ:
+
+    // popisujeme auto
+    auto.barva = 'červená'; // datový typ:
+    auto.dobaJizdy = 0; // datový typ:  
+    auto.pasazeri = ['Radek', 'Pavla']; // datový typ:
+    auto.rychlost = 0; // datový typ:
+
+    // definujeme metody, které pracují s proměnnými
+    auto.ujetaVzdalenost = function() {
+        return auto.dobaJizdy * auto.rychlost;
+    };
+    auto.pocetPasazeru = function() {
+        return auto.pasazeri.length;
+    };
+
+    // jak to vypadá?
+    alert('v autě sedí ' + auto.pocetPasazeru() + ' lidé');
+
+    // a jedeme
+    auto.dobaJizdy = 2;
+    auto.rychlost = 70;
+    alert('auto nejprve ujelo ' + auto.ujetaVzdalenost() + ' km');
+
+    /* 
+        okomentujte, co se stalo na řádcích 22 a 23
+        použijte termín "proměnná"
+    */
+
+    // a jedeme dál
+    alert('a pak jelo ještě hodinu');
+    auto.dobaJizdy = auto.dobaJizdy + 1;
+    alert('celkem auto ujelo ' + auto.ujetaVzdalenost() + ' km');
+
+    /* 
+        okomentujte, co se stalo na řádku 33
+        použijte termín "proměnná"
+    */
+
+    // a co se nestalo...
+    alert('a pak do auta nastoupil ještě Honza');
+    auto.pasazeri.push('Honza');
+    alert('v autě teď sedí ' + auto.pocetPasazeru() + ' lidé');
+
+    /* 
+        okomentujte, co se stalo na řádku 43
+        použijte termíny "pole", "prvek" a "metoda"
+    */
