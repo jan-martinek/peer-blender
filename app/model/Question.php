@@ -53,6 +53,7 @@ class Question extends Entity
             'definitionHash' => $this->definitionHash
         ));
         
+        
         $this->text = $this->applyVars(
             $this->definition->questions[$this->selectedQuestion]
         );
@@ -78,7 +79,7 @@ class Question extends Entity
             isset($this->definition->allowRepeat) 
             && $this->definition->allowRepeat == 'vars'
         );
-        if (!$questionsMayBeRepeated) {
+        if (!$varsMayBeRepeated) {
             unset($this->combinations[$this->selectedCombination]);   
         }
         

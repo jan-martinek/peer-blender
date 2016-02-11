@@ -31,7 +31,8 @@ class HomeworkForm extends Form
             switch ($question->input) {
                 case 'file':
                     $maxKb = $course->uploadMaxFilesizeKb;
-                    $input = $questionsContainer->addUpload($id, $label)
+                    $input = $questionsContainer
+                        ->addUpload($id, $label)
                         ->addRule(
                             Form::MAX_FILE_SIZE, 
                             $translator->translate(
@@ -39,8 +40,12 @@ class HomeworkForm extends Form
                                 NULL, 
                                 array('filesize' => $maxKb)
                             ), 
-                            $maxKb * 1024
-                    );
+                            $maxKb * 1024)
+                        ->setOption('description', $translator->translate(
+                                'messages.unit.homeworkAttachmentNote', 
+                                NULL, 
+                                array('filesize' => $maxKb)
+                            ));
                     break;
                 default:
                     $input = $questionsContainer->addTextarea($id, $label);                        

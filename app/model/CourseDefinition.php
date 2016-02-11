@@ -44,7 +44,7 @@ class CourseDefinition extends \Nette\Object
 		} else if ($object instanceof \Model\Entity\Unit) {
 			$course = $object->course;
 			$file = $this->dir . '/' . $course->dir . '/' . $object->def . '.yml';
-			$definitions = array_map('trim', explode("\n---\n", file_get_contents($file)));
+			$definitions = preg_split('/\n---\s*\n/', file_get_contents($file));
 			
 			if ($param === self::QUESTIONS) {
 				unset($definitions[0]);

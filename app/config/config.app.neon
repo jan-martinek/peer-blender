@@ -38,7 +38,7 @@ services:
 	- Model\Entity\Unit
 	- Model\Entity\User	
 	- Model\CourseInfo
-	- Model\CourseDefinition(%appDir%/courses)
+	- Model\CourseDefinition(%appDir%/../courses)
 	- App\Forms\SignFormFactory
 	- App\Components\IQuestionsControlFactory
 	- App\Components\IChatControlFactory

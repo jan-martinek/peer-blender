@@ -15,7 +15,6 @@
 			{if $form}
 				{label $formQuestion}
 					<p>{input $formQuestion}</p>
-					
 					<p>{$formQuestion->getOption('description')}</p>
 				{/label}
 				<p n:ifcontent class="panel" style="background: #f90;">{inputError $formQuestion}</p>
