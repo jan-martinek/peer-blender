@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 $.nette.ext('resizableTextareaRefresh', {
     complete: function () {
