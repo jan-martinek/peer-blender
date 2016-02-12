@@ -6,60 +6,49 @@ use Symfony\Component\Yaml\Parser;
 
 class CourseDefinition extends \Nette\Object
 {
-	const QUESTIONS = 'questions';
-	
-	/** @var Dir with Course definitions */
-	private $dir;
-	
-	/** @var Yaml parser */
-	private $yaml;
+	/** @var CourseDefinitionFactory */
+	private $factory;
 	
 	
-	public function __construct($dir) 
-	{
-		$this->dir = $dir;
-		$this->yaml = new Parser;
-	} 
+	/** @var string Author of the course */
+	private $author;
 	
-	public function init($name) 
-	{
-		if (file_exists($this->dir . '/' . $name . '/course.yml')) {
-			$dir = glob($this->dir . '/' . $name . '/*');
-			foreach ($dir as $file) {
-				if (pathinfo($file, PATHINFO_EXTENSION) == 'yml') {
-					$this->files[pathinfo($file, PATHINFO_FILENAME)] = file_get_contents($file);    
-				}
-			}
-		} else {
-			throw new CourseDefinitionNotFoundException;
-		}
-	}
+	/** @var string Course name */
+	private $name;
 	
-	public function get($object, $param = null) 
-	{
-		if ($object instanceof \Model\Entity\Course) {
-			$file = $this->dir . '/' . $object->dir . '/course.yml';
-			$definition = file_get_contents($file);
-			return (object) $this->yaml->parse($definition);	
-		} else if ($object instanceof \Model\Entity\Unit) {
-			$course = $object->course;
-			$file = $this->dir . '/' . $course->dir . '/' . $object->def . '.yml';
-			$definitions = preg_split('/\n---\s*\n/', file_get_contents($file));
-			
-			if ($param === self::QUESTIONS) {
-				unset($definitions[0]);
-				$questions = array();
-				foreach ($definitions as $i => $question) {
-					$questions[$i] = $this->yaml->parse($question);
-				}
-				return $questions;
-			} else {
-				return (object) $this->yaml->parse($definitions[0]);		
+	/** @var string Course goals */
+	private $goals;
+	
+	/** @var string Course methods */
+	private $methods;
+	
+	/** @var string Course support info */
+	private $support;
+	
+	/** @var array Course support info */
+	private $units = array();
+	
+	/** Creates course definition
+	 * @param array
+	 * @param array
+	 * @param CourseDefinitionFactory
+	 */
+	public function __construct($definition, $unitsDefinition, CourseDefinitionFactory $factory) 
+	{	
+		$this->factory = $factory;
+		
+		$params = array('author', 'name', 'goals', 'methods', 'support');
+		foreach ($params as $param) {
+			if (isset($definition[$param])) {
+				$this->$param = $definition[$param];	
 			}
 		}
+		
+		foreach ($unitsDefinition as $unit) {			
+			$this->units[] = new UnitDefinition($unit, $this->factory);
+		}	
 	}
 }
 
-class CourseDefinitionNotFoundException extends \Exception
-{
-}
+
+
