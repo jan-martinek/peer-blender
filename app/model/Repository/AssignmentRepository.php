@@ -60,11 +60,13 @@ class AssignmentRepository extends Repository
     private function generateQuestions($definitions, $inherit = array()) 
     {
         $questionSet = array();
-        foreach ($definitions as $def) {
-            $questions = array();
+        foreach ($definitions as $defId => $def) {
             $def = array_merge($inherit, $def);
+            if (!isset($def['id'])) $def['id'] = $defId;
+            
             $count = isset($def['count']) ? $def['count'] : 1;
-                
+            
+            $questions = array();    
             if (isset($def['questions'][0]['questions'])) {
                 $questions = array_merge(
                     $questions, 
@@ -73,6 +75,7 @@ class AssignmentRepository extends Repository
             } else {
                 $question = new Question;
                 $question->definition = (object) $def;
+                $question->definition_id = $def['id'];
                 $question->generateFromDefinition();
                 $questions[] = $question;
                 

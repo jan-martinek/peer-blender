@@ -5,6 +5,7 @@ namespace Model\Entity;
 /**
  * @property int $id
  * @property int $order
+ * @property int $definition_id
  * @property string $variant
  * @property string $text
  * @property string $input
@@ -15,8 +16,6 @@ namespace Model\Entity;
  */
 class Question extends Entity
 {   
-    private $definition;
-    private $combinations;  
     private $replacements;
     
     private $definitionHash;
@@ -57,8 +56,6 @@ class Question extends Entity
         $this->text = $this->applyVars(
             $this->definition->questions[$this->selectedQuestion]
         );
-        $this->input = isset($this->definition->input) 
-            ? $this->applyVars($this->definition->input) : 'plaintext';
         $this->prefill = isset($this->definition->prefill) 
             ? $this->applyVars($this->definition->prefill) : '';
         $this->comments = isset($this->definition->comments) 
@@ -183,7 +180,12 @@ class Question extends Entity
      * Checks important properties and sets the definition
      */
     public function setDefinition($definition) 
-    {    
+    {
+        $definition = (object) $definition;
+        
+        if (!isset($definition->input)) {
+            $definition->input = 'plaintext';   
+        }
         
         if($this->isDefinitionValid($definition)) {
             $this->definition = $definition;
@@ -198,110 +200,15 @@ class Question extends Entity
                 sha1(serialize($definition)), 0, 6
             );    
         }
-        
     }
     
-    public function isDefinitionValid($definition) 
-    {
-        // questions are set
-        if (!isset($definition->questions)) {
-            throw new InvalidQuestionDefinitionException(
-                'No questions found.'
-            );
-            return false;
-        }
-        
-        //bloom is valid
-        if (   !isset($definition->bloom) 
-            || !$this->isBloomValid($definition->bloom)
-        ) {
-            throw new InvalidQuestionDefinitionException(
-                'This objective does not belong to the revised Bloom\'s taxonomy.'
-            );
-            return false;
-        }
-        
-        return true;
-    }
-    
-    /**
-     * Sets the classification of the question in Revised 
-     * Bloom's Taxonomy of Education Objectives
-     * (Anderson, L., & Krathwohl, D. A. (2001). Taxonomy for Learning, 
-     * Teaching and Assessing: A Revision of Bloom's Taxonomy of 
-     * Educational Objectives. New York: Longman.)
-     * @return bool
-     */
-    private final function isBloomValid($objective) 
-    {
-        return in_array($objective, array(
-            'remember',
-            'understand',
-            'apply',
-            'analyze',
-            'evaluate',
-            'create'
-        ));
-    }
-    
-    /**
-     * Checks if selected input method is available
-     * @return bool
-     */   
-    private function isInputValid($input)
-    {
-        return in_array($input, array(
-            'plaintext',
-            'code',
-            'markdown',
-            'javascript',
-            'html',
-            'sql',
-            'css',
-            'xml',
-            'file'
-        ));
+    public function getDefinition() {
+        return $this->definition;
     }
 
-    private function setInput($input) {
-        if (!$this->isInputValid($input)) {
-            throw new InvalidQuestionDefinitionException(
-                'This input method is not supported.'
-            );
-        }
-        
-        $this->input = $input;
-    }
-
-
-    /**
-     * Checks whether syntax highlighting is available for the selected input method
-     * @return bool
-     */    
-    public function isHighlightingAvailable() 
-    {
-        return in_array($this->input, array(
-            'markdown',
-            'javascript',
-            'html',
-            'sql',
-            'css',
-            'xml'
-        ));
-    }
-    
-    public function __clone()
-    {
-        $this->definition = clone $this->definition;
-        $this->row = clone $this->row;
-    }
     
 }
 
 class QuestionDefinitionChangedException extends \Exception
-{
-}
-
-class InvalidQuestionDefinitionException extends \Exception
 {
 }
