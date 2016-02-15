@@ -7,14 +7,11 @@ reading: |
     Tato lekce klade důraz především na průběžné *hraní* s databází. Zkoušejte, co příkazy dělají a dohledávejte si, co znamenají používaná slova — například klíčová slova v příkazech, termíny apod. V některých úkolech jsou přímo doporučeny zdroje, které jsou relevantní pro daný úkol.
     
     > Hodnocení této lekce pracuje s návaznými mini-úkoly, jejichž účelem je hlubší prověření, že je úkol zpracován správně.
-rubrics: |
-    Jsou pojmy v příkladech 2 a 3 vysvětleny správně? Kladnou i zápornou odpověď doprovoďte odkazem na zdroje, které vaše hodnocení obou úkolů potvrzují (pokud je zdroj uveden v odpovědi na příklad, najděte jiný).
-    
-    Jaké chyby dělá autor/ka při popisování *databázového schématu* v příkladu č. 8? Definuje správně třídy entit a jejich atributy? *Pokud ne*, vysvětlete jaký je rozdíl mezi atributy a jejich hodnotami a případné další nejasnosti. *Pokud ano*, vepište několik možných hodnot atributů alespoň u dvou definovaných tříd entit. (Hodnocení této lekce pracuje s návaznými mini-úkoly, jejichž účelem je hlubší prověření, že je úkol zpracován správně.)
-    
-    Jsou příkazy v příkladech 6 a 7 vytvořeny správně? Pokud ne, vysvětlete provedené chyby, odkažte se při vysvětlování na dokumentaci.
-    
-    Z posledních tří odpovědí vyberte jednu, která je zpracována z vašeho pohledu nejméně správně, popř. v ní chybí nějaká skutečnost či nuance. Doplňte tuto odpověď a odkažte na důvěryhodný zdroj, z něhož jste čerpali. (Pokud jsou všechny odpovědi správné, podložte své hodnocení všech tří otázek zdroji, pomocí nichž jste správnost prověřili.)
+rubrics:
+    - "Jsou pojmy v příkladech 2 a 3 vysvětleny správně? Kladnou i zápornou odpověď doprovoďte odkazem na zdroje, které vaše hodnocení obou úkolů potvrzují (pokud je zdroj uveden v odpovědi na příklad, najděte jiný)."
+    - "Jaké chyby dělá autor/ka při popisování *databázového schématu* v příkladu č. 8? Definuje správně třídy entit a jejich atributy? *Pokud ne*, vysvětlete jaký je rozdíl mezi atributy a jejich hodnotami a případné další nejasnosti. *Pokud ano*, vepište několik možných hodnot atributů alespoň u dvou definovaných tříd entit. (Hodnocení této lekce pracuje s návaznými mini-úkoly, jejichž účelem je hlubší prověření, že je úkol zpracován správně.)"
+    - "Jsou příkazy v příkladech 6 a 7 vytvořeny správně? Pokud ne, vysvětlete provedené chyby, odkažte se při vysvětlování na dokumentaci."
+    - "Z posledních tří odpovědí vyberte jednu, která je zpracována z vašeho pohledu nejméně správně, popř. v ní chybí nějaká skutečnost či nuance. Doplňte tuto odpověď a odkažte na důvěryhodný zdroj, z něhož jste čerpali. (Pokud jsou všechny odpovědi správné, podložte své hodnocení všech tří otázek zdroji, pomocí nichž jste správnost prověřili.)"
 preface:
 ---
 bloom: apply

@@ -50,10 +50,11 @@ questions:
     - "K čemu slouží atributy `src` a `alt` u obrázku?"
     - "Popište rozdíl mezi seznamem značeným `<ol> … </ol>` a seznamem uzavřeným ve značkách `<ul> … </ul>`. Pro jaké seznamy je vhodný první a druhý typ seznamu?"
 ---
-count: 1
+count: 2
 bloom: apply
 questions: 
-    - "Vložte libovolným způsobem kód stránky kisk.cz do [validátoru](https://www.google.cz/search?rls=en&q=co+je+to+valid%C3%A1tor) a do odpovědi zkopírujte chyby a varování nalezené validátorem."
+    - |
+        Vložte libovolným způsobem kód stránky kisk.cz do [validátoru](https://www.google.cz/search?rls=en&q=co+je+to+valid%C3%A1tor) a do odpovědi zkopírujte chyby a varování nalezené validátorem.
     - |
         Najděte na internetu stránku s vysvětlením, jak v HTML psát podtitulky 
         (tzn. doplňující text k titulku, viz příklad níže) dle specifikace HTML5. Do 
@@ -61,12 +62,13 @@ questions:
         stránky. Dejte si skutečně pozor na to, aby šlo o návod pro *HTML 5*.
         
         <big><big><strong>Technology and The Evolution of Storytelling</strong></big></big><br><strong style="line-height: 1.6em;">It is such an exciting time to be a filmmaker.</strong>
-        
+    - |    
         Vytvořte v HTML číslovaný nákupní seznam. Jako jeho položky použijte jablko, máslo, 
         jogurt a dvě vymyšlené položky dle vlastní fantazie (v libovolném pořadí). Zapište kód do odpovědi.
-        
+    - |    
         Najděte chybu v následujícím kódu a popište ji.
-        
+        `<strong>Nad všecko věren buď <em>sobě samému.</strong></em>`
+    - |    
         Najděte v kódu stránky na adrese [seznam.cz](http://seznam.cz) nečíslovaný seznam a jeho kód zkopírujte do odpovědi.
 ---
 count: 1
