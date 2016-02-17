@@ -54,8 +54,8 @@ class HomeworkForm extends Form
                     }
             }
             
-            if (isset($question->answer)) {
-                $input->setValue($question->answer->text);
+            if (isset($question->entity->answer)) {
+                $input->setValue($question->entity->answer->text);
             } elseif ($question->prefill) {
                 $input->setValue($question->prefill);
             }
@@ -64,8 +64,8 @@ class HomeworkForm extends Form
                 ->setAttribute('placeholder', 
                     $translator->translate('messages.solution.addComments')
                 );
-            if (isset($question->answer->comments)) {
-                $comments->setValue($question->answer->comments);
+            if (isset($question->entity->answer->comments)) {
+                $comments->setValue($question->entity->answer->comments);
             }
         }    
         
@@ -120,7 +120,8 @@ class HomeworkForm extends Form
                 $answer->text = null;
             }
             
-            if ($question->input == 'file') {
+            $questionProduct = $this->presenter->courseFactory->produce($question);
+            if ($questionProduct->input == 'file') {
                 $answer->text = $this->saveHomeworkFile(
                     $courseInfo->course->id,
                     $courseInfo->unit->id,

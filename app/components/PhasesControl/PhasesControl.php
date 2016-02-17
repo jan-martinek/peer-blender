@@ -6,7 +6,7 @@ use Nette\Application\UI\Control;
 
 class PhasesControl extends Control
 {
-    public function render(\Model\Entity\Unit $unit)
+    public function render(\Model\Ontology\UnitProduct $unit)
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/phases.latte');

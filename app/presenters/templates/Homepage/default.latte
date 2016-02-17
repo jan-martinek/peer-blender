@@ -5,9 +5,9 @@
 	<div class="columns">
 		<ul class="courses">
 			<li n:foreach="$courses as $course">
-				<h3><a n:href="Course:default $course->id">{!$def->get($course)->name|imd}</a></h3>
-				{!$def->get($course)->goals|md}
-				<p><a n:href="Course:enrolled, $course->id">{_messages.course.totalEnrolled, [count => count($course->enrollments)]}</a></p>
+				<h3><a n:href="Course:default $course->id">{!$course->name|imd}</a></h3>
+				{!$course->goals|md}
+				<p><a n:href="Course:enrolled, $course->id">{_messages.course.totalEnrolled, [count => count($course->entity->enrollments)]}</a></p>
 			</li>
 		</ul>
 	</div>

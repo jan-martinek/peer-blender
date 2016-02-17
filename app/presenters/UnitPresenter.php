@@ -11,9 +11,6 @@ use Model\Entity\Log;
  */
 class UnitPresenter extends BasePresenter
 {
-    /** @var \Model\Repository\CourseRepository @inject */
-    public $courseRepository;
-    
     /** @var \Model\Repository\UnitRepository @inject */
     public $unitRepository;
     
@@ -25,28 +22,43 @@ class UnitPresenter extends BasePresenter
     
     /** @var \Model\Repository\SolutionRepository @inject */
     public $solutionRepository;
-
+    
     /** @var \Model\Repository\AnswerRepository @inject */
     public $answerRepository;
-    
-    /** @var \Model\Repository\QuestionRepository @inject */
-    public $questionRepository;
     
     /** @var \Model\UploadStorage @inject */
     public $uploadStorage;
     
     public function actionDefault($id, $lateEdits = FALSE) 
     {   
-        $unit = $this->setupCourseInfo($this->unitRepository->find($id));
-        if (!$unit->hasBeenPublished()) {
+        $factory = $this->courseFactory;
+        $info = $this->courseInfo;
+        
+        $unit = $this->unitRepository->find($id);
+        $info->insert($unit);
+        $product = $factory->produce($unit);
+        
+        if (!$product->hasBeenPublished()) {
             throw new \Nette\Application\BadRequestException(NULL, 404);
             return;
         }
         
-        $assignment = $this->assignmentRepository->getMyAssignment($this->courseInfo->unit, $this->userInfo, $this->questionRepository, $this->courseDefinition);
-        $this->setupCourseInfo($assignment);
+        $assignment = $this->assignmentRepository->findByUnitAndUser($unit, $this->userInfo);
+        
+        
+        if (!$assignment) {
+            $assignment = $this->courseFactory->assembleAssignment($unit);
+            $assignment->student = $this->userInfo;
+            $this->assignmentRepository->persist($assignment);
+        }
+        $this->template->assignment = $this->courseFactory->produceAssignment($assignment);
+        $info->insert($assignment);
+        
         if (isset($assignment->solution)) {
-            $this->courseInfo->setSolution($assignment->solution);
+            $info->setSolution($assignment->solution);
+            $this->template->solution = $assignment->solution;
+        } else {
+            $this->template->solution = null;
         }
         
         $this->template->lateEdits = $lateEdits;
@@ -57,17 +69,19 @@ class UnitPresenter extends BasePresenter
 
     public function renderDefault($id)
     {
-        $this->template->unit = $this->courseInfo->unit;
-        $this->template->assignment = $this->courseInfo->assignment;
-        $this->template->course = $this->courseInfo->course;
-        $this->template->solution = $this->courseInfo->solution;
+        $factory = $this->courseFactory;
+        $info = $this->courseInfo;
         
-        if ($this->courseInfo->solution) {
-            $this->template->answers = $this->courseInfo->solution->answers;
+        $this->template->unit = $factory->produce($info->unit);
+        $this->template->assignment = $factory->produce($info->assignment);
+        $this->template->course = $factory->produce($info->course);
+        
+        if ($info->solution) {
+            $this->template->solution = $info->solution;
         }
         
         $this->template->uploadPath = $this->uploadStorage->path;
-        $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($this->courseInfo->unit, $this->userInfo);
+        $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($info->unit, $this->userInfo);
     }
     
     public function handleFavorite() 
@@ -83,8 +97,7 @@ class UnitPresenter extends BasePresenter
         }
         
         $form = new HomeworkForm(
-            $this,
-            $this->courseInfo->assignment->questions
+            $this, $this->courseFactory->produceMultiple($this->courseInfo->assignment->questions)
         );
         
         return $form;

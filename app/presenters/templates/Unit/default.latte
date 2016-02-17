@@ -1,13 +1,13 @@
-{block title}{$def->get($unit)->name}{/block}
+{block title}{$unit->name}{/block}
 
 {block favorites}
-	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$unit->countFavorites()}</small>
+	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$unit->entity->countFavorites()}</small>
 {/block}
 
 {block breadcrumbs}
 	<p>
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
-		<a n:href="Course:default $unit->course->id">{$def->get($unit->course)->name}</a> &rsaquo; 
+		<a n:href="Course:default $course->id">{$course->name}</a> &rsaquo; 
 		{if $lateEdits}
 			<a n:href="Unit:default $unit->id">{_messages.app.unit}</a> &rsaquo; 
 			{_messages.unit.homeworkEdit}
@@ -21,15 +21,15 @@
 {block unitInfo}
 	{control phasesRenderer $unit}
 
-	{if $def->get($unit)->goals}
+	{if $goals = $unit->goals}
 		<h2>{_messages.unit.goals}</h2>
-		{!$def->get($unit)->goals|md}
+		{!$goals|md}
 		<hr>
 	{/if}
 	
-	{if $def->get($unit)->reading}
+	{if $unit = $unit->reading}
 		<h2>{_messages.unit.reading}</h2>
-		{!$def->get($unit)->reading|md}
+		{!$unit|md}
 		<hr>
 	{/if}
 {/block}
@@ -54,7 +54,7 @@
 		</p>
 	</div>	
 	
-	{!$def->get($unit)->preface|md}
+	{!$unit->preface|md}
 	
 	{form homeworkForm}
 		{control questionsRenderer $assignment, $solution, $form}
@@ -78,7 +78,7 @@
 		{_messages.unit.myHomework}
 	</h2>
 
-	{!$def->get($unit)->preface|md}
+	{!$unit->preface|md}
 
 	{control questionsRenderer $assignment, $solution}
 {/block}

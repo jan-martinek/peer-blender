@@ -24,7 +24,7 @@
 			{var course = $enrollment->course}
 			{var courseTotal = 0}
 			{var viewerCourseRole = $presenter->enrollmentRepository->getRoleInCourse($presenter->userInfo, $course)}
-			<h3><a n:href="Course:default $course->id">{$def->get($course)->name}</a></h3>
+			<h3><a n:href="Course:default $course->id">{$course->name}</a></h3>
 			<div class="panel">
 				<h4>{_messages.app.unit}</h4>
 				<style> .accepted { background: #dfd;} .notAccepted { background: #fdd;} </style>
@@ -38,7 +38,7 @@
 					</tr>
 					<tr n:foreach="$course->units as $unit">
 						<th>
-							<a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$def->get($unit)->name}</a>
+							<a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a>
 							<i n:if="!$unit->isFinalized() && $user->isAllowed('solution', 'viewAnytime')">
 								<br>
 								(admin preview)
@@ -88,7 +88,7 @@
 				<h4>{_messages.user.reviews}</h4>
 				<ul>
 					<li n:foreach="$course->units as $unit">
-						<a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$def->get($unit)->name}</a>
+						<a n:tag-if="$unit->isFinalized()" n:href="Unit:default $unit->id">{$unit->name}</a>
 						{control reviewsRenderer $reviewRepository->findByUnitAndReviewer($unit, $userProfile)}
 					</li>
 				</ul>

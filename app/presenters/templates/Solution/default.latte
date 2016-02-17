@@ -7,8 +7,8 @@
 {block breadcrumbs}
 	<p>
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
-		<a n:href="Course:default $unit->course->id">{$def->get($unit->course)->name}</a> &rsaquo; 
-		<a n:href="Unit:default $unit->id">{$def->get($unit)->name}</a> &rsaquo; 
+		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
+		<a n:href="Unit:default $unit->id">{$unit->name}</a> &rsaquo; 
 		{_messages.app.solution}
 	</p>
 {/block}
@@ -26,15 +26,15 @@
 	</div>
 	
 
-	{if $def->get($unit)->goals}
+	{if $goals = $unit->goals}
 		<h2>{_messages.unit.goals}</h2>
-		{!$def->get($unit)->goals|md}
+		{!$goals|md}
 		<hr>
 	{/if}
 	
-	{if $def->get($unit)->reading}
+	{if $reading = $unit->reading}
 		<h2>{_messages.unit.reading}</h2>
-		{!$def->get($unit)->reading|md}
+		{!$reading|md}
 		<hr>
 	{/if}
 {/block}

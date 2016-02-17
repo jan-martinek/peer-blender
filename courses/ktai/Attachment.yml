@@ -6,5 +6,5 @@ rubrics:
     - "Odpovídá výsledek hodinové práci na artefaktu?"
 ---
 bloom: create
-question: Zde odevzdejte svůj artefakt.
+questions: Zde odevzdejte svůj artefakt.
 input: file

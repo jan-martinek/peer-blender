@@ -2,8 +2,6 @@
 
 namespace Model\Entity;
 
-use Model\CourseDefinition;
-
 /**
  * @property int $id
  * @property string $dir

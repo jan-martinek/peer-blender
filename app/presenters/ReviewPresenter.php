@@ -56,13 +56,15 @@ class ReviewPresenter extends BasePresenter
     public function actionWriteForUnit($id) 
     {
         $unit = $this->setupCourseInfo($this->unitRepository->find($id));
-        if (!$unit->isCurrentPhase($unit::REVIEWS) AND !$this->user->isAllowed('review', 'writeAnytime')) {
+        $this->template->unit = $product = $this->courseFactory->produce($unit);
+        
+        if (!$unit->isCurrentPhase($product::REVIEWS) AND !$this->user->isAllowed('review', 'writeAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
         
         $this->template->uploadPath = $this->uploadStorage->path;
         
-        $this->template->unit = $unit;
+        
         $this->template->course = $unit->course;
         $solution = null;
         

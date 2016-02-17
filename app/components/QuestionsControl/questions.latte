@@ -1,8 +1,10 @@
 {define question}
+	{var input = $question->input}
+
 	<label>
 		{!$question->text|md}
 		{if $question->isHighlightingAvailable()}
-			{!_messages.unit.highlighting.$question->input|md}
+			({!_messages.unit.highlighting.$input|imd})
 		{/if}
 	</label>
 	
@@ -10,7 +12,7 @@
 		{var formQuestion = $form['questions'][$key]}
 	{/if}
 	
-	{if $question->input == 'file'}
+	{if $input == 'file'}
 		<div class="panel">
 			{if $form}
 				{label $formQuestion}
@@ -36,10 +38,10 @@
 			{input $formQuestion, 'rows' => '10'}
 			<p n:ifcontent>{inputError $formQuestion}</p>
 		{elseif isset($question->answer)}
-			{if $question->input == 'plaintext'}
+			{if $input == 'plaintext'}
 				<div class="panel">{!=nl2br(htmlspecialchars($question->answer->text))}</div>
 			{else}
-				<textarea id="question-{$question->id}-viewer" class="highlight-{$question->input} readonly">{$question->answer->text}</textarea>
+				<textarea id="question-{$question->id}-viewer" class="highlight-{$input} readonly">{$question->answer->text}</textarea>
 			{/if}
 		{else}
 			<div class="panel callout">
@@ -47,13 +49,13 @@
 			</div>
 		{/if}
 		
-		{if $question->input == 'javascript'}
-			<button class="answerPreview" type="highlight-{$question->input}">
+		{if $input == 'javascript'}
+			<button class="answerPreview" type="highlight-{$input}">
 				&#9654; {_messages.solution.runCode}
 			</button>
 			
 			{if $question->prefill}
-				<button class="showPrefill secondary" type="highlight-{$question->input}">
+				<button class="showPrefill secondary" type="highlight-{$input}">
 					<b>{l} {r}</b>  {_messages.solution.viewPrefill}
 				</button>
 				<div class="prefill">

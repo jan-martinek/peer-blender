@@ -2,7 +2,7 @@
 
 namespace Model\Repository;
 
-use Model\CourseDefinition;
+use Model\Ontology;
 use Model\Entity\Assignment;
 use Model\Entity\Unit;
 use Model\Entity\User;
@@ -13,15 +13,6 @@ use DateTime;
 
 class AssignmentRepository extends Repository
 {   
-    public function getMyAssignment(Unit $unit, User $student, $questionRepository, CourseDefinition $courseDefinition) 
-    {
-        if ($assignment = $this->findByUnitAndUser($unit, $student)) {
-            return $assignment;
-        } else {
-            return $this->generateAssignment($unit, $student, $questionRepository, $courseDefinition);       
-        }
-    }
-    
     public function findByUnitAndUser(Unit $unit, User $student) 
     {   
         $assignment = $this->connection->select('*')
@@ -35,7 +26,7 @@ class AssignmentRepository extends Repository
         }
     }
     
-    private function generateAssignment(Unit $unit, User $student, QuestionRepository $questionRepository, CourseDefinition $courseDefinition) 
+    private function produceAssignment(Unit $unit, User $student, QuestionRepository $questionRepository, CourseDefinition $courseDefinition) 
     {
         $assignment = new Assignment;
         
@@ -55,44 +46,5 @@ class AssignmentRepository extends Repository
         }
         
         return $assignment;
-    }
-    
-    private function generateQuestions($definitions, $inherit = array()) 
-    {
-        $questionSet = array();
-        foreach ($definitions as $defId => $def) {
-            $def = array_merge($inherit, $def);
-            if (!isset($def['id'])) $def['id'] = $defId;
-            
-            $count = isset($def['count']) ? $def['count'] : 1;
-            
-            $questions = array();    
-            if (isset($def['questions'][0]['questions'])) {
-                $questions = array_merge(
-                    $questions, 
-                    $this->generateQuestions($def['questions'], $def)
-                );
-            } else {
-                $question = new Question;
-                $question->definition = (object) $def;
-                $question->definition_id = $def['id'];
-                $question->generateFromDefinition();
-                $questions[] = $question;
-                
-                if ($count > 1) {
-                    for($i = 1; $i < $count; $i++) {
-                        $question = unserialize(serialize($question));
-                        $questions[] = $question->variate();
-                    }
-                }
-            }
-
-            shuffle($questions);
-            for ($i = 0; $i < $count; $i++) {
-                $questionSet[] = $questions[$i];
-            }
-        }
-        
-        return $questionSet;
     }
 }

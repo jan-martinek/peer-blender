@@ -1,11 +1,11 @@
-{block title}{$def->get($course)->name}{/block}
+{block title}{$course->name}{/block}
 
-{block footer}{$def->get($course)->footer|md}{/block}
+{block footer}{$course->footer|md}{/block}
 
 {block breadcrumbs}
 	<p>
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
-		{$def->get($course)->name}
+		{$course->name}
 	</p>
 {/block}
 
@@ -13,7 +13,7 @@
 <div id="content" class="row">
 	<div class="columns">
 		<p>
-			<a n:href="Course:enrolled, $course->id">{_messages.course.totalEnrolled, [count => count($course->enrollments)]}</a>
+			<a n:href="Course:enrolled, $course->id">{_messages.course.totalEnrolled, [count => count($course->entity->enrollments)]}</a>
 			&middot;
 			<a n:href="Course:objections, $course->id">{_messages.app.objectionsProcessing}</a>
 			{if $user->isAllowed('course', 'viewStats')}
@@ -24,11 +24,11 @@
 	</div>
 
 	<div class="columns large-6">
-		{!$def->get($course)->methods|md}
+		{!$course->methods|md}
 	</div>
 	
 	<div class="columns large-6">
-		{!$def->get($course)->support|md}
+		{!$course->support|md}
 	</div>
 
 	<div class="columns">
@@ -37,7 +37,7 @@
 		<ul class="units">
 			<li n:foreach="$units as $unit">
 				<h3>
-					<a n:tag-if="$unit->hasBeenPublished()" n:href="Unit:default $unit->id">{$def->get($unit)->name}</a>
+					<a n:tag-if="$unit->hasBeenPublished()" n:href="Unit:default $unit->id">{$unit->name}</a>
 				</h3>
 				{control phasesRenderer $unit}
 			
@@ -49,8 +49,8 @@
 				
 					<div class="columns large-{$goalsWidth}">
 						<h4>{_messages.unit.goals}</h4>
-						{if $def->get($unit)->goals}
-							{!$def->get($unit)->goals|md}
+						{if $goals = $unit->goals}
+							{!$goals|md}
 						{/if}
 					</div>
 
