@@ -39,7 +39,7 @@ bloom: create
 input: file
 comments: 5
 questions: |
-    3 Najděte na *svém oblíbeném webu* článek o více než 1000 slovech a uveďte 
+    Najděte na *svém oblíbeném webu* článek o více než 1000 slovech a uveďte 
     jej do co nejlepšího souladu s typografickými pravidly. Využijte přitom pouze 
     běžný kancelářský textový procesor (Microsoft Word, Google Docs, OpenOffice Writer a ekvivalentní, 
     nikoli Poznámkový blok a jiné plaintextové editory).
