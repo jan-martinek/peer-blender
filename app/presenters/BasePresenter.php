@@ -11,6 +11,7 @@ use App\Components\IQuestionsControlFactory;
 use App\Components\ReviewsControl;
 use App\Components\CourseGaControl;
 use DateTime;
+use ReflectionClass;
 
 
 /**
@@ -68,6 +69,41 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
             
             $backlink = $this->storeRequest('+ 18 hour');
             $this->redirect('Sign:in', $backlink);
+        }
+    }
+    
+    /**
+     * Produces an entity or array of entities and plugs
+     * them into the template.
+     * @param Model\Entity\Entity|array
+     * @param string|null name of the entity
+     */
+    public function deliver($entity, $varName = null) 
+    {
+        if (is_null($varName)) {
+            if (is_array($entity)) {
+                $values = array_values($entity);
+                $reflect = new ReflectionClass($values[0]);
+                $varName = strtolower($reflect->getShortName()) . 's';    
+            } else {
+                $reflect = new ReflectionClass($entity);
+                $varName = strtolower($reflect->getShortName());
+            }
+        }
+        
+        $this->template->$varName = $this->produce($entity);
+    }
+    
+    /**
+     * Produces an entity or array of entities via
+     * the CourseFactory
+     * @param Model\Entity\Entity|array
+     */
+    public function produce($entities) {
+        if (is_array($entities)) {
+            return $this->courseFactory->produceMultiple($entities);
+        } else {
+            return $this->courseFactory->produce($entities);
         }
     }
     

@@ -12,7 +12,6 @@ class HomepagePresenter extends BasePresenter
 
     public function renderDefault()
     {
-         $this->template->courses = $this->courseFactory->produceMultiple(
-         	$this->courseRepository->findAll());
+         $this->deliver($this->courseRepository->findAll());
     }
 }

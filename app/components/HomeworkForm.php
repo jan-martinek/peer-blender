@@ -120,7 +120,7 @@ class HomeworkForm extends Form
                 $answer->text = null;
             }
             
-            $questionProduct = $this->presenter->courseFactory->produce($question);
+            $questionProduct = $this->presenter->produce($question);
             if ($questionProduct->input == 'file') {
                 $answer->text = $this->saveHomeworkFile(
                     $courseInfo->course->id,

@@ -26,13 +26,10 @@ class CoursePresenter extends BasePresenter
     
     public function renderDefault($id)
     {
-        $factory = $this->courseFactory;
-        $info = $this->courseInfo;
-        
         $course = $this->courseInfo->course;
         
-        $this->template->course = $factory->produce($course);
-        $this->template->units = $factory->produceMultiple($course->units);
+        $this->deliver($course);
+        $this->deliver($course->units);
         
         $this->template->favoriteSolutions = $this->solutionRepository->findFavoriteByUnits($course->units);
         $this->template->favoriteReviews = $this->reviewRepository->findFavoriteByUnits($course->units);

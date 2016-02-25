@@ -50,13 +50,15 @@ class ReviewPresenter extends BasePresenter
         
         $this->template->review = $review;
         $this->template->solution = $review->solution;
-        $this->template->assignment = $review->solution->assignment;
+        
+        $this->deliver($review->solution->assignment);
+        $this->deliver($review->solution->assignment->unit);
     }
     
     public function actionWriteForUnit($id) 
     {
         $unit = $this->setupCourseInfo($this->unitRepository->find($id));
-        $this->template->unit = $product = $this->courseFactory->produce($unit);
+        $this->deliver($unit);
         
         if (!$unit->isCurrentPhase(Unit::REVIEWS) AND !$this->user->isAllowed('review', 'writeAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
@@ -64,8 +66,8 @@ class ReviewPresenter extends BasePresenter
         
         $this->template->uploadPath = $this->uploadStorage->path;
         
+        $this->deliver($unit->course);
         
-        $this->template->course = $unit->course;
         $solution = null;
         
         try {
@@ -85,7 +87,8 @@ class ReviewPresenter extends BasePresenter
 
             $this->template->review = $this->setupCourseInfo($review);
             $this->template->solution = $solution;
-            $this->template->assignment = $assignment = $solution->assignment;
+            $assignment = $solution->assignment;
+        $this->template->assignment = $this->produce($assignment);
         } catch (\Model\Repository\SolutionToReviewNotFoundException $e) {
             $this->template->message = $this->translator->translate('messages.unit.noSolutionAvailable');   
         } catch (\Model\Repository\ReviewLimitReachedException $e) {

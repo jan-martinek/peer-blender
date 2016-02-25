@@ -31,12 +31,11 @@ class UnitPresenter extends BasePresenter
     
     public function actionDefault($id, $lateEdits = FALSE) 
     {   
-        $factory = $this->courseFactory;
         $info = $this->courseInfo;
         
         $unit = $this->unitRepository->find($id);
         $info->insert($unit);
-        $product = $factory->produce($unit);
+        $product = $this->produce($unit);
         
         if (!$product->hasBeenPublished()) {
             throw new \Nette\Application\BadRequestException(NULL, 404);
@@ -69,12 +68,11 @@ class UnitPresenter extends BasePresenter
 
     public function renderDefault($id)
     {
-        $factory = $this->courseFactory;
         $info = $this->courseInfo;
         
-        $this->template->unit = $factory->produce($info->unit);
-        $this->template->assignment = $factory->produce($info->assignment);
-        $this->template->course = $factory->produce($info->course);
+        $this->deliver($info->unit);
+        $this->deliver($info->assignment);
+        $this->deliver($info->course);
         
         if ($info->solution) {
             $this->template->solution = $info->solution;
@@ -97,7 +95,7 @@ class UnitPresenter extends BasePresenter
         }
         
         $form = new HomeworkForm(
-            $this, $this->courseFactory->produceMultiple($this->courseInfo->assignment->questions)
+            $this, $this->produce($this->courseInfo->assignment->questions)
         );
         
         return $form;

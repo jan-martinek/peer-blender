@@ -57,16 +57,15 @@ class SolutionPresenter extends BasePresenter
     }    
     
     public function renderDefault($id)
-    {
+    {   
+        $this->deliver($this->courseInfo->unit); 
+        $this->deliver($this->courseInfo->assignment);
+        $this->deliver($this->courseInfo->course);   
+        
         $solution = $this->courseInfo->solution;
         $this->template->solution = $solution;
-        
         $this->template->answers = $solution->answers;
-        
         $this->template->isFavorited = $solution->isFavoritedBy($this->userInfo);
-        $this->template->unit = $this->courseInfo->unit; 
-        $this->template->assignment = $this->courseInfo->assignment;
-        $this->template->course = $this->courseInfo->course;   
         $this->template->uploadPath = $this->uploadStorage->path;
     }
     
