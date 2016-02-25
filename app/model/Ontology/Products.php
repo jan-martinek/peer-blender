@@ -92,6 +92,7 @@ class UnitProduct extends AbstractProduct
 class AssignmentProduct extends AbstractProduct
 {
 	public $generated_at;
+    public $rubrics;
 	public $questions = array();
 }
 

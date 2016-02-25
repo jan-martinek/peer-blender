@@ -107,6 +107,7 @@ class UnitDefinition extends \Nette\Object implements IDefinition
     {
         $assignment = $this->assignment->assemble();
         $assignment->unit = $unit;
+        $assignment->rubrics = $this->rubrics;
         $this->factory->assignmentRepository->persist($assignment);
         return $assignment;
     }

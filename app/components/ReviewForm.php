@@ -23,7 +23,7 @@ class ReviewForm extends Form
         $this->solution = $review->solution;
         $this->reviewRepository = $reviewRepository;
         
-        $rubrics = $this->solution->assignment->rubricSet;
+        $rubrics = $this->solution->assignment->rubrics;
         $rubricsContainer = $this->addContainer('rubrics');
         foreach ($rubrics as $id => $rubric) {
             $rubricsContainer->addTextarea($id, 

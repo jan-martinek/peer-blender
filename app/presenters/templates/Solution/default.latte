@@ -49,7 +49,7 @@
 		<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a></p>
 	</div>
 
-	{!$assignment->preface|md}
+	{!$unit->preface|md}
 
 	{control questionsRenderer $assignment, $solution}
 {/block}

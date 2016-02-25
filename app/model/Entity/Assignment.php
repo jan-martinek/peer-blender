@@ -17,4 +17,16 @@ use DateTime;
  */
 class Assignment extends Entity
 {
+	public function setRubrics (array $rubrics)
+	{
+		$this->row->rubrics = json_encode($rubrics);
+	}
+	
+	public function getRubrics()
+	{
+		if (@unserialize($this->row->rubrics)) {
+			return unserialize($this->row->rubrics);
+		}
+		return json_decode($this->row->rubrics);
+	}
 }

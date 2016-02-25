@@ -73,6 +73,7 @@ class AssignmentDefinition extends \Nette\Object implements IDefinition, \Counta
     {
         $product = new AssignmentProduct($entity);
         $product->generated_at = $entity->generated_at;
+        $product->rubrics = $entity->rubrics;
         
         foreach ($entity->questions as $question) {
             $product->questions[] = $this->factory->produce($question);
