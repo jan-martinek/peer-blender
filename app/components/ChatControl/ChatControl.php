@@ -41,7 +41,7 @@ class ChatControl extends Control
         $template = $this->template;
         $this->setTemplateFilters();
         $template->setFile(__DIR__ . '/chat.latte');
-        $template->messages = $this->messageRepository->findLatest($this->presenter->courseInfo->course);
+        $template->messages = $this->messageRepository->findLatest($this->presenter->courseRegistry->course);
         $template->render();
     }
     
@@ -62,12 +62,12 @@ class ChatControl extends Control
         
         $message = new Message;
         $message->text = $values->message;
-        $message->course = $this->presenter->courseInfo->course;
-        $message->unit = $this->presenter->courseInfo->unit;
+        $message->course = $this->presenter->courseRegistry->course;
+        $message->unit = $this->presenter->courseRegistry->unit;
         $message->user = $this->presenter->userInfo;
         $message->submitted_at = new DateTime;        
         $this->messageRepository->persist($message);
-        $this->generatedFilesStorage->remove($this->presenter->courseInfo->course->id, 'html', '/chat/');
+        $this->generatedFilesStorage->remove($this->presenter->courseRegistry->course->id, 'html', '/chat/');
         
         $form->setValues(array(), TRUE);
         $this->redrawControl('chatForm');

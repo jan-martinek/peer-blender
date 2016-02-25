@@ -45,9 +45,9 @@ class SolutionPresenter extends BasePresenter
     public function actionDefault($id) 
     {     
         $solution = $this->solutionRepository->find($id);
-        $this->setupCourseInfo($solution);
+        $this->setupCourseRegistry($solution);
         
-        if (!$this->courseInfo->unit->hasReviewsPhaseStarted() && !$this->user->isAllowed('solution', 'viewAnytime')) {
+        if (!$this->courseRegistry->unit->hasReviewsPhaseStarted() && !$this->user->isAllowed('solution', 'viewAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
         
@@ -58,11 +58,11 @@ class SolutionPresenter extends BasePresenter
     
     public function renderDefault($id)
     {   
-        $this->deliver($this->courseInfo->unit); 
-        $this->deliver($this->courseInfo->assignment);
-        $this->deliver($this->courseInfo->course);   
+        $this->deliver($this->courseRegistry->unit); 
+        $this->deliver($this->courseRegistry->assignment);
+        $this->deliver($this->courseRegistry->course);   
         
-        $solution = $this->courseInfo->solution;
+        $solution = $this->courseRegistry->solution;
         $this->template->solution = $solution;
         $this->template->answers = $solution->answers;
         $this->template->isFavorited = $solution->isFavoritedBy($this->userInfo);
@@ -77,14 +77,14 @@ class SolutionPresenter extends BasePresenter
     
     public function handleFavorite() 
     {
-        $this->courseInfo->solution->favorite($this->userRepository->find($this->user->id));
+        $this->courseRegistry->solution->favorite($this->userRepository->find($this->user->id));
         $this->redirect('this');
     }
     
     
     protected function createComponentAddReviewForm() 
     {
-        $enrollments = $this->enrollmentRepository->findAllByCourse($this->courseInfo->course);
+        $enrollments = $this->enrollmentRepository->findAllByCourse($this->courseRegistry->course);
         $options = array();
         foreach ($enrollments as $enrollment) {
             $user = $enrollment->user;
@@ -106,7 +106,7 @@ class SolutionPresenter extends BasePresenter
     public function addReviewFormSucceeded(Form $form, $values) 
     {
         $reviewer = $this->userRepository->find($values->user_id);
-        $solution = $this->courseInfo->solution;
+        $solution = $this->courseRegistry->solution;
         
         $review = $this->reviewRepository->createReview($solution, $reviewer);
         $review->status = Review::PROBLEM;

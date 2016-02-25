@@ -40,14 +40,14 @@ class ReviewPresenter extends BasePresenter
 
     public function actionDefault($id) 
     {
-        $this->setupCourseInfo($this->reviewRepository->find($id));
-        $this->template->isFavorited = $this->courseInfo->review->isFavoritedBy($this->userInfo);
+        $this->setupCourseRegistry($this->reviewRepository->find($id));
+        $this->template->isFavorited = $this->courseRegistry->review->isFavoritedBy($this->userInfo);
         $this->template->uploadPath = $this->uploadStorage->path;
     }
 
     public function renderDefault($id)
     {   
-        $review = $this->courseInfo->review;
+        $review = $this->courseRegistry->review;
         
         $this->template->review = $review;
         $this->template->solution = $review->solution;
@@ -58,7 +58,7 @@ class ReviewPresenter extends BasePresenter
     
     public function actionWriteForUnit($id) 
     {
-        $unit = $this->setupCourseInfo($this->unitRepository->find($id));
+        $unit = $this->setupCourseRegistry($this->unitRepository->find($id));
         $this->deliver($unit);
         
         if (!$unit->isCurrentPhase(Unit::REVIEWS) AND !$this->user->isAllowed('review', 'writeAnytime')) {
@@ -86,7 +86,7 @@ class ReviewPresenter extends BasePresenter
                 $solution = $review->solution;
             }
 
-            $this->template->review = $this->setupCourseInfo($review);
+            $this->template->review = $this->setupCourseRegistry($review);
             $this->template->solution = $solution;
             $assignment = $solution->assignment;
         $this->template->assignment = $this->produce($assignment);
@@ -116,26 +116,26 @@ class ReviewPresenter extends BasePresenter
             $this->flashMessage($this->translator->translate('messages.review.fixOnlyYourOwn'), 'alert');
             $this->redirect('Review:default', $id);   
         }
-        $this->courseInfo->insert($review);
+        $this->courseRegistry->insert($review);
     }
     
     public function renderFix($id) 
     {
-        $this->template->review = $this->courseInfo->review;
-        $this->template->assignment = $this->courseInfo->assignment;
-        $this->template->solution = $this->courseInfo->solution;
-        $this->template->unit = $this->courseInfo->unit;
+        $this->template->review = $this->courseRegistry->review;
+        $this->template->assignment = $this->courseRegistry->assignment;
+        $this->template->solution = $this->courseRegistry->solution;
+        $this->template->unit = $this->courseRegistry->unit;
     }
     
     public function handleFavorite() 
     {
-        $this->courseInfo->review->favorite($this->userRepository->find($this->user->id));
+        $this->courseRegistry->review->favorite($this->userRepository->find($this->user->id));
         $this->redirect('this');
     }   
     
     public function handleUnlock($id)
     {
-        $review = $this->courseInfo->review;
+        $review = $this->courseRegistry->review;
         $review->status = 'prep';
         $this->reviewRepository->persist($review);
         
@@ -152,18 +152,18 @@ class ReviewPresenter extends BasePresenter
     
     protected function createComponentReviewForm() 
     {
-        if (!$this->courseInfo->assignment->rubrics) {
+        if (!$this->courseRegistry->assignment->rubrics) {
             throw new \Nette\Application\BadRequestException;
         }
         
-        $form = new ReviewForm($this->courseInfo->review, $this->reviewRepository, $this->translator);
+        $form = new ReviewForm($this->courseRegistry->review, $this->reviewRepository, $this->translator);
         $form->onSuccess[] = array($this, 'reviewFormSucceeded');
         return $form;
     }
     
     public function reviewFormSucceeded(ReviewForm $form, $values) 
     {   
-        $review = $this->courseInfo->review;
+        $review = $this->courseRegistry->review;
         $review->score = $values->score;
         $review->assessmentSet = $values->rubrics;
         $review->notes = $values->notes;
@@ -200,7 +200,7 @@ class ReviewPresenter extends BasePresenter
     
     protected function createComponentReviewCommentForm()
     {
-        $review = $this->courseInfo->review;
+        $review = $this->courseRegistry->review;
         $viewerMadeSolution = $review->solution->user->id === $this->userInfo->id;
         $viewerWroteReview = $review->reviewed_by->id === $this->userInfo->id;
         
@@ -277,13 +277,13 @@ class ReviewPresenter extends BasePresenter
     {   
         $comment = new ReviewComment;
         $comment->comment = $values->comment;
-        $comment->review = $this->courseInfo->review;
+        $comment->review = $this->courseRegistry->review;
         $comment->review_status = $values->reviewStatus;
         $comment->author = $this->userRepository->find($this->user->id);
         $comment->submitted_at = new DateTime;        
         $this->reviewCommentRepository->persist($comment);
         
-        $review = $this->courseInfo->review;
+        $review = $this->courseRegistry->review;
         $review->status = $values->reviewStatus;
         $this->reviewRepository->persist($review);
         

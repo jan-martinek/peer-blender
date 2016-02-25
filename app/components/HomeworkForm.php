@@ -18,7 +18,7 @@ class HomeworkForm extends Form
         parent::__construct();
         
         $this->presenter = $presenter;
-        $course = $presenter->courseInfo->course;
+        $course = $presenter->courseRegistry->course;
         $translator = $presenter->translator;
         
         $questionsContainer = $this->addContainer('questions');
@@ -76,15 +76,15 @@ class HomeworkForm extends Form
     
     public function formSucceeded(HomeworkForm $form, $values) 
     {
-        $courseInfo = $this->presenter->courseInfo;
+        $courseRegistry = $this->presenter->courseRegistry;
         
-        if ($solution = $courseInfo->solution) {
+        if ($solution = $courseRegistry->solution) {
             $event = 'edit';
         } else {
             $event = 'create';
             $solution = new Solution;
-            $solution->unit = $courseInfo->unit;
-            $solution->assignment = $courseInfo->assignment;
+            $solution->unit = $courseRegistry->unit;
+            $solution->assignment = $courseRegistry->assignment;
             $solution->user = $this->presenter->userInfo;
             $solution->submitted_at = new DateTime;
         }
@@ -92,7 +92,7 @@ class HomeworkForm extends Form
         $solution->edited_at = new DateTime;
         $this->presenter->solutionRepository->persist($solution);
         
-        $this->saveAnswers($courseInfo->assignment->questions, $values->questions, $values->comments);
+        $this->saveAnswers($courseRegistry->assignment->questions, $values->questions, $values->comments);
         
         $backToButton = '';
         $httpData = $form->getHttpData();
@@ -108,7 +108,7 @@ class HomeworkForm extends Form
     
     public function saveAnswers($questions, $values, $comments) 
     {
-        $courseInfo = $this->presenter->courseInfo;
+        $courseRegistry = $this->presenter->courseRegistry;
         
         foreach ($questions as $order => $question) {
             if (isset($question->answer)) {
@@ -123,8 +123,8 @@ class HomeworkForm extends Form
             $questionProduct = $this->presenter->produce($question);
             if ($questionProduct->input == 'file') {
                 $answer->text = $this->saveHomeworkFile(
-                    $courseInfo->course->id,
-                    $courseInfo->unit->id,
+                    $courseRegistry->course->id,
+                    $courseRegistry->unit->id,
                     $this->presenter->user->id,
                     $values[$order],
                     $answer->text

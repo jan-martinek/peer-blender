@@ -31,7 +31,7 @@ class UnitPresenter extends BasePresenter
     
     public function actionDefault($id, $lateEdits = FALSE) 
     {   
-        $info = $this->courseInfo;
+        $info = $this->courseRegistry;
         
         $unit = $this->unitRepository->find($id);
         $info->insert($unit);
@@ -68,7 +68,7 @@ class UnitPresenter extends BasePresenter
 
     public function renderDefault($id)
     {
-        $info = $this->courseInfo;
+        $info = $this->courseRegistry;
         
         $this->deliver($info->unit);
         $this->deliver($info->assignment);
@@ -84,18 +84,18 @@ class UnitPresenter extends BasePresenter
     
     public function handleFavorite() 
     {
-        $this->courseInfo->unit->favorite($this->userRepository->find($this->user->id));
+        $this->courseRegistry->unit->favorite($this->userRepository->find($this->user->id));
         $this->redirect('this');
     }
     
     protected function createComponentHomeworkForm() 
     {
-        if (!$this->courseInfo->assignment) {
+        if (!$this->courseRegistry->assignment) {
             throw new \Nette\Application\BadRequestException;
         }
         
         $form = new HomeworkForm(
-            $this, $this->produce($this->courseInfo->assignment->questions)
+            $this, $this->produce($this->courseRegistry->assignment->questions)
         );
         
         return $form;

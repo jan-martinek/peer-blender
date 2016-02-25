@@ -37,7 +37,7 @@ services:
 	- Model\Entity\Solution
 	- Model\Entity\Unit
 	- Model\Entity\User	
-	- Model\CourseInfo
+	- Model\CourseRegistry
 	- Model\Ontology\CourseFactory(%appDir%/../courses)
 	- App\Forms\SignFormFactory
 	- App\Components\IQuestionsControlFactory

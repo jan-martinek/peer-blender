@@ -9,7 +9,7 @@ use Model\Entity\Solution;
 use Model\Entity\Review;
 use Model\Entity\ReviewComment;
 
-class CourseInfo extends \Nette\Object
+class CourseRegistry extends \Nette\Object
 {
 	
 	/** @var Course */
@@ -77,13 +77,13 @@ class CourseInfo extends \Nette\Object
 		if (is_null($this->reviewComment)) {
 			$this->reviewComment = $reviewComment;	
 		} else {
-			throw new CourseInfoEntityAlreadyDefined;
+			throw new CourseRegistryEntityAlreadyDefined;
 		}
 		
 		if (is_null($this->review)) {
 			$this->setReview($reviewComment->review);	
 		} else if ($this->review->id !== $reviewComment->review->id) {
-			throw new InconsistentCourseInfoChainException;
+			throw new InconsistentCourseRegistryChainException;
 		}
 	}
 	
@@ -92,13 +92,13 @@ class CourseInfo extends \Nette\Object
 		if (is_null($this->review)) {
 			$this->review = $review;	
 		} else {
-			throw new CourseInfoEntityAlreadyDefined;
+			throw new CourseRegistryEntityAlreadyDefined;
 		}
 		
 		if (is_null($this->solution)) {
 			$this->setSolution($review->solution);
 		} else if ($this->solution->id !== $review->solution->id) {
-			throw new InconsistentCourseInfoChainException;
+			throw new InconsistentCourseRegistryChainException;
 		}
 	}
 	
@@ -107,13 +107,13 @@ class CourseInfo extends \Nette\Object
 		if (is_null($this->solution)) {
 			$this->solution = $solution;	
 		} else {
-			throw new CourseInfoEntityAlreadyDefined;
+			throw new CourseRegistryEntityAlreadyDefined;
 		}
 		
 		if (is_null($this->assignment)) {
 			$this->setAssignment($solution->assignment);
 		} else if ($this->assignment->id !== $solution->assignment->id) {
-			throw new InconsistentCourseInfoChainException;
+			throw new InconsistentCourseRegistryChainException;
 		}
 	}
 	
@@ -122,13 +122,13 @@ class CourseInfo extends \Nette\Object
 		if (is_null($this->assignment)) {
 			$this->assignment = $assignment;	
 		} else {
-			throw new CourseInfoEntityAlreadyDefined;
+			throw new CourseRegistryEntityAlreadyDefined;
 		}
 		
 		if (is_null($this->unit)) {
 			$this->setUnit($assignment->unit);	
 		} else if ($this->unit->id !== $assignment->unit->id) {
-			throw new InconsistentCourseInfoChainException;
+			throw new InconsistentCourseRegistryChainException;
 		}
 	}
 	
@@ -137,13 +137,13 @@ class CourseInfo extends \Nette\Object
 		if (is_null($this->unit)) {
 			$this->unit = $unit;	
 		} else {
-			throw new CourseInfoEntityAlreadyDefined;
+			throw new CourseRegistryEntityAlreadyDefined;
 		}
 		
 		if (is_null($this->course)) {
 			$this->setCourse($unit->course);	
 		} else if ($this->course->id !== $unit->course->id) {
-			throw new InconsistentCourseInfoChainException;
+			throw new InconsistentCourseRegistryChainException;
 		}
 	}
 	
@@ -152,15 +152,15 @@ class CourseInfo extends \Nette\Object
 		if (is_null($this->course)) {
 			$this->course = $course;	
 		} else {
-			throw new CourseInfoEntityAlreadyDefined;
+			throw new CourseRegistryEntityAlreadyDefined;
 		}
 	}
 }
 
-class CourseInfoEntityAlreadyDefined extends \Exception
+class CourseRegistryEntityAlreadyDefined extends \Exception
 {
 }
 
-class InconsistentCourseInfoChainException extends \Exception
+class InconsistentCourseRegistryChainException extends \Exception
 {
 }

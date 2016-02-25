@@ -46,8 +46,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /** @var \App\Components\IChatControlFactory @inject */
     public $chatControlFactory;
     
-    /** @var \Model\CourseInfo @inject */
-    public $courseInfo;
+    /** @var \Model\CourseRegistry @inject */
+    public $courseRegistry;
     
     /** @var \Model\Entity\User */
     public $userInfo;
@@ -60,7 +60,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     {
         parent::startup();
         
-        $this->courseInfo->setFavoriteRepository($this->favoriteRepository);
+        $this->courseRegistry->setFavoriteRepository($this->favoriteRepository);
         
         if ($this->user->isLoggedIn() OR in_array($this->getName(), array('Homepage', 'Sign', 'Password'))) {
             $this->userInfo = $this->user->id ? $this->userRepository->find($this->user->id) : NULL;
@@ -107,9 +107,13 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         }
     }
     
-    public function setupCourseInfo($entity) 
+    public function register($entity) {
+        return $this->courseRegistry->insert($entity);
+    }
+    
+    public function setupCourseRegistry($entity) 
     {
-        $this->courseInfo->insert($entity);
+        $this->courseRegistry->insert($entity);
         
         if ($this->user->isLoggedIn()) {
             $this->setupCourseRole();
@@ -127,7 +131,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
             }
         }
 
-        if (is_null($this->courseInfo)) {
+        if (is_null($this->courseRegistry)) {
             throw new Exception('Course is not defined.');
             return;            
         }
@@ -136,7 +140,7 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
             return;
         }
         
-        $courseRole = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseInfo->course);
+        $courseRole = $this->enrollmentRepository->getRoleInCourse($this->userInfo, $this->courseRegistry->course);
         if (!is_null($courseRole) && $courseRole) {
             $roles[] = 'course-' . $courseRole;
         }

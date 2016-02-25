@@ -10,8 +10,8 @@ class CourseGaControl extends Control
     {
         $template = $this->template;
         $template->setFile(__DIR__ . '/courseGa.latte');
-        if (isset($this->presenter->courseInfo->course)) {
-            $template->gaCode = $this->presenter->courseInfo->course->gaCode;    
+        if (isset($this->presenter->courseRegistry->course)) {
+            $template->gaCode = $this->presenter->courseRegistry->course->gaCode;    
         }
         $template->render();
     }

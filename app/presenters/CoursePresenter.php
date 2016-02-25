@@ -21,12 +21,12 @@ class CoursePresenter extends BasePresenter
     
     public function actionDefault($id)
     {
-        $this->setupCourseInfo($this->courseRepository->find($id));
+        $this->setupCourseRegistry($this->courseRepository->find($id));
     }
     
     public function renderDefault($id)
     {
-        $course = $this->courseInfo->course;
+        $course = $this->courseRegistry->course;
         
         $this->deliver($course);
         $this->deliver($course->units);
@@ -42,12 +42,12 @@ class CoursePresenter extends BasePresenter
     
     public function actionEnrolled($id)
     {
-        $this->setupCourseInfo($this->courseRepository->find($id));
+        $this->setupCourseRegistry($this->courseRepository->find($id));
     }
     
     public function renderEnrolled($id) 
     {   
-        $course = $this->courseInfo->course;
+        $course = $this->courseRegistry->course;
         
         $this->template->course = $course;
         $ids = $this->enrollmentRepository->findAllUserIds($course);
@@ -56,19 +56,19 @@ class CoursePresenter extends BasePresenter
     
     public function renderObjections($id)
     {
-        $this->courseInfo->insert($this->courseRepository->find($id));
-        $this->template->course = $course = $this->courseInfo->course;
+        $this->courseRegistry->insert($this->courseRepository->find($id));
+        $this->template->course = $course = $this->courseRegistry->course;
         $this->template->reviews = $this->reviewRepository->findReviewsWithProblemsByCourse($course);
     }
     
     public function actionStats($id) 
     {
-        $this->setupCourseInfo($this->courseRepository->find($id));
+        $this->setupCourseRegistry($this->courseRepository->find($id));
     }
     
     public function renderStats($id) 
     {
-        $course = $this->courseInfo->course;
+        $course = $this->courseRegistry->course;
         
         if (!$this->user->isAllowed('course', 'viewStats')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
