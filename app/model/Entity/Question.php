@@ -4,7 +4,7 @@ namespace Model\Entity;
 
 /**
  * @property int $id
- * @property int $order
+ * @property int|NULL $order
  * @property int $itemKey (item_key)
  * @property int|NULL $varsKey (vars_key)
  * @property string $hash

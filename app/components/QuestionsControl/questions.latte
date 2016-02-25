@@ -23,10 +23,10 @@
 			{/if}
 			
 			<p>
-				{if isset($question->answer) && $question->answer->text}
+				{if isset($question->entity->answer) && $question->entity->answer->text}
 					<b>{_messages.unit.submittedAttachment}</b>:
-					<a href="{$baseUri}{$uploadPath}{$question->answer->text}">
-						{=pathinfo($question->answer->text, PATHINFO_BASENAME)}
+					<a href="{$baseUri}{$uploadPath}{$question->entity->answer->text}">
+						{=pathinfo($question->entity->answer->text, PATHINFO_BASENAME)}
 					</a>
 				{elseif !$form}
 					<span style="color: #aaa">{_messages.unit.notAnswered}</a>
@@ -37,11 +37,11 @@
 		{if $form}
 			{input $formQuestion, 'rows' => '10'}
 			<p n:ifcontent>{inputError $formQuestion}</p>
-		{elseif isset($question->answer)}
+		{elseif isset($question->entity->answer)}
 			{if $input == 'plaintext'}
-				<div class="panel">{!=nl2br(htmlspecialchars($question->answer->text))}</div>
+				<div class="panel">{!=nl2br(htmlspecialchars($question->entity->answer->text))}</div>
 			{else}
-				<textarea id="question-{$question->id}-viewer" class="highlight-{$input} readonly">{$question->answer->text}</textarea>
+				<textarea id="question-{$question->id}-viewer" class="highlight-{$input} readonly">{$question->entity->answer->text}</textarea>
 			{/if}
 		{else}
 			<div class="panel callout">
@@ -69,9 +69,9 @@
 		{if $form}
 			{input $form['comments'][$key], 'rows' => $question->comments}
 		{else}
-			{if isset($question->answer->comments)}
+			{if isset($question->entity->answer->comments)}
 				<b>{_messages.solution.comments}:</b>
-				{!=nl2br(htmlspecialchars($question->answer->comments))}
+				{!=nl2br(htmlspecialchars($question->entity->answer->comments))}
 			{else}
 				<b>{_messages.solution.noComment}</b>
 			{/if}
@@ -80,7 +80,7 @@
 {/define}
 
 {block content}
-<div n:if="$form->hasErrors()" class="panel errors" style="background: #f90;">
+<div n:if="isset($form) && $form->hasErrors()" class="panel errors" style="background: #f90;">
 	<ul>
     	<li n:foreach="$form->errors as $error">{$error}</li>
 	</ul>
