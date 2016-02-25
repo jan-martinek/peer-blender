@@ -24,3 +24,7 @@ Peer Blender is a light-weight on-line homework peer-assessment tool.
 
 - There's no backend at this time.
 - There's no one-click installation procedure, you need some skills to [set up the application](docs/en/setup.md).
+
+## License
+
+Peer Blender is licensed under the terms of the MIT license.
