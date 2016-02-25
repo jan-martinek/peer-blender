@@ -34,20 +34,9 @@ class CoursePresenter extends BasePresenter
         $this->template->course = $factory->produce($course);
         $this->template->units = $factory->produceMultiple($course->units);
         
-        $favoriteSolutions = array();
-        foreach ($course->units as $unit) {
-            $favoriteSolutions[$unit->id] = $this->solutionRepository->findFavoriteByUnit($unit);
-        }
-        
-        $this->template->favoriteSolutions = $favoriteSolutions;
-        
-        $favoriteReviews = array();
-        foreach ($course->units as $unit) {
-            $favoriteReviews[$unit->id] = $this->reviewRepository->findFavoriteByUnit($unit);
-        }
-        
-        $this->template->favoriteReviews = $favoriteReviews;
-    
+        $this->template->favoriteSolutions = $this->solutionRepository->findFavoriteByUnits($course->units);
+        $this->template->favoriteReviews = $this->reviewRepository->findFavoriteByUnits($course->units);
+     
         $this->template->reviewsWithProblems = $this->reviewRepository->findReviewsWithProblemsByUserAndCourse(
             $this->userInfo, 
             $course

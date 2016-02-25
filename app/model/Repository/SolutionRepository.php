@@ -86,13 +86,41 @@ class SolutionRepository extends Repository
         return array_diff(array_keys($attachmentOK), array_keys($incompleteIds));
     }  
     
+    
+    /**
+     * @param array
+     */
+    public function findFavoriteByUnits($units)
+    {
+        $unitIds = array();
+        foreach ($units as $unit) {
+            $unitIds[] = $unit->id;
+        }
+        
+        $solutions = $this->connection->query('SELECT solution.id as solution_id, solution.*, unit_id, count(favorite.id) as favorites
+            FROM solution 
+            LEFT JOIN favorite ON (favorite.entity = "Solution" AND favorite.entity_id = solution.id) 
+            WHERE unit_id IN %in', $unitIds, '
+            GROUP BY favorite.id, solution.id
+            HAVING favorites > 0
+            ORDER BY favorites')->fetchAssoc('unit_id,solution_id');
+        
+        foreach ($solutions as $unitKey => $unit) {
+            foreach ($unit as $solutionKey => $solution) {
+                $solutions[$unitKey][$solutionKey] = $this->createEntity($solution);
+            }
+        }
+        
+        return $solutions;
+    }
+    
     public function findFavoriteByUnit(Unit $unit) 
     {   
         $solutions = $this->connection->query('SELECT solution.*, count(favorite.id) as favorites
             FROM solution 
             LEFT JOIN favorite ON (favorite.entity = "Solution" AND favorite.entity_id = solution.id) 
             WHERE unit_id = %i', $unit->id, '
-            GROUP BY favorite.id
+            GROUP BY favorite.id, solution.id
             HAVING favorites > 0
             ORDER BY favorites
             LIMIT 0, 5')->fetchAll();

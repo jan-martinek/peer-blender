@@ -42,10 +42,12 @@
 				{control phasesRenderer $unit}
 			
 				<div class="row">
-					{var goalsWidth = '12'}
-					{var reviewsStarted = $unit->hasReviewsPhaseStarted()}
-					{if $reviewsStarted && count($favoriteSolutions[$unit->id])}{? $goalsWidth -= 2}{/if}
-					{if $reviewsStarted && count($favoriteReviews[$unit->id])}{? $goalsWidth -= 6}{/if}
+					{var solutionsAvailable = $unit->hasReviewsPhaseStarted() && isset($favoriteSolutions[$unit->id])}
+					{var reviewsAvailable = $unit->hasObjectionsPhaseStarted() && isset($favoriteReviews[$unit->id])}
+					
+					{var goalsWidth = 12}
+					{if $solutionsAvailable}{? $goalsWidth -= 2}{/if}
+					{if $reviewsAvailable}{? $goalsWidth -= 6}{/if}
 				
 					<div class="columns large-{$goalsWidth}">
 						<h4>{_messages.unit.goals}</h4>
@@ -54,19 +56,19 @@
 						{/if}
 					</div>
 
-					<div n:if="$reviewsStarted && count($favoriteSolutions[$unit->id])" class="columns large-2">
+					<div n:if="$solutionsAvailable" class="columns large-2">
 						<h4>★{_messages.unit.solutions}</h4>
 						<ul>
 							
-							<li n:foreach="$favoriteSolutions[$unit->id] as $solution">
+							<li n:foreach="array_slice($favoriteSolutions[$unit->id], 0, 5) as $solution">
 								<a n:href="Solution:default $solution->id">{_messages.app.solution} {$solution->id}</a>
 							</li>
 						</ul>
 						
 					</div>
-					<div n:if="$reviewsStarted && count($favoriteReviews[$unit->id])" class="columns large-6">
+					<div n:if="$reviewsAvailable" class="columns large-6">
 						<h4>★{_messages.unit.reviews}</h4>
-						{control reviewsRenderer $favoriteReviews[$unit->id]}
+						{control reviewsRenderer array_slice($favoriteReviews[$unit->id], 0, 5)}
 					</div>
 				</div>
 			</li>
