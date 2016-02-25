@@ -58,7 +58,7 @@ class ReviewPresenter extends BasePresenter
         $unit = $this->setupCourseInfo($this->unitRepository->find($id));
         $this->template->unit = $product = $this->courseFactory->produce($unit);
         
-        if (!$unit->isCurrentPhase($product::REVIEWS) AND !$this->user->isAllowed('review', 'writeAnytime')) {
+        if (!$unit->isCurrentPhase(Unit::REVIEWS) AND !$this->user->isAllowed('review', 'writeAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
         

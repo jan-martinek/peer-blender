@@ -44,7 +44,7 @@
 	<div n:if="$solution" class="panel callout">
 		<p>{!_messages.unit.homeworkSaved|imd}<br>
 		
-		{if $unit->isCurrentPhase($unit::PUBLISHED)}
+		{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
 			{if $solution && $solution->isComplete()}
 				<span style="color: green">●</span> {_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
 			{else}
@@ -99,7 +99,7 @@
 	
 	
 	{if count($reviews) < $course->reviewCount}
-		{if $unit->isCurrentPhase($unit::REVIEWS)}
+		{if $unit->isCurrentPhase(\Model\Entity\Unit::REVIEWS)}
 			<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
 			{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}
 		{else}
@@ -122,7 +122,7 @@
 	<div class="columns">
 		{include unitInfo}
 
-		{if $unit->isCurrentPhase($unit::PUBLISHED)}
+		{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
 			{include homeworkForm}
 		{elseif $lateEdits && $lateEditsAcceptable}
 			<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
