@@ -174,10 +174,10 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     public function produce($question)
     {
         $product = new QuestionProduct($question);
+        $item = $this->getQuestionItem($question->itemKey)
         
         
-        
-        if (strlen($question->hash) != 6) {
+        if (strlen($question->hash) != 6 || !$item) {
             // legacy behavior in case there is no information 
             // about the way the question had been construed
             
