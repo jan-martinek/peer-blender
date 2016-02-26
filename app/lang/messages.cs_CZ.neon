@@ -168,6 +168,9 @@ review:
 		label: "Nový komentář"
 		post: "Vložit komentář"
 		write: "Napište komentář…"		
+question:
+	legacy: "Tato otázka byla nebyla úspěšně aktualizována, při zobrazení se mohou objevit problémy."
+	changed: "Tato otázka se změnila od doby, kdy byla zadána."
 objection: 
 	title: "Námitka"
 	raise: "Vznést námitku"

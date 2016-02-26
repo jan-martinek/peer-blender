@@ -145,6 +145,7 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
          * changes and it's been already used somehow */
         $question->text = $this->questionItems[$question->itemKey]->getText($question->varsKey);
         $question->prefill = $this->questionItems[$question->itemKey]->getPrefill($question->varsKey);
+        $question->input = $this->questionItems[$question->itemKey]->getInput($question->varsKey);
         
         $this->repository->persist($question);
         
@@ -174,21 +175,37 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     {
         $product = new QuestionProduct($question);
         
-        $item = $this->getQuestionItem($question->itemKey);
         
-        $product->bloom = $item->bloom;
-        $product->text = $item->getText($question->varsKey);
-        $product->prefill = $item->getPrefill($question->varsKey);
-        $product->input = $item->getInput($question->varsKey);
-        $product->comments = $item->comments;
         
-        $product->hashMatch = $question->hash === $item->hash ? true : false;
-        
-        if (!$product->hashMatch) {
-            $product->textDump = ($question->text !== $product->text)
-                ? $question->text : null;
-            $product->prefillDump = ($question->prefill !== $product->prefill)
-                ? $question->prefill : null;
+        if (strlen($question->hash) != 6) {
+            // legacy behavior in case there is no information 
+            // about the way the question had been construed
+            
+            $product->legacy = true;
+            $product->text = $question->text;
+            $product->prefill = $question->prefill;
+            $product->input = $question->input;
+            $product->comments = 5;            
+            $product->hashMatch = false;
+        } else {
+            $item = $this->getQuestionItem($question->itemKey);
+            
+            $product->bloom = $item->bloom;
+            $product->text = $item->getText($question->varsKey);
+            $product->prefill = $item->getPrefill($question->varsKey);
+            $product->input = $item->getInput($question->varsKey);
+            $product->comments = $item->comments;
+            
+            $product->hashMatch = $question->hash === $item->hash ? true : false;
+            
+            if (!$product->hashMatch) {
+                $product->textDump = ($question->text !== $product->text)
+                    ? $question->text : null;
+                $product->prefillDump = ($question->prefill !== $product->prefill)
+                    ? $question->prefill : null;
+                $product->inputDump = ($question->input !== $product->input)
+                    ? $question->input : null;
+            }   
         }
         
         return $product;
@@ -200,7 +217,7 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
         if (isset($this->questionItems[$key])) {
             return $this->questionItems[$key];
         } else {
-            throw new InvalidQuestionDefinitionException('Selected questionItem does not exist.');    
+            return FALSE;
         }
         
     }

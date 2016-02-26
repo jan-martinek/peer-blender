@@ -168,6 +168,9 @@ review:
 		label: "New comment"
 		post: "Post a comment"
 		write: "Write a comment…"
+question:
+	legacy: "Legacy rendering applied. Problems may occur."
+	changed: "Question has been changed since it has been created."
 objection: 
 	title: "Objection"
 	raise: "Raise an objection"

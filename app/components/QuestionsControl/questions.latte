@@ -1,4 +1,12 @@
 {define question}
+	<p n:ifcontent class="label warning">
+		{if $question->legacy}
+			{_messages.question.legacy}
+		{elseif !$question->hashMatch}
+			{_messages.question.changed}
+		{/if}
+	</p>
+	
 	{var input = $question->input}
 
 	<label>

@@ -109,6 +109,9 @@ class QuestionProduct extends AbstractProduct
 	public $hashMatch;
 	public $textDump;
 	public $prefillDump;
+	public $inputDump;
+	
+	public $legacy;
 	
 	/**
 	 * Checks whether syntax highlighting is 

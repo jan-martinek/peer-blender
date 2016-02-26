@@ -8,6 +8,7 @@ namespace Model\Entity;
  * @property int $itemKey (item_key)
  * @property int|NULL $varsKey (vars_key)
  * @property string $hash
+ * @property string $input
  * @property string $text
  * @property string $prefill
  * @property Assignment $assignment m:hasOne 
