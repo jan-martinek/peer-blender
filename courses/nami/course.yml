@@ -1,0 +1,21 @@
+author: Jan Martinek <info@jan-martinek.com>
+name: "Nástroje a možnosti internetu"
+goals: |
+    Cílem předmětu je porozumění možnostem práce s informacemi pomocí nástrojů, které vznikly díky celosvětově dostupné síti internet.
+    
+    Předmět navazuje na znalosti z předchozího předmětu „Transformace dat pomocí počítače“ a rozvíjí je prostřednictvím konceptů jako jsou svobodný software a open source, verzovací systémy, publikační platformy, informační architektura, komunikace stroj-stroj, webové API, data mining, internet věcí, open data, web 2.0 aj.
+    
+    Internet vytváří obrovský prostor pro spolupráci a komunikaci: díky rozšířeným webovým službám (poskytovaných firmami jako Alphabet, Facebook, Basecamp, Seznam aj.) existují komfortní nástroje pro běžné úkony. Kurz VIKBA07 nabízí pohled na nástroje, které jsou často výrazně jednodušší a slouží specifičtějším účelům. Pro informačního profesionála však mohou často představovat neocenitelné pomůcky (například při automatizaci, shromažďování informací, publikování na internetu, přípravě podkladů, analýzách trhu atp.).
+methods: |
+    ### O kurzu
+
+    Kurz VIKBA07 je inspirován idejemi [blended learning](https://cs.wikipedia.org/wiki/Blended_learning), [převrácená třída](http://prevracenatrida.cz) a [peer-assessment](https://en.wikipedia.org/wiki/Peer_assessment). Díky tomu je možné získat nové praktické dovednosti i v kurzu, který navštěvuje celý ročník bakalářského studia.
+
+    Lekce sestávají z domácí přípravy nad zadanými a nalezenými texty, jejichž obsah si následně vyzkoušíte v praktických úkolech. Pravidelná páteční setkání jsou určena především k reflexi vzdělávacího procesu, ale budeme se zabývat i problémy, které vznikly v obtížných výukových pasážích. Krom živých setkání jsou oficiálními platformami pro komunikaci ISový *e-mail*, [předmětové fórum](https://is.muni.cz/auth/diskuse/diskusni_forum_predmet?guz=58445984;jp=v;zpr=1) a *chat* v této aplikaci."
+support: |
+    ### Nevíte, jak dál?
+
+    V případě jakýchkoli potíží s obsahem kurzu se obracejte na své kolegy a vyučujícího, konkrétně: 
+
+    - Problémy s výukou, které se mohou týkat většího množství studentů, řešte zásadně prostřednictvím [předmětového diskusního fóra](https://is.muni.cz/auth/diskuse/diskusni_forum_predmet?guz=61235625).
+    - S ostatními problémy a žádostmi se obracejte přímo na vyučujícího ([208330@mail.muni.cz](208330@mail.muni.cz)).
