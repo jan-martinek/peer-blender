@@ -195,7 +195,7 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
             $product->input = $item->getInput($question->varsKey);
             $product->comments = $item->comments;
             
-            $product->hashMatch = $question->hash === $item->hash ? true : false;
+            $product->hashMatch = $question->hash === $this->hash ? true : false;
             
             if (!$product->hashMatch) {
                 $product->textDump = ($question->text !== $product->text)
