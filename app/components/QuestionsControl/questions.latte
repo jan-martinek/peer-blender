@@ -73,7 +73,7 @@
 		{/if}
 	{/if}
 	
-	{if $question->comments > 0}
+	<div n:if="$question->comments > 0" class="panel">
 		{if $form}
 			{input $form['comments'][$key], 'rows' => $question->comments}
 		{else}
@@ -84,7 +84,7 @@
 				<b>{_messages.solution.noComment}</b>
 			{/if}
 		{/if}
-	{/if}
+	</div>
 {/define}
 
 {block content}
