@@ -71,19 +71,19 @@ class SolutionRepository extends Repository
     
     public function findAllComplete(Unit $unit)
     {
-        $attachmentOK = $this->connection->query(
-            'SELECT id FROM solution WHERE unit_id = %i', $unit->id, 'AND attachment != ""'
-        )->fetchAssoc('id');
+        $allSolutionIds = $this->connection->query(
+            'SELECT id FROM solution WHERE unit_id = %i', $unit->id)->fetchAssoc('id');
         
-        $incompleteIds = $this->connection->query(
+        $incompleteSolutionIds = $this->connection->query(
             'SELECT solution.id
               FROM solution
               LEFT JOIN answer ON solution.id = answer.solution_id
+              LEFT JOIN (SELECT id, prefill FROM question) as q ON answer.question_id = q.id
               WHERE solution.unit_id = %i', $unit->id,
-              'AND [answer].[text] = ""'
+              'AND ([answer].[text] = "" OR [answer].[text] = [q].[prefill])'
         )->fetchAssoc('id');
         
-        return array_diff(array_keys($attachmentOK), array_keys($incompleteIds));
+        return array_diff(array_keys($allSolutionIds), array_keys($incompleteSolutionIds));
     }  
     
     
