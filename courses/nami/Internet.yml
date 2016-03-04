@@ -1,0 +1,167 @@
+name: "Internet, web a síťová neutralita"
+goals: |     
+    Mnoho z nás denně používá internet, ale zároveň nerozumíme tomu, jak pracuje uvnitř. **Cílem této lekce je porozumět fungování internetu**, abychom jej byli schopni efektivně využívat a dále rozvíjet.Prostřednictvím průniku do diskuse o síťové neutralitě také nahlédneme, jaký vliv má konkrétní technologická praxe na společenské jevy.
+    
+    Samotný úkol je stejně jako minule jen část celého procesu: široký obraz vytvoří až setkání s úkoly ostatních studentů, v nichž se seznámíte s dalšími články a definicemi.
+    
+    V závěru naleznete další praktický úkol související s Githubem, v němž stačí téměř následovat postup krok za krokem. Kdybyste se v postupu zasekli, hledejte pomoc na diskusním fóru. A příště se již můžete těšit na práci se skutečným kusem softwaru, který bude generovat poměrně hezky vypadající výsledky.
+reading: |
+    Povinné texty jsou zadány v konkrétních úkolech, zde nabízím seznam všech textů coby doporučenou četbu.
+    
+    ### Internet: nové médium
+    
+    Internet se rozvíjí: jeho podoba byla v letech 1986, 1996, 2006 a 2016 výrazně odlišná. Mění se díky dostupným technologiím, společenským proměnám i reflexivnímu hodnocení dosavadního vývoje (vypadal by jinak bez smartphonů s foťáky, dostupnosti téměř celé populaci nebo v jiných legislativních podmínkách). 
+    
+    Následují texty se věnují jak vzniku webu (první text je **ten** návrh, který popisuje, *„jak by to jakože mohlo vypadat“* &ndash; od nadřízených se dočkal hodnocení *„vague, but exciting“*), tak představují reflexi jeho vývoje a důsledků.
+    
+    - [Tim Berners-Lee: Information Management: A Proposal](https://www.w3.org/History/1989/proposal.html)
+    - [Dave Raggett: Introduction to the World Wide Web](https://www.w3.org/People/Raggett/book4/ch01.html)
+    - [Dave Raggett: A history of HTML](https://www.w3.org/People/Raggett/book4/ch02.html)
+    - [Lev Manovich: Media After Software](http://manovich.net/index.php/projects/article-2012)
+    - [Lev Manovich: New Media from Borges to HTML](http://faculty.georgetown.edu/irvinem/theory/manovich-new-media-intro.pdf)
+    - [Justin Peters: An honest thief &ndash; How free-culture pioneer Aaron Swartz fought for the free exchange of information, and lost](http://thelongandshort.org/margins/aaron-swartz-jstor-hack) &ndash; zde v návaznosti na minulou lekci
+    
+    ### Technický základ internetu
+    
+    Úplný základ v přístupné formě (videa, populárně-naučný seriál): podrobnosti se dozvíte v kurzu [VIKBA14 Digitální kompetence](https://is.muni.cz/predmet/phil/podzim2016/VIKBA14).
+    
+    - [Code.org (Vint Cerf, Paola Mejia): The Internet: IP Addresses and DNS](https://www.youtube.com/watch?v=5o8CwafCxnU) (video)
+    - [Code.org (Vint Cerf, Lynn Root): The Internet: Packets, Routing and Reliability](https://www.youtube.com/watch?v=AYdF7b3nMto) (video)
+    - [Pavel Tronner: Zrození internetu](http://www.zive.cz/serial-zrozeni-internetu/sc-345/default.aspx?tags=1) (série článků)
+        - [1. Jak začalo budování sítě sítí](http://www.zive.cz/clanky/zrozeni-internetu-1-jak-zacalo-budovani-site-siti/sc-3-a-167196/default.aspx)
+        - [2. Jak to postavit, aby to fungovalo](http://www.zive.cz/clanky/zrozeni-internetu-2-jak-to-postavit-aby-to-fungovalo/sc-3-a-167294/default.aspx)
+    
+    ### Síťová neutralita
+    
+    Síťová neutralita je politické téma: nejde o problém s jednoduchým (technologickým) řešením. Proto jsou následující články vždy výrazně názorově zabarvené: obzvláště pozorní buďte tehdy, když se text zdá být objektivním popisem.
+    
+    - [A Guide To The Open Internet](http://www.theopeninter.net) (vizualizace)
+    - [Randolph May: Why Net neutrality is incompatible with 'Internet freedom'](http://www.cnet.com/news/why-net-neutrality-is-incompatible-with-internet-freedom/)
+    - [Free Press: How to Save the Internet](http://www.savetheinternet.com/how-save-internet)
+    - [Mark Scott: Tim Berners-Lee, Web Creator, Defends Net Neutrality](http://bits.blogs.nytimes.com/2014/10/08/tim-berners-lee-web-creator-defends-net-neutrality/?_r=0)
+    - [Ben Thompson: Netflix And Net Neutrality](https://stratechery.com/2014/netflix-net-neutrality/)
+    - [Jon Brodkin: Comcast accused of violating NBC merger commitment and net neutrality rule](http://arstechnica.com/business/2016/03/comcast-accused-of-violating-nbc-merger-commitment-and-net-neutrality-rule/)
+    - [Jeffrey Dorfman: Net Neutrality Is A Bad Idea Supported By Poor Analogies](http://www.forbes.com/sites/jeffreydorfman/2014/11/13/net-neutrality-is-a-bad-idea-supported-by-poor-analogies/#59ca7e3c46a2)
+    - [Jacob Davidson: Why Net Neutrality Isn’t Worth Celebrating](http://time.com/money/3724058/net-neutrality-isnt-worth-celebrating/)
+    - [Eric Ravenscraft: Why the FCC's New Net Neutrality Rules are Good for the Internet](http://lifehacker.com/why-the-fccs-new-net-neutrality-rules-are-good-for-the-1683769527)
+rubrics:
+    - Je autorská definice pojmu v druhém úkolu jasná a využívá korektně vybraných zdrojů?
+    - "Pokuste se odpovědět (v celkovém rozsahu alespoň 600 znaků) na otázky, které položil/a autor/ka úkolu na základě textu."
+    - "Jsou shrnutí a postoj autorky/autora k textu o síťové neutralitě srozumitelné a argumentačně přesvědčivé? (Pokud si nemyslíte, že to dokážete zhodnotit, přečtěte si nějaký doplňkový text.)"
+    - Jsou ostatní úkoly vypracovány správně? Uveďte případné nedostatky.
+preface:
+---
+# internet jako nové médium
+bloom: understand
+vars:
+    article:
+        - "[Lev Manovich: Media After Software](http://manovich.net/index.php/projects/article-2012)"
+        - "[Lev Manovich: New Media from Borges to HTML](http://faculty.georgetown.edu/irvinem/theory/manovich-new-media-intro.pdf)"
+        - "[Tim Berners-Lee: Information Management: A Proposal](https://www.w3.org/History/1989/proposal.html)"
+        - "[Dave Raggett: Introduction to the World Wide Web](https://www.w3.org/People/Raggett/book4/ch01.html)"
+        - "[Dave Raggett: A history of HTML](https://www.w3.org/People/Raggett/book4/ch02.html)"
+        - "[Justin Peters: An honest thief &ndash; How free-culture pioneer Aaron Swartz fought for the free exchange of information, and lost](http://thelongandshort.org/margins/aaron-swartz-jstor-hack) (zde v návaznosti na minulou lekci)"
+questions: |
+    Přečtěte si článek **%article%** a shrňte jeho obsah (hlavní myšlenky, zmiňované milníky atp.) ve 400&ndash;600 znacích.
+---
+# internet
+bloom: apply
+vars:
+    term:
+        - internet
+        - World Wide Web (popř. WWW)
+questions: |
+    Najděte tři *slovníkové* definice pojmu *%term%* v českojazyčně psaných zdrojích. Definice přepište (s uvedením zdrojů) a zkompilujte do jedné definice, která obsahuje všechny důležité informace z užitých zdrojů. Do komentáře uveďte alespoň jeden další aspekt daného pojmu, který jste ve vybraných definicích nenalezli.
+comments: 3
+---
+bloom: apply
+questions: |
+    Vyhledejte definice stejného pojmu ve slovníku [Urban Dictionary](http://www.urbandictionary.com) a vyberte si tři odlišné definice. Porovnejte každou z nich s vaší definicí pojmu a popište u každé z nich technologické či společenské jevy, které je spojují s vaší definicí.
+---
+# ip, dns, domény, etc.
+bloom: remember
+count: 2
+allowRepeat: question
+vars:
+    term:
+        - Internet Protocol
+        - TCP-IP
+        - Domain Name System
+        - IP adresa
+        - DNS server
+        - doména
+        - doména prvního řádu
+        - doména druhého řádu
+        - server
+        - paket
+        - routování
+        - protokol
+        - Vint Cerf #humor
+questions: |
+    Podívejte se na videa odkazovaná výše v podkapitole *Technický základ internetu* a na základě získaných znalostí definujte vlastními slovy pojem *%term%*.
+---
+# kódování znaků
+bloom: understand
+questions:
+    - Co je to kódování znaků? Uveďte několik příkladů.
+    - "Uveďte název v současnosti nejrozšířenější způsob *kódování znaků* a popište, čím se liší od starších kódování jako bylo ASCII, WIN-1250 nebo ISO-8859-2."
+    - Co je to znaková sada?
+    - "Vysvětlete, proč existuje více různých znakových sad."
+---
+# četba neutralita
+bloom: understand
+vars:
+    article:
+        - "[Randolph May: Why Net neutrality is incompatible with 'Internet freedom'](http://www.cnet.com/news/why-net-neutrality-is-incompatible-with-internet-freedom/)"
+        - "[Free Press: How to Save the Internet](http://www.savetheinternet.com/how-save-internet)"
+        - "[Mark Scott: Tim Berners-Lee, Web Creator, Defends Net Neutrality](http://bits.blogs.nytimes.com/2014/10/08/tim-berners-lee-web-creator-defends-net-neutrality/?_r=0)"
+        - "[Ben Thompson: Netflix And Net Neutrality](https://stratechery.com/2014/netflix-net-neutrality/)"
+        - "[Jon Brodkin: Comcast accused of violating NBC merger commitment and net neutrality rule](http://arstechnica.com/business/2016/03/comcast-accused-of-violating-nbc-merger-commitment-and-net-neutrality-rule/)"
+        - "[Jeffrey Dorfman: Net Neutrality Is A Bad Idea Supported By Poor Analogies](http://www.forbes.com/sites/jeffreydorfman/2014/11/13/net-neutrality-is-a-bad-idea-supported-by-poor-analogies/#59ca7e3c46a2)"
+        - "[Jacob Davidson: Why Net Neutrality Isn’t Worth Celebrating](http://time.com/money/3724058/net-neutrality-isnt-worth-celebrating/)"
+        - "[Eric Ravenscraft: Why the FCC's New Net Neutrality Rules are Good for the Internet](http://lifehacker.com/why-the-fccs-new-net-neutrality-rules-are-good-for-the-1683769527)"
+questions: |
+    Přečtěte si článek **%article%** a zpracujte position paper, který odevzdejte ve formátu [markdown](http://kramdown.gettalong.org/quickref.html). [Position paper](https://en.wikipedia.org/wiki/Position_paper) zpracujte následovně:
+
+    - krátce shrňte obsah článku (alespoň 600 znaků)
+    - popište svůj postoj k textu s důrazem na pro vás kontroverzní, problematické a nebo naopak zajímavé a přínosné pasáže (alespoň 600 znaků)
+    - položte tři *[otevřené otázky](https://cs.wikipedia.org/wiki/Otázka#Otev.C5.99en.C3.A9)*, které jsou buď obráceny k textu (pokud byste uvítali, aby vám někdo jiný část textu vysvětlil) anebo na něj navazují 
+
+    Studenti hodnotící váš úkol budou otázky hodnotit a odpovídat na ně &ndash; počítejte s tím, že díky čtení odlišných textů budou mít jiná východiska.
+input: markdown
+---
+bloom: apply
+vars:
+    side:
+        -
+            desc: "obhajuje legislativní ukotvení síťové neutrality v EU"
+            opinion: "síťová neutralita je dobré řešení"
+        -
+            desc: "nesouhlasí s legislativním ukotvením síťové neutrality v EU"
+            opinion: "síťová neutralita je špatné řešení"
+questions: |
+    V diskusi na příštím semináři budete reprezentovat stranu, která %desc%. (Bez ohledu na váš skutečný názor. Jde o debatní techniku, která prohlubuje porozumění problému pomocí vhledu do protiargumentů.)
+    
+    Připravte si pět základních argumentů, které podporují tvrzení, že %opinion%.
+prefill: |
+    1.
+    2.
+    3.
+    4.
+    5.
+---
+# forkování a pull request
+bloom: apply
+questions: |
+    Najděte repozitář, který někdo z vašich kolegyň a kolegů vytvořil v předchozí lekci (můžete využít některého repozitáře z úkolů, které jste dostali k hodnocení, doptat se pomocí diskusního fóra či jiným neformálním způsobem atp.).
+    
+    Forkněte si tento repozitář a naklonujte si ho na vlastní počítač pomocí aplikace Github Desktop.
+    
+    Přidejte do projektu vlastní soubor ve formátu markdown (s koncovkou .md), do nějž vepište text své oblíbené pohádky (můžete využít textu z internetu, který je dostupný pod otevřenou licencí anebo text pohádky sami parafrázujte). Soubor pojmenujte dle názvu pohádky. Danou úpravu commitněte a sesynchronizujte do repozitáře umístěného na Githubu.
+    
+    Vytvořte pull request, kterým požádáte autorku či autora původního repozitáře o zahrnutí úprav, které jste provedli ve svém repozitáři.
+    
+    Do vstupního pole vložte adresu vytvořeného pull requestu.
+input: markdown
+comments: 2
+    
