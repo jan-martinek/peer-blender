@@ -10,7 +10,8 @@ CREATE TABLE `answer` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `solution_id` int(10) unsigned NOT NULL,
   `question_id` int(10) unsigned NOT NULL,
-  `text` text COLLATE utf8_czech_ci NOT NULL,
+  `text` text COLLATE utf8_czech_ci,
+  `comments` text COLLATE utf8_czech_ci,
   PRIMARY KEY (`id`),
   KEY `solution_id` (`solution_id`),
   KEY `question_id` (`question_id`),
@@ -22,12 +23,11 @@ CREATE TABLE `answer` (
 DROP TABLE IF EXISTS `assignment`;
 CREATE TABLE `assignment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `unit_id` int(10) unsigned NOT NULL,
-  `student_id` int(10) unsigned NOT NULL,
+  `unit_id` int(10) unsigned DEFAULT NULL,
+  `student_id` int(10) unsigned DEFAULT NULL,
   `generated_at` datetime NOT NULL,
-  `preface` text COLLATE utf8_czech_ci NOT NULL,
-  `questions` text COLLATE utf8_czech_ci NOT NULL,
-  `rubrics` text COLLATE utf8_czech_ci NOT NULL,
+  `questions` text COLLATE utf8_czech_ci,
+  `rubrics` text COLLATE utf8_czech_ci,
   PRIMARY KEY (`id`),
   KEY `unit_id` (`unit_id`),
   KEY `student_id` (`student_id`),
@@ -39,6 +39,7 @@ CREATE TABLE `assignment` (
 DROP TABLE IF EXISTS `course`;
 CREATE TABLE `course` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `dir` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   `name` varchar(255) COLLATE utf8_czech_ci NOT NULL,
   `goals` text COLLATE utf8_czech_ci NOT NULL,
   `methods` text COLLATE utf8_czech_ci NOT NULL,
@@ -51,9 +52,9 @@ CREATE TABLE `course` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `course` (`id`, `name`, `goals`, `methods`, `support`, `footer`, `contact_email`, `review_count`, `upload_max_filesize_kb`, `ga_code`) VALUES
-(1, 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  '', '', '', '', 5,  500,  'BB');
 
+INSERT INTO `course` (`id`, `dir`, `name`, `goals`, `methods`, `support`, `footer`, `contact_email`, `review_count`, `upload_max_filesize_kb`, `ga_code`) VALUES
+(1, 'test', 'Test course',  'The main goal of the test course is to provide a functionality check of the app. One could even say it\'s a *demo*!',  '', '', '', '', 5,  500,  'BB');
 
 DROP TABLE IF EXISTS `enrollment`;
 CREATE TABLE `enrollment` (
@@ -121,14 +122,18 @@ CREATE TABLE `message` (
 DROP TABLE IF EXISTS `question`;
 CREATE TABLE `question` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `assignment_id` int(10) unsigned NOT NULL,
-  `order` smallint(6) NOT NULL,
-  `type` enum('plaintext','markdown') COLLATE utf8_czech_ci NOT NULL,
+  `assignment_id` int(10) unsigned DEFAULT NULL,
+  `item_key` int(10) unsigned NOT NULL,
+  `vars_key` int(11) unsigned DEFAULT NULL,
+  `hash` varchar(6) COLLATE utf8_czech_ci DEFAULT NULL,
+  `order` smallint(6) DEFAULT NULL,
+  `input` enum('plaintext','code','markdown','javascript','html','sql','css','xml','file') COLLATE utf8_czech_ci NOT NULL,
   `text` text COLLATE utf8_czech_ci NOT NULL,
   `prefill` text COLLATE utf8_czech_ci NOT NULL,
+  `comments` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `assignment_id` (`assignment_id`),
-  CONSTRAINT `question_ibfk_1` FOREIGN KEY (`assignment_id`) REFERENCES `assignment` (`id`)
+  CONSTRAINT `question_ibfk_2` FOREIGN KEY (`assignment_id`) REFERENCES `assignment` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 
@@ -139,7 +144,7 @@ CREATE TABLE `review` (
   `reviewed_by_id` int(10) unsigned NOT NULL,
   `opened_at` datetime NOT NULL,
   `status` enum('prep','ok','problem','objection','fixed') COLLATE utf8_czech_ci NOT NULL,
-  `assessment` text COLLATE utf8_czech_ci NOT NULL,
+  `assessment` text COLLATE utf8_czech_ci,
   `score` tinyint(4) DEFAULT NULL,
   `notes` text COLLATE utf8_czech_ci,
   `submitted_at` datetime DEFAULT NULL,
@@ -199,15 +204,15 @@ CREATE TABLE `unit` (
   `goals` text COLLATE utf8_czech_ci NOT NULL,
   `reading` text COLLATE utf8_czech_ci NOT NULL,
   `rubrics` text COLLATE utf8_czech_ci NOT NULL,
-  `generator` varchar(50) COLLATE utf8_czech_ci NOT NULL,
+  `def` varchar(30) COLLATE utf8_czech_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `course_id` (`course_id`),
   CONSTRAINT `unit_ibfk_1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
-INSERT INTO `unit` (`id`, `course_id`, `published_since`, `reviews_since`, `objections_since`, `finalized_since`, `name`, `goals`, `reading`, `rubrics`, `generator`) VALUES
-(1, 1,  '2015-08-01 00:00:00',  '2015-06-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  '', 'TestGenerator');
 
+INSERT INTO `unit` (`id`, `course_id`, `published_since`, `reviews_since`, `objections_since`, `finalized_since`, `name`, `goals`, `reading`, `rubrics`, `def`) VALUES
+(1, 1,  '2015-08-01 00:00:00',  '2015-06-01 00:00:00',  '2016-08-01 00:00:00',  '2016-08-01 00:00:00',  'Test Unit',  'The purpose of the *Test Unit* is to be one of the best parts of the *Test Course*. And happily so.',  'With this test stuff, you\'re lucky: you don\'t need to read anything. You can even do [something useless](http://www.theuselessweb.com).',  '',  'Test'),
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
@@ -218,7 +223,8 @@ CREATE TABLE `user` (
   `password_reset_token` varchar(10) COLLATE utf8_czech_ci DEFAULT NULL,
   `password_reset_valid_until` datetime DEFAULT NULL,
   `role` enum('admin','registered') COLLATE utf8_czech_ci DEFAULT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `email` (`email`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_czech_ci;
 
 INSERT INTO `user` (`id`, `name`, `email`, `password`, `password_reset_token`, `password_reset_valid_until`, `role`) VALUES
@@ -226,4 +232,4 @@ INSERT INTO `user` (`id`, `name`, `email`, `password`, `password_reset_token`, `
 (2, 'Test Assistant', 'assistant@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', 'b39b0361a2', '2015-09-30 02:38:31',  NULL),
 (3, 'Test Student', 'student@test.dev', '$2y$10$ClCAL6zNDmsdo77MC6y3lukuiQ8lEOHAIfHuRG4TfdPxFIlkxolEG', '', '0000-00-00 00:00:00',  NULL);
 
--- 2015-10-30 18:43:07
+-- 2016-03-04 07:15:14
