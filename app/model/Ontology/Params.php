@@ -2,7 +2,7 @@
 
 namespace Model\Ontology;
 
-class Vars extends \Nette\Object implements \Countable
+class Params extends \Nette\Object implements \Countable
 {
     /** @var Combinations @see enumerateCombinations() */
     private $combinations;

@@ -28,8 +28,8 @@ class QuestionItem extends \Nette\Object
     /** @var string Hash of definition for consistency checking */
     private $hash;
     
-    /** @var Vars */
-    private $vars;
+    /** @var Params */
+    private $params;
     
     
     /**
@@ -37,12 +37,12 @@ class QuestionItem extends \Nette\Object
      * @param string
      * @param array
      * @param QuestionDefinition parent question definition
-     * @param Vars
+     * @param Params
      */
-    public function __construct($data, $text, $vars)
+    public function __construct($data, $text, $params)
     {
         $this->text = $text;
-        $this->vars = $vars;
+        $this->params = $params;
         $this->hash = substr(sha1(serialize($data)), 0, 6);
         
         $this->setBloom($data);
@@ -132,7 +132,7 @@ class QuestionItem extends \Nette\Object
         // check var values if defined as %variable%
         if (preg_match("/^%(.+)%$/", $input, $match)) {
             $varName = $match[1];
-            $values = $this->vars->getValues($varName);
+            $values = $this->params->getValues($varName);
             
             foreach ($values as $value) {
                 if (!in_array($value, $validInputMethods)) {
@@ -149,24 +149,24 @@ class QuestionItem extends \Nette\Object
     }
 
 
-    public function hasVars()
+    public function hasParams()
     {
-        return $this->vars ? TRUE : FALSE;
+        return $this->params ? TRUE : FALSE;
     }
     
-    public function assembleVarsKey()
+    public function assembleParamsKey()
     {
-        if ($this->hasVars()) {
-            return $this->vars->assemble();
+        if ($this->hasParams()) {
+            return $this->params->assemble();
         } else {
             return null;
         }
     }
 
-    public function applyVars($text, $key) 
+    public function applyParams($text, $key) 
     {
-        if ($this->vars) {
-            return strtr($text, $this->vars->produce($key));
+        if ($this->params) {
+            return strtr($text, $this->params->produce($key));
         } else {
             return $text;
         }
@@ -178,14 +178,14 @@ class QuestionItem extends \Nette\Object
         return $this->bloom;
     }
     
-    public function getText($varsKey)
+    public function getText($paramsKey)
     {
-        return $this->applyVars($this->text, $varsKey);
+        return $this->applyParams($this->text, $paramsKey);
     }
     
-    public function getInput($varsKey)
+    public function getInput($paramsKey)
     {
-        return $this->applyVars($this->input, $varsKey);
+        return $this->applyParams($this->input, $paramsKey);
     }
     
     public function getComments()
@@ -193,9 +193,9 @@ class QuestionItem extends \Nette\Object
         return $this->comments;
     }
     
-    public function getPrefill($varsKey)
+    public function getPrefill($paramsKey)
     {
-        return $this->applyVars($this->prefill, $varsKey);
+        return $this->applyParams($this->prefill, $paramsKey);
     }
     
     public function getHash()

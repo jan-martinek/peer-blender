@@ -6,7 +6,7 @@ namespace Model\Entity;
  * @property int $id
  * @property int|NULL $order
  * @property int $itemKey (item_key)
- * @property int|NULL $varsKey (vars_key)
+ * @property int|NULL $paramsKey (params_key)
  * @property string $hash
  * @property string $input
  * @property string $text

@@ -22,8 +22,8 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     /** @var bool One question definition may be used multiple times */
     private $repeatAllowed = FALSE;
     
-    /** @var array Array of Vars objects */
-    private $vars = array();
+    /** @var array Array of Params objects */
+    private $params = array();
     
     /** @var string hash of the data */
     private $hash;
@@ -59,8 +59,8 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
             $data = array_merge($inherit, $data);
         }
         
-        // define vars
-        $vars = $this->defineVars($data);
+        // define params
+        $params = $this->defineParams($data);
             
         // check and prepare questions
         if (!isset($data['questions'])) {
@@ -72,7 +72,7 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
         // define questions
         foreach ($data['questions'] as $item) {
             if (is_string($item)) {
-                $this->questionItems[] = new QuestionItem($data, $item, $vars);
+                $this->questionItems[] = new QuestionItem($data, $item, $params);
             } else if (is_array($item)) {
                 $this->defineQuestionItems($item, $data);
             } else {
@@ -84,29 +84,35 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     
     /**
      * @param array
-     * @return Vars
+     * @return Params
      */
-    private function defineVars($data)
+    private function defineParams($data)
     {
-        $varsAvailable = (isset($data['vars']) && is_array($data['vars']));
-        if ($varsAvailable) {
-            $vars = new Vars($data['vars']);
+        // deprecated vars --> params
+        if (isset($data['vars'])) {
+            $data['params'] = $data['vars'];
+            unset($data['vars']);
+        }
+        
+        $paramsAvailable = (isset($data['params']) && is_array($data['params']));
+        if ($paramsAvailable) {
+            $params = new Params($data['params']);
             
             // allow repeat
-            if (isset($data['allowRepeat']) && $data['allowRepeat'] === 'vars') {
-                $vars->allowRepeat();
+            if (isset($data['allowRepeat']) && $data['allowRepeat'] === 'params') {
+                $params->allowRepeat();
             }
             
             // register in unit
-            if (in_array($vars, $this->vars)) {
-                $vars = $this->vars[array_search($vars, $this->vars)];
+            if (in_array($params, $this->params)) {
+                $params = $this->params[array_search($params, $this->params)];
             } else {
-                $this->vars[] = $vars;
+                $this->params[] = $params;
             }
         } else {
-            $vars = null;
+            $params = null;
         }
-        return $vars;
+        return $params;
     }
     
     
@@ -137,15 +143,15 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     {
         $question = new Question();
         $question->itemKey = $this->assembleQuestionItemKey();
-        $question->varsKey = $this->questionItems[$question->itemKey]->assembleVarsKey();
+        $question->paramsKey = $this->questionItems[$question->itemKey]->assembleParamsKey();
         $question->hash = $this->hash;
         
         /* Question texts are saved so that they're 
          * available in case the definition
          * changes and it's been already used somehow */
-        $question->text = $this->questionItems[$question->itemKey]->getText($question->varsKey);
-        $question->prefill = $this->questionItems[$question->itemKey]->getPrefill($question->varsKey);
-        $question->input = $this->questionItems[$question->itemKey]->getInput($question->varsKey);
+        $question->text = $this->questionItems[$question->itemKey]->getText($question->paramsKey);
+        $question->prefill = $this->questionItems[$question->itemKey]->getPrefill($question->paramsKey);
+        $question->input = $this->questionItems[$question->itemKey]->getInput($question->paramsKey);
         
         $this->repository->persist($question);
         
@@ -190,9 +196,9 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
             $item = $this->getQuestionItem($question->itemKey);
             
             $product->bloom = $item->bloom;
-            $product->text = $item->getText($question->varsKey);
-            $product->prefill = $item->getPrefill($question->varsKey);
-            $product->input = $item->getInput($question->varsKey);
+            $product->text = $item->getText($question->paramsKey);
+            $product->prefill = $item->getPrefill($question->paramsKey);
+            $product->input = $item->getInput($question->paramsKey);
             $product->comments = $item->comments;
             
             $product->hashMatch = $question->hash === $this->hash ? true : false;
