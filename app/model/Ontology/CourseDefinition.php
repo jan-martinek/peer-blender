@@ -87,6 +87,10 @@ class CourseDefinition extends \Nette\Object implements IDefinition
 	
 	public function produceUnit($unit)
 	{
+		if (!isset($this->units[$unit->def])) {
+			throw new UnitDefinitionNotFound('Unit named "' . $unit->def . '" not found.');
+			return;
+		}
 		return $this->units[$unit->def]->produce($unit);
 	}
 	
@@ -103,3 +107,6 @@ class CourseDefinition extends \Nette\Object implements IDefinition
 	}
 }
 
+class UnitDefinitionNotFound extends \Exception
+{
+}
