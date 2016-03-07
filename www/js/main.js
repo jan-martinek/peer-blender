@@ -94,6 +94,7 @@ var PeerBlender = {
 			var myCodeMirror = CodeMirror.fromTextArea(
 				textarea[0], {
 					lineNumbers: true, 
+					lineWrapping: true,
 					mode: highlightingMode,
 					lint: true,
 					gutters: ["CodeMirror-lint-markers"],
