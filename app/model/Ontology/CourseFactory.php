@@ -57,14 +57,6 @@ class CourseFactory extends \Nette\Object
 		$this->questionRepository = $questionRepository;
 	}
 	
-	public function setRepositories($course, $unit, $assignment, $question) 
-    {
-    	$this->repositories['course'] = $course;
-		$this->repositories['unit'] = $unit;
-		$this->repositories['assignment'] = $assignment;
-		$this->repositories['question'] = $question;
-    }
-	
 	
 	/**
 	 * Returns a course definition.
