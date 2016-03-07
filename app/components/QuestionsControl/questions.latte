@@ -73,7 +73,7 @@
 		{/if}
 	{/if}
 	
-	<div n:if="$question->comments > 0" class="panel">
+	<div n:if="$question->comments > 0" {if !$form}class="panel"{/if}>
 		{if $form}
 			{input $form['comments'][$key], 'rows' => $question->comments}
 		{else}
