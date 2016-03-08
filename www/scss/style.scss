@@ -1,3 +1,12 @@
+$brown: #AA7C39;
+$lightBrown: #D3A056;
+$green: #519331;
+$lightGreen: #6DB74A;
+$blue: #2A4D6E;
+$lightBlue: #3E6489;
+$red: #9E354A;
+$lightRed: #C55067;
+
 @import '../bower_components/foundation/scss/foundation.scss';
 
 body {
@@ -194,7 +203,13 @@ ul.checklist {
 		position: relative;
 		margin-right: 10px;
 		font-weight: bold;
-
+		background-color: #bbb;
+		
+		&.current:nth-child(1) { background-color: $brown }
+		&.current:nth-child(2) { background-color: $red }
+		&.current:nth-child(3) { background-color: $blue }
+		&.current:nth-child(4) { background-color: $green }
+		
 		&:after {
 			left: 100%;
 			top: 50%;
@@ -204,7 +219,7 @@ ul.checklist {
 			width: 0;
 			position: absolute;
 			pointer-events: none;
-			border-left-color: #e7e7e7;
+			border-left-color: #bbb;
 			border-width: 15px;
 			margin-top: -15px;
 		}
@@ -213,10 +228,20 @@ ul.checklist {
 			border-width: 0;
 		}
 		
-		&.success:after {
-			border-left-color: #43AC6A;
-		}
+		&.current:nth-child(1) { background-color: $brown; &:after { border-left-color: $brown; } }
+		&.current:nth-child(2) { background-color: $red; &:after { border-left-color: $red; } }
+		&.current:nth-child(3) { background-color: $blue; &:after { border-left-color: $blue; } }
+		&.current:nth-child(4) { background-color: $green; &:after { border-left-color: $green; } }
 	}
+}
+
+.phases.small {
+	display: inline-block;
+	margin-bottom: 0;
+	.label { display: none; }
+	.label.current { display: inline-block; margin-right: 15px; }
+	.label:last-child { margin-right: 0; }
+	
 }
 
 #chat {

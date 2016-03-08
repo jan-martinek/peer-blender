@@ -1,11 +1,11 @@
 {block content}
-<div class="phases">
+<div class="phases {if $small}small{/if}">
 	{foreach $unit->phaseNames as $phaseName}
 		{continueIf $phaseName == 'draft'}
 		{var $dateAttrName = $phaseName ? $phaseName . '_since' : NULL}
 		{var $nextPhaseDateAttrName = $unit->nextPhaseName ? $unit->nextPhaseName . '_since' : NULL}
 		{var isCurrent = $phaseName === $unit->currentPhaseName}
-		<span class="label {if !$isCurrent}secondary strong{else}success{/if}" 
+		<span class="label {if $isCurrent}current{/if}" 
 			title="{$unit->$dateAttrName|date: '%A %e %B %k.%M'}">
 			{_messages.unit.phase.$phaseName|upper}<br>
 			{if $isCurrent && $nextPhaseDateAttrName}
