@@ -7,6 +7,7 @@ $lightBlue: #3E6489;
 $red: #9E354A;
 $lightRed: #C55067;
 
+@import 'settings';
 @import '../bower_components/foundation/scss/foundation.scss';
 
 body {
@@ -20,6 +21,16 @@ html, body, p, li, blockquote, h1, h2, h3, h4, h5, h6, input, textarea {
 
 h1, h2, h3 {
 	font-weight: bold;
+}
+
+#content {
+	p a, li a, td a {
+		border-bottom: 3px solid rgba($lightBlue, .2);
+		
+		&:hover {
+			border-color: rgba($lightBlue, .5);
+		}
+	}
 }
 
 .row .row {
@@ -171,7 +182,8 @@ ul.checklist {
 }
 
 .assignmentQuestion {
-	padding-left: 50px;
+	margin-bottom: 50px;
+	padding-left: 70px;
 	
 	label p:last-child {
 		margin-bottom: .5em;
