@@ -50,9 +50,8 @@
 					{if $reviewsAvailable}{? $goalsWidth -= 6}{/if}
 				
 					<div class="columns large-{$goalsWidth}">
-						<h4>{_messages.unit.goals}</h4>
-						{if $goals = $unit->goals}
-							{!$goals|md}
+						{if $summary = $unit->summary}
+							{!$summary|md}
 						{/if}
 					</div>
 

@@ -33,6 +33,7 @@ class CourseProduct extends AbstractProduct
 class UnitProduct extends AbstractProduct
 {    
     public $name;
+    public $summary;
     public $goals;
     public $reading;
     public $preface;

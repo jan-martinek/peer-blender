@@ -1,4 +1,5 @@
 name: Svobodný software a verzování kódu
+summary: "Otevřený kód a svobodný software: místo, kde se potkává technologie a politika. Úvod do verzování kódu a první kroky s Gitem/Githubem."
 goals: |
     V této lekci se seznámíte s ideovými základy volného sdílení kódu (pod názvy „[svobodný software](https://cs.wikipedia.org/wiki/Svobodný_software)“ a „[open source](https://cs.wikipedia.org/wiki/Otevřený_software)“, odkázané stránky na Wikipedii si prolítněte) a naučíte se používat základní nástroje služby Github. 
     

@@ -11,6 +11,9 @@ class UnitDefinition extends \Nette\Object implements IDefinition
     /** @var string Unit name */
     private $name;
     
+    /** @var string Unit summary */
+    private $summary = '';
+    
     /** @var string Unit goals */
     private $goals = '';
     
@@ -52,7 +55,7 @@ class UnitDefinition extends \Nette\Object implements IDefinition
             return;
         }
         
-        $params = array('name', 'goals', 'reading', 'preface');
+        $params = array('name', 'summary', 'goals', 'reading', 'preface');
         foreach ($params as $param) {
             if (isset($data[$param])) {
                 $this->$param = $data[$param];   
@@ -87,6 +90,7 @@ class UnitDefinition extends \Nette\Object implements IDefinition
     {
         $product = new UnitProduct($entity);
         
+        $product->summary = $this->summary ? $this->summary : $this->goals;
         $product->goals = $this->goals;
         $product->reading = $this->reading;
         $product->preface = $this->preface;
