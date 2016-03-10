@@ -1,5 +1,11 @@
 {block title}{$unit->name}{/block}
 
+{block topBarLeft}
+	{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
+		<li>{block new}<a href="" id="quick-save-button"><i class="fa fa-save"></i> {_messages.solution.quickSave}</a>{/block}</li>
+	{/if}
+{/block}
+
 {block favorites}
 	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$unit->entity->countFavorites()}</small>
 {/block}
@@ -41,23 +47,26 @@
 		{_messages.unit.myHomework}
 	</h2>
 	
-	<div n:if="$solution" class="panel callout">
-		<p>{!_messages.unit.homeworkSaved|imd}<br>
-		
-		{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
-			{if $solution && $solution->isComplete()}
-				<span style="color: green">●</span> {_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
-			{else}
-				<span style="color: red">●</span> {_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+	{snippet formInfo}
+		<div n:if="$solution" class="panel callout">
+			<p>{!_messages.unit.homeworkSaved|imd}<br>
+			
+			{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
+				{if $solution && $solution->isComplete()}
+					<span style="color: green">●</span> {_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+				{else}
+					<span style="color: red">●</span> {_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+				{/if}
 			{/if}
-		{/if}
-		</p>
-	</div>	
+			</p>
+		</div>	
+	{/snippet}
 	
 	{!$unit->preface|md}
 	
-	{form homeworkForm}
-		{control questionsRenderer $assignment, $solution, $form}
+	
+	{form homeworkForm, class => "ajax"}
+		{control questionsRenderer}
 		
 		<hr>
 		

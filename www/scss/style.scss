@@ -322,3 +322,12 @@ ul.checklist {
 		}
 	}
 }
+
+.flashMessages {
+	position: fixed;
+	top: 20px;
+	left: 50%;
+	width: 300px;
+	margin-left: -150px;
+	z-index: 999;
+}

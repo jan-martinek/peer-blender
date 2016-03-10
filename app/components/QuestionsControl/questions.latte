@@ -94,12 +94,17 @@
 	</ul>
 </div>
 
-<div n:foreach="$assignment->questions as $key => $question" class="assignmentQuestion">
-	<h3 class="questionNumber">{$iterator->getCounter()}<br>
-		<button n:if="$form" id="quick-save-button-{$key}" name="quick-save-button-{$key}" type="submit" title="{_messages.solution.quickSave}">
-			<i class="fa fa-save"></i>
-		</button>
-	</h3>
-	{include question, key => $key, question => $question}
-</div>
+{snippetArea assignmentQuestions}
+	<div n:foreach="$assignment->questions as $key => $question" class="assignmentQuestion">
+		<h3 class="questionNumber">{$iterator->getCounter()}</h3>
+		
+		{if $question->input === 'file'}
+			{snippet question-$question->order}
+				{include question, key => $key, question => $question}
+			{/snippet}
+		{else}
+			{include question, key => $key, question => $question}
+		{/if}
+	</div>
+{/snippetArea}
 {/block}

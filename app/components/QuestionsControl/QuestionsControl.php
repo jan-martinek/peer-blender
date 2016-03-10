@@ -8,6 +8,9 @@ use Michelf\Markdown;
 class QuestionsControl extends Control
 {   
     private $uploadStorage;
+    public $assignment;
+    public $solution;
+    public $form;
     
     public function __construct(\Model\UploadStorage $storage) 
     {
@@ -26,15 +29,15 @@ class QuestionsControl extends Control
         });
     }	
 	
-    public function render(\Model\Ontology\AssignmentProduct $assignment, \Model\Entity\Solution $solution = null, \App\Components\HomeworkForm $form = null)
+    public function render(\Model\Ontology\AssignmentProduct $assignment = null, \Model\Entity\Solution $solution = null, \App\Components\HomeworkForm $form = null)
     {
         $template = $this->template;
         $this->setTemplateFilters($template);
         $template->setFile(__DIR__ . '/questions.latte');
         $template->uploadPath = $this->uploadStorage->path;
-        $template->assignment = $assignment;
-        $template->solution = $solution;
-        $template->form = $form;
+        $template->assignment = $assignment ? $assignment : $this->assignment;
+        $template->solution = $solution ? $solution : $this->solution;
+        $template->form = $form ? $form : $this->form;
         $template->render();
     }
 }

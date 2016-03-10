@@ -105,6 +105,7 @@ solution:
 	runCode: "Run code"
 	viewPrefill: "Show pre-filled code"
 	quickSave: "Quick save"
+	saved: "The assignment's solution has been saved."
 	createAdHoc: "create ad hoc review"
 	addComments: "Add additional comments here."
 	comments: "Comments"
