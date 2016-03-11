@@ -124,6 +124,13 @@
 
 		{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
 			{include homeworkForm}
+			
+			<hr>
+			
+			<h2>Parametry hodnocení</h2>
+			<ol>
+				<li n:foreach="$unit->rubrics as $rubric">{!$rubric|md}</li>
+			</ol>
 		{elseif $lateEdits && $lateEditsAcceptable}
 			<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
 			{include homeworkForm}
