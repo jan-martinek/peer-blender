@@ -27,11 +27,17 @@
 		<hr>
 	{/if}
 	
-	{if $unit = $unit->reading}
+	{if $reading = $unit->reading}
 		<h2>{_messages.unit.reading}</h2>
-		{!$unit|md}
+		{!$reading|md}
 		<hr>
 	{/if}
+	
+	<h2>Parametry hodnocení</h2>
+	<ol>
+		<li n:foreach="$unit->rubrics as $rubric">{!$rubric|md}</li>
+	</ol>
+	<hr>
 {/block}
 
 
@@ -123,14 +129,7 @@
 		{include unitInfo}
 
 		{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
-			{include homeworkForm}
-			
-			<hr>
-			
-			<h2>Parametry hodnocení</h2>
-			<ol>
-				<li n:foreach="$unit->rubrics as $rubric">{!$rubric|md}</li>
-			</ol>
+			{include homeworkForm}			
 		{elseif $lateEdits && $lateEditsAcceptable}
 			<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
 			{include homeworkForm}
