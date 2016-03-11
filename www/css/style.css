@@ -6335,6 +6335,9 @@ h1, h2, h3 {
 
 #content p a, #content li a, #content td a {
   border-bottom: 3px solid rgba(62, 100, 137, 0.2); }
+  #content p a:visited, #content li a:visited, #content td a:visited {
+    color: #9E354A;
+    border-color: rgba(158, 53, 74, 0.2); }
   #content p a:hover, #content li a:hover, #content td a:hover {
     border-color: rgba(62, 100, 137, 0.5); }
 
