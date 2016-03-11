@@ -54,8 +54,8 @@ reading: |
   - [Dušan Janovský: CSS prakticky](http://www.jakpsatweb.cz/css/css-prakticky.html)
   - [Dušan Janovský: Vlastní styly v CSS aneb třídy, identifikátory a složené deklarace](http://www.jakpsatweb.cz/css/css-tridy-class.html)
 rubrics:
-  - "Je shrnutí v prvním úkolu srozumitelné? Pokud jste měl/a zadaný jiný text, konfrontujte závěry autora úkolu a vaše."
-  - "Odpovídá zpracovaný dokument ve druhém úkolu zadání?"
+  - "Je shrnutí v prvním úkolu srozumitelné? Pokud jste měl/a zadaný jiný text, pečlivě srovnejte závěry autora úkolu a vaše závěry."
+  - "Odpovídá zpracovaný stylopis ve druhém úkolu zadání?"
 preface: 
 unfinished: true
 ---
