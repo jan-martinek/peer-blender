@@ -122,9 +122,9 @@ class ReviewPresenter extends BasePresenter
     public function renderFix($id) 
     {
         $this->template->review = $this->courseRegistry->review;
-        $this->template->assignment = $this->courseRegistry->assignment;
+        $this->deliver($this->courseRegistry->assignment);
         $this->template->solution = $this->courseRegistry->solution;
-        $this->template->unit = $this->courseRegistry->unit;
+        $this->deliver($this->courseRegistry->unit);
     }
     
     public function handleFavorite() 

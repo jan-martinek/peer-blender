@@ -15,7 +15,7 @@
 {block breadcrumbs}
 	<p>
 		<a n:href="Homepage:default">{_messages.app.home}</a> &rsaquo;
-		<a n:href="Course:default $unit->course->id">{$unit->course->name}</a> &rsaquo; 
+		<a n:href="Course:default $unit->entity->course->id">{$unit->entity->course->name}</a> &rsaquo; 
 		<a n:href="Unit:default $unit->id">{$unit->name}</a> &rsaquo;
 		<a n:href="Review:default $review->id">{_messages.app.review} {$review->id}</a> &rsaquo;
 		{_messages.review.edit}
