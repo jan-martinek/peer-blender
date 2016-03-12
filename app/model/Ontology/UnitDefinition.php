@@ -68,8 +68,41 @@ class UnitDefinition extends \Nette\Object implements IDefinition
                 'Rubrics are not well-formed (unit ' . $data['name'] . ').');
             return;
         } else {
-            $this->rubrics = $data['rubrics'];    
+            $this->defineRubrics($data['rubrics']);
         }   
+    }
+    
+    /**
+     * Defines unit's rubrics and comments
+     * @param array
+     */
+    private function defineRubrics($rubrics) 
+    {
+        $hasCustomRubrics = FALSE;
+        
+        foreach ($rubrics as $rubric) {
+            if (is_string($rubric)) 
+            {
+                $this->rubrics[] = new Comment($rubric);
+            } 
+            elseif (is_array($rubric)) 
+            {
+                $metric = $rubric['metric'];
+                unset($rubric['metric']);
+                
+                $this->rubrics[] = new Rubric($metric, $rubric);
+                $hasCustomRubrics = TRUE;
+            } 
+            else 
+            {
+                throw new InvalidQuestionDefinitionException(
+                   'Rubrics may be defined only as a string or array.');
+            }
+        }
+        
+        if (!$hasCustomRubrics) {
+            $this->rubrics[] = new DefaultRubric;
+        }
     }
     
     /**
@@ -124,5 +157,49 @@ class UnitDefinition extends \Nette\Object implements IDefinition
     public function produceQuestion($question)
     {
         return $this->assignment->produceQuestion($question);
+    }
+}
+
+class Rubric extends \Nette\Object 
+{
+    private $metric;
+    private $scale;
+    
+    public function __construct($metric, $scale)
+    {
+        $this->metric = $metric;
+        $this->scale = $scale;
+    }
+    
+    public function getMetric()
+    {
+        return $this->metric;
+    }
+    
+    public function getScale()
+    {
+        return $this->scale;
+    }
+}
+
+class DefaultRubric extends Rubric 
+{    
+    public function __construct()
+    {
+    }
+}
+
+class Comment extends \Nette\Object
+{
+    private $instructions;
+    
+    public function __construct($instructions)
+    {
+        $this->instructions = $instructions;
+    }
+    
+    public function getInstructions()
+    {
+        return $this->instructions;
     }
 }
