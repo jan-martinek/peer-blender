@@ -55,8 +55,20 @@ reading: |
   - [Dušan Janovský: CSS prakticky](http://www.jakpsatweb.cz/css/css-prakticky.html)
   - [Dušan Janovský: Vlastní styly v CSS aneb třídy, identifikátory a složené deklarace](http://www.jakpsatweb.cz/css/css-tridy-class.html)
 rubrics:
-  - "Je shrnutí v prvním úkolu srozumitelné? Pokud jste měl/a zadaný jiný text, pečlivě srovnejte závěry autora úkolu a vaše závěry."
-  - "Odpovídá zpracovaný stylopis ve druhém úkolu zadání?"
+  - 
+    metric: "Je shrnutí v prvním úkolu srozumitelné?"
+    0: Shrnutí je nesrozumitelné nebo chybí.
+    1: "Text korektně pracuje s kategoriemi *webových služeb*, *CMS* a *generátorů statických stránek*."
+    2: "Popis rozdílů mezi zmiňovanými kategoriemi nástrojů je srozumitelný."
+    3: "Vysvětlení pracuje s dalšími dohledanými zdroji, které jsou v úkolu zmíněny."
+  - "Pokud jste měl/a zadaný jiný text, pečlivě srovnejte závěry autora úkolu a vaše závěry."
+  - 
+    metric: "Odpovídá zpracovaný stylopis ve druhém úkolu zadání? (Hodnoťte, jak vypadá výsledný dokument při zobrazení v prohlížeči, nejen samotný zdrojový kód.)"
+    0: "Dokument je při zobrazení v prohlížeči nečitelný, popř. stylopis není funkční."
+    1: "Výsledek je spíše nepovedený, ale naplňuje formální požadavky."
+    2: "Z výsledku je znát cílení na konkrétní cílovou skupinu."
+    3: "Výsledek je typograficky kvalitní a vizuálně efektní."
+  - "Okomentujte, kde vnímáte ve stylu dokumentu, který je vytvořen ve druhém úkolu, cílení na konkrétní cílovou skupinu."
 preface: 
 unfinished: true
 ---
