@@ -144,14 +144,16 @@ class UnitDefinition extends \Nette\Object implements IDefinition
     {
         $assignment = $this->assignment->assemble();
         $assignment->unit = $unit;
-        $assignment->rubrics = $this->rubrics;
         $this->factory->assignmentRepository->persist($assignment);
         return $assignment;
     }
     
     public function produceAssignment($assignment)
     {
-        return $this->assignment->produce($assignment);
+        
+        $assignment = $this->assignment->produce($assignment);
+        $assignment->rubrics = $this->rubrics;
+        return $assignment;
     }
     
     public function produceQuestion($question)

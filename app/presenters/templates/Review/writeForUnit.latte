@@ -25,9 +25,16 @@
 					<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 					{if isset($assessment[$name])} 
 						{? $rubric->setValue($assessment[$name])}
+					{elseif $rubric instanceof \Model\Ontology\DefaultRubric && !is_null($review->score)}
+						{? $rubric->setValue($review->score)}
 					{/if}
 					{label $rubric /}
-					{input $rubric, 'rows' => '5'}
+					{if $rubric instanceof \Nette\Forms\Controls\TextArea}
+						{input $rubric, 'rows' => '5'}
+					{else}
+						{?$rubric->getSeparatorPrototype()->setName(NULL)}
+						{input $rubric}
+					{/if}
 					<p n:ifcontent>{inputError $rubric}</p>
 				</div>
 
@@ -40,9 +47,7 @@
 						</div>
 					</div>
 					<div class="columns large-6">
-						{? $form['score']->setValue($review->score)}
-						{label score /}
-						{input score}
+						<p id="totalScore">{_messages.review.totalScore}: <span>&mdash;</span></p>
 						<style> input[type="checkbox"] { margin-right: 5px; } .prefix label { display: inline; } </style>
 						<div class="row collapse">
 							<div class="columns small-5">

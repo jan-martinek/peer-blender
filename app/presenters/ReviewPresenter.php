@@ -152,19 +152,34 @@ class ReviewPresenter extends BasePresenter
     
     protected function createComponentReviewForm() 
     {
-        if (!$this->courseRegistry->assignment->rubrics) {
+        $assignment = $this->produce($this->courseRegistry->assignment);
+        
+        if (!$assignment->rubrics) {
             throw new \Nette\Application\BadRequestException;
         }
         
-        $form = new ReviewForm($this->courseRegistry->review, $this->reviewRepository, $this->translator);
+        $form = new ReviewForm($this->courseRegistry->review, $this->reviewRepository, $assignment->rubrics, $this->translator);
         $form->onSuccess[] = array($this, 'reviewFormSucceeded');
         return $form;
     }
     
     public function reviewFormSucceeded(ReviewForm $form, $values) 
     {   
+        $ratingComplete = TRUE;
+        $ratings = array();
+        foreach ($form['rubrics']->controls as $i => $control) {
+            if ($control instanceof \Nette\Forms\Controls\RadioList) {
+                if (is_null($control->value)) {
+                    $ratingComplete = FALSE;
+                    break;
+                }
+                
+                $ratings[] = $control->value;
+            }
+        }
+        
         $review = $this->courseRegistry->review;
-        $review->score = $values->score;
+        $review->score = $ratingComplete ? $this->calcGeoMean($ratings) : NULL;
         $review->assessmentSet = $values->rubrics;
         $review->notes = $values->notes;
         $review->submitted_at = new DateTime;
@@ -289,5 +304,19 @@ class ReviewPresenter extends BasePresenter
         
         $this->logEvent($comment, 'submit');
         $this->redirect('this');
+    }
+    
+    public function calcGeoMean($array) {
+        if (count($array) == 0) {
+            return 0;
+        }
+
+        $gm = 1;
+        for ($i = 0; $i < count($array); $i++) {
+            $gm *= $array[$i];
+        }
+        $gm = pow($gm, 1 / count($array));
+
+        return $gm;
     }
 }

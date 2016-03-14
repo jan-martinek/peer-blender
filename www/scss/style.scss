@@ -23,6 +23,14 @@ h1, h2, h3 {
 	font-weight: bold;
 }
 
+label {
+	font-size: 1rem;
+}
+
+input[type="radio"] {
+	margin: 0 .3rem .3rem 0;
+}
+
 #content {
 	p a, li a, td a {
 		border-bottom: 3px solid rgba($lightBlue, .2);
@@ -326,4 +334,12 @@ ul.checklist {
 			opacity: .7
 		}
 	}
+}
+
+#totalScore {
+	font-size: 2rem;
+}
+li.selected {
+	font-weight: bold;
+	text-decoration: underline;
 }
