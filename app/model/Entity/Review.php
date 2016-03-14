@@ -9,7 +9,7 @@ use DateTime;
  * @property Solution $solution m:hasOne
  * @property User $reviewed_by m:hasOne(reviewed_by_id)
  * @property DateTime $opened_at
- * @property int|NULL $score
+ * @property float|NULL $score
  * @property string|NULL $assessment
  * @property string|NULL $notes
  * @property DateTime|NULL $submitted_at

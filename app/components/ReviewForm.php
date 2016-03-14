@@ -15,7 +15,7 @@ class ReviewForm extends Form
     private $reviewRepository;
     private $solution;
     
-    public function __construct($review, $reviewRepository, $translator) 
+    public function __construct($review, $reviewRepository, $rubrics, $translator) 
     {    
         parent::__construct();
         
@@ -23,26 +23,36 @@ class ReviewForm extends Form
         $this->solution = $review->solution;
         $this->reviewRepository = $reviewRepository;
         
-        $rubrics = $this->solution->assignment->rubrics;
         $rubricsContainer = $this->addContainer('rubrics');
         foreach ($rubrics as $id => $rubric) {
-            $rubricsContainer->addTextarea($id, 
-                Html::el()->setHtml(Markdown::defaultTransform($rubric))
-            )->setRequired($translator->translate('messages.review.verbalAsssessmentCompulsory'))
-                ->addRule(
-                    Form::MIN_LENGTH, 
-                    $translator->translate('messages.review.assessmentMinimumLength', NULL, array('count' => 20)),
-                    20);
+            if ($rubric instanceof \Model\Ontology\DefaultRubric) {
+                $options = array();
+                for ($score = 0; $score <= 3; $score++) {
+                    $options[$score] = $translator->translate('messages.review.score.' . $score);
+                }
+                
+                $scoreLabel = $translator->translate('messages.review.score.title');
+                $scorePlaceholder = $translator->translate('messages.review.useRubricsWhileChoosingScore');
+                $rubricsContainer->addRadioList($id, $scoreLabel, $options);
+            } elseif ($rubric instanceof \Model\Ontology\Rubric) {
+                $options = array();
+                foreach ($rubric->scale as $score => $description) {
+                    $options[$score] = Html::el()->setHtml(strip_tags(Markdown::defaultTransform($description), '<a><strong><em>'));
+                }
+                
+                $scoreLabel = $rubric->metric;
+                $scorePlaceholder = $translator->translate('messages.review.useRubricsWhileChoosingScore');
+                $rubricsContainer->addRadioList($id, $scoreLabel, $options);
+            } elseif ($rubric instanceof \Model\Ontology\Comment) {
+                $rubricsContainer->addTextarea($id, 
+                    Html::el()->setHtml(Markdown::defaultTransform($rubric->instructions))
+                )->setRequired($translator->translate('messages.review.verbalAsssessmentCompulsory'))
+                    ->addRule(
+                        Form::MIN_LENGTH, 
+                        $translator->translate('messages.review.assessmentMinimumLength', NULL, array('count' => 20)),
+                        20);
+            }
         }
-        
-        $options = array();
-        for ($i = 0; $i <= 3; $i++) {
-            $options[$i] = $translator->translate('messages.review.score.' . $i);
-        }
-        
-        $scoreLabel = $translator->translate('messages.review.score.title');
-        $scorePlaceholder = $translator->translate('messages.review.useRubricsWhileChoosingScore');
-        $this->addSelect('score', $scoreLabel, $options)->setPrompt($scorePlaceholder);
         
         $notesLabel = $translator->translate('messages.review.notes');
         $this->addTextarea('notes', $notesLabel);

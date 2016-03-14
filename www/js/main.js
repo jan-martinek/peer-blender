@@ -16,6 +16,7 @@ var PeerBlender = {
 		this.ThirdParty.init();
 		this.Highlighting.init();
 		this.Chat.init();
+		this.Review.init();
 		
 		$('a[href^=http]').attr('target', '_blank');
 	},
@@ -26,6 +27,57 @@ var PeerBlender = {
 		
 			$(".tablesorter").tablesorter(); 
 		}	
+	},
+	
+	Review: {
+		init: function() {
+			var reviewOngoing = ($('.assignmentQuestion input:radio').length > 0);
+			if (reviewOngoing) {
+				this.updateScore();
+				$(document).on('change', '.assignmentQuestion input:radio', this.updateScore);	
+			}
+			
+		},
+		
+		updateScore: function() {
+			var allAnswered = true;
+			$('.assignmentQuestion input:radio').each(function(){
+			    if($(':radio[name="'+$(this).attr('name')+'"]:checked').length == 0)
+			    {
+			        allAnswered = false;
+			    }
+			});
+			
+			$('#totalScore span').text(allAnswered ? PeerBlender.Review.calculateScore() : '—');
+		},
+		
+		calculateScore: function() {
+			var values = [];
+			
+			$.each($('.assignmentQuestion input:radio').serializeArray(), function(i, rubric) {
+				values.push(rubric.value);
+			});
+			
+			if (values.length == 0) {
+				return '—';
+			} else {
+				return Math.round(this.geoMean(values)*100)/100;;
+			}
+		},
+		
+		geoMean: function(arr) {
+			if (arr.length == 0) {
+				return 0.0;
+			}
+
+			var gm = 1.0;
+			for (var i = 0; i < arr.length; i++) {
+				gm *= arr[i];
+			}
+			gm = Math.pow(gm, 1.0 / arr.length);
+
+			return gm;
+		}
 	},
 	
 	Highlighting: {	

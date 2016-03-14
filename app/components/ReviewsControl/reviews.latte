@@ -22,7 +22,8 @@
 				<li>
 					<span style="color: #f90; font-weight: bold">
 						{if !is_null($review->score)}
-							{_messages.review.shortScore.$review->score}
+							{var score = round($review->score)}
+							{_messages.review.shortScore.$score}
 						{else}
 							&mdash;
 						{/if}

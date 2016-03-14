@@ -24,6 +24,14 @@ class QuestionsControl extends Control
         $template->addFilter('imd', function ($s) {
             return strip_tags(Markdown::defaultTransform($s), '<a><strong><em>');
         });
+        //stars
+        $this->template->addFilter('stars', function ($s) {
+            if ($s == 0) {
+                return '—';
+            } else {
+                return str_repeat('★', $s);    
+            }
+        });
     }	
 	
     public function render(\Model\Ontology\AssignmentProduct $assignment, \Model\Entity\Solution $solution = null, \App\Components\HomeworkForm $form = null)

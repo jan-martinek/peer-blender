@@ -158,6 +158,14 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->template->addFilter('imd', function ($s) {
             return strip_tags(Markdown::defaultTransform($s), '<a><strong><em>');
         });
+        //stars
+        $this->template->addFilter('stars', function ($s) {
+            if ($s == 0) {
+                return '—';
+            } else {
+                return str_repeat('★', $s);    
+            }
+        });
     }
 
     protected function createTemplate($class = null)

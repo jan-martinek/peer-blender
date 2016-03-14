@@ -62,15 +62,34 @@
 		{var answers = $review->assessmentSet}
 		<div n:foreach="$assignment->rubrics as $id => $rubric" class="assignmentQuestion">
 			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-			<label>{!$rubric|md}</label>
-			<div class="panel">{!=nl2br(htmlspecialchars($answers[$id]))}</div>
+			{if $rubric instanceof \Model\Ontology\DefaultRubric}
+				<label>{_messages.review.score.title}</label>
+				<div class="panel">
+					{var score = isset($answers[$id]) ? $answers[$id] : $review->score}
+					<ol start="0">
+						{var scale = array(0, 1, 2, 3);}
+						<li n:foreach="$scale as $i" n:class="$score == $i ? selected">{_messages.review.score.$i}</li>
+					</ol>
+					
+				</div>
+			{elseif $rubric instanceof \Model\Ontology\Rubric}
+				<label>{!$rubric->metric|imd}</label>
+				<div class="panel">
+					<ol start="0">
+						<li n:foreach="$rubric->scale as $score => $description" n:class="$score == $answers[$id] ? selected">{$score|stars} {!$description|imd}</li>
+					</ol>
+				</div>
+			{elseif $rubric instanceof \Model\Ontology\Comment}
+				<label>{!$rubric->instructions|md}</label>
+				<div class="panel">{!=nl2br(htmlspecialchars($answers[$id]))}</div>
+			{/if}
 		</div>
 
-		<h3>{_messages.review.score.title}<h3>
+		<h3>{_messages.review.totalScore}<h3>
 		
 		<p>
 			{if !is_null($review->score)}
-				{_messages.review.score.$review->score}
+				<p id="totalScore">{=round($review->score)|stars} {$review->score}</p>
 			{else}
 				<span style="color: #aaa">{_messages.review.score.missing}</a>
 			{/if}
