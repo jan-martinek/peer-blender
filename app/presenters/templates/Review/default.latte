@@ -89,7 +89,7 @@
 		
 		<p>
 			{if !is_null($review->score)}
-				<p id="totalScore"><span>{$review->score}</span></p>
+				<p id="totalScore">{=round($review->score)|stars} {$review->score}</p>
 			{else}
 				<span style="color: #aaa">{_messages.review.score.missing}</a>
 			{/if}
