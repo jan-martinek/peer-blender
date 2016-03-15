@@ -104,7 +104,7 @@ solution:
 	notComplete: "Úkol zatím není hotový a v současném stavu nebude připuštěn k hodnocení. Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
 	runCode: "Spustit kód"
 	viewPrefill: "Zobrazit původní kód"
-	quickSave: "Průběžně uložit"
+	quickSave: "Uložit úkol"
 	saved: "Úloha byla uložena."
 	createAdHoc: "vytvořit ad hoc recenzi"
 	addComments: "Zde můžete okomentovat zpracovaný úkol."
