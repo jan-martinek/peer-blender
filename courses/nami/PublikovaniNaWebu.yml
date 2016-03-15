@@ -208,4 +208,6 @@ prefill: |
 ---
 bloom: apply
 questions: |
-  V minulém úkolu vám možná kolegové zaslali do repozitáře pohádku (snad i několik): vytvořené pull requesty schvalte a do komentáře vložte informaci o počtu přijatých pohádek a odkaz na váš repozitář.
+  V minulém úkolu vám možná kolegové zaslali do repozitáře pohádku (snad i několik): vytvořené pull requesty schvalte a do komentáře vložte informaci o počtu přijatých pohádek a odkaz na váš repozitář. 
+  
+  Pokud jste žádné nedostali, pouze odkažte na váš repozitář.
