@@ -101,7 +101,7 @@ solution:
 		hours: "po %hours% hodinách a %minutes% minutách od vygenerování úkolu."
 		minutes: "po %minutes% minutách od vygenerování úkolu."
 	complete: "Úkol je hotový a bude připuštěn k hodnocení.	 Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
-	notComplete: "Úkol zatím není hotový a v současném stavu nebude připuštěn k hodnocení. Než bude možné zadávat vzájemné hodnocení (%date%), můžete jej ještě průběžně upravovat."
+	notComplete: "Úkol není hotový a v současném stavu nebude připuštěn k hodnocení.<br> Do začátku hodnocení (%date%) jej můžete upravovat."
 	runCode: "Spustit kód"
 	viewPrefill: "Zobrazit původní kód"
 	quickSave: "Uložit úkol"
