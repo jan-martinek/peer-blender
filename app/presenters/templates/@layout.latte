@@ -40,10 +40,16 @@
             </ul>
             
             <ul class="left">
-                <!-- <li>{block new}<a href=""><i class="fa fa-file-o"></i> _messages.kb.newEntry</a>{/block}</li> -->
+                {block topBarLeft}{/block}
             </ul>
         </section>
     </nav>
+    
+    {snippet flashMessages}
+        <div class="flashMessages" n:ifcontent>
+            <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{!$flash->message|imd}</p>
+        </div>
+    {/snippet}
 
     <header class="row">
             <div class="columns">
@@ -57,9 +63,7 @@
                 {/block}
             </div>
             
-            <div class="columns" n:ifcontent>
-                <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{!$flash->message|imd}</p>
-            </div>
+            
             
             <div class="columns" n:if="isset($reviewsWithProblems) && count($reviewsWithProblems)">
                 <div class="panel callout" style="background: #fee">

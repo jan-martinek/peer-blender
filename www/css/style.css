@@ -6599,4 +6599,34 @@ li.selected {
   font-weight: bold;
   text-decoration: underline; }
 
+.flashMessages {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  width: 300px;
+  margin-left: -150px;
+  z-index: 999; }
+
+#form-controls {
+  z-index: 99;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  padding: 10px 0;
+  box-shadow: 0 0 3px rgba(100, 100, 100, 0.5); }
+  #form-controls .row {
+    margin: 0 auto;
+    max-width: 62.5rem;
+    width: 100%; }
+  #form-controls p {
+    margin: 0;
+    line-height: 1.3em; }
+  #form-controls button {
+    display: block;
+    width: 100%;
+    padding: 10px 15px;
+    margin: 0; }
+
 /*# sourceMappingURL=style.css.map */

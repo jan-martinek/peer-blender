@@ -64,6 +64,10 @@ class UnitPresenter extends BasePresenter
         
         $this->template->isFavorited = $unit->isFavoritedBy($this->userInfo);
         $this->logEvent($unit, 'open');
+        
+        $this['questionsRenderer']->assignment = $this->produce($assignment);
+        $this['questionsRenderer']->solution = $this->courseRegistry->solution;
+        $this['questionsRenderer']->form = $this['homeworkForm'];
     }
 
     public function renderDefault($id)

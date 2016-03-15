@@ -105,6 +105,7 @@ solution:
 	runCode: "Spustit kód"
 	viewPrefill: "Zobrazit původní kód"
 	quickSave: "Průběžně uložit"
+	saved: "Úloha byla uložena."
 	createAdHoc: "vytvořit ad hoc recenzi"
 	addComments: "Zde můžete okomentovat zpracovaný úkol."
 	comments: "Komentář"

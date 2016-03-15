@@ -11,11 +11,39 @@ var PeerBlender = {
 	baseUri: '',
 	
 	init: function() {
+		$.nette.ext('status', {
+			start: function() {
+				$('#quick-save-button i.fa').attr('class', 'fa');
+				$('#quick-save-button i.fa').addClass('fa-spinner fa-spin');
+				
+			},
+			success: function() {
+				$('#quick-save-button i.fa').attr('class', 'fa');
+				$('#quick-save-button i.fa').addClass('fa-check');
+				setTimeout(function() { 
+					$('#quick-save-button i.fa').removeClass('fa-check'); 
+					$('#quick-save-button i.fa').addClass('fa-save');
+				}, 2000);
+			},
+			error: function(xhr, status, error) {
+				//var err = eval("(" +  + ")");
+				$('#quick-save-button i.fa').attr('class', 'fa');
+				$('#quick-save-button i.fa').addClass('fa-exclamation-triangle');
+			}
+		});
+		$.nette.ext('flash', {
+			complete: function () {
+				$('.flashMessages').animate({
+					opacity: 1.0
+				}, 4000).fadeOut(700);
+			}
+		});
 		$.nette.init();
+
 		
 		this.ThirdParty.init();
 		this.Highlighting.init();
-		this.Chat.init();
+		//this.Chat.init();
 		this.Review.init();
 		
 		$('a[href^=http]').attr('target', '_blank');
@@ -111,6 +139,12 @@ var PeerBlender = {
 			
 			$('.assignmentQuestion > textarea').each(function() {
 				PeerBlender.Highlighting.initCodeMirror($(this));
+			});
+			
+			$('#quick-save-button').click(function(e) {
+				for (var i = 0; i < PeerBlender.Highlighting.editors.length; i++) {
+					PeerBlender.Highlighting.editors[i].save();
+				}
 			});
 		},
 		

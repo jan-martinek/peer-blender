@@ -93,17 +93,21 @@ class HomeworkForm extends Form
         $this->presenter->solutionRepository->persist($solution);
         
         $this->saveAnswers($courseRegistry->assignment->questions, $values->questions, $values->comments);
-        
-        $backToButton = '';
-        $httpData = $form->getHttpData();
-        foreach (array_keys($httpData) as $k) {
-            if (preg_match('/^quick-save-button-[0-9]+$/', $k)) {
-                 $backToButton = '#' . $k;
-            }
-        }
-        
         $this->presenter->logEvent($solution, $event);
-        $this->presenter->redirect('this' . $backToButton);
+        
+        if ($this->presenter->isAjax()) {
+            $this->presenter->flashMessage($this->presenter->translator->translate('messages.solution.saved'));
+            $this->presenter->invalidateControl('flashMessages');
+            $this->presenter->invalidateControl('formInfo');
+            foreach ($form['questions']->getControls() as $q) {
+                if ($q instanceof \Nette\Forms\Controls\UploadControl) {
+                    $this->presenter['questionsRenderer']->invalidateControl('question-' . $q->name);
+                }
+            }
+            $this->presenter['questionsRenderer']->invalidateControl('assignmentQuestions');
+        } else {
+            $this->presenter->redirect('this');
+        }
     }
     
     public function saveAnswers($questions, $values, $comments) 
