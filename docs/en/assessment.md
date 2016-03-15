@@ -12,6 +12,23 @@ A review may enter several states:
 
 There needs to be a *clear justification* in every objection and rejection (of an objection or a fix) written in the comment.
 
+## Assessment rubrics
+
+Every assessment consists of several comments and rubrics.
+
+- The reviewer provides an informed commentary through comments. The instructions may contain even a request for a further look into the topic or some kind of interaction (answering questions from the student being assessed etc.). This should provide an opportunity for a reflection of the assessed assignment's and of the topic itself at the same time.
+	- Comment examples:
+		- “If you had another article in your own assignment, compare your conclusions to the ones above.”
+		- “Is the summary articulate and the conclusions convincing?”
+- The rubrics are used to score specific aspects of the assignment's solution. Every rubric is comprised of several levels that should be objectively „measurable“: the reviewer should be able to clearly decide which level has been achieved by the author of the assessed assignment. (It's possible to build a review structure without a specific rubric: then a „default rubric“ is used, however reducing the comparability and fairness of scoring.)
+	- Example of a rubric and scoring scale: *„Is the summary and explanation well written?“*
+		- The summary is missing or inarticulate.
+		- The author uses the important categories (web services, CMS, static web generators) correctly.
+		- The description of differences between important categories is right.
+		- The explanation uses further sources on the subject and they are cited or mentioned.
+
+The overall score is calculated as a geometric mean. It's similar to arithmetic mean, using the multiplication instead of addition. This has one principal consequence: if one rubric is scored with zero point, the review itself is rated zero points. This stresses the importance of assignment's completion. (Otherwise a student who fails to touch the practical part of the assignment could be rated high for their theoretical learning success: nevertheless failing to reach the educational goals.)
+
 ## Review lifecycle
 
 The possible lifecycle is as follows:

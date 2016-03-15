@@ -12,6 +12,23 @@ Recenze může projít několika fázemi:
 
 Námitky a odmítnutí (námitky či opravené recenze) musejí obsahovat jasné zdůvodnění sepsané v komentáři.
 
+## Rubriky hodnocení
+
+Každá recenze se skládá z několika komentářů a hodnotících rubrik. 
+
+- V komentářích se recenzent *vyjadřuje* ke konkrétním aspektům úkolu, popř. na něj reaguje či jej rozvíjí. Komentáře slouží jednak k hlubší reflexi zpracovaného úkolu, ale poskytují též příležitost k pohledu na vzdělávací obsah.
+	- Příklady komentářů: 
+		- „Pokud jste měl/a zadaný jiný text, pečlivě srovnejte závěry autora úkolu a vaše závěry.“
+		- „Je shrnutí a postoj autora srozumitelné a argumentačně přesvědčivé? (Pokud si nemyslíte, že to dokážete zhodnotit, přečtěte si nějaký doplňkový text.)“
+- Rubriky slouží k *hodnocení* konkrétních aspektů úkolu a obsahují předdefinované stupně hodnocení, které by měly být objektivně měřitelné. (Strukturu recenze je možné postavit bez specifických rubrik: pak je využita „obecná“ rubrika, což však snižuje porovnatelnost jednotlivých hodnocení.)
+	- Příklad rubriky a stupňů hodnocení: *„Je shrnutí v prvním úkolu srozumitelné?“*
+    	- Shrnutí je nesrozumitelné nebo chybí.
+    	- "Text korektně pracuje s kategoriemi *webových služeb*, *CMS* a *generátorů statických stránek*."
+    	- "Popis rozdílů mezi zmiňovanými kategoriemi nástrojů je srozumitelný."
+    	- "Vysvětlení pracuje s dalšími dohledanými zdroji, které jsou v úkolu zmíněny."
+ 
+Z číselných hodnocení je vytvořen geometrický průměr, který je obdobou aritmetického průměru, jen místo sčítání využívá násobení. To má jeden zásadní důsledek: pokud se mezi hodnoceními objeví nula, celý úkol je hodnocen nulou. Tím je kladen důraz na zpracování kompletních úkolů (aby nedocházelo např. k tomu, že studenti zpracují teoretickou část a vynechají praktickou – úkol se pak zdá být „napůl zpracovaný“, ale z hlediska získaných dovedností je nedostatečný).
+
 ## Životní cyklus 
 
 Recenze může projít následující cestou:
