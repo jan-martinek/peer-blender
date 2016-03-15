@@ -1,11 +1,5 @@
 {block title}{$unit->name}{/block}
 
-{block topBarLeft}
-	{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
-		<li>{block new}<a href="" id="quick-save-button"><i class="fa fa-save"></i> {_messages.solution.quickSave}</a>{/block}</li>
-	{/if}
-{/block}
-
 {block favorites}
 	<small><a n:href="favorite!" {if $isFavorited}style="color: gold"{/if}>&#9733;</a>{$unit->entity->countFavorites()}</small>
 {/block}
@@ -43,24 +37,8 @@
 
 {block homeworkForm}
 	<h2>
-		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
 		{_messages.unit.myHomework}
 	</h2>
-	
-	{snippet formInfo}
-		<div n:if="$solution" class="panel callout">
-			<p>{!_messages.unit.homeworkSaved|imd}<br>
-			
-			{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
-				{if $solution && $solution->isComplete()}
-					<span style="color: green">●</span> {_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
-				{else}
-					<span style="color: red">●</span> {_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
-				{/if}
-			{/if}
-			</p>
-		</div>	
-	{/snippet}
 	
 	{!$unit->preface|md}
 	
@@ -68,10 +46,26 @@
 	{form homeworkForm, class => "ajax"}
 		{control questionsRenderer}
 		
-		<hr>
-		
-		{input submit, 'class' => 'button'} 
-		<p>{!_messages.unit.submitRepeatedly|imd}</p>
+		<div id="form-controls">
+			<div class="row">
+				<div class="columns large-2">
+					<button type="submit" id="quick-save-button"><i class="fa fa-save"></i> {_messages.solution.quickSave}</button>
+				</div>
+				<div class="columns large-10">
+					{snippet formInfo}
+						<div n:if="$solution">
+							<p n:if="$unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)">
+								{if $solution && $solution->isComplete()}
+									<span style="color: green">●</span> {!_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+								{else}
+									<span style="color: red">●</span> {!_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+								{/if}
+							</p>
+						</div>	
+					{/snippet}
+				</div>
+			</div>
+		</div>
 	{/form}
 	
 	<form id="previewForm" action="{link Solution:preview}" target="preview_iframe" method="post" style="display: none;">

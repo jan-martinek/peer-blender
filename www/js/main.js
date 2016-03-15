@@ -11,12 +11,6 @@ var PeerBlender = {
 	baseUri: '',
 	
 	init: function() {
-		
-		$('#quick-save-button').click(function(e) {
-			$('#frm-homeworkForm input[type="submit"]').click();
-			e.preventDefault();
-		});
-		
 		$.nette.ext('status', {
 			start: function() {
 				$('#quick-save-button i.fa').attr('class', 'fa');
@@ -93,6 +87,12 @@ var PeerBlender = {
 			
 			$('.assignmentQuestion > textarea').each(function() {
 				PeerBlender.Highlighting.initCodeMirror($(this));
+			});
+			
+			$('#quick-save-button').click(function(e) {
+				for (var i = 0; i < PeerBlender.Highlighting.editors.length; i++) {
+					PeerBlender.Highlighting.editors[i].save();
+				}
 			});
 		},
 		
