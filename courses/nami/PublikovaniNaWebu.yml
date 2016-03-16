@@ -5,7 +5,7 @@ goals: |
   
   > **Poznámka:** Pozor na záludost: v angličtině snadno odlišitelné *web* a *website* se do češtiny překládá často stejně (*web*). Jen občas se používají přesnější, ale buď zavádějící nebo nezvyklé pojmy jako *webové stránky* nebo *webové sídlo*. Při čtení tak musíte dávat pozor, zda je zmiňován *web* nebo *web* (sic).
   
-  ***
+  ### Platformy pro publikování na webu
   
   **Podíváme se na tři způsoby, jak pracovat s vlastním obsahem**, který chcete zveřejnit na internetu. Využít k tomu můžete:
   
@@ -17,7 +17,7 @@ goals: |
   
   Každý ze způsobů publikování je jen zjednodušením práce, kterou byste mohli provést sami pomocí HTML, CSS a Javascriptu. Zjednodušují spolupráci, redukují množství potřebných znalostí a standardizují práci s obsahem i samotný obsah. To zároveň znamená, že jsou samy o sobě omezením: pomocí HTML, CSS a Javascript můžete zpracovat nejrůznější dokumenty a aplikace, zatímco dané platformy nastavují velmi konkrétní procesy a obsahové formáty, které pak musíte dodržovat a naplňovat.
   
-  ***
+  ### Kaskádové styly
   
   **Druhou a časově náročnější součástí je práce s CSS**, neboli kaskádovými styly (Cascading Style Sheets). Jde o způsob, jak sémantickému HTML dát vizuální podobu. Vracíme se zde k základům, ale namísto obsahu se budeme zabývat formou. HTML a CSS tvoří (společně s javascriptem) to, co vidíte na jakékoli webové stránce – se znalostí obojího již můžete vytvořit velmi pokročilý webový obsah.
   
