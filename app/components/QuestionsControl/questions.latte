@@ -1,5 +1,5 @@
 {define question}
-	{var $displayAsForm = $assignment->entity->unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED) || $lateEdits}
+	{var $displayAsForm = ($assignment->entity->unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED) || $lateEdits) && (isset($form) && $form)}
 
 	<p n:ifcontent class="label warning">
 		{if $question->legacy}
