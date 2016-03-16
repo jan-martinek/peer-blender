@@ -6607,6 +6607,15 @@ li.selected {
   margin-left: -150px;
   z-index: 999; }
 
+.rubricsPreview {
+  list-style: none;
+  margin-left: 0; }
+  .rubricsPreview > li {
+    margin-bottom: 1rem; }
+  .rubricsPreview ol {
+    list-style: none;
+    margin-left: 2rem; }
+
 #form-controls {
   z-index: 99;
   position: fixed;

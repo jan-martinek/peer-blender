@@ -112,6 +112,7 @@ solution:
 	noComment: "Ponecháno bez komentáře."
 review:
 	title: "Peer-assessment"
+	rubrics: "Parametry hodnocení"
 	score: 
 		title: "Hodnocení"
 		0: "nula: špatný výsledek zapříčiněný neporozumění obsahu"

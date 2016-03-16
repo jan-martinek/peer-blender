@@ -112,6 +112,7 @@ solution:
 	noComment: "Left without any comment."
 review:
 	title: "Peer-assessment"
+	rubrics: "Assessment rubrics"
 	score: 
 		title: "Score"
 		0: "zero: bad work, author does not understand the topic"
