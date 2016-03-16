@@ -39,10 +39,10 @@
 	{/if}
 {/block}
 
-{block finishedHomework}
+{block finishedAssignment}
 	<h2>
 		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
-		{_messages.unit.homework}
+		{_messages.unit.assignment}
 	</h2>
 	
 	<div class="panel callout" n:if="$solution->unit->isFinalized()">
@@ -82,7 +82,7 @@
 	<div class="columns">
 		{include unitInfo}	
 	
-		{include finishedHomework}
+		{include finishedAssignment}
 		
 		<hr>
 			

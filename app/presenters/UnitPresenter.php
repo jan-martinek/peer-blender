@@ -2,7 +2,7 @@
 
 namespace App\Presenters;
 
-use App\Components\HomeworkForm;
+use App\Components\AssignmentForm;
 use DateTime;
 use Model\Entity\Log;
 
@@ -67,7 +67,7 @@ class UnitPresenter extends BasePresenter
         
         $this['questionsRenderer']->assignment = $this->produce($assignment);
         $this['questionsRenderer']->solution = $this->courseRegistry->solution;
-        $this['questionsRenderer']->form = $this['homeworkForm'];
+        $this['questionsRenderer']->form = $this['assignmentForm'];
         $this['questionsRenderer']->lateEdits = $lateEdits;
     }
 
@@ -93,13 +93,13 @@ class UnitPresenter extends BasePresenter
         $this->redirect('this');
     }
     
-    protected function createComponentHomeworkForm() 
+    protected function createComponentAssignmentForm() 
     {
         if (!$this->courseRegistry->assignment) {
             throw new \Nette\Application\BadRequestException;
         }
         
-        $form = new HomeworkForm(
+        $form = new AssignmentForm(
             $this, $this->produce($this->courseRegistry->assignment->questions)
         );
         

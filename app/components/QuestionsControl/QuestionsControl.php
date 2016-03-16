@@ -38,7 +38,7 @@ class QuestionsControl extends Control
         });
     }	
 	
-    public function render(\Model\Ontology\AssignmentProduct $assignment = null, \Model\Entity\Solution $solution = null, \App\Components\HomeworkForm $form = null)
+    public function render(\Model\Ontology\AssignmentProduct $assignment = null, \Model\Entity\Solution $solution = null, \App\Components\AssignmentForm $form = null)
     {
         $template = $this->template;
         $this->setTemplateFilters($template);

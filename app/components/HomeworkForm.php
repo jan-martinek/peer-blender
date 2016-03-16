@@ -9,7 +9,7 @@ use Model\Entity\Answer;
 use Model\Entity\Solution;
 use DateTime;
 
-class HomeworkForm extends Form
+class AssignmentForm extends Form
 {   
     private $presenter;
     
@@ -36,13 +36,13 @@ class HomeworkForm extends Form
                         ->addRule(
                             Form::MAX_FILE_SIZE, 
                             $translator->translate(
-                                'messages.unit.homeworkAttachmentNote', 
+                                'messages.unit.assignmentAttachmentNote', 
                                 NULL, 
                                 array('filesize' => $maxKb)
                             ), 
                             $maxKb * 1024)
                         ->setOption('description', $translator->translate(
-                                'messages.unit.homeworkAttachmentNote', 
+                                'messages.unit.assignmentAttachmentNote', 
                                 NULL, 
                                 array('filesize' => $maxKb)
                             ));
@@ -69,12 +69,12 @@ class HomeworkForm extends Form
             }
         }    
         
-        $submitLabel = $translator->translate('messages.unit.submitHomework');
+        $submitLabel = $translator->translate('messages.unit.submitAssignment');
         $this->addSubmit('submit', $submitLabel);
         $this->onSuccess[] = array($this, 'formSucceeded');
     }
     
-    public function formSucceeded(HomeworkForm $form, $values) 
+    public function formSucceeded(AssignmentForm $form, $values) 
     {
         $courseRegistry = $this->presenter->courseRegistry;
         
@@ -126,7 +126,7 @@ class HomeworkForm extends Form
             
             $questionProduct = $this->presenter->produce($question);
             if ($questionProduct->input == 'file') {
-                $answer->text = $this->saveHomeworkFile(
+                $answer->text = $this->saveAssignmentFile(
                     $courseRegistry->course->id,
                     $courseRegistry->unit->id,
                     $this->presenter->user->id,
@@ -148,18 +148,18 @@ class HomeworkForm extends Form
     /**
      * @return string uploaded filename
      */
-    private function saveHomeworkFile($courseId, $unitId, $userId, $file, $current) 
+    private function saveAssignmentFile($courseId, $unitId, $userId, $file, $current) 
     {
         if ($file->isOK()) {
-            $this->removeHomeworkFile($current);   
-            $path = "/course-$courseId/homeworks/unit-$unitId/user-$userId/";
+            $this->removeAssignmentFile($current);   
+            $path = "/course-$courseId/assignments/unit-$unitId/user-$userId/";
             return $this->presenter->uploadStorage->moveUploadedFile($file, $path);
         } else {
             return $current;
         }
     }
     
-    private function removeHomeworkFile($filename) 
+    private function removeAssignmentFile($filename) 
     {
         $absoluteFilename = $this->presenter->uploadStorage->getAbsolutePath($filename);
         

@@ -10,7 +10,7 @@
 		<a n:href="Course:default $course->id">{$course->name}</a> &rsaquo; 
 		{if $lateEdits}
 			<a n:href="Unit:default $unit->id">{_messages.app.unit}</a> &rsaquo; 
-			{_messages.unit.homeworkEdit}
+			{_messages.unit.assignmentEdit}
 		{else}
 			{_messages.app.unit}			
 		{/if}
@@ -60,15 +60,15 @@
 {/block}
 
 
-{block homeworkForm}
+{block assignmentForm}
 	<h2>
-		{_messages.unit.myHomework}
+		{_messages.unit.myAssignment}
 	</h2>
 	
 	{!$unit->preface|md}
 	
 	
-	{form homeworkForm, class => "ajax"}
+	{form assignmentForm, class => "ajax"}
 		{control questionsRenderer}
 		
 		<div id="form-controls">
@@ -100,10 +100,10 @@
 {/block}
 
 
-{block finishedHomework}
+{block finishedAssignment}
 	<h2>
 		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
-		{_messages.unit.myHomework}
+		{_messages.unit.myAssignment}
 	</h2>
 
 	{!$unit->preface|md}
@@ -151,12 +151,12 @@
 		{include unitInfo}
 
 		{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
-			{include homeworkForm}			
+			{include assignmentForm}			
 		{elseif $lateEdits && $lateEditsAcceptable}
 			<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
-			{include homeworkForm}
+			{include assignmentForm}
 		{elseif !is_null($solution) && $solution->isComplete()}
-			{include finishedHomework}
+			{include finishedAssignment}
 			
 			<hr>
 			
