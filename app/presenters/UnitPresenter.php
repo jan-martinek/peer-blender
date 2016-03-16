@@ -68,6 +68,7 @@ class UnitPresenter extends BasePresenter
         $this['questionsRenderer']->assignment = $this->produce($assignment);
         $this['questionsRenderer']->solution = $this->courseRegistry->solution;
         $this['questionsRenderer']->form = $this['homeworkForm'];
+        $this['questionsRenderer']->lateEdits = $lateEdits;
     }
 
     public function renderDefault($id)

@@ -1,5 +1,5 @@
 {define question}
-	{var $publishedIsCurrentPhase = $assignment->entity->unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
+	{var $displayAsForm = $assignment->entity->unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED) || $lateEdits}
 
 	<p n:ifcontent class="label warning">
 		{if $question->legacy}
@@ -18,13 +18,13 @@
 		{/if}
 	</label>
 	
-	{if $publishedIsCurrentPhase}
+	{if $displayAsForm}
 		{var formQuestion = $form['questions'][$key]}
 	{/if}
 	
 	{if $input == 'file'}
 		<div class="panel">
-			{if $publishedIsCurrentPhase}
+			{if $displayAsForm}
 				{label $formQuestion}
 					<p>{input $formQuestion}</p>
 					<p>{$formQuestion->getOption('description')}</p>
@@ -38,13 +38,13 @@
 					<a href="{$baseUri}{$uploadPath}{$question->entity->answer->text}">
 						{=pathinfo($question->entity->answer->text, PATHINFO_BASENAME)}
 					</a>
-				{elseif !$publishedIsCurrentPhase}
+				{elseif !$displayAsForm}
 					<span style="color: #aaa">{_messages.unit.notAnswered}</a>
 				{/if}
 			</p>
 		</div>
 	{else}
-		{if $publishedIsCurrentPhase}
+		{if $displayAsForm}
 			{input $formQuestion, 'rows' => '10'}
 			<p n:ifcontent>{inputError $formQuestion}</p>
 		{elseif isset($question->entity->answer)}
@@ -75,8 +75,8 @@
 		{/if}
 	{/if}
 	
-	<div n:if="$question->comments > 0" {if !$publishedIsCurrentPhase}class="panel"{/if}>
-		{if $publishedIsCurrentPhase}
+	<div n:if="$question->comments > 0" {if !$displayAsForm}class="panel"{/if}>
+		{if $displayAsForm}
 			{input $form['comments'][$key], 'rows' => $question->comments}
 		{else}
 			{if isset($question->entity->answer->comments)}

@@ -11,6 +11,7 @@ class QuestionsControl extends Control
     public $assignment;
     public $solution;
     public $form;
+    public $lateEdits = FALSE;
     
     public function __construct(\Model\UploadStorage $storage) 
     {
@@ -45,6 +46,7 @@ class QuestionsControl extends Control
         $template->uploadPath = $this->uploadStorage->path;
         $template->assignment = $assignment ? $assignment : $this->assignment;
         $template->solution = $solution ? $solution : $this->solution;
+        $template->lateEdits = $this->lateEdits;
         $template->form = $form ? $form : $this->form;
         $template->render();
     }
