@@ -115,18 +115,12 @@ review:
 	rubrics: "Parametry hodnocení"
 	score: 
 		title: "Hodnocení"
-		0: "nula: špatný výsledek zapříčiněný neporozumění obsahu"
-		1: "★ špatný výsledek, ale je za tím vidět práce"
-		2: "★★ průměrná práce s chybami, ale je znát porozumění obsahu"
-		3: "★★★ slušná práce (může obsahovat drobné chyby)"
+		0: "špatný výsledek zapříčiněný neporozumění obsahu"
+		1: "špatný výsledek, ale je za tím vidět práce"
+		2: "průměrná práce s chybami, ale je znát porozumění obsahu"
+		3: "slušná práce (může obsahovat drobné chyby)"
 		placeholder: "Ohodnoťte tento úkol"
 		missing: "Neohodnoceno"
-	shortScore:
-		0: "—"
-		1: "★"
-		2: "★★"
-		3: "★★★"
-		missing: "?"
 	status:
 		title: "Stav"
 		prep: "Příprava"

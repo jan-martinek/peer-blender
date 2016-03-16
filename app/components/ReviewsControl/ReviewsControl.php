@@ -18,11 +18,7 @@ class ReviewsControl extends Control
         });
         //stars
         $this->template->addFilter('stars', function ($s) {
-            if ($s == 0) {
-                return '—';
-            } else {
-                return str_repeat('★', $s);    
-            }
+            return \App\Components\ReviewForm::renderRatingStars($s);
         });
     }	
 	

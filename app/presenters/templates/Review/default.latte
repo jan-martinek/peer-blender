@@ -68,7 +68,7 @@
 					{var score = isset($answers[$id]) ? $answers[$id] : $review->score}
 					<ol start="0">
 						{var scale = array(0, 1, 2, 3);}
-						<li n:foreach="$scale as $i" n:class="$score == $i ? selected">{_messages.review.score.$i}</li>
+						<li n:foreach="$scale as $i" n:class="$score == $i ? selected">{!$i|stars} {_messages.review.score.$i}</li>
 					</ol>
 					
 				</div>
@@ -76,7 +76,7 @@
 				<label>{!$rubric->metric|imd}</label>
 				<div class="panel">
 					<ol start="0">
-						<li n:foreach="$rubric->scale as $score => $description" n:class="$score == $answers[$id] ? selected">{$score|stars} {!$description|imd}</li>
+						<li n:foreach="$rubric->scale as $score => $description" n:class="$score == $answers[$id] ? selected">{!$score|stars} {!$description|imd}</li>
 					</ol>
 				</div>
 			{elseif $rubric instanceof \Model\Ontology\Comment}
@@ -89,7 +89,7 @@
 		
 		<p>
 			{if !is_null($review->score)}
-				<p id="totalScore">{=round($review->score)|stars} {$review->score}</p>
+				<p id="totalScore">{!=round($review->score)|stars} {$review->score}</p>
 			{else}
 				<span style="color: #aaa">{_messages.review.score.missing}</a>
 			{/if}

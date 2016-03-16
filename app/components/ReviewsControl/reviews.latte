@@ -23,7 +23,7 @@
 					<span style="color: #f90; font-weight: bold">
 						{if !is_null($review->score)}
 							{var score = round($review->score)}
-							{_messages.review.shortScore.$score}
+							{!$score|stars}
 						{else}
 							&mdash;
 						{/if}

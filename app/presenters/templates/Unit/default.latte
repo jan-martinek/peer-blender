@@ -39,16 +39,16 @@
 			{if $rubric instanceof \Model\Ontology\DefaultRubric}
 				<span class="label">{_messages.review.score.title}</span><br>
 				<ol start="0">
-					<li>{_messages.review.score.0}</li>
-					<li>{_messages.review.score.1}</li>
-					<li>{_messages.review.score.2}</li>
-					<li>{_messages.review.score.3}</li>
+					<li>{!0|stars} {_messages.review.score.0}</li>
+					<li>{!1|stars} {_messages.review.score.1}</li>
+					<li>{!2|stars} {_messages.review.score.2}</li>
+					<li>{!3|stars} {_messages.review.score.3}</li>
 				</ol>
 			{elseif $rubric instanceof \Model\Ontology\Rubric}
 				<span class="label">{_messages.review.score.title}</span><br>
 				{!$rubric->metric|imd}
 				<ol start="0">
-					<li n:foreach="$rubric->scale as $score => $description">{$score|stars} {!$description|imd}</li>
+					<li n:foreach="$rubric->scale as $score => $description">{!$score|stars} {!$description|imd}</li>
 				</ol>
 			{elseif $rubric instanceof \Model\Ontology\Comment}
 				<span class="label secondary">{_messages.review.comment}</span>

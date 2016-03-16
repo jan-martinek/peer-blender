@@ -115,18 +115,12 @@ review:
 	rubrics: "Assessment rubrics"
 	score: 
 		title: "Score"
-		0: "zero: bad work, author does not understand the topic"
-		1: "★ bad result, but some work is visible"
-		2: "★★ average work with some issues, but author's understanding of the topic is visible"
-		3: "★★★ good work (can contain minor issues)"
+		0: "bad work, author does not understand the topic"
+		1: "bad result, but some work is visible"
+		2: "average work with some issues, but author's understanding of the topic is visible"
+		3: "good work (can contain minor issues)"
 		placeholder: "Rate this assignment"
 		missing: "score not given"
-	shortScore:
-		0: "—"
-		1: "★"
-		2: "★★"
-		3: "★★★"
-		missing: "?"
 	status:
 		title: "Status"
 		prep: "Preparation"

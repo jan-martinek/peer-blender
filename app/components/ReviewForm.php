@@ -28,7 +28,7 @@ class ReviewForm extends Form
             if ($rubric instanceof \Model\Ontology\DefaultRubric) {
                 $options = array();
                 for ($score = 0; $score <= 3; $score++) {
-                    $options[$score] = $translator->translate('messages.review.score.' . $score);
+                    $options[$score] = Html::el()->setHtml($this->renderRatingStars($score) . ' ' . $translator->translate('messages.review.score.' . $score), '<a><strong><em>');
                 }
                 
                 $scoreLabel = $translator->translate('messages.review.score.title');
@@ -37,7 +37,7 @@ class ReviewForm extends Form
             } elseif ($rubric instanceof \Model\Ontology\Rubric) {
                 $options = array();
                 foreach ($rubric->scale as $score => $description) {
-                    $options[$score] = Html::el()->setHtml(strip_tags(Markdown::defaultTransform($description), '<a><strong><em>'));
+                    $options[$score] = Html::el()->setHtml($this->renderRatingStars($score) . ' ' . strip_tags(Markdown::defaultTransform($description), '<a><strong><em>'));
                 }
                 
                 $scoreLabel = $rubric->metric;
@@ -62,5 +62,17 @@ class ReviewForm extends Form
         
         $submitLabel = $translator->translate('messages.review.submit');
         $this->addSubmit('submit', $submitLabel);
+    }
+    
+    public static function renderRatingStars($count) 
+    {
+        if ($count === 'missing') {
+            $stars = '?';
+        } elseif ($count == 0) {
+            $stars = '—';
+        } else {
+            $stars = str_repeat('★', $count);
+        }
+        return '<span style="color: #AA7C39; font-weight: bold">' . $stars . '</span>';
     }
 }
