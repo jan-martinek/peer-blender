@@ -1,0 +1,224 @@
+name: "Publikování na webu II"
+summary: "V návazné lekci se seznámíme se základy informační architektury, prohloubíme znalost práce s CSS a načneme semestrální projekt."
+goals: |
+  **Cílem této lekce je posunout se od teoretické znalosti webových technologií k jejich používání při práci s obsahem.**
+  
+  Krom základního vhledu do informační architektury nahlédneme hlouběji se naučíme lépe používat CSS styly a rozběhneme si web na platformě Jekyll, který nám ve zbytku semestru poslouží jako základ semestrálního projektu.
+reading: | 
+  [Každé sdělení má záměr.](https://en.wikipedia.org/wiki/Jakobson%27s_functions_of_language) Aby se záměr naplnil, snažíme se komunikovat efektivně: srozumitelně, jasně, nahlas atp. Náročnost efektivní komunikace se liší u osobní konverzace, SMSek našim blízkým, knih pro široké publikum, televizních projevů, veřejných tweetů či blogpostů. Liší se obsah, struktura, komunikační kanál, médium, cílová skupina, časovost a další aspekty sdělení.
+  
+  ### Informační architektura
+  
+  Obdobně jako při psaní textu pracujeme s myšlenkovými mapami, osnovami a dalšími nástroji, práce se s rozsáhlým hypertextově provázaným obsahem vyžaduje specifické pomůcky. A (nejen) těmi se zabývá *informační architektura*. Podobně jako při stavbě domu nestačí znát jen technické dovednosti, ale je potřebné přizpůsobit dům jeho účelu (ať už jde o bydlení, výuku nebo ošetřování nemocných), nemůžeme ani web udělat správně bez ohledu na jeho účel.
+  
+  Abyste získali jasnější představu o IA, přečtěte si první dvě kapitoly jedné z nejcitovanějších knih o daném oboru. Najdete je ve [studijních materiálech](http://is.muni.cz/auth/el/1421/jaro2016/VIKBA07/um/). Text kapitol si doplňte rychlým pročtením alespoň dvou doplňkových textů (doporučuji projít alespoň části prvních tří textů, které se věnují konkrétním metodám a nástrojům, které úvodní kapitoly nezmiňují):
+    
+  - [UX Booth: Complete Beginner’s Guide to Information Architecture](http://www.uxbooth.com/articles/complete-beginners-guide-to-information-architecture/)
+  - [Cameron Chapman: The Ultimate Guide to Information Architecture](http://www.webdesignerdepot.com/2015/02/the-ultimate-guide-to-information-architecture/)
+  - [Cameron Chapman: Information Architecture 101: Techniques and Best Practices](http://sixrevisions.com/usabilityaccessibility/information-architecture-101-techniques-and-best-practices/)
+  - [Makulová Soňa: Informačná architektúra (recenze)](http://ikaros.cz/informacna-architektura)
+  - [Wikipedia: Informační architektura](https://cs.wikipedia.org/wiki/Informačn%C3%AD_architektura)
+  
+  Krom toho najdete v prvním úkolu jeden z několika dalších textů, které pro úplnost uvádím zde:
+    
+  - [TECED: IA Evaluation Methodologies](http://teced.com/services/information-architecture-ia/ia-evaluation-methodologies/)
+  - [Craig Tomlin: 8 Free Tools for Good Information Architecture and Usability](http://www.usefulusability.com/8-free-tools-for-good-information-architecture-and-usability/)
+  - [Usability.gov: Information Architecture Methods](http://www.usability.gov/how-to-and-tools/methods/information-architecture/index.html)
+  - [Mickey McManus: What is Information Architecture?](http://maya.com/blog/what-is-information-architecture)
+  - [Jason Shen: Reading Notes on How to Make Sense of Any Mess by Abby Covert](http://www.jasonshen.com/2015/reading-notes-make-sense-mess-abby-covert/)
+  - [David Travis: Card Games for Information Architects](http://www.userfocus.co.uk/articles/cardgames.html)
+  - [Daniel Brown: Eight Principles of Information Architecture](http://www.slideshare.net/brownorama/eight-principles-of-information-architecture)
+time: 2h
+rubrics:
+  - 
+    metric: "Pracuje autor/ka úkolu dobře s koncepty IA v prvních třech úkolech?"
+    0: "Některý z úkolů není vůbec vypracovaný."
+    1: "Autor/ka nejspíše nerozumí dané problematice, byť některé postřehy jsou zajímavé."
+    2: "V definicích a ve shrnutí textu se objevují chyby."
+    3: "Definice jsou vytvořeny výstižně a shrnutí textu je sepsáno srozumitelně a přínosně."
+  - "Zodpovězte otázky položené v odpovědi na úkol č. 1." 
+  -
+    metric: "Kaskádové styly jsou vytvořeny dobře."
+    0: "Úkol není vůbec vypracován a nebo jej nelze na základě poskytnutých informací ohodnotit (chybí zdroj či inspirace pro vizuální styl, styly jsou nefunkční, atp.)"
+    1: "Styly jsou vytvořeny vhodně a mezi inspiračním vzorem a výsledkem jsou podobnosti, místy se objevují nelogičnosti nebo chyby."
+    2: "Styly jsou vytvořeny vhodně a mezi inspiračním vzorem a výsledkem jsou podobnosti."
+    3: "Podoba výsledného souboru s vizuálním inspirací je výrazná."
+  - 
+    metric: "Je navržené téma dobré?"
+    0: Návrh tématu chybí anebo jde o holý nesmysl.
+    1: V českém kontextu jde o provařené téma a autor/ka nenabízí vlastní pohled na dané téma.
+    2: V českém kontextu jde o zajímavé téma či pohled na něj.
+    3: "Návrh je velmi konkrétní, jasný a dobře formulovaný."
+  - 
+    metric: "Instalace Jekyllu je v pořádku."
+    0: "Úkol není splněn, popř. na doméně `<jmeno>.github.io` není zobrazen žádný obsah."
+    1: "Instalace je v pořádku, ale zcela chybí obsahové úpravy."
+    2: "Chybí některé vyžadované obsahové úpravy."
+    3: "Vše, co je vyžadováno v úkolu, je v pořádku splněno."
+preface: 
+---
+bloom: understand
+time: 1h
+params:
+  article:
+    - "[TECED: IA Evaluation Methodologies](http://teced.com/services/information-architecture-ia/ia-evaluation-methodologies/)"
+    - "[Craig Tomlin: 8 Free Tools for Good Information Architecture and Usability](http://www.usefulusability.com/8-free-tools-for-good-information-architecture-and-usability/)"
+    - "[Usability.gov: Information Architecture Methods](http://www.usability.gov/how-to-and-tools/methods/information-architecture/index.html)"
+    - "[Mickey McManus: What is Information Architecture?](http://maya.com/blog/what-is-information-architecture)"
+    - "[Jason Shen: Reading Notes on How to Make Sense of Any Mess by Abby Covert](http://www.jasonshen.com/2015/reading-notes-make-sense-mess-abby-covert/)"
+    - "[David Travis: Card Games for Information Architects](http://www.userfocus.co.uk/articles/cardgames.html)"
+    - "[Daniel Brown: Eight Principles of Information Architecture](http://www.slideshare.net/brownorama/eight-principles-of-information-architecture)"
+questions: |
+  Přečtěte si materiál %article% a shrňte základní informace v něm obsažené. Pokud jsou zmiňovány konkrétní pracovní postupy a principy, vyjmenujte je a popište je vlastními slovy (snažte se pracovat s jednoduchými českými slovy).
+  
+  Položte čtenáři vašeho textu dvě otázky, které se týkají toho, co vám v daných textech není jasné. (Pokud je vám všechno jasné, přečtěte si texty pečlivěji.)
+---
+bloom: understand
+time: 30
+params:
+  term:
+    - labeling
+    - navigace
+    - nalezitelnost
+    - "jediná, krátká definice IA"
+    - reprezentace
+    - dokument
+    - organizování
+    - obsah
+    - kontext
+    - uživatel
+    - metadata
+    - struktura
+questions: "Vysvětlete v kontextu informační architektury termín *%term%*."
+---
+bloom: evaluate
+time: 30
+questions: |
+  Pokuste se vytvořit vlastní definici informační architektury v maximální délce 140 znaků. Okomentujte vlastní definici: co se do ní nevešlo? Proč vnímáte jako důležitější právě to, co jste do definice zahrnuli?
+comments: 10
+---
+bloom: apply
+time: 2h30
+questions: |
+  **Práce s HTML, CSS či Javascriptem má velkou výhodu: zdrojový kód je veřejně dostupný a můžete se učit z práce jiných.** Můžete se podívat na celý zdrojový kód (byť občas narazíte na nesnadno čitelný kód), nebo si pomocí vývojářských nástrojů v prohlížeči můžete prohlédnout vlastnosti konkrétních prvků v DOM.
+
+  V minulé lekci jste zpracovávali vlastní vizuální styl pohádky. Tentokrát je zadání podobné: místo snahy o tvorbu vlastního vizuálního stylu se pokuste o výrazné připodobnění HTML obsahu k již existujícímu populárnímu webu. (Doporučuji výběr vizuálně výrazného a známého webu, popř. brandu.)
+
+  Výběr webu je na vás. Do HTML kódu tentokrát můžete přidávat další obsah, ale netvořte kopii vašeho vizuálního vzoru: aplikujte CSS na předloženou strukturu. Cílem není vytvořit kopii ale vzbudit pocit, že obsah vizuálně patří k vizuální identitě vzorového webu.
+  
+  Upravte obsah ve vstupním poli a stejně jako minule nahrejte kód i jako soubor do vašeho prvního repozitáře. Adresu vzorového webu a adresu vašeho repozitáře uveďte do komentáře pod vstupním polem.
+comments: 2
+input: html
+prefill: |
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>O chytrém ševci a hloupém čertovi</title>
+    <meta charset="utf-8">
+    <style>
+      body, html {
+      
+      }
+    </style>
+  </head>
+  <body>
+    <div class="content">
+      <header>
+        <p class="zanr">Pohádka</p>
+      
+        <h1>O chytrém ševci a hloupém čertovi</h1>
+      
+        <p class="autor">autor původního textu: <span class="name">Miloš Novotný</span></p>
+        
+        <p class="zdroj">adaptováno z textu dostupného na <a href="http://dum.rvp.cz/materialy/pohadka-o-chytrem-sevci-a-hloupem-certovi.html">RVP.cz</a></p>
+      </header>
+      
+      <section id="uvod">
+        <p>Jeden švec měl moc dětí a málo peněz. Takže měl i velkou bídu. Jednou z toho byl tak nešťastný, že zavolal čerta, aby mu pomohl. A čert tu byl raz dva.</p>
+
+        <p><i>„Co si žádáš? Všechno ti splním. <em>Stačí podepsat mi pekař tady papír, že mi dáváš svoji duši.</em>“</i></p>
+      </section>
+      
+      <section id="pytel">
+        <h2>Pytel peněz</h2>
+
+        <p>Švec tedy podepsal a chtěl pytel zlatých peněz, tak velký, jaký jen čert unese. Čert se vypravil do pekla a za chvíli byl i s obrovským pytlem zpátky. Pak popadl svůj papír a  s ševcovým podpisem a upaloval domů. Pyšně ho tam ukázal svému tatínkovi, hlavnímu čertovi, ale ten se na něj místo pochvaly rozkřiknul: <i>„Za jediného obyčejného ševce jsi dal tolik zlatých peněz?! Ty darebáku. Okamžitě jdi za ním, ať ti ty peníze vrátí a svůj podpis si nechá!“</i> S tím vyhnali nešťastného čerta z pekla. Nezbylo mu, než se vydat zpátky za ševcem.</p>
+
+        <p>Přišel k ševci a povídá: <i>„Je mi tě líto, že jsi svou duši odkázal peklu. A já bych zas docela rád dostal zpátky ten pytel zedník peněz,“</i></p>
+        
+        <aside>
+          <blockquote>
+            „Čerti to zkrátka nemají lehké.“
+          </blockquote>
+        </aside>
+
+        <p><i>„Víš co,“</i> zasmál se švec. <i>„Uděláme to takhle: Budeme spolu soutěžit. Když vyhraješ ty, dostaneš zpátky pytel peněz a můžeš si nechat i ten papír s mým podpisem. Ale když vyhraji já, vrátíš mi papír a pytel zlata si nechám.“</i></p>
+      </section>
+      
+      <section id="soutez">
+        <h2>Soutěžení</h2>
+
+        <p>Takový návrh se čertovi zalíbil. Znal různá čertovská kouzla a myslel si, že určitě vyhraje.</p>
+
+        <p><i>„A v čem budeme soutěžit?“</i></p>
+
+        <ol>
+          <li>
+            <p><i>„Nejdřív budeme zápasit. Ale já bych ti mohl ublížit, a tak se raději budeš potýkat s mým dědečkem. Podívej se, zrovna támhle spí v křoví. Jdi a vzbuď ho.“</i></p>
+
+            <p>Čert vlezl do křoví, kde spal zrovna velký huňatý medvěd. Zatahal medvěda za krejčí nohu, ten se vzbudil, a že byl z toho probuzení celý rozmrzelý, popadl čerta a praštil s ním o zem. Čert se polekal a utekl do pekla. Když ho ale uviděl hlavní čert a slyšel, co se stalo, hned poslal čerta zpátky. Nezbylo mu, než jít znovu za ševcem.</p>
+
+            <p><i>„Pojď, budeme spolu zase soutěžit. Tentokrát určitě vyhraju.“</i></p>
+          </li>
+          <li>
+            <p><i>„Jak myslíš,“</i> povídá švec. <i>„Budeš tedy závodit s mým synkem. Je docela malý a určitě ho předběhneš spíš, než mě. Podívej se, támhle zrovna sedí!“</i> A švec ukázal na zajíčka, krčícího se v brázdě.</p>
+
+            <p>Čert se rozběhl, ale ten na nic nečekal a upaloval tak rychle, že byl za kominík chvilku pryč. A tak čert znovu prohrál.</p>
+
+            <p><i>„Budeme soutěžit ještě jednou,“</i> navrhl ševci.</p>
+            
+            <p><i>„Proč by ne?“</i> souhlasil švec.</p>
+          </li>
+          <li>
+            <p><i>„Budeme házet kamenem. Kdo jej vyhodí výš, ten vyhraje.“</i></p>
+
+            <p><i>„Výborně,“</i> souhlasil horlivě čert, protože uměl znamenitě házet. A hned popadl velký kámen a hodil ho tak vysoko, že museli dlouho čekat,než spadl zpátky na zem.</p>
+
+            <p>Švec si mezitím schoval do dlaně malého ptáčka zpěváčka, kterého si choval doma v klícce. Když na něj přišla řada, vyhodil ptáčka do vzduchu, a ten letěl vysoko a daleko. Čekali dlouho, předlouho, ale kde nic, tu nic.</p>
+
+            <p>Čert uznal, že zase prohrál. Vrátil ševci papír s jeho podpisem a nechal mu i pytel zlata. Musel s nepořízenou domů. Že tam dostal zase vynadáno, to si domyslíte. Čerti to zkrátka nemají lehké.</p>
+          </li>
+        </ol>
+      </section>
+        
+      <section id="zaver">
+        <h2>Spravedlnost?</h2>
+        
+        <p>A chytrý švec s rodinou se radovali, jak převezli hloupého čerta.</p>
+      </section>
+
+      <footer>
+        <p>Konec</p>
+      </footer>
+
+    </div>
+  </body>
+  </html>
+---
+bloom: create
+time: 15
+questions: |
+  Na základě vašich stávajících zájmů si vyberte téma, které byste chtěli zpracovávat během semestrálního projektu. Výsledkem by měla být webová stránka, která informuje o nějakém fenoménu (osobnost, kulturní fenomén, technologie, historický jev, cokoli…): v ideálním případě by mělo jít o téma, o kterém není na českém webu dostatek informací anebo jste o schopní poskytnout vlastní zajímavý pohled.
+  
+  Počítejte s tím, že veškeré výstupy v předmětu budou licencovány pod některou z volných licencí (výběr bude na vás).
+---
+bloom: apply
+time: 45
+questions: |
+  Již vícekrát jsme v předmětu narazili na generátor statických stránek [Jekyll](https://jekyllrb.com). 
+
+  Vytvořte si vlastní web založený na Jekyllu pomocí předpřipravené instalace [Jekyll Now](http://www.jekyllnow.com). Následujte návod, který najdete [přímo na stránce repozitáře](https://github.com/barryclark/jekyll-now#quick-start). Pracujte se soubory pomocí aplikace [Github Desktop](https://desktop.github.com) a [vhodně popisujte jednotlivé commity](https://www.zdrojak.cz/clanky/commitujte-jako-profik/).
+
+  Následně v návaznosti na téma, které jste popsali v předchozím úkolu, připravte obsah webu: ve složce `/_posts/` upravte první příspěvek a vhodně upravte soubory `/_config.yml` (nastavení webu) a `/about.md` (popis webu).
+
+  Pokud dojde k problémům, přijde vám e-mail s popisem chyb. Během práce a na konci ověřte, že váš web na adrese ve tvaru `<jmeno>.github.io` je funkční a aktuální (generování aktuální verze chvíli trvá).
