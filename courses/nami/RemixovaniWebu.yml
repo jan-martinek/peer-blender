@@ -1,0 +1,182 @@
+name: "Remixování webu"
+summary: "Web je otevřený a v souladu s licencemi je možné skládat různé zdroje do jednoho celku."
+goals: |
+  **Cílem této lekce je osvojit si několik základních způsobů, jak skládat data dostupná na webu do celků.** Konkrétně se mrkneme, jak funguje vkládání pomocí `iframe` a skriptů a pak si vyzkoušíme z určitého webu vytáhnout data a transformovat je do podoby, která je pro nás zajímavá.
+reading: |
+  Přebírání dat dostupných na webu třetími stranami je významnou součástí fungování webu. Příkladem mohou být vyhledávače jako je [Google](http://google.com) či [Seznam](http://seznam.cz), vkládání obsahu ze sociálních sítí a videoserverů.
+  
+  Obsah je možné skládat do jednoho celku různými způsoby. Profesionální řešení, které musí spolehlivě fungovat (jako prodejní či informační služba), bude nejspíše pracovat přímo na serveru a bude využívat především strojově čitelných zdrojů dat. My si vyzkoušíme skládání zdrojů přímo ve webovém prohlížeči: pomocí prvku iframe, skriptů či specifických HTML prvků.
+  
+  Základní přehled o prvku `iframe` můžete získat i z velmi starého článku na [JakPsátWeb](http://www.jakpsatweb.cz/iframe.html), nicméně je nutné podotknout: dnes již nejde o běžnou formu práce s vlastním webem (kvůli zásadním problémům s vyhledávači a díky rozšíření skriptování na straně serveru). Prvek se využívá při přidávání funkcionality z externího zdroje (například [lajkovací tlačítka Facebooku](https://developers.facebook.com/docs/plugins/like-button), diskusní pluginy jako je [Disqus](https://disqus.com) apod.).
+  
+  Přečtěte si článek [Hacking, Mashing, Gluing: Understanding Opportunistic Design](http://webremix.org/readings/hackingmashinggluing.pdf), který vysvětluje některé motivace za „lepením“ webů dohromady. Autoři používají technický slovník: některé kapitoly můžete přeskočit. Nejpřístupnější a snad i nejzajímavější jsou závěrečné kapitolky na posledních třech stranách — od mezititulku „Mashing as a design activity“ (s. 52).
+time: 30
+rubrics:
+  -
+    metric: "Jsou úkoly, které se věnují vkládání kód (první dva úkoly) splněné?"
+    0: "Jeden z úkolů není vůbec splněn."
+    1: "V prvním úkolu jsou vloženy kódy, ale nejsou dobře okomentovány. Ve druhém úkolu jsou chyby — technické problémy nebo není vhodně zvolený vložený obsah."
+    2: "První úkol je nedotažený (nevalidní kód, chybějící služby), popř. v druhém úkolu je chyba, kvůli které se nevygeneroval dobrý HTML kód."
+    3: "Vše je v pořádku: v prvním úkolu je validní HTML. Příspěvek na blogu je tematicky správně zvolený a vložený obsah je funkční."
+  - "Okomentujte, jak jsou zpracované první dva úkoly. Doporučte, jak je zpracovat lépe."
+  -
+    metric: "Jsou úkoly pracující s Xpath splněné?"
+    0: "Jeden z úkolů zcela chybí."
+    1: "V užití funkce `ImportXML` a v zápisech Xpath jsou chyby."
+    2: "Užití funkce `ImportXML` i zápisy Xpath jsou v pořádku, ale není dotažené počítadlo titulků."
+    3: "Vše je v pořádku: počítadlo korektně počítá titulky, v nichž se vyskytuje zvolené slovo." 
+  - "Pokud se v úkolech, které pracují s Xpath, vyskytují chyby, popište je a předveďte správné řešení."
+  -
+    metric: "Je CSS vylepšené pro jiného uživatele dobře zpracované?"
+    1: "Úkol není vůbec zpracován."
+    2: "Úpravy a vylepšení nejsou příliš kvalitní."
+    3: "Úpravy a vylepšení jsou dobře zpracované a na pohled významné, ale chybí jejich podrobnější popis v commitu."
+    4: "Úpravy a vylepšení jsou dobře zpracované a okomentované v commitu/pull requestu."
+preface: 
+---
+# embed
+bloom: understand
+time: 1h
+questions: |
+  Na přednášce bylo zmíněno mnoho zdrojů, které pobízejí uživatele ke vkládání kusů kódu do vlastních webů. Jde většinou o `embed`, `iframe`, `script` nebo složitější kód (často kvůli tomu, aby kód lépe fungoval v různých prohlížečích).
+  
+  Jde například o [Twitter](http://twitter.com) (vkládání tweetů), [Youtube](http://youtube.com) (vkládání videí), [Facebook](http://facebook.com) (vkládání statusů, odznaků aj.), [Disqus](http://disqus.com) (komentáře ke článkům i jinam), [Flickr](http://.com) (vkládání fotoalb), [Soundcloud](http://soundcloud.com) a [Spotify](http://spotify.com) (vkládání písniček), [Google Calendar](http://calendar.google.com) (veřejný kalendář), [Slideshare](http://slideshare.com) (vkládání konkrétních slajdů) a další. 
+  
+  Najděte tři další služby, které podporují vkládání obsahu do vlastního webu a přiložte konkrétní kód. (Pokud budete hledat v angličtině, klíčové slovo je „embed“).
+  
+  Obsah vložte do pole jako validní HTML a jednotlivé kusy kódu popište (ať už v odstavcích anebo pomocí HTML komentářů).
+input: html
+prefill: |
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>Zpracovaný úkol</title>
+  </head>
+  <body>
+    <!-- zde vložte obsah -->
+  </body>
+  </html>
+---
+# embed/iframe apply
+bloom: apply
+time: 30
+questions: |
+  Najděte relevantní obsah, který byste mohli vložit pomocí výše používaných funkcí na svůj web vytvořený pomocí Jekyllu. 
+  
+  > Pokud ještě nemáte nainstalovaný Jekyll, dokončete předchozí lekci. Pokud to již není možné, nainstalujte si jej [podle návodu z repozitáře Jekyll Now](https://github.com/barryclark/jekyll-now#quick-start).
+  
+  Vytvořte druhý blogpost ve složce `_posts` a do něj vložte embedovaný obsah a komentář, proč jste jej vybrali.
+  
+  Odkažte na commit, v němž daný blogpost umístíte na Github, a na Githubem vygenerovanou stránku (na webu `<jmeno>.github.io`).
+input: html
+---
+# xpath
+bloom: remember
+time: 1h
+params:
+  set:
+    - nadpisy druhé úrovně
+    - texty odkazů uvnitř odstavců
+    - webové adresy v odkazech
+    - odkazy v navigaci (uvnitř elementu `nav`)
+    - použité hodnoty atributu `class`
+    - použité hodnoty atributu `id`
+    - vytučněné texty pomocí značky `<strong>`
+questions: |
+  **Jazyk Xpath** je způsob, jak popsat, jaké elementy v XML/HTML dokumentu chceme najít. Příkladem může být, nalezení všech odkazů, nadpisů nebo tučně zvýrazněných slov na konkrétní webové stránce. Je to podobné jako vybírání záznamů z databáze, ale místo řádků hledáme prvky ve stránce. Též je to podobné selektorům v CSS. Například pro výběr všech popisků obrázků (atributů `alt`) bychom mohli použít zápis `\\img\@alt`.
+  
+  `ImportXML` je funkce v Google Spreadsheets, která umožňuje vytáhnout z libovolné webové stránky pomocí Xpath konkrétní data. Jde o konkrétní techniku *scrapování*, tzn. sběru dat z webu. Taková data pak můžete snadno prozkoumat, analyzovat a dělat z nich různé závěry. (Například můžete vytáhnout všechny titulky ze zpravodajských webů a analyzovat, jakým tématům se věnují.)
+  
+  Přečtěte si velmi [krátký tutoriál](http://mrselenium.blogspot.cz/2011/01/quick-xpath-for-dummies.html) a prvních pět kapitol návodu [The ImportXML Guide for Google Docs](https://www.distilled.net/blog/distilled/guide-to-google-docs-importxml/). Pokud vám něco nebude jasné, dohledejte si výukové video na Youtube, je jich [mnoho](https://www.youtube.com/watch?v=EXhmF9rjqP4).
+  
+  Napište Xpath, pomocí které můžete dohledat všechny %set% ve stránce.
+input: html
+prefill: "\\\\"
+---
+# xpath
+bloom: apply
+time: 1h
+params:
+  type:
+    - tuzemský seriózní
+    - tuzemský bulvární
+    - tuzemský oborový (z libovolného oboru)
+    - zahraniční
+    - zahraniční oborový (z libovolného oboru)
+questions: |
+  Vyberte si libovolný %type% zpravodajský server a pomocí `ImportXML` vytáhněte do Google Spreadsheetu titulky, které jsou zobrazeny na homepage. (V prohlížeči zjistěte, v jakém elementu jsou titulky běžně zobrazeny. Pokud je na homepage více různých elementů s titulky, vyberte si ten nejčastější.)
+  
+  Prohlédněte si výsledky a vytvořte v nějaké buňce bokem (případně na jiném listu) počítadlo, které počítá titulky, která obsahují slovo, které se v titulcích opakuje (u bulvárního média to může být jméno celebrity, u seriózního média se může objevovat častěji některá aktuální kauza). K počítání můžete použít funkci [`COUNTIF`](https://support.google.com/docs/answer/3093480?hl=en).
+  
+  Vytvořený spreadsheet nasdílejte ke čtení a odkažte ve vstupním poli. Doplňte název zvoleného zpravodajského serveru.
+---
+# css fixes
+bloom: apply
+time: 2h
+params:
+  user:
+    - "[423783](https://github.com/423783/)"
+    - "[Elysiona](https://github.com/Elysiona/)"
+    - "[ochova](https://github.com/ochova/)"
+    - "[Kubby18](https://github.com/Kubby18/)"
+    - "[andywaltlova](https://github.com/andywaltlova/)"
+    - "[kajavar](https://github.com/kajavar/)"
+    - "[jandel](https://github.com/jandel/)"
+    - "[1aklatan](https://github.com/1aklatan/)"
+    - "[picko010](https://github.com/picko010/)"
+    - "[Soelferwulf](https://github.com/Soelferwulf/)"
+    - "[pmkovar](https://github.com/pmkovar/)"
+    - "[BarcaFukarkova](https://github.com/BarcaFukarkova/)"
+    - "[kiki-chan](https://github.com/kiki-chan/)"
+    - "[michalx96](https://github.com/michalx96/)"
+    - "[Pater99](https://github.com/Pater99/)"
+    - "[Luko01](https://github.com/Luko01/)"
+    - "[nobunaga1234](https://github.com/nobunaga1234/)"
+    - "[WendyDarling](https://github.com/WendyDarling/)"
+    - "[cteny](https://github.com/cteny/)"
+    - "[439185](https://github.com/439185/)"
+    - "[A449907B](https://github.com/A449907B/)"
+    - "[450000](https://github.com/450000/)"
+    - "[Kristyna3252](https://github.com/Kristyna3252/)"
+    - "[katkasobotkova](https://github.com/katkasobotkova/)"
+    - "[dokiinka](https://github.com/dokiinka/)"
+    - "[Kikus](https://github.com/Kikush)"
+    - "[CoffeeWithMILF](https://github.com/CoffeeWithMILF/)"
+    - "[ondra35](https://github.com/ondra35/)"
+    - "[projectgorilla](https://github.com/projectgorilla/)"
+    - "[Dobesova](https://github.com/Dobesova/)"
+    - "[YansHolo](https://github.com/YansHolo/)"
+    - "[ButterFly07](https://github.com/ButterFly07/)"
+    - "[daebaknoona](https://github.com/daebaknoona/)"
+    - "[MT-1913](https://github.com/MT-1913/)"
+    - "[VendyStr](https://github.com/VendyStr/)"
+    - "[449289](https://github.com/449289/)"
+    - "[HavelockatGITHUB](https://github.com/HavelockatGITHUB/)"
+    - "[MaseKarel](https://github.com/MaseKarel/)"
+    - "[maturo164](https://github.com/maturo164/)"
+    - "[ennie193](https://github.com/ennie193/)"
+    - "[hrozinka](https://github.com/hrozinka/)"
+    - "[Cermakvoj](https://github.com/Cermakvoj/)"
+    - "[447926](https://github.com/447926/)"
+    - "[zbvaculik](https://github.com/zbvaculik/)"
+    - "[181Anne](https://github.com/181Anne/)"
+    - "[438059](https://github.com/438059/)"
+    - "[Thrallismos](https://github.com/Thrallismos/)"
+    - "[janafolkova](https://github.com/janafolkova/)"
+questions: |
+  Najděte v repozitářích uživatele/ky %user% pohádku, kterou vytvořil/a během některé z předchozích lekcí. Repozitář si naklonujte, opravte či vylepšete kód CSS, a dané změny commitněte (dobře popište, co a proč jste změnili) a pošlete změny pomocí pull requestu zpět autorovi.
+  
+  Do vstupního pole vložte odkaz na pull request.
+input: html
+---
+# projekt
+bloom: create
+time: 20
+questions: |
+  Poslední úkol je pouze formální: jde o tvorbu projektových týmů. [Ve spreadsheetu](https://docs.google.com/spreadsheets/d/1c5jR4M08K2Rqjeu9tPOCnVzv4rMHPCRgMCej138NwmI/edit#gid=0) se zapište k tématu, které vás zajímá. 
+  
+  Domluvte se s kolegy na složení týmu (využijte ISový mail, osobní kontakt, [hledací vlákno ve fóru](https://is.muni.cz/auth/cd/1421/jaro2016/VIKBA07/62708834) či jiný kanál) a zapište se do předepsaných políček. Pokud jste zapsáni u cizího tématu, vepište ke svému tématu „zrušeno“.
+  
+  **Seznam témat dostupný v neděli večer — poté, co skončí předchozí lekce, v níž jsou témata vkládána do e-learningu.**
+  
+  Jakmile budete zapsáni, napište do vstupního pole „OK“. Studenti, kteří nebudou na konci lekce zařazeni do dvou- či tříčlenného týmu, budou do týmů přiřazeni náhodně.
