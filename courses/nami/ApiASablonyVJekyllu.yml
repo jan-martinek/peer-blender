@@ -1,0 +1,209 @@
+name: "API a šablony v Jekyllu"
+summary: "API definuje rozhraní aplikace. V Jekyllu se naučíme psát šablony."
+goals: |
+  Cílem této lekce je porozumět konceptu API a naučit se základní dovednosti při práci s šablonami v Jekyllu.
+reading: |
+  > **Poznámka:** Kvůli zahraničnímu výjezdu velké části ročníku v této lekci není zařazen týmový úkol. Všechny úkoly jsou zpracovávány samostatně.
+
+  ### API (Application Programming Interface)
+  
+  API je definice rozhraní aplikace. Popisuje jaká rozhraní jsou dostupná — tedy **na co se váš program či skript může ptát a jakou dostane odpověď**. 
+  
+  Příkladem může být zdroj informací o počasí, např.:
+  
+  - můžete se zeptat na předpověď **počasí**
+    - na **určitém místě** (popsáno zeměpisnými souřadnicemi ve formátu dle [RFC 5870](https://tools.ietf.org/html/rfc5870)) 
+    - a v **určitém čase** (popsáno řetězcem vytvořeným na základě [RFC 3339](https://tools.ietf.org/html/rfc3339)) 
+  - a dostanete odpověď coby **číslo s jedním desetinným místem**, které vyjadřuje teplotu stupních Celsia.
+  
+  > Díky popisu API přesně víte, co je potřeba a co dostanete.
+  
+  Při práci s API propojujete jednotlivé služby mezi sebou — podobně jako minule, když jsme se dívali na automatizační služby. Tentokrát však dochází ke skutečné integraci: cizí data dostanete přímo do své aplikace (nebo naopak, svá data poskytnete ostatním). Namísto obdélníků, které obsahují cizí weby, jsou získaná data využitelná kdekoli si zamanete.
+  
+  Dalším příkladem je třeba kalendář — zeptáte se na plán konkrétního dne (zadáte např. datum ve formátu "YYYY-MM-DD") a kalendář vrátí seznam vašich schůzek ve formátu [ICAL](https://en.wikipedia.org/wiki/ICalendar). 
+  
+  #### Zdroje
+  
+  Další drobnosti se dozvíte v textu, který je zadán v prvním příkladu. Pokud budete mít zájem, zde je seznam všech zdrojů:
+  
+  - [Brian Proffitt: What APIs Are And Why They’re Important](http://readwrite.com/2013/09/19/api-defined/)
+  - [Michael Patterson: What Is an API, and Why Does It Matter?](http://sproutsocial.com/insights/what-is-an-api/)
+  - [Matthew Hughes: What Are APIs, And How Are Open APIs Changing The Internet](http://www.makeuseof.com/tag/api-good-technology-explained/)
+  - [Greg Sleter: What's an API and Why Do You Need One?](http://www.govtech.com/applications/Whats-an-API-and-Why-Do-You-Need-One.html)
+  
+  ### Šablonování v Jekyllu
+  
+  Šablony znáte z kancelářských aplikací: několika kliky můžete změnit podobu celého dokumentu (ať už článku napsaného ve Wordu nebo slajdy v Powerpointu). Krom toho, že si můžete vybrat připravenou šablonu, můžete si je též vytvořit — tímto směrem se vydáme s Jekyllem. Uplatníme při tom naše předchozí znalosti CSS a HTML.
+  
+  #### Šablony
+  
+  V základní instalaci Jekyllu je několik souborů, které **určují, jak bude vypadat výsledný web**:
+    
+  - soubor `style.scss` obsahuje CSS styly (koncovka SCSS označuje využití [preprocesoru SASS](http://sass-lang.com) – ten pokročilým kodérům ušetří čas, ale pro základní použití to není důležité)
+  - složka `_layouts/` obsahuje HTML šablony, z nichž se web skládá
+    - `default.html` obsahuje **obecnou HTML šablonu**, kterou sdílejí všechny stránky na webu
+    - `page.html` a `post.html` obsahují **HTML šablony pro konkrétní typ stránky**
+    
+  Je důležité si na toto dělení zvyknout – přednastavené umístění konkrétních souborů nám [může usnadnit práci](https://en.wikipedia.org/wiki/Convention_over_configuration). Proklikejte si stránky a seznamte se s tím, jak jednotlivé soubory vypadají. Povšimněte si především těchto věcí:
+
+  - **značek šablonovacího jazyka [Liquid](https://github.com/Shopify/liquid/wiki)**, které obsahují příkazy a proměnné (využívají značení `{{ }}` a `{% %}`)
+  - **značky `{{ content }}`** v souboru `default.html` – zde Jekyll vloží HTML pro konkrétní typ stránky (tedy např. `page.html`),
+  - úvodní části šablon, kde je specifikovaný parametr `layout` (tato část se nazývá **„front matter“** — v češtině by to mohly být „úvodní záležitosti“, ale termín se běžně nepřekládá).
+  
+  #### Parametry stránek
+  
+  U *front matter* ještě zůstaneme: podívejte se na soubory ve složce `_posts/` a na soubor `about.md`: povšimněte si, jaké hodnoty má parametr `layout` v těchto souborech. Krom toho zde najdete i další parametry, které můžete používat v šablonách.
+  
+  Jak v `default.html`, tak v `post.html` například najdete `{{ page.title }}`, což je titulek, který je vyplněný v konkrétním příspěvku. Když do *front matter* doplníte jakoukoli další proměnnou, můžete ji používat v šabloně (musíte dodržet pravidla pro názvy proměnných – ale nemusíte mít pravidla nastudovaná, stačí se chovat defenzivně a tvořit názvy podobné jako jsou ty, které již existují).
+  
+  #### Parametry celého webu
+  
+  To samé pak platí pro parametry definované v souboru `_config.yml`: můžete je do souborů vkládat pomocí značky `{{ site.nazevParametru }}`. Na první pohled najdete například v hlavičce HTML dokumentu značku `{{ site.name }}`.
+  
+  Šablony umožňují mnoho dalšího — například podmíněné konstrukce a další příkazy, které se zapisují do značek `{% prikaz %}`. **Pro naše základní potřeby by měl stačit tento úvod.**
+  
+  > Upozornění: Shoda v názvu souboru `page.html` a parametrů, které jsou adresovány s prefixem `page.` (např. `{{ page.nazevParametru }}`) je náhodná. Daný soubor by se mohl jmenovat jakkoli jinak, zatímco parametry přenášené z jednotlivých příspěvků (soubory `*.md`) jsou konvenčně prefixovány `page.`.
+  
+  #### Zdroje
+  
+  Pokud je něco v textu výše hůře srozumitelné, odkazuji ještě na další zdroje:
+    
+  - [Yes We Jekyll](http://yeswejekyll.com), kapitola *Project Structure*
+  - [Andrew Burgess: Building Static Sites with Jekyll](http://code.tutsplus.com/articles/building-static-sites-with-jekyll--net-22211)
+  - [Liquid for Designers](https://github.com/Shopify/liquid/wiki/Liquid-for-Designers)
+  - [Some quick thoughts on learning Jekyll](http://www.carlboettiger.info/2012/12/30/learning-jekyll.html), především kapitoly *Getting deeper: Jekyll site file structure* a *Configuration*
+time: 1h
+rubrics:
+  -
+    metric: "Je shrnutí v první úloze srozumitelné?"
+    0: "Shrnutí chybí nebo není dotažené dle zadání."
+    1: "Shrnutí je obtížně srozumitelné bez znalosti článku."
+    2: "Shrnutí je srozumitelné."
+    3: "Shrnutí je výstižné a položená otázka mi umožnila zamyslet se nad tématem."
+  - "Zodpovězte otázku položenou autorem v první úloze."
+  -
+    metric: "Jsou kódy v druhé a třetí úloze vytvořeny správně?"
+    0: "Kód v jedné nebo obou úlohách chybí nebo je zcela chybný."
+    1: "V obou úkolech jsou nedostaky (špatně zadané parametry, chybějící popis atp.)."
+    2: "V jednom z úkolů jsou nedostatky, popř. výsledný kód není při zobrazení v prohlížeči (např. pomocí nástroje [JSFiddle](https://jsfiddle.net)) zobrazen správně."
+    3: "Zadání obou úloh je beze zbytku splněno."
+  -
+    metric: "Úlohy týkající se šablonování v Jekyllu (č. 4 a 5) jsou správně splněny."
+    0: "Alespoň jedna z úloh není zpracována."
+    1: "Úlohy jsou zpracovány ledabyle."
+    2: "Úlohy jsou nedotažené – v popisu chybí parametry, popř. některá z úloh má špatné nebo triviální zadání."
+    3: "Obě úlohy jsou zpracovány kvalitně – popis parametrů je kompletní a vytvořené úlohy jsou netriviální."
+  - "Okomentujte vytvořený moodboard a záměr představený v úkolu č. 6."
+  -
+    metric: "Moodboard a záměr pro úpravy šablon jsou kvalitní."
+    0: "Úloha není zpracována."
+    1: "Záměr či moodboard jsou navrženy ledabyle, není příliš poznat, jak souvisí navrhované změny s cílovou skupinou projektu."
+    2: "Záměr či moodboard není konzistentní, ale naplňuje formální aspekty zadání."
+    3: "Záměr i moodboard jsou konzistentní a potenciálně mohou pomoci zlepšit důvěryhodnost webu."    
+  - 
+    metric: "Repozitář s týmovým úkolem je oddělený od původního repozitáře, aby umožňoval týmovou spolupráci. Repozitář "
+    0: "Týmový repozitář je forkem repozitáře barryclark/jekyll-now."
+    3: "Týmový repozitář je samostatný, bez vazby na původní repozitář. (A pokud autor není jeho vlastníkem, má korektně vytvořený fork týmového repozitáře.)"
+preface: 
+---
+# api article
+bloom: apply
+params:
+  article:
+    - "[Brian Proffitt: What APIs Are And Why They’re Important](http://readwrite.com/2013/09/19/api-defined/)"
+    - "[Michael Patterson: What Is an API, and Why Does It Matter?](http://sproutsocial.com/insights/what-is-an-api/)"
+    - "[Matthew Hughes: What Are APIs, And How Are Open APIs Changing The Internet](http://www.makeuseof.com/tag/api-good-technology-explained/)"
+    - "[Greg Sleter: What's an API and Why Do You Need One?](http://www.govtech.com/applications/Whats-an-API-and-Why-Do-You-Need-One.html)"
+time: 1h
+questions: |
+  "Přečtěte si článek **%article%** a vytáhněte z něj **tři hlavní myšlenky**. Položte otevřenou otázku čtenáři (ne vědomostní)."
+---
+# map embed
+bloom: apply
+time: 1h
+params:
+  mode:
+    - Place mode
+    - Attributed Save
+    - Directions mode
+    - Search mode
+    - View mode
+    - Street View mode
+questions: |
+  Jednoduché rozhraní je například URL – před několika týdny jsme se potkali s možností vkládat obsah do stránky („embedování“). Splnění úkolu vyžaduje, abyste se zorientovali v [dokumentaci Google Maps Embed API](https://developers.google.com/maps/documentation/embed/guide#map_modes) a byli schopní vytvořit potřebné volání.
+  
+  Vložte do kódu tři kódy, které pracují s módem *%mode%* a využívají různých volitelných parametrů (Optional parameters). Zkontrolujte, zda je při otevření v prohlížeči stránka funkční.
+  
+  > **Tip:** Funkčnost vkládaných prvků můžete ověřit prostým vložením adresy do prohlížeče. U Google Maps je tato metoda vhodná i pro postupné ladění – s každou změnou v požadavku (adrese) si můžete zobrazit aktuální odpověď serveru (stránku s mapou).
+    
+  Do komentáře (přímo ke kódu nebo do pole níže) uveďte, proč jste si vybrali daná místa a popište volitelné parametry, které jste použili.
+input: html
+comments: 5
+---
+# popis výstupu API + api key
+bloom: understand
+time: 30
+params:
+  condition:
+    - "Omezte výsledek na prvních 10 událostí."
+    - "Seřaďte události dle obrácené chronologie (nejstarší události budou vypsány poslední)."
+    - "Seřaďte události chronologicky (nejstarší události budou vypsány první)."
+    - "Nechte si vyfiltrovat pouze události, které obsahují slovo „pivo“."
+    - "Vyberte události od 1. ledna 2016 do 1. července 2016."
+questions: |
+  Pomocí [průzkumníku Google Calendar API v3](https://developers.google.com/apis-explorer/#s/calendar/v3/) vytvořte volání, které vrátí události z vašeho primárního Google kalendáře (volání `calendar.events.list`). %condition% 
+  
+  Do vstupního pole zkopírujte jak požadavek (Request), tak odpověď serveru (Response). (Vše se vám zobrazí na dané stránce.) 
+  
+  (Popisky událostí v odpovědi serveru můžete změnit. Pokud nemáte Google kalendář, zaregistrujte si účet pro účely testování nebo využijte Google Apps dostupné pomocí ISu.)
+  
+  > **Tip:** Funkční požadavek ověříte tím, že v *Response* uvidíte HTTP kód 200. To nicméně nezaručuje, že vaše řešení je správné (požadavek může být korektní, ale pořád se můžete ptát na nesprávné věci či v nesprávném formátu).
+---
+# šablony - soubory, oddíly (front matter)
+bloom: understand
+time: 45
+params:
+  place:
+    - "uvedené ve *front matter* souborů uložených ve složce `_layouts`"
+    - "uvedené v souboru `_config.yml`"
+questions: |
+  Popište, které parametry %place% jsou zobrazeny ve výchozích šablonách Jekyllu a jak (vycházejte z vlastního či týmového repozitáře).
+---
+# šablony - porozumění možnostem
+bloom: create
+time: 30
+questions: |
+  Vytvořte tři netriviální vědomostní/praktické úlohy, které se týkají práce se šablonami a parametry v Jekyllu.
+  
+  > **Příklad:** Přidejte ke každému článku, který k zobrazení využívá šablonu `page.html`, parametr se jménem autora článku a vložte jej vhodně do šablony.
+  
+  (Nemusíte se bát, že dané úlohy bude muset řešit recenzent anebo že je dostanete v příští lekci.)
+---
+# šablony a css
+bloom: create
+time: 2h
+questions: |
+  Bez nutnosti kódování navrhněte, jak byste upravili šablony ve vašem týmovém projektu (**vizuální styl, zobrazené informace, struktura informací, informační architektura atp.**).
+  
+  Neomezujte se na znalosti, které nyní máte: snažte se vytvořit doporučení, která zlepší důvěryhodnost vašeho webu. Nesnažte se být samoúčelně inovativní, využijte spíše konvence, které jsou již na jiných webových stránkách rozšířené (mnohé se můžete naučit i imitací — proto je vhodné přiznat zdroje vaší inspirace a odkázat na ně).
+  
+  Vytvořte *[moodboard](https://en.wikipedia.org/wiki/Mood_board)*, který shrnuje vizuální prvky, texty, screenshoty, fotky atp. které byste rádi na webu použili. (Ke tvorbě moodboardu můžete použít libovolný online nástroj, který umožňuje zveřejnění výstupu.)
+  
+  Návrh úprav popište a nezapomeňte přiložit odkaz na vytvořený moodboard. (Očekávaná délka návrhu úprav je alespoň 800 znaků a moodboard by měl obsahovat alespoň 20 objektů, z toho maximálně 4 textové.)
+---
+# projekt - source repo
+bloom: apply
+time: 30
+questions: |
+  **Poslední úkol má spíše provozní charakter a týká se repozitáře, v němž je umístěn týmový projekt.** Pro následující lekci jej budete potřebovat. (Jde o mechanický postup, který by neměl zabrat více než 15 minut.)
+  
+  Pokud máte tento repozitář naklonovaný, takže u titulku vidíte „forked from barryclark/jekyll-now“ (což byl korektní postup), je potřeba repozitář „odepnout“, abyste mohli mezi sebou jednoduše spolupracovat – tzn. aby si týmový projekt mohli *forknout* ostatní členové týmu.
+  
+  Postup je odlišný pro vlastníka repozitáře v němž je umístěn týmový projekt a ostatní členy týmu:
+  
+  > Pokud je týmový repozitář již naklonovaný jiným způsobem (takže v záhlaví chybí informace o forkování), nemusí majitel tohoto repozitáře dělat nic. Stačí, když si ostatní členové repozitář naklonují (viz. krok č. 2 níže).
+  
+  1. **Pokud máte repozitář u svého účtu,** stáhněte jeho obsah (tlačítko *Download ZIP* u repozitáře Githubu) a vytvořte nový repozitář se stejným jménem (původní repozitář musíte přejmenovat). Nový repozitář si naklonujte na svůj počítač a celý obsah staženého ZIPu (rozbalený) vložte do něj.
+  2. **Pokud váš týmový repozitář spravuje jiný člen týmu,** vyčkejte, až splní výše uvedené pokyny a poté si nově vzniklý repozitář *forkněte* ke svému účtu. V hlavičce byste pak měli vidět něco jako *„forked from <jmeno>/<jmeno.github.io>“*, kde `jmeno` je název účtu vašeho kolegy či kolegyně.
+  
+  Do vstupního pole vložte odkaz na týmový a svůj repozitář (pokud jste vlastníkem týmového repozitáře, vložte pouze jeden odkaz a uveďte tuto skutečnost ve vstupním poli).
