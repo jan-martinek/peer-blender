@@ -1,0 +1,294 @@
+name: "Anonymita na internetu a Dark Web"
+summary: "Anonymita na internetu a webová sídla umístěná v deep webu, kam vyhledávače nedohlédnou."
+goals: |
+  Cílem této lekce je porozumět, k čemu může sloužit anonymita na internetu a jak se jí dá dosáhnout. Krom toho se seznámíme s *temným webem* — webovými sídly, které jsou součástí tzv. *deep webu*, mimo dosah internetových vyhledávačů. Podstatné je uvědomění si relevance tématu pro vlastní osobní i pracovní život.
+reading: |  
+  **Anonymita na internetu** je tématem od samotného vzniku internetu, kdy [*nikdo nevěděl, že jste pes*](https://en.wikipedia.org/wiki/On_the_Internet,_nobody_knows_you%27re_a_dog). Dnes téměř každý web v nějaké formě měří a vyhodnocuje chování návštěvníků a převládá představa, že [měřit je možné téměř všechno](http://www.economist.com/node/7138905). Jaká jsou přínosy a rizika anonymity se dozvíte v textech, zde je jejich kompletní výčet:
+  
+  - [Computer Hope: *How To Be Anonymous On The Internet*](http://www.computerhope.com/issues/ch000982.htm)
+  - [Grant Brunner: *The ultimate guide to staying anonymous and protecting your privacy online*](http://www.extremetech.com/internet/180485-the-ultimate-guide-to-staying-anonymous-and-protecting-your-privacy-online)
+  - [John R. Quain: *The end of Internet anonymity*](http://www.foxnews.com/tech/2015/08/25/end-internet-anonymity.html)
+  - [Jon Card: *Anonymity is the internet's next big battleground*](http://www.theguardian.com/media-network/2015/jun/22/anonymity-internet-battleground-data-advertisers-marketers)
+  - [Wikipedia: *Anonymity on the Internet*](https://en.wikipedia.org/wiki/Anonymity#Anonymity_on_the_Internet) (jde o část hesla *[Anonymity](https://en.wikipedia.org/wiki/Anonymity)*)
+    
+  *Deep web* je část webu, kterou neindexují vyhledávače — sem patří i webové stránky dostupné pouze po přihlášení (např. Facebook) nebo za paywallem. Weby, které jsou součástí tzv. **dark webu** vyžadují pro přístup něco navíc — znalost hesla, šifrování, technologii, atp. Proč vůbec taková oblast na webu existuje a k jakým účelům se dá využít se dozvíte opět v textech.
+    
+  - [Charlie Osborne: *10 things you didn't know about the Dark Web*](http://www.zdnet.com/pictures/10-things-you-didnt-know-about-the-dark-web/4/) (pozor, článek má 10 krátkých částí)
+  - [Daniel Miessler: *The Internet, the Deep Web, and the Dark Web*](https://danielmiessler.com/study/internet-deep-dark-web/)
+  - [Dark Web I*s Going Mainstream: How to Use It Safely*](http://www.newschannel10.com/story/31926865/dark-web-is-going-mainstream-how-to-use-it-safely)
+  - [Legion (Anonymous): *Over 1 Million Users Access Facebook Via Dark Web*](http://anonhq.com/1-million-users-access-facebook-via-dark-web/)
+  - [Mark Stockley: *3 ways to get busted on the Dark Web*](https://nakedsecurity.sophos.com/2015/09/04/3-ways-to-get-busted-on-the-dark-web/)
+  - [Matt Egan: *What is the Dark Web? How to access the Dark Web. What's the difference between the Dark Web and the Deep Web?*](http://www.pcadvisor.co.uk/how-to/internet/what-is-dark-web-how-access-dark-web-deep-joc-beautfiulpeople-3593569/)
+  - [Ryan Whitwam: *OnionScan tests 'dark web' sites to see if they really are anonymous*](http://www.extremetech.com/internet/226106-onionscan-tests-dark-web-sites-to-see-if-they-really-are-anonymous)
+  - [Tom Simonite: *The Surprising Light Side of the Dark Web*](https://www.technologyreview.com/s/601073/the-surprising-light-side-of-the-dark-web/)
+  
+  Úlohami se prolíná znalost technologie VPN, proto doporučuji (především pokud jste nebyli na přednášce) přečíst alespoň nějaký text na toto téma. Například [článek na serveru Lifehacker](http://lifehacker.com/5940565/why-you-should-start-using-a-vpn-and-how-to-choose-the-best-one-for-your-needs).
+time: 20
+rubrics:
+  -
+    metric: "Je shrnutí v první úloze (anonymita na internetu) srozumitelné?"
+    0: "Shrnutí chybí nebo není dotažené dle zadání."
+    1: "Shrnutí je obtížně srozumitelné bez znalosti článku."
+    2: "Shrnutí je srozumitelné, ale obsahuje faktické chyby."
+    3: "Shrnutí je srozumitelné a fakticky správné."
+  -
+    metric: "Je popis služby či technologie ve druhé úloze úplný a správný?"
+    0: "Popis chybí nebo není dotažený dle zadání."
+    1: "Popis je obtížně srozumitelný bez znalosti článku."
+    2: "Popis je srozumitelný, ale obsahuje faktické chyby."
+    3: "Popis je srozumitelný a fakticky správný."
+  -
+    metric: "Je shrnutí ve třetí úloze (dark web) srozumitelné?"
+    0: "Shrnutí chybí nebo není dotažené dle zadání."
+    1: "Shrnutí je obtížně srozumitelné bez znalosti článku."
+    2: "Shrnutí je srozumitelné, ale obsahuje faktické chyby."
+    3: "Shrnutí je srozumitelné a fakticky správné."
+  -
+    metric: "Je zhodnocení relevance znalosti problematiky pro obor kvalitní?"
+    0: "Hodnocení chybí."
+    1: "Hodnocení je nejasné či nekonkrétní."
+    2: "Hodnocení je srozumitelné."
+    3: "Hodnocení obsahuje výrazný a argumentačně podložený názor."
+  - "Konfrontujte autorovo/autorčino hodnocení relevance znalosti problematiky se svým vlastním názorem."
+  - 
+    metric: "Je kontrola týmového projektu v úloze č. 5 provedena správně? (Při kontrole si dejte pozor na to, že web již může vypadat odlišně než při kontrole: změny však snadno najdete pohledem do historie repozitáře.)"
+    0: "Kontrola chybí nebo není kompletní."
+    1: "Kontrola je provedena ledabyle a neodpovídá skutečnosti."
+    2: "Výsledky kontroly odpovídají skutečnosti."
+    3: "Výsledky odpovídají skutečnosti a komentáře problémů jsou výstižné."
+  -
+    metric: "Je oprava chyby v poslední úloze správně provedena?"
+    0: "Oprava chyby schází anebo není přístupná."
+    1: "Oprava nenapravuje chybu na celém webu, ale pouze jeden její výskyt."
+    2: "Chyba je opravena konzistentně na celém webu."
+    3: "Oprava chyby byla přijata vlastníkem repozitáře."
+preface: 
+---
+# anonymity teorie
+bloom: understand
+time: 1h30
+params:
+  article:
+    - "[Jon Card: *Anonymity is the internet's next big battleground*](http://www.theguardian.com/media-network/2015/jun/22/anonymity-internet-battleground-data-advertisers-marketers)"
+    - "[Grant Brunner: *The ultimate guide to staying anonymous and protecting your privacy online*](http://www.extremetech.com/internet/180485-the-ultimate-guide-to-staying-anonymous-and-protecting-your-privacy-online)"
+    - "[Computer Hope: *How To Be Anonymous On The Internet*](http://www.computerhope.com/issues/ch000982.htm)"
+    - "[John R. Quain: *The end of Internet anonymity*](http://www.foxnews.com/tech/2015/08/25/end-internet-anonymity.html)"
+    - "[Wikipedia: *Anonymity on the Internet*](https://en.wikipedia.org/wiki/Anonymity#Anonymity_on_the_Internet) (jde o část hesla *Anonymity*)"
+questions: |
+  Na základě četby textu %article% sepište jeho shrnutí (min. 400 znaků).
+---
+# anonymity tech
+bloom: understand
+time: 1h
+params:
+  tech:
+    - "technologie **VPN**"
+    - "technologie **Tor**"
+    - "**relay v síti Tor**"
+    - "technologie **I2P**"
+    - "technologie **Freenet**"
+    - "technika **onion routing**"
+    - "služba **Anonymouse.org**"
+    - "služba **proxy.org**"
+questions: |
+  Na základě zdrojů dohledaných na internetu popište, jak pracuje %tech%. Minimální rozsah odpovědi je 500 znaků.
+  
+  > Pro inspiraci přikládám několik možných otázek: Jaký je princip fungování? Za jakých podmínek funguje? Kdo provozuje službu, popř. poskytuje technologii? Jaké jsou nevýhody a potenciální problémy?
+---
+# dark web
+bloom: understand
+time: 1h30
+params:
+  article:
+    - "[Matt Egan: *What is the Dark Web? How to access the Dark Web. What's the difference between the Dark Web and the Deep Web?*](http://www.pcadvisor.co.uk/how-to/internet/what-is-dark-web-how-access-dark-web-deep-joc-beautfiulpeople-3593569/)"
+    - "[Legion (Anonymous): *Over 1 Million Users Access Facebook Via Dark Web*](http://anonhq.com/1-million-users-access-facebook-via-dark-web/)"
+    - "[*Dark Web Is Going Mainstream: How to Use It Safely*](http://www.newschannel10.com/story/31926865/dark-web-is-going-mainstream-how-to-use-it-safely)"
+    - "[Daniel Miessler: *The Internet, the Deep Web, and the Dark Web*](https://danielmiessler.com/study/internet-deep-dark-web/)"
+    - "[Mark Stockley: *3 ways to get busted on the Dark Web*](https://nakedsecurity.sophos.com/2015/09/04/3-ways-to-get-busted-on-the-dark-web/)"
+    - "[Tom Simonite: *The Surprising Light Side of the Dark Web*](https://www.technologyreview.com/s/601073/the-surprising-light-side-of-the-dark-web/)"
+    - "[Ryan Whitwam: *OnionScan tests 'dark web' sites to see if they really are anonymous*](http://www.extremetech.com/internet/226106-onionscan-tests-dark-web-sites-to-see-if-they-really-are-anonymous)"
+    - "[Charlie Osborne: *10 things you didn't know about the Dark Web*](http://www.zdnet.com/pictures/10-things-you-didnt-know-about-the-dark-web/4/) (pozor, článek má 10 krátkých částí)"
+questions: |
+  Na základě četby textu %article% sepište jeho shrnutí (min. 400 znaků) a v krátkém odstavci pak definujte, co je to *dark web* (dle autora článku).
+---
+bloom: evaluate
+time: 30
+questions: |
+  V krátkosti (min. 350 znaků) naznačte, jaký přínos má znalost problematiky anonymity na internetu a dark webu pro profesi informačního profesionála či knihovníka (profesní směřování si vyberte dle svých preferencí).
+---
+# popis
+bloom: apply
+time: 1h
+params:
+  combinations:
+    -
+      repo1: "https://github.com/VysocinaFlow/VysocinaFlow.github.io"
+      site1: "VysocinaFlow.github.io"
+      repo2: "https://github.com/ButterFly07/gothiclady07.github.io"
+      site2: "gothiclady07.github.io"
+    -
+      repo1: "https://github.com/VysocinaFlow/VysocinaFlow.github.io"
+      site1: "VysocinaFlow.github.io"
+      repo2: "https://github.com/423783/423783.github.io"
+      site2: "423783.github.io"
+    -
+      repo1: "https://github.com/423783/423783.github.io"
+      site1: "423783.github.io"
+      repo2: "https://github.com/Luko01/luko01.github.io"
+      site2: "luko01.github.io"
+    -
+      repo1: "https://github.com/Luko01/luko01.github.io"
+      site1: "luko01.github.io"
+      repo2: "https://github.com/PavlaVavrickova/dokiinka.github.io"
+      site2: "dokiinka.github.io"
+    -
+      repo1: "https://github.com/PavlaVavrickova/dokiinka.github.io"
+      site1: "dokiinka.github.io"
+      repo2: "https://github.com/picko010/picko010.github.io"
+      site2: "picko010.github.io"
+    -
+      repo1: "https://github.com/picko010/picko010.github.io"
+      site1: "picko010.github.io"
+      repo2: "https://github.com/nobunaga1234/nobunaga1234.github.io"
+      site2: "nobunaga1234.github.io"
+    -
+      repo1: "https://github.com/nobunaga1234/nobunaga1234.github.io"
+      site1: "nobunaga1234.github.io"
+      repo2: "https://github.com/jandel/jandel.github.io"
+      site2: "jandel.github.io"
+    -
+      repo1: "https://github.com/jandel/jandel.github.io"
+      site1: "jandel.github.io"
+      repo2: "https://github.com/projectgorilla/projectgorilla.github.io"
+      site2: "projectgorilla.github.io"
+    -
+      repo1: "https://github.com/projectgorilla/projectgorilla.github.io"
+      site1: "projectgorilla.github.io"
+      repo2: "https://github.com/andywaltlova/andywaltlova.github.io"
+      site2: "andywaltlova.github.io"
+    -
+      repo1: "https://github.com/andywaltlova/andywaltlova.github.io"
+      site1: "andywaltlova.github.io"
+      repo2: "https://github.com/dokiinka/dokiinka.github.io"
+      site2: "dokiinka.github.io"
+    -
+      repo1: "https://github.com/dokiinka/dokiinka.github.io"
+      site1: "dokiinka.github.io"
+      repo2: "https://github.com/BuresKai/BuresKai.github.io"
+      site2: "BuresKai.github.io"
+    -
+      repo1: "https://github.com/BuresKai/BuresKai.github.io"
+      site1: "BuresKai.github.io"
+      repo2: "https://github.com/450000/450000.github.io"
+      site2: "450000.github.io"
+    -
+      repo1: "https://github.com/450000/450000.github.io"
+      site1: "450000.github.io"
+      repo2: "https://github.com/WendyDarling/HavelockatGITHUB.github.io"
+      site2: "HavelockatGITHUB.github.io"
+    -
+      repo1: "https://github.com/WendyDarling/HavelockatGITHUB.github.io"
+      site1: "HavelockatGITHUB.github.io"
+      repo2: "https://github.com/cteny/projekt.github.io"
+      site2: "projekt.github.io"
+    -
+      repo1: "https://github.com/cteny/projekt.github.io"
+      site1: "projekt.github.io"
+      repo2: "https://github.com/Elnessa/Elnessa.github.io"
+      site2: "Elnessa.github.io"
+    -
+      repo1: "https://github.com/Elnessa/Elnessa.github.io"
+      site1: "Elnessa.github.io"
+      repo2: "https://github.com/CoffeeWithMILF/daebaknoona.github.io"
+      site2: "daebaknoona.github.io"
+    -
+      repo1: "https://github.com/CoffeeWithMILF/daebaknoona.github.io"
+      site1: "daebaknoona.github.io"
+      repo2: "https://github.com/maturo164/maturo164.github.io"
+      site2: "maturo164.github.io"
+    -
+      repo1: "https://github.com/maturo164/maturo164.github.io"
+      site1: "maturo164.github.io"
+      repo2: "https://github.com/439185/439185.github.io"
+      site2: "439185.github.io"
+    -
+      repo1: "https://github.com/439185/439185.github.io"
+      site1: "439185.github.io"
+      repo2: "https://github.com/447926/447926.github.io"
+      site2: "447926.github.io"
+    -
+      repo1: "https://github.com/447926/447926.github.io"
+      site1: "447926.github.io"
+      repo2: "https://github.com/andywaltlova/andywaltlova.github.io"
+      site2: "andywaltlova.github.io"
+    -
+      repo1: "https://github.com/andywaltlova/andywaltlova.github.io"
+      site1: "andywaltlova.github.io"
+      repo2: "https://github.com/453255/453255.github.io"
+      site2: "453255.github.io"
+    -
+      repo1: "https://github.com/453255/453255.github.io"
+      site1: "453255.github.io"
+      repo2: "https://github.com/daebaknoona/daebaknoona.github.io"
+      site2: "daebaknoona.github.io"
+    -
+      repo1: "https://github.com/daebaknoona/daebaknoona.github.io"
+      site1: "daebaknoona.github.io"
+      repo2: "https://github.com/ButterFly07/gothiclady07.github.io"
+      site2: "gothiclady07.github.io"
+questions: |
+    Vyberte si jeden z níže uvedených webů vytvářených týmově v kurzu (pro případy nefunkčnosti a náhodného přiřazení vašeho vlastního webu jsou nabízeny dvě možnosti):
+    
+    - %site1% ([repozitář](%repo1%), [web](http://%site1%))
+    - %site2% ([repozitář](%repo2%), [web](http://%site2%))
+    
+    Zhodnoťte, zda je prozatím naplněno zadání (u každého bodu zhodnoťte slovem **ano/ne** a krátce okomentujte):
+      
+    - web informuje o zvoleném tématu způsobem, který byste zhodnotili jako přívětivý
+    - stránka *O webu* (*About*) je naplněna dle zadání
+    - web obsahuje příspěvek, který se týká otevřených dat
+    - na webu je nasazen analytický nástroj Google Analytics
+    - projekt korektně využívá upravených šablon v Jekyllu
+    - vizuální styl je upraven pomocí autorského CSS
+    
+    > **Poznámka:** Toto hodnocení neslouží k bodovému ohodnocení autorů daného webu, takže se nemusíte obávat, že byste autory kritikou poškodili. Právě naopak: kvalitní kritika ji může pomoci k dotažení webu. Buďte struční a výstižní a zhodnoťte všechny aspekty projektu (vaše hodnocení bude zkontrolováno hodnotiteli).
+input: markdown
+prefill: |
+  # Vybraný web: _________.github.io
+  
+  Stručná charakteristika webu:
+    
+
+  1) web informuje o zvoleném tématu způsobem, který byste zhodnotili jako přívětivý
+  
+  
+  
+  2) stránka O webu (About) je naplněna dle zadání
+  
+  
+  
+  3) web obsahuje příspěvek, který se týká otevřených dat
+  
+  
+  
+  4) na webu je nasazen analytický nástroj Google Analytics
+  
+  
+  
+  5) projekt korektně využívá upravených šablon v Jekyllu
+  
+  
+  
+  6) vizuální styl je upraven pomocí autorského CSS
+  
+  
+  
+  Poznámky a komentáře:
+  
+---
+bloom: create
+time: 1h
+questions: |
+  Na výše vybraném webu si vyberte problém či chybu (jakéhokoli charakteru), které jste schopni opravit přímo v kódu. Chybu opravte a opravu zašlete autorům pomocí *pull requestu*.
+  
+  Ve vstupním poli uveďte odkaz na pull request. Sestavte jej tak, aby byl pro autory akceptovatelný (jedna hvězdička hodnocení je za akceptaci).
