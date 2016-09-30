@@ -216,7 +216,13 @@ ul.checklist {
 	overflow: hidden;
 	margin-bottom: 20px;
 	
-	.label {
+	.time {		
+		background: 0;
+		color: black;
+		padding: 0 3px;
+	}
+	
+	.phase {
 		position: relative;
 		margin-right: 10px;
 		font-weight: bold;

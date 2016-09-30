@@ -5,14 +5,17 @@
 		{var $dateAttrName = $phaseName ? $phaseName . '_since' : NULL}
 		{var $nextPhaseDateAttrName = $unit->nextPhaseName ? $unit->nextPhaseName . '_since' : NULL}
 		{var isCurrent = $phaseName === $unit->currentPhaseName}
-		<span class="label {if $isCurrent}current{/if}" 
-			title="{$unit->$dateAttrName|date: '%A %e %B %k.%M'}">
+		<span class="label time">
+			{$unit->$dateAttrName|date: "%a %e %h"}<br>
+			{$unit->$dateAttrName|date: "%k.%M"}
+		</span>
+		<span class="label phase {if $isCurrent}current{/if}">
 			{_messages.unit.phase.$phaseName|upper}<br>
 			{if $isCurrent && $nextPhaseDateAttrName}
 				{var now = new DateTime}
-				{_messages.unit.phase.timeLeft, [time => $unit->$nextPhaseDateAttrName->diff($now)->format('%d d, %h h')]}
+				{_messages.unit.phase.timeLeft, [time => $unit->$nextPhaseDateAttrName->diff($now)->format('%dd, %hh')]}
 			{else} 
-				{_messages.unit.phase.since} {$unit->$dateAttrName|date: "%a %e %h, %k.%M"}
+				&nbsp;
 			{/if}
 		</span>
 	{/foreach}

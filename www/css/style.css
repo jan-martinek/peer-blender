@@ -6474,20 +6474,24 @@ ul.checklist {
 .phases {
   overflow: hidden;
   margin-bottom: 20px; }
-  .phases .label {
+  .phases .time {
+    background: 0;
+    color: black;
+    padding: 0 3px; }
+  .phases .phase {
     position: relative;
     margin-right: 10px;
     font-weight: bold;
     background-color: #bbb; }
-    .phases .label.current:nth-child(1) {
+    .phases .phase.current:nth-child(1) {
       background-color: #AA7C39; }
-    .phases .label.current:nth-child(2) {
+    .phases .phase.current:nth-child(2) {
       background-color: #9E354A; }
-    .phases .label.current:nth-child(3) {
+    .phases .phase.current:nth-child(3) {
       background-color: #2A4D6E; }
-    .phases .label.current:nth-child(4) {
+    .phases .phase.current:nth-child(4) {
       background-color: #519331; }
-    .phases .label:after {
+    .phases .phase:after {
       left: 100%;
       top: 50%;
       border: solid transparent;
@@ -6499,23 +6503,23 @@ ul.checklist {
       border-left-color: #bbb;
       border-width: 15px;
       margin-top: -15px; }
-    .phases .label:last-child:after {
+    .phases .phase:last-child:after {
       border-width: 0; }
-    .phases .label.current:nth-child(1) {
+    .phases .phase.current:nth-child(1) {
       background-color: #AA7C39; }
-      .phases .label.current:nth-child(1):after {
+      .phases .phase.current:nth-child(1):after {
         border-left-color: #AA7C39; }
-    .phases .label.current:nth-child(2) {
+    .phases .phase.current:nth-child(2) {
       background-color: #9E354A; }
-      .phases .label.current:nth-child(2):after {
+      .phases .phase.current:nth-child(2):after {
         border-left-color: #9E354A; }
-    .phases .label.current:nth-child(3) {
+    .phases .phase.current:nth-child(3) {
       background-color: #2A4D6E; }
-      .phases .label.current:nth-child(3):after {
+      .phases .phase.current:nth-child(3):after {
         border-left-color: #2A4D6E; }
-    .phases .label.current:nth-child(4) {
+    .phases .phase.current:nth-child(4) {
       background-color: #519331; }
-      .phases .label.current:nth-child(4):after {
+      .phases .phase.current:nth-child(4):after {
         border-left-color: #519331; }
 
 .phases.small {
