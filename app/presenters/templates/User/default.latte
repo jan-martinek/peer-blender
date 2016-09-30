@@ -20,7 +20,9 @@
 <div id="content" class="row">
 	<div class="columns large-8">
 		<h2>{_messages.user.courses}</h2>
-		{foreach $userProfile->enrollments as $enrollment}
+		{var enrollments = $userProfile->enrollments}
+		{? $enrollments = array_reverse($enrollments)}
+		{foreach $enrollments as $enrollment}
 			{var course = $enrollment->course}
 			{var courseTotal = 0}
 			{var viewerCourseRole = $presenter->enrollmentRepository->getRoleInCourse($presenter->userInfo, $course)}
