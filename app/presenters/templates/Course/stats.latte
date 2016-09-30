@@ -22,6 +22,7 @@
 					<th>
 						Unfinished reviews
 					</th>
+					<th>{_messages.user.scoreAdjustment}</th>
 					<th>{_messages.unit.table.total}</th>
 				</tr>
 			</thead>
@@ -59,7 +60,8 @@
 							{if isset($usersProblems['fromOthers'])}{$usersProblems['fromOthers']->reviewCount}{else}0{/if}
 						{/if}
 					</td>
-					<td class="right"><strong>{$courseTotal|number:2}</strong></td>
+					<td class="text-right">{if $enrollment->scoreAdjustment > 0}+{/if}{$enrollment->scoreAdjustment}</td>
+					<td class="text-right"><strong>{$courseTotal+$enrollment->scoreAdjustment|number:2}</strong></td>
 				</tr>
 			</tbody>
 		</table>

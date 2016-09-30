@@ -37,6 +37,12 @@ course:
 user:
 	courses: "Kurzy"
 	reviews: "Recenze"
+	scoreAdjustment: "Úprava bodového hodnocení"
+	notes: "Poznámky"
+	scoreAdjustmentInfo: "V textu veřejných poznámek můžete uvádět bodová hodnocení s hvězdičkou (např. *3, *3.5, *-1) z nichž se spočítá celková úprava bodového hodnocení."
+	hiddenNotes: "Skryté poznámky"
+	editNotes: "Upravit poznámky"
+	saveNotes: "Uložit poznámky"
 unit:
 	goals: "Cíle lekce"
 	reading: "Zadaná četba"

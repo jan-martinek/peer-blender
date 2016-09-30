@@ -37,6 +37,12 @@ course:
 user:
 	courses: "User's courses"
 	reviews: "User's reviews"
+	scoreAdjustment: "Score adjustment"
+	notes: "Notes"
+	scoreAdjustmentInfo: "You can adjust student's score by providing star-prepended numeric values (*3, *3.5, *-1) that will be automatically summed and added to student's total score."
+	hiddenNotes: "Hidden notes"
+	editNotes: "Edit notes"
+	saveNotes: "Save notes"
 unit:
 	goals: "Unit goals"
 	reading: "Assigned reading"

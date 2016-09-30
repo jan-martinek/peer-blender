@@ -18,7 +18,7 @@
 
 {block content}
 <div id="content" class="row">
-	<div class="columns large-8">
+	<div class="columns">
 		<h2>{_messages.user.courses}</h2>
 		{var enrollments = $userProfile->enrollments}
 		{? $enrollments = array_reverse($enrollments)}
@@ -26,8 +26,29 @@
 			{var course = $enrollment->course}
 			{var courseTotal = 0}
 			{var viewerCourseRole = $presenter->enrollmentRepository->getRoleInCourse($presenter->userInfo, $course)}
-			<h3><a n:href="Course:default $course->id">{$course->name}</a></h3>
+			
+			<p n:if="$user->isAllowed('user', 'editNotes')" class="right">
+				<a class="button" n:href="User:notes $enrollment->id">{_messages.user.editNotes}</a>
+			</p>
+			
+			<h3><a n:href="Course:default $course->id" id="enrollment-{$enrollment->id}">{$course->name}</a></h3>
+			
 			<div class="panel">
+				<table>
+					<tr n:if="$enrollment->notes">
+						<th>{_messages.user.notes}</th>
+						<td>{!$enrollment->notes|nl2br}</td>
+					</tr>
+					<tr n:if="$enrollment->hiddenNotes && $user->isAllowed('user', 'seeHiddenNotes')">
+						<th>{_messages.user.hiddenNotes}</th>
+						<td>{!$enrollment->hiddenNotes|nl2br}</td>
+					</tr>
+					<tr n:if="$enrollment->scoreAdjustment != 0">
+						<th>{_messages.user.scoreAdjustment}</th>
+						<td>{if $enrollment->scoreAdjustment > 0}+{/if}{$enrollment->scoreAdjustment}</td>
+					</tr>
+				</table>
+			
 				<h4>{_messages.app.unit}</h4>
 				<style> .accepted { background: #dfd;} .notAccepted { background: #fdd;} </style>
 				<table>
@@ -80,10 +101,15 @@
 							<td colspan="4" style="color: #aaa">{_messages.unit.phase.isNotFinalized}</td>
 						{/if}	
 					</tr>
+					<tr n:if="$enrollment->scoreAdjustment != 0">
+						<th>{_messages.user.scoreAdjustment}</th>
+						<td colspan="3"></td>
+						<td>{if $enrollment->scoreAdjustment > 0}+{/if}{$enrollment->scoreAdjustment}</td>
+					</tr>
 					<tr>
 						<th>Total</th>
 						<td colspan="3"></td>
-						<td><strong>{$courseTotal|number: 2}</strong></td>
+						<td><strong>{$courseTotal+$enrollment->scoreAdjustment|number: 2}</strong></td>
 					</tr>
 				</table>
 				

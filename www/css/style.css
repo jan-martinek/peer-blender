@@ -6610,6 +6610,12 @@ li.selected {
     list-style: none;
     margin-left: 2rem; }
 
+#frm-notesForm table {
+  width: 100%; }
+#frm-notesForm textarea {
+  width: 100%;
+  height: 300px; }
+
 #form-controls {
   z-index: 99;
   position: fixed;

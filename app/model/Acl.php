@@ -24,6 +24,7 @@ class Acl extends Permission
 		$this->addResource('solution');
 		$this->addResource('unit');
 		$this->addResource('errors');
+		$this->addResource('user');
 		
 		$this->allow('course-assistant', 'course', 'viewStats');
 		$this->allow('course-assistant', 'solution', 'viewAnytime');
@@ -39,6 +40,10 @@ class Acl extends Permission
 		));
 		
 		$this->allow('admin', 'errors', 'view');
+		$this->allow('admin', 'user', array(
+			'editNotes',
+			'seeHiddenNotes'	
+		));
 	}
 
 }
