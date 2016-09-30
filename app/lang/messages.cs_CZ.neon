@@ -102,6 +102,7 @@ unit:
 		html: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **HTML**."
 solution:
 	writtenBy: "Odevzdal/a"
+	author: "Zpracovatel/ka úkolu"
 	writtenIn:
 		moreThanADay: "po více než dni od vygenerování úkolu."
 		hours: "po %hours% hodinách a %minutes% minutách od vygenerování úkolu."
@@ -118,6 +119,8 @@ solution:
 	noComment: "Ponecháno bez komentáře."
 review:
 	title: "Peer-assessment"
+	author: "Autor/ka recenze"
+	thirdParty: "Třetí strana"
 	rubrics: "Parametry hodnocení"
 	score: 
 		title: "Hodnocení"

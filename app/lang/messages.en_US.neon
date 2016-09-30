@@ -102,6 +102,7 @@ unit:
 		html: "**HTML** syntax highlighting is active in the input field."
 solution:
 	writtenBy: "Solved by"
+	author: "Author"
 	writtenIn:
 		moreThanADay: "after more than 24 hours since the assignment has been generated."
 		hours: "after %hours% hours and %minutes% minutes since the assignment has been generated."
@@ -118,6 +119,8 @@ solution:
 	noComment: "Left without any comment."
 review:
 	title: "Peer-assessment"
+	author: "Reviewer"
+	thirdParty: "Third party"
 	rubrics: "Assessment rubrics"
 	score: 
 		title: "Score"

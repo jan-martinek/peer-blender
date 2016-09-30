@@ -107,7 +107,20 @@
 		{if count($review->comments)}
 			{foreach $review->comments as $comment}
 				<div class="panel">
-				<p style="margin-bottom: 0"><strong>{$comment->author->name}</strong>,
+				<p style="margin-bottom: 0"><strong>
+					{block |trim}
+						{if $solution->unit->isCurrentPhase(\Model\Entity\Unit::REVIEWS) || $solution->unit->isCurrentPhase(\Model\Entity\Unit::OBJECTIONS)}
+							{if $comment->author->id == $solution->user->id}
+								{_messages.solution.author}
+							{elseif $comment->author->id == $review->reviewed_by->id}
+								{_messages.review.author}
+							{else}
+								{_messages.review.thirdParty}
+							{/if}
+						{else}
+							{$comment->author->name}
+						{/if}
+					{/block}</strong>,
 				{$comment->submitted_at|date:'j. n. Y H.i'}
 				<span n:class="
 					label, 
