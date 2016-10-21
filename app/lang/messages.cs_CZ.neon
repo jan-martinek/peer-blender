@@ -73,8 +73,8 @@ unit:
 	enoughReviews: "Skvělé! Ohodnotili jste %count% úkolů! Díky."
 	notEnoughReviews: "Neohodnotili jste dostatečné množství úkolů."
 	averageScore: "Celkové hodnocení (průměr)"
-	cannotReviewOthers: "Bez odevzdání vlastního úkolu nemůžete hodnotit práci jiných. Úkol můžete vypracovat po skončení fáze hodnocení, ale nedostanete za to žádné body."
-	submittingAfterDeadline: "Po uzávěrce můžete zpracovat svůj úkol (po skončení fáze hodnocení), ale nedostanete žádné body."
+	cannotReviewOthers: "Bez odevzdání dokončeného vlastního úkolu nemůžete hodnotit práci jiných. Úkol můžete vypracovat po skončení fáze hodnocení, ale nedostanete za to žádné body."
+	submittingAfterDeadline: "Po uzávěrce můžete zpracovat svůj úkol (po skončení fáze hodnocení), ale nedostanete žádné body.\n\n (Pokud vás zdržely nějaké zásadní okolnosti, je možné se na dokončení úkolu domluvit s vyučujícím.)"
 	editAfterDeadline: "Otevřít úkol"
 	assignmentEdit: "Úpravy"
 	table:

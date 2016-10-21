@@ -73,8 +73,8 @@ unit:
 	enoughReviews: "Great! You reviewed %count% assignments! Thanks!"
 	notEnoughReviews: "You haven't reviewed enough other assignments."
 	averageScore: "Score (average)"
-	cannotReviewOthers: "You cannot review other's work without submitting your own assignment in time. After the phase of reviews is finished you can work on your assignment, but you won't be rewarded any points."
-	submittingAfterDeadline: "When you miss the deadline, you can still work on your assignment (after the reviews phase is over). You won't be rewarded any points, though."
+	cannotReviewOthers: "You cannot review other's work without submitting your own completed assignment in time. After the phase of reviews is finished you can work on your assignment, but you won't be rewarded any points."
+	submittingAfterDeadline: "When you miss the deadline, you can still work on your assignment (after the reviews phase is over). You won't be rewarded any points, though.\n\n (There may be exceptions in case of some specific problems: in such cases please contact the teacher to discuss the issue.)"
 	editAfterDeadline: "Edit the assignment"
 	assignmentEdit: "Edits"
 	table:
