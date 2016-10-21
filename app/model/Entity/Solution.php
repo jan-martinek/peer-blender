@@ -39,12 +39,11 @@ class Solution extends FavoritableEntity
      */
     public function isComplete()
     {
-        foreach($this->answers as $answer) {
-            if (trim($answer->text) === '' || $answer->text === $answer->question->prefill) {
+        foreach ($this->answers as $answer) {
+            if (!$answer->isComplete()) {
                 return FALSE;
             }
         }
-        
         return TRUE;
     }
 }

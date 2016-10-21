@@ -11,4 +11,15 @@ namespace Model\Entity;
  */
 class Answer extends Entity
 {
+    /**
+     * Checks whether the question has been answered
+     */
+    public function isComplete()
+    {
+        if (trim($this->text) === '' || $this->text === $this->question->prefill) {
+            return FALSE;
+        }
+        
+        return TRUE;
+    }
 }
