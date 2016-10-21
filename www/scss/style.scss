@@ -202,14 +202,17 @@ ul.checklist {
 	}
 	
 	.questionNumber {
-		float: left;
 		background: black;
 		color: white;
 		text-align: center;
 		padding: 2px 10px;
 		width: 3rem;
-		margin-left: -3.9375rem;
-	}	
+		
+		@media #{$large-up} { 
+			float: left;
+			margin-left: -3.9375rem;
+		}
+	}
 }
 
 .phases {

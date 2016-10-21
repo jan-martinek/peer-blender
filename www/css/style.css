@@ -6463,13 +6463,15 @@ ul.checklist {
   .assignmentQuestion label p:last-child {
     margin-bottom: .5em; }
   .assignmentQuestion .questionNumber {
-    float: left;
     background: black;
     color: white;
     text-align: center;
     padding: 2px 10px;
-    width: 3rem;
-    margin-left: -3.9375rem; }
+    width: 3rem; }
+    @media only screen and (min-width: 64.0625em) {
+      .assignmentQuestion .questionNumber {
+        float: left;
+        margin-left: -3.9375rem; } }
 
 .phases {
   overflow: hidden;
