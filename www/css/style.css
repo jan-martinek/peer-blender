@@ -6642,4 +6642,14 @@ li.selected {
     padding: 10px 15px;
     margin: 0; }
 
+.panel.problem {
+  border-color: #9E354A;
+  border-width: 2px; }
+
+.unanswered {
+  display: block;
+  float: right;
+  margin-left: 5px;
+  color: orange; }
+
 /*# sourceMappingURL=style.css.map */

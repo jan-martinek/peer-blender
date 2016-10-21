@@ -403,3 +403,16 @@ li.selected {
 		margin: 0;	
 	}
 }
+
+.panel.problem {
+	border-color: $red;
+	border-width: 2px;
+}
+
+.unanswered {
+	display: block; 
+	float: right; 
+	margin-left: 5px;
+	
+	color: orange; 
+}

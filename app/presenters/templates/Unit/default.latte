@@ -175,7 +175,11 @@
 		{elseif $lateEditsAcceptable}
 			{include editAfterDeadline}
 		{else}
-			<div class="panel callout">{_messages.unit.cannotReviewOthers}</div>
+			<div class="panel problem">{_messages.unit.cannotReviewOthers}</div>
+			
+			{if !is_null($solution)}
+				{include finishedAssignment}
+			{/if}
 		{/if}
 	</div>
 </div>
