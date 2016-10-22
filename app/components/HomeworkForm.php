@@ -127,6 +127,7 @@ class AssignmentForm extends Form
             $questionProduct = $this->presenter->produce($question);
             if ($questionProduct->input == 'file') {
                 $answer->text = $this->saveAssignmentFile(
+                    $order + 1,
                     $courseRegistry->course->id,
                     $courseRegistry->unit->id,
                     $this->presenter->user->id,
@@ -148,11 +149,11 @@ class AssignmentForm extends Form
     /**
      * @return string uploaded filename
      */
-    private function saveAssignmentFile($courseId, $unitId, $userId, $file, $current) 
+    private function saveAssignmentFile($questionId, $courseId, $unitId, $userId, $file, $current) 
     {
         if ($file->isOK()) {
             $this->removeAssignmentFile($current);   
-            $path = "/course-$courseId/assignments/unit-$unitId/user-$userId/";
+            $path = "/course-$courseId/assignments/unit-$unitId/question-$questionId/user-$userId/";
             return $this->presenter->uploadStorage->moveUploadedFile($file, $path);
         } else {
             return $current;
