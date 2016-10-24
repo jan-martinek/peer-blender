@@ -155,7 +155,7 @@
 		{elseif $lateEdits && $lateEditsAcceptable}
 			<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
 			{include assignmentForm}
-		{elseif !is_null($solution) && $solution->isComplete()}
+		{elseif !is_null($solution)}
 			{include finishedAssignment}
 			
 			<hr>

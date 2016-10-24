@@ -10,8 +10,8 @@ class SolutionRepository extends Repository
 {    
     public function findSolutionToReview(Unit $unit, User $reviewer, $userLimit = TRUE, $unitLimit = TRUE) 
     {
-        $completeIds = $this->findAllComplete($unit);
-        if (!count($completeIds)) {
+        $unitSolutionIds = $this->findIdsByUnit($unit);
+        if (!count($unitSolutionIds)) {
             throw new SolutionToReviewNotFoundException();
             return FALSE;
         }
@@ -22,8 +22,8 @@ class SolutionRepository extends Repository
             return FALSE;
         }
         
-        $groupedByReviewCount = $this->groupCompletedByReviewCount(
-            $completeIds,
+        $groupedByReviewCount = $this->groupSolutionIdsByReviewCount(
+            $unitSolutionIds,
             $reviewedByMeIds,
             $reviewer->id  
         );
@@ -44,13 +44,13 @@ class SolutionRepository extends Repository
         return $this->find($randomId);
     }
     
-    public function groupCompletedByReviewCount($completeIds, $reviewedByMeIds, $reviewerId) 
+    public function groupSolutionIdsByReviewCount($unitSolutionIds, $reviewedByMeIds, $reviewerId) 
     {        
         return $this->connection->query(
             'SELECT solution.id, count(review.id) as reviewCount
               FROM solution 
               LEFT JOIN review ON review.solution_id = solution.id 
-              WHERE solution.id IN %in', $completeIds,
+              WHERE solution.id IN %in', $unitSolutionIds,
               'AND solution.id NOT IN %in', $reviewedByMeIds,
               'AND solution.user_id != %i', $reviewerId,
             'GROUP BY solution.id')->fetchAssoc('reviewCount,id');     
@@ -69,7 +69,7 @@ class SolutionRepository extends Repository
         return count($ids) ? array_keys($ids) : array(0);
     }
     
-    public function findAllComplete(Unit $unit)
+    public function findIdsByUnit(Unit $unit)
     {
         $allSolutionIds = $this->connection->query(
             'SELECT id FROM solution WHERE unit_id = %i', $unit->id)->fetchAssoc('id');
