@@ -121,6 +121,8 @@ solution:
 review:
 	title: "Peer-assessment"
 	author: "Autor/ka recenze"
+	solutionIsComplete: "Všechny úlohy v odevzdaném úkolu jsou zpracovány."
+	solutionIsNotComplete: "V odevzdaném úkolu nejsou zpracovány všechny úlohy."
 	thirdParty: "Třetí strana"
 	rubrics: "Parametry hodnocení"
 	score: 

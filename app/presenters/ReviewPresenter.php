@@ -179,7 +179,16 @@ class ReviewPresenter extends BasePresenter
         }
         
         $review = $this->courseRegistry->review;
-        $review->score = $ratingComplete ? $this->calcGeoMean($ratings) : NULL;
+        $review->solutionIsComplete = $values->solutionIsComplete ? 1 : 0;
+        if ($ratingComplete) {
+            $score = array_sum($ratings) / count($ratings);
+            if (!$values->solutionIsComplete) {
+                $score = $score / 2;    
+            }
+            $review->score = $score; 
+        } else {
+            $review->score = NULL;
+        }
         $review->assessmentSet = $values->rubrics;
         $review->notes = $values->notes;
         $review->submitted_at = new DateTime;
@@ -304,19 +313,5 @@ class ReviewPresenter extends BasePresenter
         
         $this->logEvent($comment, 'submit');
         $this->redirect('this');
-    }
-    
-    public function calcGeoMean($array) {
-        if (count($array) == 0) {
-            return 0;
-        }
-
-        $gm = 1;
-        for ($i = 0; $i < count($array); $i++) {
-            $gm *= $array[$i];
-        }
-        $gm = pow($gm, 1 / count($array));
-
-        return $gm;
     }
 }

@@ -23,6 +23,9 @@ class ReviewForm extends Form
         $this->solution = $review->solution;
         $this->reviewRepository = $reviewRepository;
         
+        $solutionIsCompleteLabel = $translator->translate('messages.review.solutionIsComplete');
+        $this->addCheckbox('solutionIsComplete', $solutionIsCompleteLabel);
+        
         $rubricsContainer = $this->addContainer('rubrics');
         foreach ($rubrics as $id => $rubric) {
             if ($rubric instanceof \Model\Ontology\DefaultRubric) {

@@ -6468,6 +6468,10 @@ ul.checklist {
     text-align: center;
     padding: 2px 10px;
     width: 3rem; }
+    .assignmentQuestion .questionNumber.complete {
+      background: #519331; }
+    .assignmentQuestion .questionNumber.incomplete {
+      background: #9E354A; }
     @media only screen and (min-width: 64.0625em) {
       .assignmentQuestion .questionNumber {
         float: left;

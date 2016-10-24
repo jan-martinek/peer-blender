@@ -208,6 +208,14 @@ ul.checklist {
 		padding: 2px 10px;
 		width: 3rem;
 		
+		&.complete {
+			background: $green;
+		}
+		
+		&.incomplete {
+			background: $red;
+		}
+		
 		@media #{$large-up} { 
 			float: left;
 			margin-left: -3.9375rem;

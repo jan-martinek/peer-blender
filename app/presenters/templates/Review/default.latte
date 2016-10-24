@@ -85,6 +85,13 @@
 			{/if}
 		</div>
 
+		<div class="assignmentQuestion">
+			<h3 class="questionNumber {if $review->solutionIsComplete}complete{else}incomplete{/if}">
+				{if $review->solutionIsComplete}✔{else}✘{/if}
+			</h3>
+			<label>{if $review->solutionIsComplete}{_messages.review.solutionIsComplete}{else}{_messages.review.solutionIsNotComplete}{/if}</label>
+		</div>
+
 		<h3>{_messages.review.totalScore}<h3>
 		
 		<p>

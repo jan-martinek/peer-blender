@@ -63,6 +63,7 @@ var PeerBlender = {
 			if (reviewOngoing) {
 				this.updateScore();
 				$(document).on('change', '.assignmentQuestion input:radio', this.updateScore);	
+				$(document).on('change', '#frm-reviewForm-solutionIsComplete', this.updateScore);	
 			}
 			
 		},
@@ -81,30 +82,29 @@ var PeerBlender = {
 		
 		calculateScore: function() {
 			var values = [];
+			var solutionIsCompleteMultiplier = 1;
 			
 			$.each($('.assignmentQuestion input:radio').serializeArray(), function(i, rubric) {
 				values.push(rubric.value);
 			});
 			
+			if ($('#frm-reviewForm-solutionIsComplete:checked').length == 0) {
+				solutionIsCompleteMultiplier = 0.5;
+			}
+			
 			if (values.length == 0) {
 				return '—';
 			} else {
-				return Math.round(this.geoMean(values)*100)/100;;
+				return Math.round(this.average(values)*solutionIsCompleteMultiplier*100)/100;
 			}
 		},
 		
-		geoMean: function(arr) {
-			if (arr.length == 0) {
-				return 0.0;
-			}
-
-			var gm = 1.0;
+		average: function(arr) {
+			var sum = 0;
 			for (var i = 0; i < arr.length; i++) {
-				gm *= arr[i];
+			    sum += parseInt(arr[i], 10);
 			}
-			gm = Math.pow(gm, 1.0 / arr.length);
-
-			return gm;
+			return sum/arr.length;
 		}
 	},
 	
