@@ -74,16 +74,7 @@ class SolutionRepository extends Repository
         $allSolutionIds = $this->connection->query(
             'SELECT id FROM solution WHERE unit_id = %i', $unit->id)->fetchAssoc('id');
         
-        $incompleteSolutionIds = $this->connection->query(
-            'SELECT solution.id
-              FROM solution
-              LEFT JOIN answer ON solution.id = answer.solution_id
-              LEFT JOIN (SELECT id, prefill FROM question) as q ON answer.question_id = q.id
-              WHERE solution.unit_id = %i', $unit->id,
-              'AND ([answer].[text] = "" OR [answer].[text] = [q].[prefill])'
-        )->fetchAssoc('id');
-        
-        return array_diff(array_keys($allSolutionIds), array_keys($incompleteSolutionIds));
+        return array_keys($allSolutionIds);
     }  
     
     
