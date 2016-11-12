@@ -50,6 +50,13 @@
 					{/if}
 					<p n:ifcontent>{inputError $rubric}</p>
 				</div>
+				
+				<div class="assignmentQuestion">
+					<h3 class="questionNumber">✔</h3>
+					{? $form['solutionIsComplete']->setValue((bool) $review->solutionIsComplete)}
+					{input solutionIsComplete}
+				</div>
+				
 				<div class="row">
 					<div class="columns large-6">
 						<div class="assignmentQuestion">
