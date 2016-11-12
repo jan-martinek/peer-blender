@@ -163,32 +163,40 @@ class ReviewPresenter extends BasePresenter
         return $form;
     }
     
-    public function reviewFormSucceeded(ReviewForm $form, $values) 
-    {   
-        $ratingComplete = TRUE;
-        $ratings = array();
-        foreach ($form['rubrics']->controls as $i => $control) {
-            if ($control instanceof \Nette\Forms\Controls\RadioList) {
-                if (is_null($control->value)) {
-                    $ratingComplete = FALSE;
-                    break;
-                }
-                
-                $ratings[] = $control->value;
+    private function calcTotalScore($assessments, $solutionIsComplete)
+    {
+        // if there's a null in the assessments, ratings are incomplete
+        $ratingComplete = !in_array(NULL, (array) $assessments, TRUE);
+        if (!$ratingComplete) {
+            return NULL;
+        }
+        
+        // process assessments
+        $scores = array();
+        $info = $this->courseRegistry;
+        $unit = $this->produce($info->unit);
+        foreach ($unit->rubrics as $i => $rubric) {
+            if ($rubric instanceof \Model\Ontology\IRubric) {
+                $rubric->setRaw($assessments[$i]);
+                $scores[$i] = $rubric->calcScore();
+            } elseif (is_numeric($assessments[$i])) {
+                $scores[$i] = $assessments[$i];
             }
         }
         
-        $review = $this->courseRegistry->review;
-        $review->solutionIsComplete = $values->solutionIsComplete ? 1 : 0;
-        if ($ratingComplete) {
-            $score = array_sum($ratings) / count($ratings);
-            if (!$values->solutionIsComplete) {
-                $score = $score / 2;    
-            }
-            $review->score = $score; 
-        } else {
-            $review->score = NULL;
+        $score = array_sum($scores) / count($scores);
+        
+        if (!$solutionIsComplete) {
+            $score = $score / 2;    
         }
+        
+        return $score;
+    }
+    
+    public function reviewFormSucceeded(ReviewForm $form, $values) 
+    {   
+        $review = $this->courseRegistry->review;
+        $review->score = $this->calcTotalScore($values->rubrics, $values->solutionIsComplete);
         $review->assessmentSet = $values->rubrics;
         $review->notes = $values->notes;
         $review->submitted_at = new DateTime;

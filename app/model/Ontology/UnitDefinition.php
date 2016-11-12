@@ -87,11 +87,19 @@ class UnitDefinition extends \Nette\Object implements IDefinition
             } 
             elseif (is_array($rubric)) 
             {
-                $metric = $rubric['metric'];
-                unset($rubric['metric']);
-                
-                $this->rubrics[] = new Rubric($metric, $rubric);
-                $hasCustomRubrics = TRUE;
+                if (isset($rubric['metric'])) {
+                    $metric = $rubric['metric'];
+                    unset($rubric['metric']);
+                    
+                    $this->rubrics[] = new Rubric($metric, $rubric);
+                    $hasCustomRubrics = TRUE;
+                } else if (isset($rubric['checklist'])) {
+                    $description = $rubric['checklist'];
+                    unset($rubric['checklist']);
+                    
+                    $this->rubrics[] = new Checklist($description, $rubric['items']);
+                    $hasCustomRubrics = TRUE;
+                }
             } 
             else 
             {
@@ -159,6 +167,138 @@ class UnitDefinition extends \Nette\Object implements IDefinition
     public function produceQuestion($question)
     {
         return $this->assignment->produceQuestion($question);
+    }
+}
+
+interface IRubric
+{   
+    /**
+     * Returns score calculated from 
+     * a stored raw value
+     * @return int score >= 0.00 && score <= 3.00, rounded to two decimals
+     */
+    function calcScore();
+    
+    /**
+     * Sets raw value from which 
+     * the input state is recoverable
+     * @param string
+     */
+    function setRaw($raw);
+    
+    /**
+     * Returns raw value from which 
+     * the input state is recoverable 
+     * @return string
+     */
+    function getRaw();
+}
+
+class Checklist extends \Nette\Object implements IRubric
+{
+    private $description;
+    private $items = array();
+    private $raw;
+    private $totalWeight = 0; 
+    private $maxScore = 3;
+    
+    /**
+     * @param string
+     * @param array Array of strings.
+     */
+    public function __construct($description, $items) {
+        $this->description = $description;
+        
+        foreach ($items as $item) {
+            $itemObj = new ChecklistItem($item);
+            $this->totalWeight += $itemObj->weight;
+            $this->items[] = $itemObj;
+        }
+    }
+    
+    /**
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    
+    /**
+     * @return array Returns array of ChecklistItem objects.
+     */
+    public function getItems() {
+        return $this->items;
+    }
+    
+    public function calcScore()
+    {
+        $score = 0;
+        if (is_null($this->raw)) {
+            return NULL;
+        }
+        
+        foreach ($this->raw as $checkedItem) {
+            $score += $this->items[$checkedItem]->weight;
+        }
+        
+        $adjustedScore = $this->maxScore / $this->totalWeight * $score;
+        return round($adjustedScore * 100)/100;
+    }
+    
+    /**
+     * Sets a raw value
+     * @param string Array of checked items, eg. [0, 1, 4, 5]
+     */
+    public function setRaw($raw)
+    {
+        $this->raw = $raw;
+    }
+    
+    public function getRaw($strict = FALSE)
+    {
+        if (is_null($this->raw)) {
+            if ($strict) {
+                throw new \Exception('Raw value hasn\'t been set.');    
+            } else {
+                return array();
+            }
+        } else {
+            return $this->raw;
+        }
+    }
+}
+
+class ChecklistItem extends \Nette\Object
+{
+    private $metric;
+    private $weight = 1;
+    
+    /**
+     * Parses itemString, if it contains a weight
+     * information (defined as space, lowercase "w" 
+     * and a real number, such as "The file is 
+     * included. w2" or "Script runs. w0.5") it is
+     * stored
+     * @param string
+     */
+    public function __construct($itemString) {
+        if (preg_match("/^(.+) w([0-9.]+)$/", $itemString, $matches)) {
+            $this->metric = $matches[1];
+            $this->weight = $matches[2];
+        } else {
+            $this->metric = $itemString;
+        }
+    }
+    
+    public function getMetric()
+    {
+        return $this->metric;
+    }
+    
+    public function getWeight()
+    {
+        return $this->weight;
     }
 }
 

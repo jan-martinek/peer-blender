@@ -62,7 +62,7 @@ var PeerBlender = {
 			var reviewOngoing = ($('.assignmentQuestion input:radio').length > 0);
 			if (reviewOngoing) {
 				this.updateScore();
-				$(document).on('change', '.assignmentQuestion input:radio', this.updateScore);	
+				$(document).on('change', '.assignmentQuestion input:radio, .assignmentQuestion input:checkbox', this.updateScore);	
 				$(document).on('change', '#frm-reviewForm-solutionIsComplete', this.updateScore);	
 			}
 			
@@ -84,8 +84,31 @@ var PeerBlender = {
 			var values = [];
 			var solutionIsCompleteMultiplier = 1;
 			
-			$.each($('.assignmentQuestion input:radio').serializeArray(), function(i, rubric) {
+			$.each($('.assignmentQuestion.model-ontology-rubric input:radio').serializeArray(), function(i, rubric) {
 				values.push(rubric.value);
+			});
+			
+			$.each($('.model-ontology-checklist'), function(i, checklist) {
+				var labels = $(checklist).find('label');
+				var totalWeight = 0;
+				var totalScore = 0;
+				var maxScore = 3;
+				$.each($(labels), function(i, label) {
+					if ($(label).find('.weight').length) {
+						var weight = parseInt($(label).find('.weight').text());
+						totalWeight += weight;
+						
+						var checked = $(label).find('input').is(':checked');
+						if (checked) {
+							totalScore += weight;
+						}
+					}
+				});
+				var score = maxScore/totalWeight*totalScore;
+				
+				$(checklist).find('.calcWeightedScore').remove();
+				$(checklist).append('<p class="calcWeightedScore"><b>'+score+'</b></p>');
+				values.push(score);
 			});
 			
 			if ($('#frm-reviewForm-solutionIsComplete:checked').length == 0) {

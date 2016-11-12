@@ -125,6 +125,9 @@ review:
 	solutionIsNotComplete: "V odevzdaném úkolu nejsou zpracovány všechny úlohy."
 	thirdParty: "Třetí strana"
 	rubrics: "Parametry hodnocení"
+	checklist:
+		weight: "váha"
+		weightedSum: "Vážený součet"
 	score: 
 		title: "Hodnocení"
 		0: "špatný výsledek zapříčiněný neporozumění obsahu"

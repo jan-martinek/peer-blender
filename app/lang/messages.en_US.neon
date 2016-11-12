@@ -125,6 +125,9 @@ review:
 	solutionIsNotComplete: "The submitted solution is not complete, one or more questions has been omitted."
 	thirdParty: "Third party"
 	rubrics: "Assessment rubrics"
+	checklist:
+		weight: "weight"
+		weightedSum: "Weighted sum"
 	score: 
 		title: "Score"
 		0: "bad work, author does not understand the topic"

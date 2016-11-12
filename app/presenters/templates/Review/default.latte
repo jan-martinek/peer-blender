@@ -60,7 +60,7 @@
 		<h2>{_messages.unit.review}</h2>
 
 		{var answers = $review->assessmentSet}
-		<div n:foreach="$assignment->rubrics as $id => $rubric" class="assignmentQuestion">
+		<div n:foreach="$assignment->rubrics as $id => $rubric" class="assignmentQuestion {=get_class($rubric)}">
 			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 			{if $rubric instanceof \Model\Ontology\DefaultRubric}
 				<label>{_messages.review.score.title}</label>
@@ -78,6 +78,17 @@
 					<ol start="0">
 						<li n:foreach="$rubric->scale as $score => $description" n:class="$score == $answers[$id] ? selected">{!$score|stars} {!$description|imd}</li>
 					</ol>
+				</div>
+			{elseif $rubric instanceof \Model\Ontology\Checklist}	
+				<label>{!$rubric->description|imd}</label>
+				{? $rubric->setRaw($answers[$id])}
+				{var $raw = $rubric->getRaw()}
+				<div class="panel">
+					<ol>
+						<li n:foreach="$rubric->items as $order => $item"><input type="checkbox" {if in_array($order, $raw)}checked{/if}> {!$item->metric|imd} <span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span></li>
+					</ol>
+					{var $score = $rubric->calcScore()}
+					<p n:ifset="$score"><b>{_messages.review.checklist.weightedSum}: {!$score|stars} {!$score}</b></p>
 				</div>
 			{elseif $rubric instanceof \Model\Ontology\Comment}
 				<label>{!$rubric->instructions|md}</label>

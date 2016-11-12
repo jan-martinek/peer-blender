@@ -46,6 +46,14 @@ class ReviewForm extends Form
                 $scoreLabel = $rubric->metric;
                 $scorePlaceholder = $translator->translate('messages.review.useRubricsWhileChoosingScore');
                 $rubricsContainer->addRadioList($id, $scoreLabel, $options);
+            } elseif ($rubric instanceof \Model\Ontology\Checklist) {
+                $checklistItems = array();
+                foreach ($rubric->items as $order => $item) {
+                    $desc = strip_tags(Markdown::defaultTransform($item->metric));
+                    $weight = '<span class="label secondary weight" title="' . $translator->translate('messages.review.checklist.weight') . '"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>' . $item->weight . '</b></span>';
+                    $checklistItems[] = Html::el()->setHtml($desc . ' ' . $weight)->setValue('1');
+                }
+                $rubricsContainer->addCheckboxList($id, $rubric->description, $checklistItems)->getControlPrototype();
             } elseif ($rubric instanceof \Model\Ontology\Comment) {
                 $rubricsContainer->addTextarea($id, 
                     Html::el()->setHtml(Markdown::defaultTransform($rubric->instructions))

@@ -33,8 +33,8 @@
 			<h2>{_messages.unit.review}</h2>
 
 			{form reviewForm}
-				{var assessment = $review->assessmentSet}
-				<div n:foreach="$form['rubrics']->controls as $name => $rubric" class="assignmentQuestion">
+				{var assessment = $review->assessmentSet} 
+				<div n:foreach="$form['rubrics']->controls as $name => $rubric" class="assignmentQuestion {=get_class($unit->rubrics[$name])|webalize}">
 					<h3 class="questionNumber">{$iterator->getCounter()}</h3>
 					{if isset($assessment[$name])} 
 						{? $rubric->setValue($assessment[$name])}
