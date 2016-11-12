@@ -6658,4 +6658,8 @@ li.selected {
   margin-left: 5px;
   color: orange; }
 
+.columns > pre > code {
+  display: block;
+  margin-bottom: 1rem; }
+
 /*# sourceMappingURL=style.css.map */
