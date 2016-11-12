@@ -126,6 +126,7 @@ review:
 	thirdParty: "Third party"
 	rubrics: "Assessment rubrics"
 	checklist:
+		title: "Checklist"
 		weight: "weight"
 		weightedSum: "Weighted sum"
 	score: 

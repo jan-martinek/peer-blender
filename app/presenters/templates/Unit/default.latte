@@ -51,6 +51,7 @@
 					<li n:foreach="$rubric->scale as $score => $description">{!$score|stars} {!$description|imd}</li>
 				</ol>
 			{elseif $rubric instanceof \Model\Ontology\Checklist}
+				<span class="label">{_messages.review.checklist.title}</span><br>
 				{!$rubric->description|md}
 				<ol>
 					<li n:foreach="$rubric->items as $order => $item"><input type="checkbox" disabled> {!$item->metric|imd} <span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span></li>

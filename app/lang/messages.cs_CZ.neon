@@ -126,6 +126,7 @@ review:
 	thirdParty: "Třetí strana"
 	rubrics: "Parametry hodnocení"
 	checklist:
+		title: "Checklist"
 		weight: "váha"
 		weightedSum: "Vážený součet"
 	score: 
