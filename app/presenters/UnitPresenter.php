@@ -87,31 +87,6 @@ class UnitPresenter extends BasePresenter
         $this->template->reviews = $this->reviewRepository->findByUnitAndReviewer($info->unit, $this->userInfo);
     }
     
-    /*
-     * One-time fix (transition from geomean to 1/2 multiplier)
-     */
-    public function actionRecalcReviews($id) 
-    {
-        if ($this->user->isAllowed('solution', 'viewAnytime')) {
-            $info = $this->courseRegistry;
-            $unit = $this->unitRepository->find($id);
-            
-            $reviews = $this->reviewRepository->findByUnit($unit);
-            foreach ($reviews as $review) {
-                $newScore = $review->calcScore();
-                if ($newScore !== FALSE) {
-                    echo $review->solutionIsComplete . ' ' . $review->id . ' ' . $review->score . '-->' . $newScore . '<br>';
-                    
-                    $review->score = $newScore;
-                    $this->reviewRepository->persist($review);
-                } else {
-                    echo 'NOPE ' . $review->solutionIsComplete . ' ' . $review->id . ' ' . $review->score . '-->' . $newScore . '<br>';
-                }
-            }
-        }
-        die;
-    }
-    
     public function handleFavorite() 
     {
         $this->courseRegistry->unit->favorite($this->userRepository->find($this->user->id));
