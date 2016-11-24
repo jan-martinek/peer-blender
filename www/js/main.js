@@ -59,7 +59,7 @@ var PeerBlender = {
 	
 	Review: {
 		init: function() {
-			var reviewOngoing = ($('.assignmentQuestion input:radio').length > 0);
+			var reviewOngoing = ($('.assignmentQuestion input:radio').length > 0 || $('.assignmentQuestion input:checkbox').length > 0);
 			if (reviewOngoing) {
 				this.updateScore();
 				$(document).on('change', '.assignmentQuestion input:radio, .assignmentQuestion input:checkbox', this.updateScore);	
@@ -95,7 +95,7 @@ var PeerBlender = {
 				var maxScore = 3;
 				$.each($(labels), function(i, label) {
 					if ($(label).find('.weight').length) {
-						var weight = parseInt($(label).find('.weight').text());
+						var weight = parseFloat($(label).find('.weight').text());
 						totalWeight += weight;
 						
 						var checked = $(label).find('input').is(':checked');
@@ -107,7 +107,7 @@ var PeerBlender = {
 				var score = maxScore/totalWeight*totalScore;
 				
 				$(checklist).find('.calcWeightedScore').remove();
-				$(checklist).append('<p class="calcWeightedScore"><b>'+score+'</b></p>');
+				$(checklist).append('<p class="calcWeightedScore"><b>' + Math.round(score*100)/100 + '</b></p>');
 				values.push(score);
 			});
 			
@@ -125,7 +125,7 @@ var PeerBlender = {
 		average: function(arr) {
 			var sum = 0;
 			for (var i = 0; i < arr.length; i++) {
-			    sum += parseInt(arr[i], 10);
+			    sum += parseFloat(arr[i], 10);
 			}
 			return sum/arr.length;
 		}
