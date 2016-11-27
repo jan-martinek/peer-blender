@@ -1,0 +1,36 @@
+{
+  "name": "p5.play",
+  "version": "1.0.0",
+  "description": "A p5.js library for the creation of games and playthings.",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "^3.1.0",
+    "http-server": "^0.9.0",
+    "mocha-phantomjs": "^4.0.1",
+    "yuidocjs": "^0.10.0"
+  },
+  "engines": {
+    "node" : ">=4.0.0"
+  },
+  "scripts": {
+    "docs": "yuidoc .",
+    "lint": "eslint lib/** test/unit/** examples/*.js",
+    "lint:examples": "eslint examples/*.js",
+    "lint:lib": "eslint lib/**",
+    "lint:test": "eslint test/unit/**",
+    "start": "http-server -o",
+    "postinstall": "npm run docs",
+    "pretest": "npm run lint",
+    "test": "mocha-phantomjs test/index.html"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/molleindustria/p5.play.git"
+  },
+  "author": "Paolo Pedercini <info@molleindustria.it>",
+  "license": "LGPL-2.1",
+  "bugs": {
+    "url": "https://github.com/molleindustria/p5.play/issues"
+  },
+  "homepage": "https://github.com/molleindustria/p5.play#readme"
+}
