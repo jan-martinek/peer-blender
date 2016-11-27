@@ -95,6 +95,7 @@ unit:
 	highlighting:
 		code: "Code editing (without syntax highlighting) is active in the input field."
 		javascript: "**Javascript** syntax highlighting is active in the input field."
+		turtle: "**Javascript** syntax highlighting is active in the input field."
 		markdown: "**Markdown** syntax highlighting is active in the input field."
 		css: "**CSS** syntax highlighting is active in the input field."
 		sql: "**SQL** syntax highlighting is active in the input field."
@@ -111,6 +112,7 @@ solution:
 	notComplete: "Some questions have not yet been answered. You can edit it until the review phase comes (%date%)."
 	unanswered: "This answer is missing, hence your work will be awarded only a half of the points given."
 	runCode: "Run code"
+	runCodeWithoutAnimation: "Run code without animation"
 	viewPrefill: "Show pre-filled code"
 	quickSave: "Quick save"
 	saved: "The assignment's solution has been saved."
@@ -204,3 +206,5 @@ chat:
 	send: "Send"
 docs:
 	title: "Peer Blender Docs"
+code:
+	notAvailable: "Preview is not available yet — it'll show when you start working on the assignment. Save the assignment and reload the page, it will be there."

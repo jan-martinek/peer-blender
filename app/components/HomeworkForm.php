@@ -48,9 +48,10 @@ class AssignmentForm extends Form
                             ));
                     break;
                 default:
-                    $input = $questionsContainer->addTextarea($id, $label);                        
+                    $input = $questionsContainer->addTextarea($id, $label);
+                    $highlight = $question->input == 'turtle' ? 'javascript' : $question->input;
                     if ($question->isHighlightingAvailable()) {
-                        $input->getControlPrototype()->class('highlight-' . $question->input);
+                        $input->getControlPrototype()->class('highlight-' . $highlight);
                     }
             }
             

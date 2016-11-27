@@ -1,0 +1,27 @@
+{**
+ * @param bool        	  				$reviewMode         Review mode is active
+ * @param bool        	  				$playMode           Play mode is active
+ * @param Nette\Forms\Controls\TextArea $formQuestion		Question data
+ *}
+
+{block content}
+	{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}
+	{var value = $answered ? $question->entity->answer->text : $question->prefill}
+
+	{if $playMode}
+		{input $formQuestion, rows => 10}
+		<p n:ifcontent>{inputError $formQuestion}</p>
+	{/if}
+	
+	{if $reviewMode}
+		{if $answered}
+			{if $question->input == 'plaintext'}
+				<div class="panel">{!=nl2br(htmlspecialchars($question->entity->answer->text))}</div>
+			{else}
+				<textarea id="question-{$question->id}-viewer" class="highlight-{$question->input} readonly">{$value}</textarea>
+			{/if}
+		{else}
+			{include 'unanswered.latte'}
+		{/if}
+	{/if}
+{/block}

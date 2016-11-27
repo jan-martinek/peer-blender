@@ -1,14 +1,78 @@
 'use strict';
 
 $.nette.ext('resizableTextareaRefresh', {
-    complete: function () {
-        PeerBlender.Chat.resizeTextarea();
-        autosize($('#chat textarea'));
-    }
+	complete: function () {
+		PeerBlender.Chat.resizeTextarea();
+		autosize($('#chat textarea'));
+	}
 });
+
+$.nette.ext('forms', false);
+$.nette.ext('forms', {
+	init: function () {
+		var snippets;
+		if (!window.Nette || !(snippets = this.ext('snippets'))) return;
+
+		snippets.after(function ($el) {
+			$el.find('form').each(function() {
+				window.Nette.initForm(this);
+			});
+			
+			PeerBlender.Highlighting.refreshIframes();
+		});
+	},
+	prepare: function (settings) {
+		var analyze = settings.nette;
+		if (!analyze || !analyze.form) return;
+		var e = analyze.e;
+		var originalData = settings.data || {};
+		var data = {};
+
+		if (analyze.isSubmit) {
+			data[analyze.el.attr('name')] = analyze.el.val() || '';
+		} else if (analyze.isImage) {
+			var offset = analyze.el.offset();
+			var name = analyze.el.attr('name');
+			var dataOffset = [ Math.max(0, e.pageX - offset.left), Math.max(0, e.pageY - offset.top) ];
+
+			if (name.indexOf('[', 0) !== -1) { // inside a container
+				data[name] = dataOffset;
+			} else {
+				data[name + '.x'] = dataOffset[0];
+				data[name + '.y'] = dataOffset[1];
+			}
+		}
+		
+		// https://developer.mozilla.org/en-US/docs/Web/Guide/Using_FormData_Objects#Sending_files_using_a_FormData_object
+		if (analyze.form.attr('method').toLowerCase() === 'post' && 'FormData' in window) {
+			var formData = new FormData(analyze.form[0]);
+			for (var i in data) {
+				formData.append(i, data[i]);
+			}
+
+			if (typeof originalData !== 'string') {
+				for (var i in originalData) {
+					formData.append(i, originalData[i]);
+				}
+			}
+
+			settings.data = formData;
+			settings.processData = false;
+			settings.contentType = false;
+		} else {
+			if (typeof originalData !== 'string') {
+				originalData = $.param(originalData);
+			}
+			data = $.param(data);
+			settings.data = analyze.form.serialize() + (data ? '&' + data : '') + '&' + originalData;
+		}
+	}
+});
+
 
 var PeerBlender = {
 	baseUri: '',
+	outdatedIframes: [],
 	
 	init: function() {
 		$.nette.ext('status', {
@@ -17,7 +81,7 @@ var PeerBlender = {
 				$('#quick-save-button i.fa').addClass('fa-spinner fa-spin');
 				
 			},
-			success: function() {
+			complete: function() {
 				$('#quick-save-button i.fa').attr('class', 'fa');
 				$('#quick-save-button i.fa').addClass('fa-check');
 				setTimeout(function() { 
@@ -71,10 +135,10 @@ var PeerBlender = {
 		updateScore: function() {
 			var allAnswered = true;
 			$('.assignmentQuestion input:radio').each(function(){
-			    if($(':radio[name="'+$(this).attr('name')+'"]:checked').length == 0)
-			    {
-			        allAnswered = false;
-			    }
+				if($(':radio[name="'+$(this).attr('name')+'"]:checked').length == 0)
+				{
+					allAnswered = false;
+				}
 			});
 			
 			$('#totalScore span').text(allAnswered ? PeerBlender.Review.calculateScore() : '—');
@@ -125,7 +189,7 @@ var PeerBlender = {
 		average: function(arr) {
 			var sum = 0;
 			for (var i = 0; i < arr.length; i++) {
-			    sum += parseFloat(arr[i], 10);
+				sum += parseFloat(arr[i], 10);
 			}
 			return sum/arr.length;
 		}
@@ -138,12 +202,30 @@ var PeerBlender = {
 			$('button.answerPreview').click(function(e) {
 				var editorCount = PeerBlender.Highlighting.editors.length;
 				for (var i = 0; i < editorCount; i++) {
-				    PeerBlender.Highlighting.editors[i].save();
+					PeerBlender.Highlighting.editors[i].save();
 				}
-				
-				var answer = $(this).closest('.assignmentQuestion').find('textarea').val();
-				$('#previewForm textarea[name="answer"]').text(answer);
-				$('#previewForm')[0].submit();
+
+				var hlType = $(this).attr('type');
+				if (hlType == 'highlight-javascript') {
+					var answer = $(this).closest('.assignmentQuestion').find('textarea').val();
+					$('#previewForm textarea[name="answer"]').text(answer);
+					$('#previewForm')[0].submit();	
+				} else if (/^highlight-turtle/.test(hlType)) {
+					var iframe = $(this).closest('.assignmentQuestion').find('iframe').first();
+					PeerBlender.outdatedIframes.push(iframe);
+					
+					var answerId = iframe.data('answerId');
+					var location = iframe.attr('src');
+					if (hlType == 'highlight-turtle' && /animated/.test(location)) {
+						iframe.attr('src', '/code-preview/turtle/' + answerId);
+					} else if (hlType == 'highlight-turtle-na' && !/animated/.test(location)) {
+						iframe.attr('src', '/code-preview/turtle/' + answerId + '?animated=0');
+					}
+						
+					setTimeout(function() {
+						$('#quick-save-button').trigger('click');	
+					}, 2000);
+				}
 				
 				e.preventDefault();
 			});
@@ -160,7 +242,7 @@ var PeerBlender = {
 			});
 			
 			
-			$('.assignmentQuestion > textarea').each(function() {
+			$('.assignmentQuestion textarea[class*="highlight-"]').each(function() {
 				PeerBlender.Highlighting.initCodeMirror($(this));
 			});
 			
@@ -169,6 +251,8 @@ var PeerBlender = {
 					PeerBlender.Highlighting.editors[i].save();
 				}
 			});
+			
+			PeerBlender.Highlighting.initStickyIframes();
 		},
 		
 		initCodeMirror: function(textarea) {
@@ -213,6 +297,36 @@ var PeerBlender = {
 			);
 			
 			PeerBlender.Highlighting.editors.push(myCodeMirror);
+		},
+		
+		initStickyIframes: function() {
+			/*window.addEventListener('scroll', function() {
+				var turtlePreviewHeight = 400;
+				var previews = document.querySelectorAll('iframe.turtle-preview');
+				
+				for (var i = previews.length - 1; i >= 0; i--) {
+					var iframe = previews[i];
+					var codeColumn = document.querySelector('iframe.turtle-preview').parentNode.previousElementSibling.getBoundingClientRect();
+					var height = codeColumn.height - 183;
+					var top = codeColumn.top;
+					if (codeColumn.height > turtlePreviewHeight + 100 && top < 0) {
+						var translate = -top > turtlePreviewHeight ? turtlePreviewHeight : -top;
+						iframe.style.transform = 'translate(0px, ' + (translate) + 'px)';
+					} else {
+						iframe.style.position = 'static';
+						iframe.style.top = '';
+						iframe.style.transform = '';
+						iframe.style.width = '100%';
+					}
+				}
+			});*/
+		},
+		
+		refreshIframes: function() {
+			for (var i = PeerBlender.outdatedIframes.length - 1; i >= 0; i--) {
+				PeerBlender.outdatedIframes[i][0].contentWindow.location.reload(true);
+				PeerBlender.outdatedIframes.splice(i, 1);
+			}
 		}
 	},
 	

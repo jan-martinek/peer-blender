@@ -1,0 +1,8 @@
+{if $question->prefill}
+	<button class="showPrefill secondary" type="highlight-{$question->input}">
+		<b>{l} {r}</b>  {_messages.solution.viewPrefill}
+	</button>
+	<div class="prefill">
+		<textarea class="highlight-javascript readonly">{$question->prefill}</textarea>
+	</div>
+{/if}

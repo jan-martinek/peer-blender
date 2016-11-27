@@ -126,7 +126,8 @@ class QuestionItem extends \Nette\Object
             'sql',
             'css',
             'xml',
-            'file'
+            'file',
+            'turtle'
         );
         
         // check var values if defined as %variable%

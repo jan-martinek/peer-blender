@@ -95,6 +95,7 @@ unit:
 	highlighting:
 		code: "Vstupní pole je přizpůsobeno editaci kódu (bez zvýrazňování syntaxe)."
 		javascript: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **Javascript**."
+		turtle: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **Javascript**."
 		markdown: "Ve vstupním poli je zapnuto zvýrazňování syntaxe **Markdown**."
 		css: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **CSS**."
 		sql: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **SQL**."
@@ -111,6 +112,7 @@ solution:
 	notComplete: "Pozor, některé úlohy ještě nejsou vůbec zpracované.<br> Do začátku hodnocení (%date%) můžete úkol upravovat."
 	unanswered: "U této úlohy zcela schází odpověď a proto bude úkol hodnocen jako nekompletní."
 	runCode: "Spustit kód"
+	runCodeWithoutAnimation: "Spustit kód bez animace"
 	viewPrefill: "Zobrazit původní kód"
 	quickSave: "Uložit úkol"
 	saved: "Úloha byla uložena."
@@ -204,3 +206,5 @@ chat:
 	send: "Odeslat"
 docs:
 	title: "Dokumentace aplikace Peer Blender"
+code:
+	notAvailable: "Náhled ještě není dostupný — objeví se, jakmile začnete s úkolem pracovat. Uložte úkol a poté obnovte stránku."

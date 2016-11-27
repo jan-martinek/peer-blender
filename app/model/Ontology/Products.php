@@ -127,7 +127,8 @@ class QuestionProduct extends AbstractProduct
 	        'html',
 	        'sql',
 	        'css',
-	        'xml'
+	        'xml',
+	        'turtle'
 	    ));
 	}
 }

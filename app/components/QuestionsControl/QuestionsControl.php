@@ -38,7 +38,7 @@ class QuestionsControl extends Control
     {
         $template = $this->template;
         $this->setTemplateFilters($template);
-        $template->setFile(__DIR__ . '/questions.latte');
+        $template->setFile(__DIR__ . '/templates/questions.latte');
         $template->uploadPath = $this->uploadStorage->path;
         $template->assignment = $assignment ? $assignment : $this->assignment;
         $template->solution = $solution ? $solution : $this->solution;

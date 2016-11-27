@@ -1,0 +1,30 @@
+{**
+ * @param bool        	  						$reviewMode         Review mode is active
+ * @param bool        	  						$playMode           Play mode is active
+ * @param Nette\Forms\Controls\UploadControl	$formQuestion
+ *}
+
+{block content}
+	{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}
+	
+	<div class="panel">
+		{if $playMode}
+			{label $formQuestion}
+				<p>{input $formQuestion}</p>
+				<p>{$formQuestion->getOption('description')}</p>
+			{/label}
+			<p n:ifcontent class="panel" style="background: #f90;">{inputError $formQuestion}</p>
+		{/if}
+		
+		<p>
+			{if $answered}
+				<b>{_messages.unit.submittedAttachment}</b>:
+				<a href="{$baseUri}{$uploadPath}{$question->entity->answer->text}">
+					{=pathinfo($question->entity->answer->text, PATHINFO_BASENAME)}
+				</a>
+			{elseif $reviewMode}
+				{include 'unanswered.latte'}
+			{/if}
+		</p>
+	</div>
+{/block}

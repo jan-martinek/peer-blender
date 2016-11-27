@@ -1,5 +1,7 @@
 {define question}
-	{var $displayAsForm = ($assignment->entity->unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED) || $lateEdits) && (isset($form) && $form)}
+	{var playMode = ($assignment->entity->unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED) || $lateEdits) && (isset($form) && $form)}
+	{var reviewMode = !$playMode}
+	{var formQuestion = $form['questions'][$key]}
 
 	<p n:ifcontent class="label warning">
 		{if $question->legacy}
@@ -9,22 +11,18 @@
 		{/if}
 	</p>
 	
-	{var input = $question->input}
-
 	<label>
 		{!$question->text|md}
 		{if $question->isHighlightingAvailable()}
-			({!_messages.unit.highlighting.$input|imd})
+			({!_messages.unit.highlighting.$question->input|imd})
 		{/if}
 	</label>
 	
-	{if $displayAsForm}
-		{var formQuestion = $form['questions'][$key]}
-	{/if}
-	
-	{if $input == 'file'}
+	{if $question->input == 'file'}
+		{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}
+		
 		<div class="panel">
-			{if $displayAsForm}
+			{if $playMode}
 				{label $formQuestion}
 					<p>{input $formQuestion}</p>
 					<p>{$formQuestion->getOption('description')}</p>
@@ -33,50 +31,26 @@
 			{/if}
 			
 			<p>
-				{if isset($question->entity->answer) && $question->entity->answer->text}
+				{if $answered}
 					<b>{_messages.unit.submittedAttachment}</b>:
 					<a href="{$baseUri}{$uploadPath}{$question->entity->answer->text}">
 						{=pathinfo($question->entity->answer->text, PATHINFO_BASENAME)}
 					</a>
-				{elseif !$displayAsForm}
-					<span style="color: #aaa">{_messages.unit.notAnswered}</a>
+				{elseif $reviewMode}
+					{include 'unanswered.latte'}
 				{/if}
 			</p>
 		</div>
+	{elseif in_array($question->input, array('javascript', 'turtle'))}
+		{var questionTemplate = $question->input . '.latte'}
+		{include $questionTemplate, key => $key, question => $question, formQuestion => $formQuestion, playMode => $playMode, reviewMode => $reviewMode}
 	{else}
-		{if $displayAsForm}
-			{input $formQuestion, 'rows' => '10'}
-			<p n:ifcontent>{inputError $formQuestion}</p>
-		{elseif isset($question->entity->answer)}
-			{if $input == 'plaintext'}
-				<div class="panel">{!=nl2br(htmlspecialchars($question->entity->answer->text))}</div>
-			{else}
-				<textarea id="question-{$question->id}-viewer" class="highlight-{$input} readonly">{$question->entity->answer->text}</textarea>
-			{/if}
-		{else}
-			<div class="panel callout">
-				<p style="color: #aaa">{_messages.unit.notAnswered}</p>
-			</div>
-		{/if}
-		
-		{if $input == 'javascript'}
-			<button class="answerPreview" type="highlight-{$input}">
-				&#9654; {_messages.solution.runCode}
-			</button>
-			
-			{if $question->prefill}
-				<button class="showPrefill secondary" type="highlight-{$input}">
-					<b>{l} {r}</b>  {_messages.solution.viewPrefill}
-				</button>
-				<div class="prefill">
-					<textarea class="highlight-javascript readonly">{$question->prefill}</textarea>
-				</div>
-			{/if}
-		{/if}
+		{var questionTemplate = 'basic.latte'}
+		{include $questionTemplate, key => $key, question => $question, formQuestion => $formQuestion, playMode => $playMode, reviewMode => $reviewMode}
 	{/if}
 	
-	<div n:if="$question->comments > 0" {if !$displayAsForm}class="panel"{/if}>
-		{if $displayAsForm}
+	<div n:if="$question->comments > 0" {if !$playMode}class="panel"{/if}>
+		{if $playMode}
 			{input $form['comments'][$key], 'rows' => $question->comments}
 		{else}
 			{if isset($question->entity->answer->comments)}
