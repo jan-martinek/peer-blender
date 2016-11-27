@@ -1,0 +1,33 @@
+{block js}
+<script src="/js/p5.min.js"></script>
+<script src="/js/p5.turtle.js-master/js/p5.play.js"></script>
+<script src="/js/p5.turtle.js-master/p5.turtle{if !$animated}.na{/if}.js"></script>
+<script>
+
+
+	setup = function() {
+		var canvas = createCanvas(window.innerWidth, window.innerHeight);
+		canvas.parent("p5Canvas");
+		background(200);
+
+		turtleSprite = createSprite(0, 0, 56, 64);
+		turtleSprite.addAnimation("moving", 
+			"/js/p5.turtle.js-master/images/turtle_1.png", 
+			"/js/p5.turtle.js-master/images/turtle_2.png",
+			"/js/p5.turtle.js-master/images/turtle_3.png",
+			"/js/p5.turtle.js-master/images/turtle_4.png");
+		turtleSprite.changeAnimation("moving");
+		
+		tPlane = createGraphics(width, height); // pen layer
+		
+		// Start turtle code - recode turtle moving. -------------------------------------
+		{!$code}
+		// End of turtle code ------------------------------------------------------------
+	};
+</script>
+{/block}
+
+{block content}
+<div id="p5Canvas"></div>
+<div id="log"></div>
+{/block}

@@ -67,12 +67,7 @@ class SolutionPresenter extends BasePresenter
         $this->template->answers = $solution->answers;
         $this->template->isFavorited = $solution->isFavoritedBy($this->userInfo);
         $this->template->uploadPath = $this->uploadStorage->path;
-    }
-    
-    public function actionPreview()
-    {
-        $post = $this->request->getPost();
-        $this->template->answer = isset($post['answer']) ? $post['answer'] : '';
+        $this->template->log = $this->relevantLogs;
     }
     
     public function handleFavorite() 
