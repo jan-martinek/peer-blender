@@ -1,0 +1,63 @@
+{block js}
+<script src="/js/p5.min.js"></script>
+<script src="/js/p5.turtle.js-master/js/p5.play.js"></script>
+<script src="/js/p5.turtle.js-master/p5.turtle.js"></script>
+<script>
+
+
+	setup = function() {
+		var canvas = createCanvas(window.innerWidth, window.innerHeight);
+		canvas.parent("p5Canvas");
+		background(200);
+
+		turtleSprite = createSprite(0, 0, 56, 64);
+		turtleSprite.addAnimation("moving", 
+			"/js/p5.turtle.js-master/images/turtle_1.png", 
+			"/js/p5.turtle.js-master/images/turtle_2.png",
+			"/js/p5.turtle.js-master/images/turtle_3.png",
+			"/js/p5.turtle.js-master/images/turtle_4.png");
+		turtleSprite.changeAnimation("moving");
+		
+		tPlane = createGraphics(width, height); // pen layer
+		
+		// Start turtle code - recode turtle moving. -------------------------------------
+		turtle = new Turtle();
+		turtle.x = window.innerWidth/2;
+		turtle.y = window.innerHeight/2;
+		turtle.penDown = true;
+		turtle.penColor = '#888888';
+
+		turtle.repositionRight = function(len) {
+		  turtle.penDown = false;
+		  turtle.right(90);
+		  turtle.back(len);
+		  turtle.left(90);
+		  turtle.penDown = true;
+		};
+
+		turtle.repositionRight(170/4);
+		
+		// triangle
+		turtle.right(60);
+		turtle.forward(100);
+		turtle.right(120);
+		turtle.forward(100);
+		turtle.right(120);
+		turtle.forward(100);
+		turtle.right(60);
+
+		turtle.repositionRight(30);
+
+		// circle
+		for (var i = 0; i < 180; i++) {
+		    turtle.right(2);
+		    turtle.forward(3);
+		}
+		// End of turtle code ------------------------------------------------------------
+	};
+</script>
+{/block}
+
+{block content}
+<div id="p5Canvas"></div>
+{/block}

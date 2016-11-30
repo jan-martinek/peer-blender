@@ -212,15 +212,24 @@ var PeerBlender = {
 					$('#previewForm')[0].submit();	
 				} else if (/^highlight-turtle/.test(hlType)) {
 					var iframe = $(this).closest('.assignmentQuestion').find('iframe').first();
-					PeerBlender.outdatedIframes.push(iframe);
-					
 					var answerId = iframe.data('answerId');
 					var location = iframe.attr('src');
-					if (hlType == 'highlight-turtle' && /animated/.test(location)) {
-						iframe.attr('src', '/code-preview/turtle/' + answerId);
-					} else if (hlType == 'highlight-turtle-na' && !/animated/.test(location)) {
-						iframe.attr('src', '/code-preview/turtle/' + answerId + '?animated=0');
+					var newLocation = '';
+					switch (hlType) {
+						case 'highlight-turtle':
+							newLocation = '/code-preview/turtle/' + answerId;
+							break;
+						case 'highlight-turtle-na':
+							newLocation = '/code-preview/turtle/' + answerId + '?animated=0';
+							break;
+						default:
+							newLocation = location;
 					}
+					
+					PeerBlender.outdatedIframes.push({
+						iframe: iframe,
+						location: newLocation
+					});
 						
 					setTimeout(function() {
 						$('#quick-save-button').trigger('click');	
@@ -324,7 +333,9 @@ var PeerBlender = {
 		
 		refreshIframes: function() {
 			for (var i = PeerBlender.outdatedIframes.length - 1; i >= 0; i--) {
-				PeerBlender.outdatedIframes[i][0].contentWindow.location.reload(true);
+				var item = PeerBlender.outdatedIframes[i];
+				item.iframe.attr('src', item.location);
+				
 				PeerBlender.outdatedIframes.splice(i, 1);
 			}
 		}

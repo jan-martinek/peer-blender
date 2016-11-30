@@ -26,7 +26,7 @@
 		
 		</div>
 		<div class="columns large-6">
-			{var codePreview = isset($question->entity->answer->id) ? 'turtle/' . $question->entity->answer->id : 'na'}
+			{var codePreview = isset($question->entity->answer->id) ? 'turtle-blank' : 'na'}
 			<iframe class="turtle-preview" {if isset($question->entity->answer->id)}data-answer-id={$question->entity->answer->id}{/if} src="/code-preview/{$codePreview}"></iframe>
 		</div>
 	</div>
