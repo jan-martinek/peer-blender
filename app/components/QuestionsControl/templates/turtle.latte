@@ -24,21 +24,23 @@
 			{/if}
 		{/if}
 		
+		{include 'prefillReview.latte', question => $question}
+		
 		</div>
 		<div class="columns large-6">
 			{var codePreview = isset($question->entity->answer->id) ? 'turtle-blank' : 'na'}
 			<iframe class="turtle-preview" {if isset($question->entity->answer->id)}data-answer-id={$question->entity->answer->id}{/if} src="/code-preview/{$codePreview}"></iframe>
+			
+			<button class="answerPreview" type="highlight-{$question->input}">
+				&#9654; {_messages.solution.runCode}
+			</button>
+			
+			<button class="answerPreview" type="highlight-{$question->input}-na">
+				&#9654; {_messages.solution.runCodeWithoutAnimation}
+			</button>
 		</div>
 	</div>
 
-	<button class="answerPreview" type="highlight-{$question->input}">
-		&#9654; {_messages.solution.runCode}
-	</button>
 	
-	<button class="answerPreview" type="highlight-{$question->input}-na">
-		&#9654; {_messages.solution.runCodeWithoutAnimation}
-	</button>
-
-	{include 'prefillReview.latte', question => $question}
 	
 {/block}
