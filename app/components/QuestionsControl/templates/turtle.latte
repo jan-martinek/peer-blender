@@ -18,7 +18,7 @@
 		
 		{if $reviewMode}
 			{if $answered}
-				<textarea id="question-{$question->id}-viewer" class="highlight-{$question->input} readonly">{$question->entity->answer->text}</textarea>
+				<textarea id="question-{$question->id}-viewer" class="highlight-javascript readonly">{$question->entity->answer->text}</textarea>
 			{else}
 				{include 'unanswered.latte'}
 			{/if}

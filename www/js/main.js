@@ -230,10 +230,16 @@ var PeerBlender = {
 						iframe: iframe,
 						location: newLocation
 					});
-						
-					setTimeout(function() {
-						$('#quick-save-button').trigger('click');	
-					}, 2000);
+					
+					
+					var quickSaveButton = $('#quick-save-button');
+					if (quickSaveButton.length) {
+						setTimeout(function() {
+							$('#quick-save-button').trigger('click');	
+						}, 2000);	
+					} else {
+						PeerBlender.Highlighting.refreshIframes();
+					}
 				}
 				
 				e.preventDefault();
