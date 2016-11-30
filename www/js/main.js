@@ -236,7 +236,7 @@ var PeerBlender = {
 					if (quickSaveButton.length) {
 						setTimeout(function() {
 							$('#quick-save-button').trigger('click');	
-						}, 2000);	
+						}, 1000);	
 					} else {
 						PeerBlender.Highlighting.refreshIframes();
 					}
