@@ -89,7 +89,7 @@
 								{if $solution && $solution->isComplete()}
 									<span style="color: green">●</span> {!_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
 								{else}
-									<span style="color: red">●</span> {!_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
+									<span style="color: orange">●</span> {!_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
 								{/if}
 							</p>
 						</div>	

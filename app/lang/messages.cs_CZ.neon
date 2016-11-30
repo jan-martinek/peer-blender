@@ -109,7 +109,7 @@ solution:
 		hours: "po %hours% hodinách a %minutes% minutách od vygenerování úkolu."
 		minutes: "po %minutes% minutách od vygenerování úkolu."
 	complete: "Do začátku fáze hodnocení (%date%) můžete úkol ještě průběžně upravovat."
-	notComplete: "Pozor, některé úlohy ještě nejsou vůbec zpracované.<br> Do začátku hodnocení (%date%) můžete úkol upravovat."
+	notComplete: "Upozornění: některá pole nejsou upravena (označena oranžovým čtverečkem).<br> Ujistěte se, že máte úkol hotový."
 	unanswered: "U této úlohy zcela schází odpověď a proto bude úkol hodnocen jako nekompletní."
 	runCode: "Spustit kód"
 	runCodeWithoutAnimation: "Spustit kód bez animace"

@@ -109,7 +109,7 @@ solution:
 		hours: "after %hours% hours and %minutes% minutes since the assignment has been generated."
 		minutes: "after %minutes% minutes since the assignment has been generated."
 	complete: "You can still edit the assignment until the review phase comes (%date%)."
-	notComplete: "Some questions have not yet been answered. You can edit it until the review phase comes (%date%)."
+	notComplete: "Warning: Some input areas haven't been touched. Make sure your assignment is complete."
 	unanswered: "This answer is missing, hence your work will be awarded only a half of the points given."
 	runCode: "Run code"
 	runCodeWithoutAnimation: "Run code without animation"
