@@ -208,3 +208,4 @@ docs:
 	title: "Dokumentace aplikace Peer Blender"
 code:
 	notAvailable: "Náhled ještě není dostupný — objeví se, jakmile začnete s úkolem pracovat. Uložte úkol a poté obnovte stránku."
+	clickToShowPreview: "Pro spuštění kódu klikněte na jedno z&nbsp;tlačítek níže."

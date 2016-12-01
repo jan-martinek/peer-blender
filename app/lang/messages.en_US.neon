@@ -208,3 +208,4 @@ docs:
 	title: "Peer Blender Docs"
 code:
 	notAvailable: "Preview is not available yet — it'll show when you start working on the assignment. Save the assignment and reload the page, it will be there."
+	clickToShowPreview: "To run this code, click one of the buttons."
