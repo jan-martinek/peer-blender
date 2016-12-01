@@ -8,7 +8,7 @@ var turtle;
 var turtleSprite;
 var tPlane; // graphic plane for pen layer
 
-setup = function() {
+/*setup = function() {
 	var canvas = createCanvas(480, 360);
 	canvas.parent("p5Canvas");
 	background(200);
@@ -42,7 +42,7 @@ setup = function() {
 	turtle.right(360);
 	turtle.right(360);
 	// End of turtle code ------------------------------------------------------------
-};
+};*/
 
 draw = function() {
 	// Playback turtle moving for animation.

@@ -14,7 +14,7 @@ var turtle;
 var turtleSprite;
 var tPlane;
 
-setup = function() {
+/*setup = function() {
 	createCanvas(480, 360);
 	background(200);
 	fill(255);
@@ -33,7 +33,7 @@ setup = function() {
 		turtle.left(144);
 	};
 	// End of turtle code ------------------------------------------------------------
-};
+};*/
 
  function TBody() {
 	this.x = 200;
