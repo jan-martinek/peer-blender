@@ -427,9 +427,12 @@ li.selected {
 	
 	color: orange; 
 }
-
-.columns > pre > code, .assignmentQuestion > label > pre > code {
+.columns > pre > code, 
+.columns > div > pre > code, 
+.assignmentQuestion > label > pre > code, 
+.assignmentQuestion > div > label > pre > code {
 	display: block;
+	overflow-x: scroll;
 	margin-bottom: 1rem;
 }
 
