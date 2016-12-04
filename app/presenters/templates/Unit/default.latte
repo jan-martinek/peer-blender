@@ -86,11 +86,7 @@
 					{snippet formInfo}
 						<div n:if="$solution">
 							<p n:if="$unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)">
-								{if $solution && $solution->isComplete()}
-									<span style="color: green">●</span> {!_messages.solution.complete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
-								{else}
-									<span style="color: orange">●</span> {!_messages.solution.notComplete, [date => $unit->reviews_since->format('j. n. Y H.i')]}
-								{/if}
+								{!_messages.solution.workOnUntil, [date => $unit->reviews_since->format('j. n. Y H.i')]}
 							</p>
 						</div>	
 					{/snippet}

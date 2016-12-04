@@ -73,11 +73,6 @@
 {snippetArea assignmentQuestions}
 	<div n:foreach="$assignment->questions as $key => $question" class="assignmentQuestion">
 		<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-		
-		{if !isset($question->entity->answer) || !$question->entity->answer->isComplete()}
-			<span class="unanswered" title="{_messages.solution.unanswered}"><i class="fa fa-stop" aria-hidden="true"></i></span> 
-		{/if}
-		
 		{if $question->input === 'file'}
 			{snippet question-$question->order}
 				{include question, key => $key, question => $question}
