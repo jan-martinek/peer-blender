@@ -85,7 +85,7 @@
 				{var $raw = $rubric->getRaw()}
 				<div class="panel">
 					<ol>
-						<li n:foreach="$rubric->items as $order => $item"><input type="checkbox" {if in_array($order, $raw)}checked{/if}> {!$item->metric|imd} <span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span></li>
+						<li n:foreach="$rubric->items as $order => $item"><input type="checkbox" {if in_array($order, $raw)}checked{/if} onclick="return false;"> {!$item->metric|imd} <span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span></li>
 					</ol>
 					{var $score = $rubric->calcScore()}
 					<p n:ifset="$score"><b>{_messages.review.checklist.weightedSum}: {!$score|stars} {!$score}</b></p>
