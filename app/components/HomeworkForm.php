@@ -79,6 +79,11 @@ class AssignmentForm extends Form
     {
         $courseRegistry = $this->presenter->courseRegistry;
         
+        if ($courseRegistry->assignment->student->id != $this->presenter->userInfo->id) {
+            throw new UserMismatchException('Cannot work with another students work.');
+            return;
+        }
+        
         if ($solution = $courseRegistry->solution) {
             $event = 'edit';
         } else {
