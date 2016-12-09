@@ -82,6 +82,11 @@
     {if isset($presenter->courseRegistry->unit) && $presenter->courseRegistry->unit instanceof \Model\Entity\Unit}
         {control chatRenderer}
     {/if}
+    
+    <form id="previewForm" action="{link CodePreview:hidden}" target="preview_iframe" method="post" style="display: none;">
+        <textarea name="answer"></textarea>
+    </form>
+    <iframe id="preview_iframe" name="preview_iframe" style="display: none;"></iframe>
 
     <script src="{$baseUri}/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="{$baseUri}/bower_components/foundation/js/foundation.min.js"></script>
