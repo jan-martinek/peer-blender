@@ -21,6 +21,12 @@ class CodePreviewPresenter extends BasePresenter
     	
     }
     
+    public function renderP5js($id)
+    {
+        $answer = $this->answerRepository->find($id);
+        $this->template->code = $answer->text;
+    }
+    
     public function actionHidden()
     {
         $post = $this->request->getPost();

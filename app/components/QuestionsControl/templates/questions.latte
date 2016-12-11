@@ -41,7 +41,7 @@
 				{/if}
 			</p>
 		</div>
-	{elseif in_array($question->input, array('javascript', 'turtle'))}
+	{elseif in_array($question->input, array('javascript', 'turtle', 'p5js'))}
 		{var questionTemplate = $question->input . '.latte'}
 		{include $questionTemplate, key => $key, question => $question, formQuestion => $formQuestion, playMode => $playMode, reviewMode => $reviewMode}
 	{else}

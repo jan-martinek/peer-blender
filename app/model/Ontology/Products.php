@@ -128,7 +128,8 @@ class QuestionProduct extends AbstractProduct
 	        'sql',
 	        'css',
 	        'xml',
-	        'turtle'
+	        'turtle',
+	        'p5js'
 	    ));
 	}
 }

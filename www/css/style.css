@@ -6666,7 +6666,7 @@ li.selected {
   overflow-x: scroll;
   margin-bottom: 1rem; }
 
-.turtle-preview {
+.turtle-preview, .p5js-preview {
   border: 0;
   width: 100%;
   height: 400px; }

@@ -210,12 +210,15 @@ var PeerBlender = {
 					var answer = $(this).closest('.assignmentQuestion').find('textarea').val();
 					$('#previewForm textarea[name="answer"]').text(answer);
 					$('#previewForm')[0].submit();	
-				} else if (/^highlight-turtle/.test(hlType)) {
+				} else if (/^highlight-(turtle|p5js)/.test(hlType)) {
 					var iframe = $(this).closest('.assignmentQuestion').find('iframe').first();
 					var answerId = iframe.data('answerId');
 					var location = iframe.attr('src');
 					var newLocation = '';
 					switch (hlType) {
+						case 'highlight-p5js':
+							newLocation = '/code-preview/p5js/' + answerId;
+							break;
 						case 'highlight-turtle':
 							newLocation = '/code-preview/turtle/' + answerId;
 							break;
