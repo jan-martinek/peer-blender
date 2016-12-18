@@ -95,7 +95,8 @@ unit:
 	highlighting:
 		code: "Vstupní pole je přizpůsobeno editaci kódu (bez zvýrazňování syntaxe)."
 		javascript: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **Javascript**."
-		turtle: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **Javascript**."
+		turtle: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **Javascript**. Při spuštění je používána knihovna **p5.turtle.js**."
+		p5js: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **Javascript**. Při spuštění je používána knihovna **p5.js**."
 		markdown: "Ve vstupním poli je zapnuto zvýrazňování syntaxe **Markdown**."
 		css: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **CSS**."
 		sql: "Ve vstupním poli je zapnuto zvýrazňování syntaxe jazyka **SQL**."

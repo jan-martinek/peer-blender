@@ -95,7 +95,8 @@ unit:
 	highlighting:
 		code: "Code editing (without syntax highlighting) is active in the input field."
 		javascript: "**Javascript** syntax highlighting is active in the input field."
-		turtle: "**Javascript** syntax highlighting is active in the input field."
+		turtle: "**Javascript** syntax highlighting is active in the input field. Library **p5.turtle.js** is used when running the script."
+		p5js: "**Javascript** syntax highlighting is active in the input field. Library **p5.js** is used when running the script."
 		markdown: "**Markdown** syntax highlighting is active in the input field."
 		css: "**CSS** syntax highlighting is active in the input field."
 		sql: "**SQL** syntax highlighting is active in the input field."
