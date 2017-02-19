@@ -43,9 +43,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
     /** @var \App\Components\IQuestionsControlFactory @inject */
     public $questionsControlFactory;
     
-    /** @var \App\Components\IChatControlFactory @inject */
-    public $chatControlFactory;
-    
     /** @var \Model\CourseRegistry @inject */
     public $courseRegistry;
     
@@ -191,12 +188,6 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter
         $this->logEvent($this->userInfo, 'logout');
         $user->logout();
         $this->redirect('Homepage:default');
-    }
-    
-    protected function createComponentChatRenderer()
-    {
-        $chatControl = $this->chatControlFactory->create();
-        return $chatControl;
     }
     
     protected function createComponentQuestionsRenderer()

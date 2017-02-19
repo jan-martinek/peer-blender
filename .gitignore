@@ -9,7 +9,6 @@ node_modules/*
 www/bower_components/*
 
 www/uploads/*
-www/generated/*
 
 config.neon
 !.gitignore

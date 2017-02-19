@@ -41,7 +41,6 @@ services:
 	- Model\Ontology\CourseFactory(%appDir%/../courses)
 	- App\Forms\SignFormFactory
 	- App\Components\IQuestionsControlFactory
-	- App\Components\IChatControlFactory
 	router: App\RouterFactory::createRouter
 	uploadStorage: Model\UploadStorage(%wwwDir%/uploads, /uploads)
 	generatedFilesStorage: Model\GeneratedFilesStorage(%wwwDir%/generated, /generated)

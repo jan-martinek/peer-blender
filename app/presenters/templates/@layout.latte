@@ -76,11 +76,6 @@
     <div class="row"><div class="columns">
         <a href="https://github.com/jan-martinek/peer-blender" target="_blank" class="button secondary" style="margin-bottom: 100px; float: right; font-weight: bold;">@Peer Blender</a>
     </div></div>
-    
-    {if isset($presenter->courseRegistry->unit) && $presenter->courseRegistry->unit instanceof \Model\Entity\Unit}
-        {control chatRenderer}
-    {/if}
-    
 
     <script src="{$baseUri}/vendor/vendor.js"></script>
     {block scripts}{/block}

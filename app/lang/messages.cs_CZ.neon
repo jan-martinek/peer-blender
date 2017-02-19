@@ -201,9 +201,6 @@ objection:
 	raisedAt: "Námitka vznesena dne"
 	result: "Výsledek"
 	notEvaluatedYet: "Zatím nevyhodnoceno"
-chat:
-	title: "Chat"
-	send: "Odeslat"
 docs:
 	title: "Dokumentace aplikace Peer Blender"
 code:

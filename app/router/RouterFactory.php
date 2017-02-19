@@ -20,10 +20,6 @@ class RouterFactory
             'presenter' => 'Docs',
             'action' => 'default'
         ));
-        $router[] = new Route('/generated/chat/<id>.<action>', array(
-            'presenter' => 'Chat',
-            'toFile' => TRUE
-        ));
         $router[] = new Route('/[<presenter>][/<action>][/<id>]', array(
             'presenter' => 'Homepage',
             'action' => 'default',
