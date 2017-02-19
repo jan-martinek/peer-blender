@@ -6148,6 +6148,12 @@ input[type="radio"] {
   .CodeMirror pre {
     font-size: 14px; }
 
+textarea.plaintext {
+  font-size: 1rem; }
+  textarea.plaintext[disabled] {
+    color: black;
+    background: white; }
+
 #frm-searchForm {
   padding: 0;
   margin: 1em 0; }

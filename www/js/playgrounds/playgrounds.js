@@ -69,6 +69,9 @@ var Playground = function(el) {
 			case 'p5js':
 				this.toy = new P5Toy(this);
 				break;
+			case 'plaintext':
+				this.toy = new PlaintextToy(this);
+				break;
 			default:
 				console.log('Toy "'+this.toyName+'" not found . Using plain.');
 				return;
@@ -240,6 +243,19 @@ var HighlightingToy = function(playground, lang) {
 	this.save = function() {
 		this.source.value = this.editor.getValue();
 	}
+}
+
+var PlaintextToy = function(playground) {
+	this.playground = playground;
+	this.source = playground.el.querySelector('textarea');
+	this.source.classList.add('plaintext');
+	autosize(this.source);
+	
+	if (playground.mode == 'review') {
+		this.source.setAttribute('disabled', 'true');
+	}
+	
+	this.save = function() {}
 }
 
 var JsToy = function(playground) {
