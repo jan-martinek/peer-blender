@@ -98,6 +98,8 @@ var Playground = function(el) {
 					el.style.display = 'block';
 					e.target.innerHTML = '{ }  {_messages.solution.hidePrefill}';
 				}
+				
+				e.preventDefault();
 			}.bind(this));
 		}
 	}
