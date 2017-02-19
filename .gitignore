@@ -5,7 +5,9 @@ courses/*
 !courses/test
 
 vendor/*
+node_modules/*
 www/bower_components/*
+
 www/uploads/*
 www/generated/*
 
