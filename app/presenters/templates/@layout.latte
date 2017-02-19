@@ -83,10 +83,6 @@
         {control chatRenderer}
     {/if}
     
-    <form id="previewForm" action="{link CodePreview:hidden}" target="preview_iframe" method="post" style="display: none;">
-        <textarea name="answer"></textarea>
-    </form>
-    <iframe id="preview_iframe" name="preview_iframe" style="display: none;"></iframe>
 
     <script src="{$baseUri}/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="{$baseUri}/bower_components/foundation/js/foundation.min.js"></script>
@@ -111,9 +107,12 @@
     {block scripts}{/block}
     
     <script src="{$baseUri}/js/main.js?v=7"></script>
+    <script src="{$baseUri}/js/playgrounds/playgrounds.js"></script>
     <script>
         $(document).ready(function() {
             PeerBlender.init();
+            var p = new Playgrounds;
+            p.init();
         });
     </script>
     {control courseGaRenderer}

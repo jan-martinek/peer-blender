@@ -17,36 +17,49 @@
 			({!_messages.unit.highlighting.$question->input|imd})
 		{/if}
 	</label>
-	
-	{if $question->input == 'file'}
-		{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}
-		
-		<div class="panel">
-			{if $playMode}
-				{label $formQuestion}
+
+	{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}	
+	{var value = $answered ? $question->entity->answer->text : $question->prefill}
+	{var answerId = isset($question->entity->answer->id) ? $question->entity->answer->id : 0}
+	{var mode = $reviewMode ? 'review' : 'play'}
+	<div 
+		class="playground" 
+		data-toy="{$question->input}" 
+		data-mode={$mode}
+		data-answer="{$answerId}"
+		data-answered="{$answered}"
+	>
+		{if $question->input == 'file'}
+			<div class="panel source">
+				{if $playMode}
 					<p>{input $formQuestion}</p>
 					<p>{$formQuestion->getOption('description')}</p>
-				{/label}
-				<p n:ifcontent class="panel" style="background: #f90;">{inputError $formQuestion}</p>
-			{/if}
-			
-			<p>
-				{if $answered}
-					<b>{_messages.unit.submittedAttachment}</b>:
-					<a href="{$baseUri}{$uploadPath}{$question->entity->answer->text}">
-						{=pathinfo($question->entity->answer->text, PATHINFO_BASENAME)}
-					</a>
-				{elseif $reviewMode}
-					{include 'unanswered.latte'}
+					<p n:ifcontent class="panel" style="background: #f90;">{inputError $formQuestion}</p>
 				{/if}
-			</p>
-		</div>
-	{elseif in_array($question->input, array('javascript', 'turtle', 'p5js'))}
-		{var questionTemplate = $question->input . '.latte'}
-		{include $questionTemplate, key => $key, question => $question, formQuestion => $formQuestion, playMode => $playMode, reviewMode => $reviewMode}
-	{else}
-		{var questionTemplate = 'basic.latte'}
-		{include $questionTemplate, key => $key, question => $question, formQuestion => $formQuestion, playMode => $playMode, reviewMode => $reviewMode}
+				
+				<p>
+					{if $answered}
+						<b>{_messages.unit.submittedAttachment}</b>:
+						<a href="{$baseUri}{$uploadPath}{$question->entity->answer->text}">
+							{=pathinfo($question->entity->answer->text, PATHINFO_BASENAME)}
+						</a>
+					{/if}
+				</p>
+			</div>
+		{else}
+			<div class="source">
+				{if isset($form)}
+					{input $formQuestion, rows => 10}
+				{else}
+					<textarea rows=10>{$value}</textarea>
+				{/if}
+			</div>
+			<code class="prefill"><pre>{$question->prefill}</pre></code>
+		{/if}
+	</div>
+	
+	{if isset($form)}
+		<p n:ifcontent>{inputError $formQuestion}</p>
 	{/if}
 	
 	<div n:if="$question->comments > 0" {if !$playMode}class="panel"{/if}>

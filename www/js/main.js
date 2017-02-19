@@ -17,8 +17,6 @@ $.nette.ext('forms', {
 			$el.find('form').each(function() {
 				window.Nette.initForm(this);
 			});
-			
-			PeerBlender.Highlighting.refreshIframes();
 		});
 	},
 	prepare: function (settings) {
@@ -106,7 +104,6 @@ var PeerBlender = {
 
 		
 		this.ThirdParty.init();
-		this.Highlighting.init();
 		//this.Chat.init();
 		this.Review.init();
 		
@@ -192,161 +189,6 @@ var PeerBlender = {
 				sum += parseFloat(arr[i], 10);
 			}
 			return sum/arr.length;
-		}
-	},
-	
-	Highlighting: {	
-		editors: [],
-		
-		init: function() {
-			$('button.answerPreview').click(function(e) {
-				var editorCount = PeerBlender.Highlighting.editors.length;
-				for (var i = 0; i < editorCount; i++) {
-					PeerBlender.Highlighting.editors[i].save();
-				}
-
-				var hlType = $(this).attr('type');
-				if (hlType == 'highlight-javascript') {
-					var answer = $(this).closest('.assignmentQuestion').find('textarea').val();
-					$('#previewForm textarea[name="answer"]').text(answer);
-					$('#previewForm')[0].submit();	
-				} else if (/^highlight-(turtle|p5js)/.test(hlType)) {
-					var iframe = $(this).closest('.assignmentQuestion').find('iframe').first();
-					var answerId = iframe.data('answerId');
-					var location = iframe.attr('src');
-					var newLocation = '';
-					switch (hlType) {
-						case 'highlight-p5js':
-							newLocation = '/code-preview/p5js/' + answerId;
-							break;
-						case 'highlight-turtle':
-							newLocation = '/code-preview/turtle/' + answerId;
-							break;
-						case 'highlight-turtle-na':
-							newLocation = '/code-preview/turtle/' + answerId + '?animated=0';
-							break;
-						default:
-							newLocation = location;
-					}
-					
-					PeerBlender.outdatedIframes.push({
-						iframe: iframe,
-						location: newLocation
-					});
-					
-					
-					var quickSaveButton = $('#quick-save-button');
-					if (quickSaveButton.length) {
-						setTimeout(function() {
-							$('#quick-save-button').trigger('click');	
-						}, 1000);	
-					} else {
-						PeerBlender.Highlighting.refreshIframes();
-					}
-				}
-				
-				e.preventDefault();
-			});
-			
-			$('button.showPrefill').click(function(e) {
-				var prefillViewer = $(this).closest('.assignmentQuestion').find('.prefill');
-				prefillViewer.toggle('fast');
-				if (!prefillViewer.hasClass('ready')) {
-					PeerBlender.Highlighting.initCodeMirror(prefillViewer.find('textarea'));
-					prefillViewer.addClass('ready');
-				}
-				
-				e.preventDefault();
-			});
-			
-			
-			$('.assignmentQuestion textarea[class*="highlight-"]').each(function() {
-				PeerBlender.Highlighting.initCodeMirror($(this));
-			});
-			
-			$('#quick-save-button').click(function(e) {
-				for (var i = 0; i < PeerBlender.Highlighting.editors.length; i++) {
-					PeerBlender.Highlighting.editors[i].save();
-				}
-			});
-			
-			PeerBlender.Highlighting.initStickyIframes();
-		},
-		
-		initCodeMirror: function(textarea) {
-			var className = textarea.attr('class');
-			if (!className) {
-				return;
-			}
-			var mode = className.match(/highlight-([a-z]+)/)[1];
-			var gutters = [];
-			var lint = false;
-		
-			switch (mode) {
-				case 'code':
-				case 'markdown':
-				case 'css':
-				case 'sql':
-				case 'xml':
-					var highlightingMode = mode;
-					break;
-				case 'javascript':
-					var highlightingMode = mode;
-					lint = true;
-					gutters = ["CodeMirror-lint-markers"];
-					break;
-				case 'html':
-					var highlightingMode = 'htmlmixed';
-					break;
-				default:
-					return;
-			}
-			
-			var myCodeMirror = CodeMirror.fromTextArea(
-				textarea[0], {
-					lineNumbers: true, 
-					lineWrapping: true,
-					mode: highlightingMode,
-					lint: true,
-					gutters: ["CodeMirror-lint-markers"],
-					viewportMargin: Infinity,
-					readOnly: textarea.hasClass('readonly') ? 'true' : false
-				}
-			);
-			
-			PeerBlender.Highlighting.editors.push(myCodeMirror);
-		},
-		
-		initStickyIframes: function() {
-			/*window.addEventListener('scroll', function() {
-				var turtlePreviewHeight = 400;
-				var previews = document.querySelectorAll('iframe.turtle-preview');
-				
-				for (var i = previews.length - 1; i >= 0; i--) {
-					var iframe = previews[i];
-					var codeColumn = document.querySelector('iframe.turtle-preview').parentNode.previousElementSibling.getBoundingClientRect();
-					var height = codeColumn.height - 183;
-					var top = codeColumn.top;
-					if (codeColumn.height > turtlePreviewHeight + 100 && top < 0) {
-						var translate = -top > turtlePreviewHeight ? turtlePreviewHeight : -top;
-						iframe.style.transform = 'translate(0px, ' + (translate) + 'px)';
-					} else {
-						iframe.style.position = 'static';
-						iframe.style.top = '';
-						iframe.style.transform = '';
-						iframe.style.width = '100%';
-					}
-				}
-			});*/
-		},
-		
-		refreshIframes: function() {
-			for (var i = PeerBlender.outdatedIframes.length - 1; i >= 0; i--) {
-				var item = PeerBlender.outdatedIframes[i];
-				item.iframe.attr('src', item.location);
-				
-				PeerBlender.outdatedIframes.splice(i, 1);
-			}
 		}
 	},
 	
