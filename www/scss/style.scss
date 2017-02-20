@@ -323,6 +323,12 @@ li.selected {
 	}
 }
 
+.rubrics {
+	border-left: 20px solid $green;
+	background: rgba($green, .1);
+	padding: 20px;
+}
+
 #frm-notesForm {
 	table {
 		width: 100%;

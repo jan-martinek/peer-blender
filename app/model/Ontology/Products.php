@@ -95,6 +95,16 @@ class AssignmentProduct extends AbstractProduct
 	public $generated_at;
     public $rubrics;
 	public $questions = array();
+	
+	public function getAllRubrics() {
+		$questionRubrics = array();
+		
+		foreach ($this->questions as $question) {
+			$questionRubrics = array_merge($questionRubrics, $question->rubrics);
+		}
+		
+		return array_merge($questionRubrics, $this->rubrics);
+	}
 }
 
 class QuestionProduct extends AbstractProduct
@@ -106,6 +116,7 @@ class QuestionProduct extends AbstractProduct
 	public $comments;
 	
 	public $order;
+	public $rubrics;
 	
 	public $hashMatch;
 	public $textDump;

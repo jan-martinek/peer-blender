@@ -28,6 +28,10 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     /** @var string hash of the data */
     private $hash;
     
+    /** @var array Array of rubrics */
+    private $rubrics = array();
+
+    
     /** 
      * @param array
      * @param AssignmentDefinition
@@ -43,6 +47,11 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
         }
         
         $this->defineQuestionItems($data);
+        
+        if (isset($data['rubrics'])) {
+            $builder = new RubricBuilder;
+            $this->rubrics = $builder->buildSet($data['rubrics']);
+        }
     }
     
     /**
@@ -180,6 +189,7 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     public function produce($question)
     {
         $product = new QuestionProduct($question);
+        $product->rubrics = $this->rubrics;
         $item = $this->getQuestionItem($question->itemKey);
         
         if (strlen($question->hash) != 6 || !$item) {

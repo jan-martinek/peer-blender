@@ -158,7 +158,7 @@ class ReviewPresenter extends BasePresenter
             throw new \Nette\Application\BadRequestException;
         }
         
-        $form = new ReviewForm($this->courseRegistry->review, $this->reviewRepository, $assignment->rubrics, $this->translator);
+        $form = new ReviewForm($this->courseRegistry->review, $this->reviewRepository, $assignment->getAllRubrics(), $this->translator);
         $form->onSuccess[] = array($this, 'reviewFormSucceeded');
         return $form;
     }
@@ -174,8 +174,11 @@ class ReviewPresenter extends BasePresenter
         // process assessments
         $scores = array();
         $info = $this->courseRegistry;
-        $unit = $this->produce($info->unit);
-        foreach ($unit->rubrics as $i => $rubric) {
+        $assignment = $this->produce($info->assignment);
+        
+        $rubrics = $assignment->getAllRubrics();
+        
+        foreach ($rubrics as $i => $rubric) {
             if ($rubric instanceof \Model\Ontology\IRubric) {
                 $rubric->setRaw($assessments[$i]);
                 $scores[$i] = $rubric->calcScore();

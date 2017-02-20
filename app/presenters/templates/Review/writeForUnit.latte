@@ -15,29 +15,10 @@
 		{if !isset($solution)}
 			<div class="panel">{$message}</div>
 		{else}
-			{control questionsRenderer $assignment, $solution}
-
-			<h2>{_messages.unit.review}</h2>
-
 			{form reviewForm}
-				{var assessment = $review->assessmentSet}
-				<div n:foreach="$form['rubrics']->controls as $name => $rubric" class="assignmentQuestion {=get_class($unit->rubrics[$name])|webalize}">
-					<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-					{if isset($assessment[$name])} 
-						{? $rubric->setValue($assessment[$name])}
-					{elseif $rubric instanceof \Model\Ontology\DefaultRubric && !is_null($review->score)}
-						{? $rubric->setValue($review->score)}
-					{/if}
-					{label $rubric /}
-					{if $rubric instanceof \Nette\Forms\Controls\TextArea}
-						{input $rubric, 'rows' => '5'}
-					{else}
-						{?$rubric->getSeparatorPrototype()->setName(NULL)}
-						{input $rubric}
-					{/if}
-					<p n:ifcontent>{inputError $rubric}</p>
-				</div>
-				
+			
+				{control questionsRenderer $assignment, $solution, null, $review, $form}
+
 				<div class="assignmentQuestion">
 					<h3 class="questionNumber">✔</h3>
 					{? $form['solutionIsComplete']->setValue((bool) $review->solutionIsComplete)}

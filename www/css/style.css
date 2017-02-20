@@ -6362,6 +6362,11 @@ li.selected {
     list-style: none;
     margin-left: 2rem; }
 
+.rubrics {
+  border-left: 20px solid #519331;
+  background: rgba(81, 147, 49, 0.1);
+  padding: 20px; }
+
 #frm-notesForm table {
   width: 100%; }
 

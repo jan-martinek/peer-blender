@@ -12,6 +12,7 @@ class QuestionsControl extends Control
     public $solution;
     public $form;
     public $lateEdits = FALSE;
+    public $renderedRubrics = array();
     
     public function __construct(\Model\UploadStorage $storage) 
     {
@@ -34,7 +35,12 @@ class QuestionsControl extends Control
         });
     }	
 	
-    public function render(\Model\Ontology\AssignmentProduct $assignment = null, \Model\Entity\Solution $solution = null, \App\Components\AssignmentForm $form = null)
+    public function render(
+        \Model\Ontology\AssignmentProduct $assignment = null, 
+        \Model\Entity\Solution $solution = null, 
+        \App\Components\AssignmentForm $form = null,
+        \Model\Entity\Review $review = null,
+        \App\Components\ReviewForm $reviewForm = null)
     {
         $template = $this->template;
         $this->setTemplateFilters($template);
@@ -44,6 +50,8 @@ class QuestionsControl extends Control
         $template->solution = $solution ? $solution : $this->solution;
         $template->lateEdits = $this->lateEdits;
         $template->form = $form ? $form : $this->form;
+        $template->review = $review;
+        $template->reviewForm = $reviewForm;
         $template->render();
     }
 }

@@ -1,8 +1,16 @@
 {define question}
 	{var playMode = ($assignment->entity->unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED) || $lateEdits) && (isset($form) && $form)}
 	{var reviewMode = !$playMode}
+	{var mode = $reviewMode ? 'review' : 'play'}
+		
 	{var formQuestion = $form['questions'][$key]}
-
+	{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}	
+	{var value = $answered ? $question->entity->answer->text : $question->prefill}
+	{var answerId = isset($question->entity->answer->id) ? $question->entity->answer->id : 0}
+	
+	
+	{* structural warning *}
+	
 	<p n:ifcontent class="label warning">
 		{if $question->legacy}
 			{_messages.question.legacy}
@@ -11,17 +19,10 @@
 		{/if}
 	</p>
 	
-	<label>
-		{!$question->text|md}
-		{if $question->isHighlightingAvailable()}
-			({!_messages.unit.highlighting.$question->input|imd})
-		{/if}
-	</label>
-
-	{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}	
-	{var value = $answered ? $question->entity->answer->text : $question->prefill}
-	{var answerId = isset($question->entity->answer->id) ? $question->entity->answer->id : 0}
-	{var mode = $reviewMode ? 'review' : 'play'}
+	{!$question->text|md}	
+	
+	{* playground *}
+	
 	<div 
 		class="playground" 
 		data-toy="{$question->input}" 
@@ -58,9 +59,15 @@
 		{/if}
 	</div>
 	
+	
+	{* error *}
+	
 	{if isset($form)}
 		<p n:ifcontent>{inputError $formQuestion}</p>
 	{/if}
+	
+	
+	{* additional comments field *}
 	
 	<div n:if="$question->comments > 0" {if !$playMode}class="panel"{/if}>
 		{if $playMode}
@@ -74,25 +81,119 @@
 			{/if}
 		{/if}
 	</div>
+	
+	
+	{* rubrics *}
+	
+	<div n:if="count($question->rubrics)" class="rubrics">
+		{if $review}
+			{var answers = $review->assessmentSet}
+			{? if ($answers && $reviewForm) $reviewForm['rubrics']->setValues($answers)}
+		{/if}
+	
+		{foreach $question->rubrics as $rubric}
+			{if $reviewForm}
+				{include rubric, name => $rubricPos, rubric => $reviewForm['rubrics'][$rubricPos]}
+				{? $control->renderedRubrics[] = $rubricPos}
+				{? $rubricPos++}
+			{else}
+				{include rubricPreview, rubric => $rubric, answer => isset($answers) ? $answers[$rubricPos] : null}
+				{? $rubricPos++}
+			{/if}
+		{/foreach}
+	</div>
 {/define}
 
-{block content}
-<div n:if="isset($form) && $form->hasErrors()" class="panel errors" style="background: #f90;">
-	<ul>
-    	<li n:foreach="$form->errors as $error">{$error}</li>
-	</ul>
-</div>
-
-{snippetArea assignmentQuestions}
-	<div n:foreach="$assignment->questions as $key => $question" class="assignmentQuestion">
-		<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-		{if $question->input === 'file'}
-			{snippet question-$question->order}
-				{include question, key => $key, question => $question}
-			{/snippet}
+{define rubric}
+	<div class="rubric {=get_class($rubric)|webalize}">
+		{if $rubric instanceof \Model\Ontology\DefaultRubric && !is_null($review->score)}
+			{? $rubric->setValue($review->score)}
+		{/if}
+		
+		{label $rubric /}
+		
+		{if $rubric instanceof \Nette\Forms\Controls\TextArea}
+			{input $rubric, 'rows' => '5'}
 		{else}
-			{include question, key => $key, question => $question}
+			{?$rubric->getSeparatorPrototype()->setName(NULL)}
+			{input $rubric}
+		{/if}
+		
+		<p n:ifcontent>{inputError $rubric}</p>
+	</div>
+{/define}
+
+{define rubricPreview}
+	{if $rubric instanceof \Model\Ontology\DefaultRubric}
+		<ol start="0">
+			{var scale = array(0, 1, 2, 3);}
+			<li n:foreach="$scale as $i" n:class="$answer === $i ? selected">{!$i|stars} {_messages.review.score.$i}</li>
+		</ol>
+	{elseif $rubric instanceof \Model\Ontology\Rubric}
+		<p>{!$rubric->metric|imd}</p>
+		<ol start="0">
+			<li n:foreach="$rubric->scale as $score => $description" n:class="$answer === $score ? selected">{!$score|stars} {!$description|imd}</li>
+		</ol>
+	{elseif $rubric instanceof \Model\Ontology\Checklist}
+		{!$rubric->description|md}
+		<p n:foreach="$rubric->items as $order => $item">
+			{? $rubric->setRaw($answer)}
+			{var $raw = $rubric->getRaw()}
+			<input type="checkbox"  {if in_array($order, $raw)}checked{/if} disabled> {!$item->metric|imd} 
+			<span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span>
+		</p>
+		{var $score = $rubric->calcScore()}
+		<p n:ifset="$score"><b>{_messages.review.checklist.weightedSum}: {!$score|stars} {!$score}</b></p>
+	{elseif $rubric instanceof \Model\Ontology\Comment}
+		{!$rubric->instructions|md}
+		<div class="panel">{!=nl2br(htmlspecialchars($answer))}</div>
+	{/if}
+{/define}
+
+
+{block content}
+	<div n:if="isset($form) && $form->hasErrors()" class="panel errors" style="background: #f90;">
+		<ul>
+			<li n:foreach="$form->errors as $error">{$error}</li>
+		</ul>
+	</div>
+
+	{snippetArea assignmentQuestions}
+		{var rubricPos = 0}
+		<div n:foreach="$assignment->questions as $key => $question" class="assignmentQuestion">
+			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
+			{if $question->input === 'file'}
+				{snippet question-$question->order}
+					{include question}
+				{/snippet}
+			{else}
+				{include question}
+			{/if}
+			{? $rubricPos += count($question->rubrics)}
+		</div>
+	{/snippetArea}
+
+	<div n:if="count($assignment->rubrics)" class="rubrics">
+		<h2>{_messages.unit.review}</h2>
+		{if $reviewForm}
+			{if $review}
+				{var answers = $review->assessmentSet}
+				{? if ($answers && $reviewForm) $reviewForm['rubrics']->setValues($answers)}
+			{/if}
+		
+			<div n:foreach="$reviewForm['rubrics']->controls as $name => $rubric" n:if="!in_array($name, $control->renderedRubrics)">
+				{include rubric}
+			</div>
+		{else}
+			{if $review}
+				{var answers = $review->assessmentSet}
+				{var answerOffset = count($assignment->getAllRubrics()) - count($assignment->rubrics)}
+			{/if}
+		
+			<div n:foreach="$assignment->rubrics as $i => $rubric">
+				{var answer = isset($answers) ? $answers[$i + $answerOffset] : null}
+				{include rubricPreview, rubric => $rubric, answer => $answer}
+			</div>
 		{/if}
 	</div>
-{/snippetArea}
 {/block}

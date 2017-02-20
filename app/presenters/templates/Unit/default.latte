@@ -32,37 +32,6 @@
 		{!$reading|md}
 		<hr>
 	{/if}
-	
-	<h2>{_messages.review.rubrics}</h2>
-	<ol class="rubricsPreview">	
-		<li n:foreach="$unit->rubrics as $rubric">
-			{if $rubric instanceof \Model\Ontology\DefaultRubric}
-				<span class="label">{_messages.review.score.title}</span><br>
-				<ol start="0">
-					<li>{!0|stars} {_messages.review.score.0}</li>
-					<li>{!1|stars} {_messages.review.score.1}</li>
-					<li>{!2|stars} {_messages.review.score.2}</li>
-					<li>{!3|stars} {_messages.review.score.3}</li>
-				</ol>
-			{elseif $rubric instanceof \Model\Ontology\Rubric}
-				<span class="label">{_messages.review.score.title}</span><br>
-				{!$rubric->metric|imd}
-				<ol start="0">
-					<li n:foreach="$rubric->scale as $score => $description">{!$score|stars} {!$description|imd}</li>
-				</ol>
-			{elseif $rubric instanceof \Model\Ontology\Checklist}
-				<span class="label">{_messages.review.checklist.title}</span><br>
-				{!$rubric->description|md}
-				<ol>
-					<li n:foreach="$rubric->items as $order => $item"><input type="checkbox" disabled> {!$item->metric|imd} <span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span></li>
-				</ol>
-			{elseif $rubric instanceof \Model\Ontology\Comment}
-				<span class="label secondary">{_messages.review.comment}</span>
-				{!$rubric->instructions|md}
-			{/if}
-		</li>
-	</ol>
-	<hr>
 {/block}
 
 

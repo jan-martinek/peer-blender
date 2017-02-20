@@ -53,48 +53,9 @@
 			</p>
 		</div>
 	
-		{control questionsRenderer $assignment, $solution}
-		
-		
+		{control questionsRenderer $assignment, $solution, null, $review}
 		
 		<h2>{_messages.unit.review}</h2>
-
-		{var answers = $review->assessmentSet}
-		<div n:foreach="$assignment->rubrics as $id => $rubric" class="assignmentQuestion {=get_class($rubric)}">
-			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-			{if $rubric instanceof \Model\Ontology\DefaultRubric}
-				<label>{_messages.review.score.title}</label>
-				<div class="panel">
-					{var score = isset($answers[$id]) ? $answers[$id] : $review->score}
-					<ol start="0">
-						{var scale = array(0, 1, 2, 3);}
-						<li n:foreach="$scale as $i" n:class="$score == $i ? selected">{!$i|stars} {_messages.review.score.$i}</li>
-					</ol>
-					
-				</div>
-			{elseif $rubric instanceof \Model\Ontology\Rubric}
-				<label>{!$rubric->metric|imd}</label>
-				<div class="panel">
-					<ol start="0">
-						<li n:foreach="$rubric->scale as $score => $description" n:class="$score == $answers[$id] ? selected">{!$score|stars} {!$description|imd}</li>
-					</ol>
-				</div>
-			{elseif $rubric instanceof \Model\Ontology\Checklist}	
-				<label>{!$rubric->description|imd}</label>
-				{? $rubric->setRaw($answers[$id])}
-				{var $raw = $rubric->getRaw()}
-				<div class="panel">
-					<ol>
-						<li n:foreach="$rubric->items as $order => $item"><input type="checkbox" {if in_array($order, $raw)}checked{/if} onclick="return false;"> {!$item->metric|imd} <span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span></li>
-					</ol>
-					{var $score = $rubric->calcScore()}
-					<p n:ifset="$score"><b>{_messages.review.checklist.weightedSum}: {!$score|stars} {!$score}</b></p>
-				</div>
-			{elseif $rubric instanceof \Model\Ontology\Comment}
-				<label>{!$rubric->instructions|md}</label>
-				<div class="panel">{!=nl2br(htmlspecialchars($answers[$id]))}</div>
-			{/if}
-		</div>
 
 		<div class="assignmentQuestion">
 			<h3 class="questionNumber {if $review->solutionIsComplete}complete{else}incomplete{/if}">

@@ -113,36 +113,56 @@ var PeerBlender = {
 	
 	Review: {
 		init: function() {
-			var reviewOngoing = ($('.assignmentQuestion input:radio').length > 0 || $('.assignmentQuestion input:checkbox').length > 0);
+			var reviewOngoing = (document.querySelectorAll('.rubric input').length > 0);
+			
 			if (reviewOngoing) {
 				this.updateScore();
-				$(document).on('change', '.assignmentQuestion input:radio, .assignmentQuestion input:checkbox', this.updateScore);	
-				$(document).on('change', '#frm-reviewForm-solutionIsComplete', this.updateScore);	
+				
+				document.querySelector('#frm-reviewForm').addEventListener('change', function(e) {
+					if (e.target.matches('.rubric input') || e.target.matches('#frm-reviewForm-solutionIsComplete')) {
+						this.updateScore();
+					}
+				}.bind(this));
 			}
-			
 		},
 		
 		updateScore: function() {
+			var score = this.checkIfAllRadiosAnswered() ? this.calculateScore() : '—';
+			document.querySelector('#totalScore span').innerHTML = score;
+		},
+		
+		checkIfAllRadiosAnswered: function() {
 			var allAnswered = true;
-			$('.assignmentQuestion input:radio').each(function(){
-				if($(':radio[name="'+$(this).attr('name')+'"]:checked').length == 0)
-				{
+			
+			document.querySelectorAll('.rubric input[type=radio]').forEach(function(radio) {
+				if (!allAnswered) return;
+				
+				var sibs = radio.parentElement.parentElement.querySelectorAll('[type=radio]');
+				var checkedCount = 0;
+				
+				for (var i = 0; i < sibs.length; i++) {
+				    if (sibs[i].checked == true) {
+				    	checkedCount++;
+				    }
+				}
+				
+				if (checkedCount == 0) {
 					allAnswered = false;
 				}
 			});
 			
-			$('#totalScore span').text(allAnswered ? PeerBlender.Review.calculateScore() : '—');
+			return allAnswered;
 		},
 		
 		calculateScore: function() {
 			var values = [];
 			var solutionIsCompleteMultiplier = 1;
 			
-			$.each($('.assignmentQuestion.model-ontology-rubric input:radio').serializeArray(), function(i, rubric) {
+			$.each($('.nette-forms-controls-radiolist input:radio').serializeArray(), function(i, rubric) {
 				values.push(rubric.value);
 			});
 			
-			$.each($('.model-ontology-checklist'), function(i, checklist) {
+			$.each($('.nette-forms-controls-checkboxlist'), function(i, checklist) {
 				var labels = $(checklist).find('label');
 				var totalWeight = 0;
 				var totalScore = 0;
