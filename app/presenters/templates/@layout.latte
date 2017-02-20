@@ -4,7 +4,7 @@
  *}
 
 <!DOCTYPE html>
-<html>
+<html lang="{$presenter->translator->getLocale()|substr:0,2}">
 <head>
     <meta charset="utf-8">
     <title>{ifset title}{include title|striptags} | {/ifset}{_messages.app.name}</title>
