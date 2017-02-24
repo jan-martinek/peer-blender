@@ -139,7 +139,9 @@ var Playground = function(el) {
 	}
 	
 	this.save = function() {
-		this.toy.save();
+		if (this.toy) {
+			this.toy.save();	
+		}
 	}
 }
 
