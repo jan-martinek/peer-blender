@@ -6130,6 +6130,9 @@ label {
 input[type="radio"] {
   margin: 0 .3rem .3rem 0; }
 
+.content p, .content li, .content blockquote, .content textarea {
+  max-width: 40em; }
+
 .content p a, .content li a, .content td a {
   border-bottom: 3px solid rgba(62, 100, 137, 0.2); }
   .content p a:visited, .content li a:visited, .content td a:visited {
@@ -6137,9 +6140,6 @@ input[type="radio"] {
     border-color: rgba(158, 53, 74, 0.2); }
   .content p a:hover, .content li a:hover, .content td a:hover {
     border-color: rgba(62, 100, 137, 0.5); }
-
-.row .row {
-  background: white; }
 
 .CodeMirror {
   border: 1px solid #ccc;
@@ -6172,6 +6172,10 @@ textarea.plaintext {
     margin: 0; }
   #frm-searchForm input[type=submit] {
     display: none; }
+
+ul.units {
+  list-style-type: none;
+  margin-left: 0; }
 
 header > div {
   background: white;
@@ -6415,3 +6419,6 @@ li.selected {
   border: 0;
   width: 100%;
   height: 400px; }
+
+.row.wide {
+  max-width: 80rem; }

@@ -36,11 +36,13 @@
 
 
 {block assignmentForm}
-	<h2>
-		{_messages.unit.myAssignment}
-	</h2>
-	
-	{!$unit->preface|md}
+	<div class="row content"><div class="columns">
+		<h2>
+			{_messages.unit.myAssignment}
+		</h2>
+		
+		{!$unit->preface|md}
+	</div></div>
 	
 	
 	{form assignmentForm, class => "ajax"}
@@ -67,10 +69,11 @@
 
 
 {block finishedAssignment}
-	<h2>
-		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
-		{_messages.unit.myAssignment}
-	</h2>
+	<div class="row content"><div class="columns">
+		<h2>
+			{_messages.unit.myAssignment}
+		</h2>
+	</div></div>
 
 	{!$unit->preface|md}
 
@@ -115,38 +118,38 @@
 <div class="row content">
 	<div class="columns">
 		{include unitInfo}
-
-		{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
-			{include assignmentForm}			
-		{elseif $lateEdits && $lateEditsAcceptable}
-			<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
-			{include assignmentForm}
-		{elseif !is_null($solution)}
-			{include finishedAssignment}
-			
-			<hr>
-			
-			{if $lateEditsAcceptable}
-				{include editAfterDeadline}
-			{else}
-				<div class="row">
-					<div class="columns large-6">
-						{include myAssessment}
-					</div>
-					<div class="columns large-6">
-						{include myReviewsOfOthers}
-					</div>
-				</div>
-			{/if}
-		{elseif $lateEditsAcceptable}
-			{include editAfterDeadline}
-		{else}
-			<div class="panel problem">{_messages.unit.cannotReviewOthers}</div>
-			
-			{if !is_null($solution)}
-				{include finishedAssignment}
-			{/if}
-		{/if}
 	</div>
 </div>
+
+{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)}
+	{include assignmentForm}			
+{elseif $lateEdits && $lateEditsAcceptable}
+	<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
+	{include assignmentForm}
+{elseif !is_null($solution)}
+	{include finishedAssignment}
+	
+	<hr>
+	
+	{if $lateEditsAcceptable}
+		{include editAfterDeadline}
+	{else}
+		<div class="row">
+			<div class="columns large-6">
+				{include myAssessment}
+			</div>
+			<div class="columns large-6">
+				{include myReviewsOfOthers}
+			</div>
+		</div>
+	{/if}
+{elseif $lateEditsAcceptable}
+	{include editAfterDeadline}
+{else}
+	<div class="panel problem">{_messages.unit.cannotReviewOthers}</div>
+	
+	{if !is_null($solution)}
+		{include finishedAssignment}
+	{/if}
+{/if}
 {/block}

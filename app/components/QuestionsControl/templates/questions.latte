@@ -9,29 +9,35 @@
 	{var answerId = isset($question->entity->answer->id) ? $question->entity->answer->id : 0}
 	
 	
-	{* structural warning *}
+	<div class="row content"><div class="columns">
 	
-	<p n:ifcontent class="label warning">
-		{if $question->legacy}
-			{_messages.question.legacy}
-		{elseif !$question->hashMatch}
-			{_messages.question.changed}
-		{/if}
-	</p>
+		{* structural warning *}
+		
+		<h3 class="questionNumber">{$qNumber}</h3>
+		
+		<p n:ifcontent class="label warning">
+			{if $question->legacy}
+				{_messages.question.legacy}
+			{elseif !$question->hashMatch}
+				{_messages.question.changed}
+			{/if}
+		</p>
+		
+		{!$question->text|md}	
 	
-	{!$question->text|md}	
+	</div></div>
 	
 	{* playground *}
 	
 	<div 
-		class="playground" 
+		class="playground row content" 
 		data-toy="{$question->input}" 
 		data-mode={$mode}
 		data-answer="{$answerId}"
 		data-answered="{$answered}"
 	>
 		{if $question->input == 'file'}
-			<div class="panel source">
+			<div class="panel source columns">
 				{if $playMode}
 					<p>{input $formQuestion}</p>
 					<p>{$formQuestion->getOption('description')}</p>
@@ -48,14 +54,14 @@
 				</p>
 			</div>
 		{else}
-			<div class="source">
+			<div class="source columns">
 				{if isset($form)}
 					{input $formQuestion, rows => 10}
 				{else}
 					<textarea rows=10>{$value}</textarea>
 				{/if}
 			</div>
-			<code class="prefill"><pre>{$question->prefill}</pre></code>
+			<code class="prefill columns"><pre>{$question->prefill}</pre></code>
 		{/if}
 	</div>
 	
@@ -66,26 +72,30 @@
 		<p n:ifcontent>{inputError $formQuestion}</p>
 	{/if}
 	
+	<div class="row content"><div class="columns">
 	
-	{* additional comments field *}
-	
-	<div n:if="$question->comments > 0" {if !$playMode}class="panel"{/if}>
-		{if $playMode}
-			{input $form['comments'][$key], 'rows' => $question->comments}
-		{else}
-			{if isset($question->entity->answer->comments)}
-				<b>{_messages.solution.comments}:</b>
-				{!=nl2br(htmlspecialchars($question->entity->answer->comments))}
+		{* additional comments field *}
+		
+		<div n:if="$question->comments > 0" {if !$playMode}class="panel"{/if}>
+			{if $playMode}
+				{input $form['comments'][$key], 'rows' => $question->comments}
 			{else}
-				<b>{_messages.solution.noComment}</b>
+				{if isset($question->entity->answer->comments)}
+					<b>{_messages.solution.comments}:</b>
+					{!=nl2br(htmlspecialchars($question->entity->answer->comments))}
+				{else}
+					<b>{_messages.solution.noComment}</b>
+				{/if}
 			{/if}
-		{/if}
-	</div>
+		</div>
 	
+	</div></div>
 	
 	{* rubrics *}
 	
 	<div n:if="count($question->rubrics)" class="rubrics">
+		<div class="row content"><div class="columns">
+	
 		{if $review}
 			{var answers = $review->assessmentSet}
 			{? if ($answers && $reviewForm) $reviewForm['rubrics']->setValues($answers)}
@@ -101,6 +111,7 @@
 				{? $rubricPos++}
 			{/if}
 		{/foreach}
+		</div></div>
 	</div>
 {/define}
 
@@ -161,19 +172,19 @@
 	{snippetArea assignmentQuestions}
 		{var rubricPos = 0}
 		<div n:foreach="$assignment->questions as $key => $question" class="assignmentQuestion">
-			<h3 class="questionNumber">{$iterator->getCounter()}</h3>
-			{if $question->input === 'file'}
-				{snippet question-$question->order}
+			{if $question->input === 'file'} 
+				{snippet question-$question->order, qNumber => $iterator->getCounter()}
 					{include question}
 				{/snippet}
 			{else}
-				{include question}
+				{include question, qNumber => $iterator->getCounter()}
 			{/if}
 			{? $rubricPos += count($question->rubrics)}
 		</div>
 	{/snippetArea}
 
 	<div n:if="count($assignment->rubrics)" class="rubrics">
+		<div class="row content"><div class="columns">
 		<h2>{_messages.unit.review}</h2>
 		{if $reviewForm}
 			{if $review}
@@ -195,5 +206,6 @@
 				{include rubricPreview, rubric => $rubric, answer => $answer}
 			</div>
 		{/if}
+		</div></div>
 	</div>
 {/block}

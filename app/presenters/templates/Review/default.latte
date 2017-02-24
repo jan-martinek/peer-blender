@@ -27,8 +27,7 @@
 {/block}
 
 {block content}
-<div class="row content">
-	<div class="columns">
+<div class="row content"><div class="columns">
 		<div class="panel callout" n:if="$solution->unit->isFinalized() && !is_null($review->submitted_at)">
 			<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a>
 			{var solutionTimespan = $assignment->generated_at->diff($solution->submitted_at)}		
@@ -52,10 +51,13 @@
 			{/if}
 			</p>
 		</div>
+</div></div>		
 	
-		{control questionsRenderer $assignment, $solution, null, $review}
+{control questionsRenderer $assignment, $solution, null, $review}
 		
-		<h2>{_messages.unit.review}</h2>
+<div class="row content"><div class="columns">
+	<h2>{_messages.unit.review}</h2>
+
 
 		<div class="assignmentQuestion">
 			<h3 class="questionNumber {if $review->solutionIsComplete}complete{else}incomplete{/if}">

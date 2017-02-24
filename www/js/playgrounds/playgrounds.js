@@ -41,6 +41,7 @@ var Playground = function(el) {
 	this.init = function() {
 		this.box = document.createElement("DIV");
 		this.box.classList.add("box");
+		this.box.classList.add("columns");
 		this.el.appendChild(this.box);
 		
 		this.fetchToy();
@@ -88,8 +89,8 @@ var Playground = function(el) {
 			showPrefill.classList.add('showPrefill');
 			showPrefill.classList.add('secondary');
 			showPrefill.innerHTML = '{ }  {_messages.solution.viewPrefill}';
-						
-			this.el.insertBefore(showPrefill, prefill);
+			
+			this.box.insertBefore(showPrefill, this.box.childNodes[0]);
 			
 			showPrefill.addEventListener('click', function(e) {
 				var el = this.el.querySelector('.prefill');
@@ -113,7 +114,7 @@ var Playground = function(el) {
 			untouched.classList.add("callout");
 			untouched.innerHTML = '<p style="color: #aaa">{_messages.unit.notAnswered}</p>';
 			
-			this.el.insertBefore(untouched, this.box);
+			this.box.insertBefore(untouched, this.box.childNodes[0]);
 		}
 	}
 	
@@ -300,6 +301,7 @@ var JsToy = function(playground) {
 
 var MarkdownToy = function(playground) {
 	this.playground = playground;
+	this.playground.el.classList.add('wide');
 	this.source = playground.el.querySelector('textarea');
 	this.source.style.display = 'none';
 	this.marked = marked.setOptions({
@@ -318,6 +320,7 @@ var MarkdownToy = function(playground) {
 		'<div class="row">' +
 			'<div class="editor-wrapper columns large-6"></div>' +
 			'<div class="columns large-6">' +
+				'<p><span class="label">Preview</span></p>' + 
 				'<div class="markdown-preview"></div>' +
 			'</div>' +
 			'<div class="columns stats"></div>' +
