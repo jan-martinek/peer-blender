@@ -76,6 +76,12 @@ class UnitDefinition extends \Nette\Object implements IDefinition
         $builder = new RubricBuilder;
         $this->rubrics = $builder->buildSet($rubrics);
         
+        // TODO add default if there's not any numeric rubric
+        // 
+        //$hasCustomRubrics = FALSE;
+        // if (!$hasCustomRubrics) {
+        //     $this->rubrics[] = new DefaultRubric;
+        // }
     }
     
     /**

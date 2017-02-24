@@ -93,8 +93,8 @@
 	
 	{* rubrics *}
 	
-	<div n:if="count($question->rubrics)" class="rubrics">
-		<div class="row content"><div class="columns">
+	<div n:if="count($question->rubrics)" class="rubrics content">
+		<div class="row"><div class="columns">
 	
 		{if $review}
 			{var answers = $review->assessmentSet}
@@ -121,7 +121,9 @@
 			{? $rubric->setValue($review->score)}
 		{/if}
 		
-		{label $rubric /}
+		<div class="description">
+			{label $rubric /}
+		</div>
 		
 		{if $rubric instanceof \Nette\Forms\Controls\TextArea}
 			{input $rubric, 'rows' => '5'}
@@ -135,30 +137,38 @@
 {/define}
 
 {define rubricPreview}
+	<div class="rubric {=get_class($rubric)|webalize}">
 	{if $rubric instanceof \Model\Ontology\DefaultRubric}
 		<ol start="0">
 			{var scale = array(0, 1, 2, 3);}
 			<li n:foreach="$scale as $i" n:class="$answer === $i ? selected">{!$i|stars} {_messages.review.score.$i}</li>
 		</ol>
 	{elseif $rubric instanceof \Model\Ontology\Rubric}
-		<p>{!$rubric->metric|imd}</p>
+		<div class="description">
+			<p>{!$rubric->metric|imd}</p>
+		</div>
 		<ol start="0">
 			<li n:foreach="$rubric->scale as $score => $description" n:class="$answer === $score ? selected">{!$score|stars} {!$description|imd}</li>
 		</ol>
 	{elseif $rubric instanceof \Model\Ontology\Checklist}
-		{!$rubric->description|md}
-		<p n:foreach="$rubric->items as $order => $item">
+		<div class="description">
+			{!$rubric->description|md}
+		</div>
+		<label n:foreach="$rubric->items as $order => $item">
 			{? $rubric->setRaw($answer)}
 			{var $raw = $rubric->getRaw()}
 			<input type="checkbox"  {if in_array($order, $raw)}checked{/if} disabled> {!$item->metric|imd} 
 			<span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span>
-		</p>
+		</label>
 		{var $score = $rubric->calcScore()}
 		<p n:ifset="$score"><b>{_messages.review.checklist.weightedSum}: {!$score|stars} {!$score}</b></p>
 	{elseif $rubric instanceof \Model\Ontology\Comment}
-		{!$rubric->instructions|md}
-		<div class="panel">{!=nl2br(htmlspecialchars($answer))}</div>
+		<div class="description">
+			{!$rubric->instructions|md}
+		</div>
+		<div class="panel">{if $answer}{!=nl2br(htmlspecialchars($answer))}{else}{_messages.review.verbalAssessment}.{/if}</div>
 	{/if}
+	</div>
 {/define}
 
 
@@ -183,9 +193,8 @@
 		</div>
 	{/snippetArea}
 
-	<div n:if="count($assignment->rubrics)" class="rubrics">
-		<div class="row content"><div class="columns">
-		<h2>{_messages.unit.review}</h2>
+	<div n:if="count($assignment->rubrics)" class="rubrics content">
+		<div class="row"><div class="columns">
 		{if $reviewForm}
 			{if $review}
 				{var answers = $review->assessmentSet}

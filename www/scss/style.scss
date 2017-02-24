@@ -32,7 +32,7 @@ input[type="radio"] {
 }
 
 .content {
-	p, li, blockquote, textarea {
+	p, li, blockquote, textarea, label {
 		max-width: 40em; 
 	}
 	
@@ -152,13 +152,20 @@ header {
 }
 
 .prefill {
-	border: 1px solid #aaa;
-	background: #eee;
+	border: 1px solid #eee;
+	background: #fee;
 	padding: 20px;
 	margin-bottom: 30px;
+	position: relative;
 	display: none;
 	
 	.CodeMirror-focused .CodeMirror-cursor { visibility: hidden; }
+	
+	button {
+		position: absolute;
+		top: 10px;
+		right: 10px;
+	}
 }
 
 .breadcrumbs {
@@ -212,10 +219,11 @@ ul.checklist {
 	}
 	
 	.questionNumber {
-		background: black;
-		color: white;
+		font-size: 40px;
+		line-height: 40px;
+		color: #aaa;
 		text-align: center;
-		padding: 2px 10px;
+		padding: 0 10px;
 		width: 3rem;
 		
 		&.complete {
@@ -304,24 +312,36 @@ li.selected {
 	z-index: 999;
 }
 
-.rubricsPreview {
-	list-style: none;
-	margin-left: 0;
-	
-	& > li {
-		margin-bottom: 1rem;
-	}
-
-	ol {
-		list-style: none;
-		margin-left: 2rem;
-	}
-}
-
 .rubrics {
 	border-left: 20px solid $green;
 	background: rgba($green, .1);
 	padding: 20px;
+	
+	.rubric {
+		margin-bottom: 2rem;
+	}
+	
+	.description p, .description li, .description label {
+		font-size: 1.3rem;
+	}
+	
+	label {
+		margin-bottom: 0.5rem;
+	}
+	
+	.nette-forms-controls-checkboxlist,
+	.model-ontology-checklist 
+	{
+		& > label {
+			margin-left: 20px;
+		}	
+		
+		input {
+			display: inline-block;
+			width: 20px;
+			margin: 5px 0 0 -20px;
+		}
+	}
 }
 
 #frm-notesForm {
@@ -392,4 +412,9 @@ li.selected {
 
 .row.wide {
 	max-width: 80rem;
+}
+
+.markdown-preview-wrapper {
+	background: #eee;
+	padding: 20px;
 }

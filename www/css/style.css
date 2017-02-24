@@ -6130,7 +6130,7 @@ label {
 input[type="radio"] {
   margin: 0 .3rem .3rem 0; }
 
-.content p, .content li, .content blockquote, .content textarea {
+.content p, .content li, .content blockquote, .content textarea, .content label {
   max-width: 40em; }
 
 .content p a, .content li a, .content td a {
@@ -6216,13 +6216,18 @@ header .select2 input[type="search"] {
   margin-bottom: 0; }
 
 .prefill {
-  border: 1px solid #aaa;
-  background: #eee;
+  border: 1px solid #eee;
+  background: #fee;
   padding: 20px;
   margin-bottom: 30px;
+  position: relative;
   display: none; }
   .prefill .CodeMirror-focused .CodeMirror-cursor {
     visibility: hidden; }
+  .prefill button {
+    position: absolute;
+    top: 10px;
+    right: 10px; }
 
 .breadcrumbs {
   margin-top: 20px;
@@ -6263,10 +6268,11 @@ ul.checklist {
   .assignmentQuestion label p:last-child {
     margin-bottom: .5em; }
   .assignmentQuestion .questionNumber {
-    background: black;
-    color: white;
+    font-size: 40px;
+    line-height: 40px;
+    color: #aaa;
     text-align: center;
-    padding: 2px 10px;
+    padding: 0 10px;
     width: 3rem; }
     .assignmentQuestion .questionNumber.complete {
       background: #519331; }
@@ -6354,19 +6360,24 @@ li.selected {
   margin-left: -150px;
   z-index: 999; }
 
-.rubricsPreview {
-  list-style: none;
-  margin-left: 0; }
-  .rubricsPreview > li {
-    margin-bottom: 1rem; }
-  .rubricsPreview ol {
-    list-style: none;
-    margin-left: 2rem; }
-
 .rubrics {
   border-left: 20px solid #519331;
   background: rgba(81, 147, 49, 0.1);
   padding: 20px; }
+  .rubrics .rubric {
+    margin-bottom: 2rem; }
+  .rubrics .description p, .rubrics .description li, .rubrics .description label {
+    font-size: 1.3rem; }
+  .rubrics label {
+    margin-bottom: 0.5rem; }
+  .rubrics .nette-forms-controls-checkboxlist >  label,
+  .rubrics .model-ontology-checklist >  label {
+    margin-left: 20px; }
+  .rubrics .nette-forms-controls-checkboxlist input,
+  .rubrics .model-ontology-checklist input {
+    display: inline-block;
+    width: 20px;
+    margin: 5px 0 0 -20px; }
 
 #frm-notesForm table {
   width: 100%; }
@@ -6422,3 +6433,7 @@ li.selected {
 
 .row.wide {
   max-width: 80rem; }
+
+.markdown-preview-wrapper {
+  background: #eee;
+  padding: 20px; }
