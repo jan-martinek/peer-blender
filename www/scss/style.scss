@@ -11,7 +11,7 @@ $lightRed: #C55067;
 @import '../bower_components/foundation/scss/foundation.scss';
 
 body {
-	background: url('./../images/dots.png') white;
+	background: white;
 	background-attachment: fixed;
 }
 
@@ -37,7 +37,7 @@ input[type="radio"] {
 	margin: 0 .3rem .3rem 0;
 }
 
-#content {
+.content {
 	p a, li a, td a {
 		border-bottom: 3px solid rgba($lightBlue, .2);
 		
@@ -136,10 +136,6 @@ header {
 		color: #999;
 		font-variant: italic;
 	}
-}
-
-#content {
-	background: white;
 }
 
 .button.small {

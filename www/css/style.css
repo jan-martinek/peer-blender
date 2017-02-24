@@ -6115,7 +6115,7 @@ th.hide-for-touch {
     display: none !important; } }
 
 body {
-  background: url("./../images/dots.png") white;
+  background: white;
   background-attachment: fixed; }
 
 html, body, p, li, blockquote, h1, h2, h3, h4, h5, h6, input, textarea {
@@ -6130,12 +6130,12 @@ label {
 input[type="radio"] {
   margin: 0 .3rem .3rem 0; }
 
-#content p a, #content li a, #content td a {
+.content p a, .content li a, .content td a {
   border-bottom: 3px solid rgba(62, 100, 137, 0.2); }
-  #content p a:visited, #content li a:visited, #content td a:visited {
+  .content p a:visited, .content li a:visited, .content td a:visited {
     color: #9E354A;
     border-color: rgba(158, 53, 74, 0.2); }
-  #content p a:hover, #content li a:hover, #content td a:hover {
+  .content p a:hover, .content li a:hover, .content td a:hover {
     border-color: rgba(62, 100, 137, 0.5); }
 
 .row .row {
@@ -6200,9 +6200,6 @@ header .select2 input[type="search"] {
     text-align: center;
     color: #999;
     font-variant: italic; }
-
-#content {
-  background: white; }
 
 .button.small .fa {
   font: normal normal normal 14px/.4 FontAwesome;

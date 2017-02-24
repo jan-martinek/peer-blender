@@ -10,7 +10,7 @@
 {/block}
 
 {block content}
-<div id="content" class="row">
+<div class="row content">
 	<div class="columns">
 		<p>
 			<a n:href="Course:enrolled, $course->id">{_messages.course.totalEnrolled, [count => count($course->entity->enrollments)]}</a>

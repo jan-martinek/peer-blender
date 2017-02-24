@@ -1,7 +1,7 @@
 {block title}{_messages.app.requestNewPassword}{/block}
 
 {block content}
-<div id="content" class="row">
+<div class="row content">
 	<div class="columns last large-6" n:if="!count($flashes)">
 		{form passwordResetForm}
 			<p>{label email /} {input email}
