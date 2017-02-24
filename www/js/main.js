@@ -113,7 +113,7 @@ var PeerBlender = {
 	
 	Review: {
 		init: function() {
-			var reviewOngoing = (document.querySelectorAll('.rubric input').length > 0);
+			var reviewOngoing = (document.querySelectorAll('#totalScore').length > 0);
 			
 			if (reviewOngoing) {
 				this.updateScore();
