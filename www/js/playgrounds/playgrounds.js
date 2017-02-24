@@ -343,8 +343,8 @@ var MarkdownToy = function(playground) {
 		var val = this.editor.getValue();
 		this.preview.innerHTML = this.marked(val);
 		
-		var len = this.preview.textContent.replace(/\s+/, ' ').length;
-		this.stats.innerHTML = '<p>' + len + '</p>';
+		var len = this.preview.textContent.replace(/\s+/g, ' ').length;
+		this.stats.innerHTML = '<p>Počet znaků: ' + len + '</p>';
 	}
 	
 	this.editor.on("change", this.updatePreview.bind(this));
