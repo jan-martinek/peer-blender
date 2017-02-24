@@ -13,6 +13,7 @@ gulp.task('sass', function(){
 gulp.task('vendor', function(){
   return gulp.src('vendor.html')
     .pipe(useref())
+    .pipe(gulpIf('*.js', uglify()))
     .pipe(gulp.dest('vendor/'))
 });
 
@@ -21,6 +22,6 @@ gulp.task('default', ['sass', 'vendor'] , function() {
 });
 
 gulp.task('watch', function(){
-  gulp.watch('scss/*.scss', ['sass']); 
+  gulp.watch('scss/*.scss', ['sass']);
   gulp.watch('vendor.html', ['vendor']);
 });
