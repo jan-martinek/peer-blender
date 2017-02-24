@@ -7,18 +7,6 @@ var Playgrounds = function() {
 			p.init();
 			this.instances.push(p); 
 		}.bind(this));
-		this.bindToSaveButton();
-	}
-	
-	this.bindToSaveButton = function() {
-		var qs = document.querySelector('#quick-save-button');
-		if (qs) {
-			qs.addEventListener('click', function(e) {
-				this.save();
-				e.preventDefault();
-			}.bind(this));	
-		}
-		
 	}
 	
 	this.save = function() {

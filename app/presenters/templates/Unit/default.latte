@@ -44,26 +44,8 @@
 		{!$unit->preface|md}
 	</div></div>
 	
-	
 	{form assignmentForm, class => "ajax"}
 		{control questionsRenderer}
-		
-		<div id="form-controls">
-			<div class="row">
-				<div class="columns large-2 small-3">
-					<button type="submit" id="quick-save-button"><i class="fa fa-save"></i> {_messages.solution.quickSave}</button>
-				</div>
-				<div class="columns large-10 small-9">
-					{snippet formInfo}
-						<div n:if="$solution">
-							<p n:if="$unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED)">
-								{!_messages.solution.workOnUntil, [date => $unit->reviews_since->format('j. n. Y H.i')]}
-							</p>
-						</div>	
-					{/snippet}
-				</div>
-			</div>
-		</div>
 	{/form}
 {/block}
 
@@ -110,6 +92,12 @@
 {block editAfterDeadline}
 	<div class="panel callout">{_messages.unit.submittingAfterDeadline}</div>
 	<a n:href="this, lateEdits => TRUE" class="button">{_messages.unit.editAfterDeadline}</a>
+{/block}
+
+{block topBarLeft}
+	{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED) ||  $lateEdits && $lateEditsAcceptable}
+		<li><button type="submit" id="quick-save-button"><i class="fa fa-save"></i> {_messages.solution.quickSave}</button></li>
+	{/if}
 {/block}
 
 {block content}

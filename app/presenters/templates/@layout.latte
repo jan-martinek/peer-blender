@@ -18,30 +18,32 @@
 </head>
 
 <body>
-    <nav class="top-bar" data-topbar role="navigation">
-        <ul class="title-area">
-            <li class="name">
-                <h1><a href="{link Homepage:default}">{_messages.app.name}</a></h1>
-            </li>
-            <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-        </ul>
+    <div class="sticky">
+        <nav class="top-bar" data-topbar role="navigation">
+            <ul class="title-area">
+                <li class="name">
+                    <h1><a href="{link Homepage:default}">{_messages.app.name}</a></h1>
+                </li>
+                <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+            </ul>
 
-        <section class="top-bar-section">
-            <ul class="right">
-                {var user = $presenter->getUser();}
-                {if $user->isLoggedIn()}
-                    <li><a n:href="User:default $user->id"><i class="fa fa-user"></i> {$user->getIdentity()->name}</a>
-                    <li class="active"><a href="{link logout!}">{_messages.app.logout}</a></li>
-                {else}
-                    <li><a n:href="Sign:in">{_messages.app.login}</a></li>
-                {/if}
-            </ul>
-            
-            <ul class="left">
-                {block topBarLeft}{/block}
-            </ul>
-        </section>
-    </nav>
+            <section class="top-bar-section">
+                <ul class="right">
+                    {var user = $presenter->getUser();}
+                    {if $user->isLoggedIn()}
+                        <li><a n:href="User:default $user->id"><i class="fa fa-user"></i> {$user->getIdentity()->name}</a>
+                        <li class="active"><a href="{link logout!}">{_messages.app.logout}</a></li>
+                    {else}
+                        <li><a n:href="Sign:in">{_messages.app.login}</a></li>
+                    {/if}
+                </ul>
+                
+                <ul class="left">
+                    {block topBarLeft}{/block}
+                </ul>
+            </section>
+        </nav>
+    </div>
     
     {snippet flashMessages}
         <div class="flashMessages" n:ifcontent>
@@ -87,6 +89,18 @@
             PeerBlender.init();
             var p = new Playgrounds;
             p.init();
+            
+            
+            var qs = document.querySelector('#quick-save-button');
+            if (qs) {
+                qs.addEventListener('click', function(e) {
+                    p.save();
+                    document.querySelector('#frm-assignmentForm [type=submit]').click();
+                    e.preventDefault();
+                }.bind(this));  
+            }
+                
+            
         });
         
         
