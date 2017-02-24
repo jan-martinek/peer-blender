@@ -51,7 +51,6 @@ var Playground = function(el) {
 	this.fetchToy = function() {
 		switch(this.toyName) {
 			case 'code':
-			case 'markdown':
 			case 'css':
 			case 'sql':
 			case 'xml':
@@ -59,6 +58,9 @@ var Playground = function(el) {
 				break;
 			case 'html':
 				this.toy = new HighlightingToy(this, 'htmlmixed');
+				break;
+			case 'markdown':
+				this.toy = new MarkdownToy(this);
 				break;
 			case 'javascript':
 				this.toy = new JsToy(this);
@@ -294,4 +296,60 @@ var JsToy = function(playground) {
 	this.save = function() {
 		this.source.value = this.editor.getValue();
 	}
+}
+
+var MarkdownToy = function(playground) {
+	this.playground = playground;
+	this.source = playground.el.querySelector('textarea');
+	this.source.style.display = 'none';
+	this.marked = marked.setOptions({
+		renderer: new marked.Renderer(),
+		gfm: true,
+		tables: true,
+		breaks: false,
+		pedantic: false,
+		sanitize: false,
+		smartLists: true,
+		smartypants: false
+	});
+	
+	
+	this.playground.box.innerHTML = 
+		'<div class="row">' +
+			'<div class="editor-wrapper columns large-6"></div>' +
+			'<div class="columns large-6">' +
+				'<div class="markdown-preview"></div>' +
+			'</div>' +
+			'<div class="columns stats"></div>' +
+		'</div>';
+	
+	this.preview = this.playground.box.querySelector('.markdown-preview');
+	this.stats = this.playground.box.querySelector('.stats');
+	
+	this.editor = CodeMirror(
+		this.playground.box.querySelector('.editor-wrapper'), 
+		{
+			value: this.source.value,
+			lineNumbers: true, 
+			lineWrapping: true,
+			mode: 'markdown',
+			viewportMargin: Infinity,
+			readOnly: this.playground.mode == 'review' ? true : false
+		}
+	);
+	
+	this.updatePreview = function() {
+		var val = this.editor.getValue();
+		this.preview.innerHTML = this.marked(val);
+		
+		var len = this.preview.textContent.replace(/\s+/, ' ').length;
+		this.stats.innerHTML = '<p>' + len + '</p>';
+	}
+	
+	this.editor.on("change", this.updatePreview.bind(this));
+	
+	this.save = function() {
+		this.source.value = this.editor.getValue();
+	}
+	
 }
