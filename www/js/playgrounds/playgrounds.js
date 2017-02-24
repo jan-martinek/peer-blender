@@ -76,19 +76,29 @@ var Playground = function(el) {
 			var showPrefill = document.createElement("BUTTON");
 			showPrefill.classList.add('showPrefill');
 			showPrefill.classList.add('secondary');
-			showPrefill.innerHTML = '{ }  {_messages.solution.viewPrefill}';
-			
+			showPrefill.innerHTML = '{ }  Zobrazit předvyplněný kód'; //TRANSLATE _messages.solution.viewPrefill
 			this.box.insertBefore(showPrefill, this.box.childNodes[0]);
+			
+			var hidePrefill = document.createElement("BUTTON");
+			hidePrefill.classList.add('secondary');
+			hidePrefill.innerHTML = '✕';
+			prefill.appendChild(hidePrefill);
 			
 			showPrefill.addEventListener('click', function(e) {
 				var el = this.el.querySelector('.prefill');
-				if (el.style.display == 'block') {
-					el.style.display = 'none';
-					e.target.innerHTML = '{ }  {_messages.solution.viewPrefill}';
-				} else {
-					el.style.display = 'block';
-					e.target.innerHTML = '{ }  {_messages.solution.hidePrefill}';
-				}
+				el.style.display = 'block';
+				
+				e.target.style.display = 'none';
+				
+				e.preventDefault();
+			}.bind(this));
+			
+			hidePrefill.addEventListener('click', function(e) {
+				var el = this.el.querySelector('.prefill');
+				el.style.display = 'none';
+				
+				var btn = this.el.querySelector('.showPrefill');
+				btn.style.display = 'inline-block';
 				
 				e.preventDefault();
 			}.bind(this));
@@ -100,7 +110,7 @@ var Playground = function(el) {
 			var untouched = document.createElement("DIV");
 			untouched.classList.add("panel");
 			untouched.classList.add("callout");
-			untouched.innerHTML = '<p style="color: #aaa">{_messages.unit.notAnswered}</p>';
+			untouched.innerHTML = '<p style="color: #aaa">U tohoto úkolu nebyly uloženy žádné změny.</p>'; // _messages.unit.notAnswered
 			
 			this.box.insertBefore(untouched, this.box.childNodes[0]);
 		}
@@ -147,7 +157,7 @@ var P5Toy = function(playground) {
 			'<div class="editor-wrapper columns large-6"></div>' +
 			'<div class="columns large-6">' +
 				'<iframe class="p5js-preview" src="/code-preview/'+previewPlaceholder+'"></iframe>' +
-				 (answered ? '<button>&#9654; {_messages.solution.runCode}</button>' : '') +
+				 (answered ? '<button>&#9654; Spustit kód</button>' : '') + // {_messages.solution.runCode}
 			'</div>' +
 		'</div>';
 	
@@ -188,7 +198,7 @@ var TurtleToy = function(playground) {
 			'<div class="editor-wrapper columns large-6"></div>' +
 			'<div class="columns large-6">' +
 				'<iframe class="p5js-preview" src="/code-preview/'+previewPlaceholder+'"></iframe>' +
-				 (answered ? '<button>&#9654; {_messages.solution.runCode}</button> <button>&#9654; {_messages.solution.runCodeWithoutAnimation}</button>' : '') +
+				 (answered ? '<button>&#9654; Spustit kód</button> <button>&#9654; Spustit kód bez animace</button>' : '') + // _messages.solution.runCode, _messages.solution.runCodeWithoutAnimation
 			'</div>' +
 		'</div>';
 	
@@ -260,7 +270,7 @@ var JsToy = function(playground) {
 	
 	this.playground.box.innerHTML = 
 		'<div class="editor-wrapper"></div>' +
-		'<button>&#9654; {_messages.solution.runCode}</button>' +
+		'<button>&#9654; Spustit kód</button>' + // {_messages.solution.runCode}
 		'<iframe style="display: none" id="preview_iframe'+this.previewId+'" name="preview_iframe'+this.previewId+'"></iframe>';
 	
 	this.editor = CodeMirror(
@@ -307,8 +317,8 @@ var MarkdownToy = function(playground) {
 	this.playground.box.innerHTML = 
 		'<div class="row">' +
 			'<div class="editor-wrapper columns large-6"></div>' +
-			'<div class="columns large-6">' +
-				'<p><span class="label">Preview</span></p>' + 
+			'<div class="columns large-6 markdown-preview-wrapper">' +
+				'<p><span class="label">Náhled</span></p>' + // Preview
 				'<div class="markdown-preview"></div>' +
 			'</div>' +
 			'<div class="columns stats"></div>' +

@@ -160,6 +160,7 @@ review:
 	noComment: "without comment"
 	unfinished: "incomplete review"
 	complete: "review is complete"
+	verbalAssessment: "Verbal assessment."
 	verbalAsssessmentCompulsory: "Include verbal assessment please."
 	assessmentMinimumLength: "Verbal assessment needs to be at least %count% characters long. Even closed questions require some commentary."
 	useRubricsWhileChoosingScore: "Score the assignment with regard to your verbal rating above."
