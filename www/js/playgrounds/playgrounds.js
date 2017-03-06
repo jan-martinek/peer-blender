@@ -350,6 +350,7 @@ var MarkdownToy = function(playground) {
 	}
 	
 	this.editor.on("change", this.updatePreview.bind(this));
+	this.updatePreview();
 	
 	this.save = function() {
 		this.source.value = this.editor.getValue();

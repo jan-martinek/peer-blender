@@ -118,11 +118,15 @@ var PeerBlender = {
 			if (reviewOngoing) {
 				this.updateScore();
 				
-				document.querySelector('#frm-reviewForm').addEventListener('change', function(e) {
-					if (e.target.matches('.rubric input') || e.target.matches('#frm-reviewForm-solutionIsComplete')) {
-						this.updateScore();
-					}
-				}.bind(this));
+				var reviewForm = document.querySelector('#frm-reviewForm');
+				if (reviewForm) {
+					reviewForm.addEventListener('change', function(e) {
+						if (e.target.matches('.rubric input') || e.target.matches('#frm-reviewForm-solutionIsComplete')) {
+							this.updateScore();
+						}
+					}.bind(this));	
+				}
+				
 			}
 		},
 		
@@ -181,7 +185,7 @@ var PeerBlender = {
 				var score = maxScore/totalWeight*totalScore;
 				
 				$(checklist).find('.calcWeightedScore').remove();
-				$(checklist).append('<p class="calcWeightedScore"><b>' + Math.round(score*100)/100 + '</b></p>');
+				$(checklist).append('<p class="calcWeightedScore">☞ Hodnocení úkolu: <b>' + Math.round(score*100)/100 + '</b> b.</p>'); // translation needed
 				values.push(score);
 			});
 			
