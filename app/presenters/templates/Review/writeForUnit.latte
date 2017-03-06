@@ -16,35 +16,36 @@
 	{form reviewForm}
 	
 		{control questionsRenderer $assignment, $solution, null, $review, $form}
-		
-		<div class="row content"><div class="columns">
-			<div class="assignmentQuestion">
-				<h3 class="questionNumber">✔</h3>
-				{? $form['solutionIsComplete']->setValue((bool) $review->solutionIsComplete)}
-				{input solutionIsComplete}
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="columns large-6">
+		<div class="rubrics">
+			<div class="row content"><div class="columns">
 				<div class="assignmentQuestion">
-					{? $form['notes']->setValue($review->notes)}
-					{label notes /}
-					{input notes, 'rows' => '10'}
+					<h3 class="questionNumber">✔</h3>
+					{? $form['solutionIsComplete']->setValue((bool) $review->solutionIsComplete)}
+					{input solutionIsComplete}
 				</div>
-			</div>
-			<div class="columns large-6">
-				<p id="totalScore">{_messages.review.totalScore}: <span>&mdash;</span></p>
-				<style> input[type="checkbox"] { margin-right: 5px; } .prefix label { display: inline; } </style>
-				<div class="row collapse">
-					<div class="columns small-5">
-						<span class="prefix">{input complete, 'class' => 'inline'}</span>
-					</div>
-					<div class="columns small-7">
-						{input submit, 'class' => 'button postfix'}
+			</div></div>
+
+			<div class="row">
+				<div class="columns large-6">
+					<div class="assignmentQuestion">
+						{? $form['notes']->setValue($review->notes)}
+						{label notes /}
+						{input notes, 'rows' => '10'}
 					</div>
 				</div>
-				<p class="note">Tip: {_messages.review.editUntilScoring}</p>
+				<div class="columns large-6">
+					<p id="totalScore">{_messages.review.totalScore}: <span>&mdash;</span></p>
+					<style> input[type="checkbox"] { margin-right: 5px; } .prefix label { display: inline; } </style>
+					<div class="row collapse">
+						<div class="columns small-5">
+							<span class="prefix">{input complete, 'class' => 'inline'}</span>
+						</div>
+						<div class="columns small-7">
+							{input submit, 'class' => 'button postfix'}
+						</div>
+					</div>
+					<p class="note">Tip: {_messages.review.editUntilScoring}</p>
+				</div>
 			</div>
 		</div>
 	{/form}
