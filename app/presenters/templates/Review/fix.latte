@@ -29,6 +29,7 @@
 	{form reviewForm}
 		{control questionsRenderer $assignment, $solution, null, $review, $form}
 		
+	<div class="rubrics">
 		<div class="row content"><div class="columns">
 			<div class="assignmentQuestion">
 				<h3 class="questionNumber">✔</h3>
@@ -60,6 +61,7 @@
 				<p class="note">Tip: {_messages.review.editUntilScoring}</p>
 			</div>
 		</div>
+	</div>
 	{/form}
 {/if}
 		

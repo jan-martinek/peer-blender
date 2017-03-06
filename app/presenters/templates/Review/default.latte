@@ -55,10 +55,8 @@
 	
 {control questionsRenderer $assignment, $solution, null, $review}
 		
-<div class="row content"><div class="columns">
-	<h2>{_messages.unit.review}</h2>
-
-
+<div class="rubrics">	
+	<div class="row content"><div class="columns">
 		<div class="assignmentQuestion">
 			<h3 class="questionNumber {if $review->solutionIsComplete}complete{else}incomplete{/if}">
 				{if $review->solutionIsComplete}✔{else}✘{/if}
@@ -82,7 +80,10 @@
 		<a class="button" n:href="unlock! $review->id" n:if="$user->isAllowed('review', 'unlock') && $review->isOk()">
 			{_messages.review.unlock} &rarr;
 		</a>
+	</div></div>
+</div>
 		
+<div class="row content"><div class="columns">
 		<h2>{_messages.review.comments.title}</h2>
 		
 		{if count($review->comments)}
@@ -121,30 +122,30 @@
 		<a class="button alert" n:href="Review:fix $review->id" n:if="$review->hasProblem() && $review->reviewed_by->id == $user->id">
 			{_messages.review.fixNow} &rarr;
 		</a>
+	
 		
-		{if $user->isAllowed('review', 'commentAnytime') 
-			|| $presenter->userInfo->id == $review->solution->user->id
-			|| $presenter->userInfo->id == $review->reviewed_by->id
-		}
-			{form reviewCommentForm}
-				{input comment, 'rows' => 5, 'placeholder' => $presenter->translator->translate('messages.review.comments.write')}
-				
-				<div class="row">
-					<div class="columns medium-5 right">
-						<div class="row collapse">
-							<div class="small-2 columns">
-								{label reviewStatus, 'class' => 'prefix' /}
-							</div>
-							<div class="small-4 columns">
-								{input reviewStatus}
-							</div>
-							<div class="small-5 columns">
-								{input submit, 'class' => 'button postfix'}
-							</div>
-						</div>
+{if $user->isAllowed('review', 'commentAnytime') 
+	|| $presenter->userInfo->id == $review->solution->user->id
+	|| $presenter->userInfo->id == $review->reviewed_by->id
+}
+	{form reviewCommentForm}
+		{input comment, 'rows' => 5, 'placeholder' => $presenter->translator->translate('messages.review.comments.write')}
+		
+		<div class="row">
+			<div class="columns medium-5">
+				<div class="row collapse">
+					<div class="small-2 columns">
+						{label reviewStatus, 'class' => 'prefix' /}
 					</div>
-				</div>	
-			{/form}
-		{/if}
-	</div>
-</div>
+					<div class="small-4 columns">
+						{input reviewStatus}
+					</div>
+					<div class="small-5 columns">
+						{input submit, 'class' => 'button postfix'}
+					</div>
+				</div>
+			</div>
+		</div>	
+	{/form}
+{/if}
+
