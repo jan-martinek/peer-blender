@@ -57,11 +57,7 @@ class ReviewForm extends Form
             } elseif ($rubric instanceof \Model\Ontology\Comment) {
                 $rubricsContainer->addTextarea($id, 
                     Html::el()->setHtml(Markdown::defaultTransform($rubric->instructions))
-                )->setRequired($translator->translate('messages.review.verbalAsssessmentCompulsory'))
-                    ->addRule(
-                        Form::MIN_LENGTH, 
-                        $translator->translate('messages.review.assessmentMinimumLength', NULL, array('count' => 20)),
-                        20);
+                )->setRequired($translator->translate('messages.review.verbalAsssessmentCompulsory'));
             }
         }
         
