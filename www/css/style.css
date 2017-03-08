@@ -6150,7 +6150,7 @@ input[type="radio"] {
 
 textarea.plaintext {
   font-size: 1rem; }
-  textarea.plaintext[disabled] {
+  textarea.plaintext[readonly] {
     color: black;
     background: white; }
 

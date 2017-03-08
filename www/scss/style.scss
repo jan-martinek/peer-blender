@@ -63,7 +63,7 @@ input[type="radio"] {
 textarea.plaintext {
 	font-size: 1rem;
 	
-	&[disabled] {
+	&[readonly] {
 		color: black;
 		background: white;
 	}

@@ -257,7 +257,7 @@ var PlaintextToy = function(playground) {
 	autosize(this.source);
 	
 	if (playground.mode == 'review') {
-		this.source.setAttribute('disabled', 'true');
+		this.source.setAttribute('readonly', 'true');
 	}
 	
 	this.save = function() {}
