@@ -25,6 +25,8 @@ class CourseProduct extends AbstractProduct
 	public $goals;
 	public $methods;
 	public $support;
+	public $menu;
+	public $calendar;
 	public $reviewCount;
 	public $uploadMaxFilesizeKb;
 	public $gaCode;

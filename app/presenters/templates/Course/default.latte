@@ -28,6 +28,21 @@
 	</div>
 	
 	<div class="columns large-6">
+		
+		{if $course->calendar}
+			<h3>{_messages.course.calendar}</h3>
+			
+			<ul>
+			{foreach $course->calendar as $time => $event}
+				{if strtotime($time) > time() + 5 * 3600}
+			
+				{var time = strftime("%A %e. %B %H.%M", strtotime($time))}
+				<li>{$time}: <b>{!$event|imd}</b></li>
+				{/if}
+			{/foreach}
+			</ul>
+		{/if}
+		
 		{!$course->support|md}
 	</div>
 

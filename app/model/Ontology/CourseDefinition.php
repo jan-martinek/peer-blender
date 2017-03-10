@@ -24,6 +24,12 @@ class CourseDefinition extends \Nette\Object implements IDefinition
 	/** @var string Course support info */
 	private $support;
 	
+	/** @var string Course custom menu items */
+	private $menu;
+	
+	/** @var string Course custom calendar items */
+	private $calendar;
+	
 	
 	/** @var array */
 	private $units = array();
@@ -37,7 +43,7 @@ class CourseDefinition extends \Nette\Object implements IDefinition
 	public function __construct($data, $factory) 
 	{	
 		$this->factory = $factory;
-		$params = array('author', 'name', 'goals', 'methods', 'support');
+		$params = array('author', 'name', 'goals', 'methods', 'support', 'menu', 'calendar');
 		foreach ($params as $param) {
 			if (isset($data['course'][$param])) {
 				$this->$param = $data['course'][$param];	
@@ -70,6 +76,8 @@ class CourseDefinition extends \Nette\Object implements IDefinition
 		$product->goals = $this->goals;
 		$product->methods = $this->methods;
 		$product->support = $this->support;
+		$product->menu = $this->menu;
+		$product->calendar = $this->calendar;
 		
 		$product->name = $entity->name ? $entity->name : $this->name;
 		

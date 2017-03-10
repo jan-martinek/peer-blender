@@ -30,6 +30,7 @@ app:
 course:
 	totalEnrolled: "%count% people enrolled"
 	participants: "Course participants"
+	calendar: "Calendar"
 	roles:
 		student: "student"
 		assistant: "assistant"

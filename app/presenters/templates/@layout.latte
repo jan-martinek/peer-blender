@@ -40,6 +40,11 @@
                 
                 <ul class="left">
                     {block topBarLeft}{/block}
+                    {if isset($course) && $course->menu}
+                        {foreach $course->menu as $item}
+                            <li><a href="{$item['link']}">{$item['val']}</a>
+                        {/foreach}
+                    {/if}
                 </ul>
             </section>
         </nav>

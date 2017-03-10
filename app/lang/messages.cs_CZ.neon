@@ -30,6 +30,7 @@ app:
 course:
 	totalEnrolled: "V kurzu je zapsáno %count% lidí"
 	participants: "Účastníci kurzu"
+	calendar: "Kalendář"
 	roles:
 		student: "student"
 		assistant: "asistent"
