@@ -95,6 +95,7 @@
 {/block}
 
 {block topBarLeft}
+	{var lateEditsAcceptable = $unit->hasObjectionsPhaseStarted() && (is_null($solution) || !count($solution->reviews))}
 	{if $unit->isCurrentPhase(\Model\Entity\Unit::PUBLISHED) ||  $lateEdits && $lateEditsAcceptable}
 		<li><button type="submit" id="quick-save-button"><i class="fa fa-save"></i> {_messages.solution.quickSave}</button></li>
 	{/if}
