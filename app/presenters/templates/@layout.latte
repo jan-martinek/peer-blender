@@ -40,7 +40,7 @@
                 
                 <ul class="left">
                     {block topBarLeft}{/block}
-                    {if isset($course) && $course->menu}
+                    {if isset($course) && $course instanceof Model\Ontology\CourseProduct && $course->menu}
                         {foreach $course->menu as $item}
                             <li><a href="{$item['link']}">{$item['val']}</a>
                         {/foreach}
