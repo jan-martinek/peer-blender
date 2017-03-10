@@ -124,6 +124,7 @@ class QuestionItem extends \Nette\Object
             'javascript',
             'html',
             'sql',
+            'livecss',
             'css',
             'xml',
             'file',

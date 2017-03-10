@@ -138,6 +138,7 @@ class QuestionProduct extends AbstractProduct
 	        'html',
 	        'sql',
 	        'css',
+	        'livecss',
 	        'xml',
 	        'turtle',
 	        'p5js'
