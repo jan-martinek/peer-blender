@@ -259,9 +259,39 @@ var PlaintextToy = function(playground) {
 	this.source.classList.add('plaintext');
 	autosize(this.source);
 	
+	this.playground.box.innerHTML = '<div class="columns stats"></div>';
+	this.stats = this.playground.box.querySelector('.stats');
+	this.statsCalcTimer = null;
+	this.statsCalcInterval = 530;
+	
 	if (playground.mode == 'review') {
 		this.source.setAttribute('readonly', 'true');
 	}
+	
+	this.calcStats = function() {		
+		var len = this.source.value.replace(/\s+/g, ' ').length;
+		this.stats.innerHTML = '<p>Počet znaků: ' + len + '</p>';
+	}
+	
+	this.calcStats();
+	
+	this.source.addEventListener('keyup', function() { 
+		this.statsCalcTimer = window.setTimeout(
+			this.calcStats.bind(this), 
+			this.statsCalcInterval
+		);
+	}.bind(this));
+	
+	this.source.addEventListener('change', function() { 
+		this.statsCalcTimer = window.setTimeout(
+			this.calcStats.bind(this), 
+			this.statsCalcInterval
+		);
+	}.bind(this));
+	
+	this.source.addEventListener('keydown', function() {
+		window.clearTimeout(this.statsCalcTimer);
+	}.bind(this));
 	
 	this.save = function() {}
 }
