@@ -259,7 +259,7 @@ var PlaintextToy = function(playground) {
 	this.source.classList.add('plaintext');
 	autosize(this.source);
 	
-	this.playground.box.innerHTML = '<div class="columns stats"></div>';
+	this.playground.box.innerHTML = '<div class="stats"></div>';
 	this.stats = this.playground.box.querySelector('.stats');
 	this.statsCalcTimer = null;
 	this.statsCalcInterval = 530;

@@ -6437,3 +6437,8 @@ li.selected {
 .markdown-preview-wrapper {
   background: #eee;
   padding: 20px; }
+
+.stats p {
+  margin-top: -1rem;
+  color: #666;
+  font-size: 90%; }
