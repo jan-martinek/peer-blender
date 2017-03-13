@@ -440,12 +440,14 @@ var MarkdownToy = function(playground) {
 	
 	this.playground.box.innerHTML = 
 		'<div class="row">' +
-			'<div class="editor-wrapper columns large-6"></div>' +
+			'<div class="columns large-6">' +
+				'<div class="editor-wrapper"></div>' +
+				'<div class="stats"></div>' +
+			'</div>' +
 			'<div class="columns large-6 markdown-preview-wrapper">' +
 				'<p><span class="label">Náhled</span></p>' + // Preview
 				'<div class="markdown-preview"></div>' +
 			'</div>' +
-			'<div class="columns stats"></div>' +
 		'</div>';
 	
 	this.preview = this.playground.box.querySelector('.markdown-preview');
