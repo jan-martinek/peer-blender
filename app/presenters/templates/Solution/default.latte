@@ -40,16 +40,21 @@
 {/block}
 
 {block finishedAssignment}
-	<h2>
-		<span style="color: {if $solution && $solution->isComplete()}green{else}red{/if}">●</span>
-		{_messages.unit.assignment}
-	</h2>
-	
-	<div class="panel callout" n:if="$solution->unit->isFinalized()">
-		<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a></p>
-	</div>
+	<div class="row content">
+		<div class="columns">
 
-	{!$unit->preface|md}
+			<h2>
+				{_messages.unit.assignment}
+			</h2>
+			
+			<div class="panel callout" n:if="$solution->unit->isFinalized()">
+				<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a></p>
+			</div>
+
+			{!$unit->preface|md}
+			
+		</div>
+	</div>
 
 	{control questionsRenderer $assignment, $solution}
 {/block}
@@ -82,9 +87,13 @@
 	<div class="columns">
 		{include unitInfo}	
 	
-		{include finishedAssignment}
-		
-		<hr>
+	</div>
+</div>
+
+{include finishedAssignment}
+
+<div class="row content">
+	<div class="columns">
 			
 		{include reviews}
 		
