@@ -74,8 +74,10 @@
 			{/if}
 		</p>
 		
-		<h3>{_messages.review.notes}</h3>
-		{if $review->notes}{!$review->notes|md}{else}<p><span style="color: #aaa">&mdash;</a></p>{/if}
+		{if $review->notes}
+			<h3>{_messages.review.notes}</h3>
+			{!$review->notes|md}
+		{/if}
 	
 		<a class="button" n:href="unlock! $review->id" n:if="$user->isAllowed('review', 'unlock') && $review->isOk()">
 			{_messages.review.unlock} &rarr;

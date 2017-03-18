@@ -201,7 +201,6 @@ class ReviewPresenter extends BasePresenter
         $review = $this->courseRegistry->review;
         $review->score = $this->calcTotalScore($values->rubrics, $values->solutionIsComplete);
         $review->assessmentSet = $values->rubrics;
-        $review->notes = $values->notes;
         $review->solutionIsComplete = $values->solutionIsComplete;
         $review->submitted_at = new DateTime;
         if ($values->complete) {
@@ -224,6 +223,16 @@ class ReviewPresenter extends BasePresenter
         }
         $this->reviewRepository->persist($review);
         $this->logEvent($review, 'submit');
+        
+        if ($values->notes != '') {
+            $comment = new ReviewComment;
+            $comment->comment = $values->notes;
+            $comment->review = $review;
+            $comment->review_status = $review->status;
+            $comment->author = $this->userRepository->find($this->user->id);
+            $comment->submitted_at = new DateTime;        
+            $this->reviewCommentRepository->persist($comment);
+        }
         
         switch ($this->getAction()) {
             case 'fix':
