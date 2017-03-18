@@ -92,6 +92,8 @@ var PeerBlender = {
 	},
 	
 	Review: {
+		autosave: null,
+		
 		init: function() {
 			this.setupSaveButton();
 			this.setupScoreUpdate();
@@ -143,6 +145,32 @@ var PeerBlender = {
 				});
 			}	
 		},
+		
+		setupAutoSave: function(qs) {
+			var autosavebox = document.createElement('LI');
+			autosavebox.innerHTML = '<a href="#"><input type="checkbox" id="autosaveOn"> ukládat automaticky</a>';
+			qs.parentNode.parentNode.insertBefore(autosavebox, qs.parentNode.nextSibling);
+			
+			if (localStorage.getItem('autosave') !== false) {
+				document.getElementById('autosaveOn').checked = true;	
+			}
+			
+			autosavebox.addEventListener('click', function(e) {
+				var checkbox = document.getElementById('autosaveOn');
+				checkbox.checked = !checkbox.checked;
+				localStorage.setItem("autosave", checkbox.checked);
+				e.preventDefault();
+			});
+			
+			window.setInterval(this.autosave.bind(this), 90 * 1000);
+		},
+		
+		autosave: function() {
+			if (document.getElementById('autosaveOn').checked) {
+				this.save();
+			}
+		},
+		
 		save: function(e) {
 			PeerBlender.playgrounds.save();
 			document.querySelector('#frm-assignmentForm [type=submit]').click();
