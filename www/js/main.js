@@ -63,6 +63,7 @@ $.nette.ext('forms', {
 
 var PeerBlender = {
 	baseUri: '',
+	playgrounds: new Playgrounds,
 	outdatedIframes: [],
 	
 	init: function() {
@@ -96,6 +97,7 @@ var PeerBlender = {
 		$.nette.init();
 
 		
+		this.playgrounds.init();
 		this.ThirdParty.init();
 		//this.Chat.init();
 		this.Review.init();
@@ -113,6 +115,7 @@ var PeerBlender = {
 	
 	Review: {
 		init: function() {
+			this.setupSaveButton();
 			var reviewOngoing = (document.querySelectorAll('#totalScore').length > 0);
 			
 			if (reviewOngoing) {
@@ -126,7 +129,21 @@ var PeerBlender = {
 						}
 					}.bind(this));	
 				}
+		setupSaveButton: function() {
+			var qs = document.querySelector('#quick-save-button');
+			
+			if (qs) { 
+				this.setupAutoSave(qs);
 				
+				qs.addEventListener('click', this.save.bind(this));
+			}	
+		},
+		save: function(e) {
+			PeerBlender.playgrounds.save();
+			document.querySelector('#frm-assignmentForm [type=submit]').click();
+			
+			if (e) {
+				e.preventDefault();	
 			}
 		},
 		

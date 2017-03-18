@@ -87,28 +87,13 @@
     <script src="{$baseUri}/vendor/vendor.js"></script>
     {block scripts}{/block}
     
-    <script src="{$baseUri}/js/main.js?v=10"></script>
     <script src="{$baseUri}/js/playgrounds/playgrounds.js?v=3"></script>
+    <script src="{$baseUri}/js/main.js?v=11"></script>
+    
     <script>
         $(document).ready(function() {
             PeerBlender.init();
-            var p = new Playgrounds;
-            p.init();
-            
-            
-            var qs = document.querySelector('#quick-save-button');
-            if (qs) {
-                qs.addEventListener('click', function(e) {
-                    p.save();
-                    document.querySelector('#frm-assignmentForm [type=submit]').click();
-                    e.preventDefault();
-                }.bind(this));  
-            }
-                
-            
         });
-        
-        
     </script>
     {control courseGaRenderer}
 </body>
