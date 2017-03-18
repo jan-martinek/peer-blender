@@ -26,6 +26,10 @@ class ReviewForm extends Form
         $solutionIsCompleteLabel = $translator->translate('messages.review.solutionIsComplete');
         $this->addCheckbox('solutionIsComplete', $solutionIsCompleteLabel);
         
+        // review is complete
+        $completeLabel = $translator->translate('messages.review.complete');
+        $this->addCheckbox('complete', $completeLabel);
+        
         $rubricsContainer = $this->addContainer('rubrics');
         foreach ($rubrics as $id => $rubric) {
             if ($rubric instanceof \Model\Ontology\DefaultRubric) {
@@ -57,15 +61,14 @@ class ReviewForm extends Form
             } elseif ($rubric instanceof \Model\Ontology\Comment) {
                 $rubricsContainer->addTextarea($id, 
                     Html::el()->setHtml(Markdown::defaultTransform($rubric->instructions))
-                )->setRequired($translator->translate('messages.review.verbalAsssessmentCompulsory'));
+                )
+                ->addConditionOn($this['complete'], Form::EQUAL, TRUE)
+                ->setRequired($translator->translate('messages.review.verbalAsssessmentCompulsory'));
             }
         }
         
         $notesLabel = $translator->translate('messages.review.notes');
         $this->addTextarea('notes', $notesLabel);
-        
-        $completeLabel = $translator->translate('messages.review.complete');
-        $this->addCheckbox('complete', $completeLabel);
         
         $submitLabel = $translator->translate('messages.review.submit');
         $this->addSubmit('submit', $submitLabel);
