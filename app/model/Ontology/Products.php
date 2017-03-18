@@ -40,6 +40,7 @@ class UnitProduct extends AbstractProduct
     public $reading;
     public $preface;
     public $rubrics;
+    public $tags;
     
     public $published_since;
     public $reviews_since;

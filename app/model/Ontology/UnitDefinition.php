@@ -26,6 +26,8 @@ class UnitDefinition extends \Nette\Object implements IDefinition
     /** @var array Assessment rubrics */
     private $rubrics = array(); 
     
+    /** @var array Assessment tags */
+    private $tags = array(); 
     
     /** @var AssignmentDefinition */
     private $assignment;
@@ -57,7 +59,7 @@ class UnitDefinition extends \Nette\Object implements IDefinition
             return;
         }
         
-        $params = array('name', 'summary', 'goals', 'reading', 'preface');
+        $params = array('name', 'summary', 'goals', 'reading', 'preface', 'tags');
         foreach ($params as $param) {
             if (isset($data[$param])) {
                 $this->$param = $data[$param];   
@@ -107,6 +109,7 @@ class UnitDefinition extends \Nette\Object implements IDefinition
         $product->reading = $this->reading;
         $product->preface = $this->preface;
         $product->rubrics = $this->rubrics;
+        $product->tags = $this->tags;
         
         $product->name = $entity->name ? $entity->name : $this->name;
         

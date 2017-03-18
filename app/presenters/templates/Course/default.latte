@@ -55,6 +55,8 @@
 					{control phasesRenderer $unit, true}
 					<a n:tag-if="$unit->hasBeenPublished()" n:href="Unit:default $unit->id">{$unit->name}</a>
 				</h3>
+				
+				<p n:ifcontent>{foreach $unit->tags as $tag}<span class="label secondary">{$tag}</span> {/foreach}</p>
 			
 				<div class="row">
 					{var solutionsAvailable = $unit->hasReviewsPhaseStarted() && isset($favoriteSolutions[$unit->id])}

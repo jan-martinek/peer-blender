@@ -19,6 +19,7 @@
 {/block}
 
 {block unitInfo}
+	<p n:ifcontent>{foreach $unit->tags as $tag}<span class="label secondary">{$tag}</span> {/foreach}</p>
 	{control phasesRenderer $unit}
 
 	{if $goals = $unit->goals}
