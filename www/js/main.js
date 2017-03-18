@@ -67,26 +67,6 @@ var PeerBlender = {
 	outdatedIframes: [],
 	
 	init: function() {
-		$.nette.ext('status', {
-			start: function() {
-				$('#quick-save-button i.fa').attr('class', 'fa');
-				$('#quick-save-button i.fa').addClass('fa-spinner fa-spin');
-				
-			},
-			complete: function() {
-				$('#quick-save-button i.fa').attr('class', 'fa');
-				$('#quick-save-button i.fa').addClass('fa-check');
-				setTimeout(function() { 
-					$('#quick-save-button i.fa').removeClass('fa-check'); 
-					$('#quick-save-button i.fa').addClass('fa-save');
-				}, 2000);
-			},
-			error: function(xhr, status, error) {
-				//var err = eval("(" +  + ")");
-				$('#quick-save-button i.fa').attr('class', 'fa');
-				$('#quick-save-button i.fa').addClass('fa-exclamation-triangle');
-			}
-		});
 		$.nette.ext('flash', {
 			complete: function () {
 				$('.flashMessages').animate({
@@ -96,10 +76,8 @@ var PeerBlender = {
 		});
 		$.nette.init();
 
-		
 		this.playgrounds.init();
 		this.ThirdParty.init();
-		//this.Chat.init();
 		this.Review.init();
 		
 		$('a[href^=http]').attr('target', '_blank');
@@ -116,6 +94,10 @@ var PeerBlender = {
 	Review: {
 		init: function() {
 			this.setupSaveButton();
+			this.setupScoreUpdate();
+		},
+		
+		setupScoreUpdate: function() {
 			var reviewOngoing = (document.querySelectorAll('#totalScore').length > 0);
 			
 			if (reviewOngoing) {
@@ -129,6 +111,9 @@ var PeerBlender = {
 						}
 					}.bind(this));	
 				}
+			}
+		},
+		
 		setupSaveButton: function() {
 			var qs = document.querySelector('#quick-save-button');
 			
@@ -136,6 +121,26 @@ var PeerBlender = {
 				this.setupAutoSave(qs);
 				
 				qs.addEventListener('click', this.save.bind(this));
+				
+				$.nette.ext('status', {
+					start: function() {
+						$('#quick-save-button i.fa').attr('class', 'fa');
+						$('#quick-save-button i.fa').addClass('fa-spinner fa-spin');
+						
+					},
+					complete: function() {
+						$('#quick-save-button i.fa').attr('class', 'fa');
+						$('#quick-save-button i.fa').addClass('fa-check');
+						setTimeout(function() { 
+							$('#quick-save-button i.fa').removeClass('fa-check'); 
+							$('#quick-save-button i.fa').addClass('fa-save');
+						}, 2000);
+					},
+					error: function(xhr, status, error) {
+						$('#quick-save-button i.fa').attr('class', 'fa');
+						$('#quick-save-button i.fa').addClass('fa-exclamation-triangle');
+					}
+				});
 			}	
 		},
 		save: function(e) {

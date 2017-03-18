@@ -114,7 +114,7 @@ solution:
 	runCode: "Run code"
 	runCodeWithoutAnimation: "Run code without animation"
 	viewPrefill: "Show pre-filled code"
-	quickSave: "Quick save"
+	quickSave: "Save assignment"
 	saved: "The assignment's solution has been saved."
 	workOnUntil: "You can work on the assignment until the review phase comes (%date%)."
 	createAdHoc: "create ad hoc review"
