@@ -150,10 +150,7 @@ var PeerBlender = {
 			var autosavebox = document.createElement('LI');
 			autosavebox.innerHTML = '<a href="#"><input type="checkbox" id="autosaveOn"> ukládat automaticky</a>';
 			qs.parentNode.parentNode.insertBefore(autosavebox, qs.parentNode.nextSibling);
-			
-			if (localStorage.getItem('autosave') !== false) {
-				document.getElementById('autosaveOn').checked = true;	
-			}
+			document.getElementById('autosaveOn').checked = false;
 			
 			autosavebox.addEventListener('click', function(e) {
 				var checkbox = document.getElementById('autosaveOn');
