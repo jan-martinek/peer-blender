@@ -2,3 +2,8 @@ www/css/style.css -diff
 www/css/style.css.map -diff
 www/css/* linguist-vendored
 www/vendor/* linguist-vendored
+www/js/addons/* linguist-vendored
+www/js/p5.play-master/* linguist-vendored
+www/js/p5.turtle.js-master/* linguist-vendored
+www/js/p5.js linguist-vendored
+www/js/p5.min.js linguist-vendored
