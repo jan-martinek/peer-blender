@@ -14,6 +14,7 @@ use DateTime;
  * @property bool $solutionIsComplete (solution_is_complete)
  * @property string|NULL $notes
  * @property DateTime|NULL $submitted_at
+ * @property bool $submittedInTime (submitted_in_time)
  * @property string $status
  * @property ReviewComment[]|NULL $comments m:belongsToMany
  */

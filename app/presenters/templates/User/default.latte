@@ -80,16 +80,25 @@
 								<td>
 									{if $score}{$score|number: 2}{/if}
 								</td>
-								{var reviewCount = count($reviewRepository->findByUnitAndReviewer($unit, $userProfile, TRUE))}
+								{var $reviews = $reviewRepository->findByUnitAndReviewer($unit, $userProfile, TRUE)}
+								{var $allInTime = true}
+								{foreach $reviews as $review}
+									{if !$review->submittedInTime}{? $allInTime = false}{/if}
+								{/foreach}
+								{var reviewCount = count($reviews)}
 								{var $countUnit = $unit->course->reviewCount <= $reviewCount}
 								<td n:class="$countUnit ? accepted : notAccepted">
 									{$reviewCount|number}
-									{if $countUnit}✔{else}×{/if}
+									{if $countUnit}✔{if !$allInTime} <span class="belated"><i class="fa fa-clock-o" aria-hidden="true" title="{_messages.review.belatedReviews}"></i></span>{/if}{else}×{/if}
 								</td>
 								<td n:class="$countUnit ? accepted : notAccepted">
 									{if $countUnit}
-										{$score|number: 2}
-										{? $courseTotal += $score}
+										{if !$allInTime}
+											{$score/2|number: 2}
+										{else}
+											{$score|number: 2}
+										{/if}
+										{? $courseTotal += $allInTime ? $score : $score/2}
 									{else}
 										0
 									{/if}

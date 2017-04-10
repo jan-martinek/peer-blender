@@ -24,7 +24,11 @@ class CourseRepository extends Repository
     
     public function getSubmittedReviewsStats(Course $course) 
     {
-        return $this->connection->query('SELECT unit.id as unit_id, reviewed_by_id, count(review.id) as reviewCount 
+        return $this->connection->query('SELECT 
+            unit.id as unit_id, 
+            reviewed_by_id, 
+            count(review.id) as reviewCount, 
+            sum(review.submitted_in_time) as intimeCount
             FROM review 
             JOIN solution ON review.solution_id = solution.id
             JOIN unit ON solution.unit_id = unit.id

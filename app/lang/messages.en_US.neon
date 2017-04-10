@@ -178,6 +178,9 @@ review:
 	unlock: "Unlock review for editing"
 	unlocked: "Review has been unlocked for editing"
 	addedAdHoc: "manually created ad hoc review"
+	belatedWarning: "Review phase has already ended — belated review means that your score in this unit will be halved."
+	belated: "This review was submitted too late."
+	belatedReviews: "Reviews were submitted too late. Only half of the score is counted in total."
 	writtenIn:
 		moreThanADay: "Review has been submitted after more than a day after it's been opened for the first time."
 		hours: "Review has been written in %hours% hours and %minutes% minutes."

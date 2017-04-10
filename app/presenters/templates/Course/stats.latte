@@ -38,13 +38,21 @@
 								{? $solutionFound = TRUE}
 								{var reviewsSubmitted = isset($submittedReviews[$enrollment->user->id][$unit->id]) ? $submittedReviews[$enrollment->user->id][$unit->id]->reviewCount : 0}
 								{var enoughReviews = $reviewsSubmitted >= $course->reviewCount ? TRUE : FALSE}
+								{var reviewedInTime = false}
+								{if $reviewsSubmitted > 0}
+									{var reviewedInTime = $submittedReviews[$enrollment->user->id][$unit->id]->reviewCount == $submittedReviews[$enrollment->user->id][$unit->id]->intimeCount}
+								{/if}
 								<td style="text-align: right; background-color: {if $enoughReviews}#dfd{else}#fdd{/if}">
 								<a n:href="Solution:default $solution->id">
-									{if $solution->score}<strong>{$solution->score|number:2}</strong>{else}&mdash;{/if}
+									{if $solution->score}
+										<strong>{$solution->score|number:2}</strong>
+										
+									{else}
+										&mdash;
+									{/if}
 								</a>
-								
-								{if $enoughReviews}{? $courseTotal += $solution->score}{/if}
-								&middot; {$reviewsSubmitted}
+								{if $enoughReviews}{? $courseTotal += $reviewedInTime ? $solution->score : $solution->score / 2}{/if}
+								&middot; {$reviewsSubmitted}{if $reviewsSubmitted > 0 && !$reviewedInTime}<span class="belated"><i class="fa fa-clock-o" aria-hidden="true" title="{_messages.review.belated}"></i></span>{/if}
 								</td>
 							{/if}
 						{/foreach}					

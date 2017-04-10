@@ -61,7 +61,7 @@ class ReviewPresenter extends BasePresenter
         $unit = $this->setupCourseRegistry($this->unitRepository->find($id));
         $this->deliver($unit);
         
-        if (!$unit->isCurrentPhase(Unit::REVIEWS) AND !$this->user->isAllowed('review', 'writeAnytime')) {
+        if (!$unit->hasReviewsPhaseStarted() && !$this->user->isAllowed('review', 'writeAnytime')) {
             throw new \Nette\Application\BadRequestException('Forbidden', 403);
         }
         
@@ -216,6 +216,7 @@ class ReviewPresenter extends BasePresenter
             switch ($this->getAction()) {
                 case 'writeForUnit':
                     $review->status = Review::OK;
+                    $review->submittedInTime = !$this->courseRegistry->unit->hasObjectionsPhaseStarted();
                     break;
                 case 'fix':
                     $review->status = Review::FIXED;

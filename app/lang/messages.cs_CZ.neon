@@ -178,6 +178,9 @@ review:
 	unlock: "Odemknout k úpravám"
 	unlocked: "Hodnocení bylo odemčeno k úpravám"
 	addedAdHoc: "manuálně vytvořená ad hoc recenze"
+	belatedWarning: "Fáze hodnocení již skončila — za pozdní hodnocení se sníží počet bodů získaných v této lekci na polovinu."
+	belated: "Toto hodnocení bylo vloženo příliš pozdě."
+	belatedReviews: "Hodnocení byla vložena příliš pozdě. Započítává se pouze polovina hodnocení."
 	writtenIn:
 		moreThanADay: "Recenze byla napsaná za déle než den."
 		hours: "Recenze byla napsaná za %hours% hodin a %minutes% minut."	

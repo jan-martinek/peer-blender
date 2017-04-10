@@ -79,12 +79,11 @@
 	
 	
 	{if count($reviews) < $course->reviewCount}
-		{if $unit->isCurrentPhase(\Model\Entity\Unit::REVIEWS)}
-			<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
-			{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}
-		{else}
-			{!_messages.unit.notEnoughReviews|md}	
+		{if !$unit->isCurrentPhase(\Model\Entity\Unit::REVIEWS)}
+			{!_messages.review.belatedWarning|md}
 		{/if}
+		<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
+		{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}
 	{else}
 		{!_messages.unit.enoughReviews, [count => $course->reviewCount]|md}
 	{/if}
