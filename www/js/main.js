@@ -154,7 +154,9 @@ var PeerBlender = {
 			
 			autosavebox.addEventListener('click', function(e) {
 				var checkbox = document.getElementById('autosaveOn');
-				checkbox.checked = !checkbox.checked;
+				if (e.target != checkbox) {
+					checkbox.checked = !checkbox.checked;	
+				}
 				localStorage.setItem("autosave", checkbox.checked);
 				e.preventDefault();
 			});
