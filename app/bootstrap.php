@@ -15,8 +15,6 @@ $configurator->createRobotLoader()
 $configurator->addConfig(__DIR__.'/config/config.neon');
 if (file_exists('../.debug')) {	
 	$configurator->addConfig(__DIR__.'/config/config.local.neon');
-} else {
-	Route::$defaultFlags = Nette\Application\Routers\Route::SECURED;	
 }
 
 $container = $configurator->createContainer();
