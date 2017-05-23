@@ -2,7 +2,7 @@ var Playgrounds = function() {
 	this.instances = [];
 	
 	this.init = function() {
-		document.querySelectorAll(".playground").forEach(function(el) {
+		Array.prototype.slice.call(document.querySelectorAll(".playground")).forEach(function(el) {
 			var p = new Playground(el);
 			p.init();
 			this.instances.push(p); 
