@@ -11,11 +11,11 @@
 				<li>
 					<a n:tag-if="!$unit->isFinalized()" href="{plink Review:writeForUnit}">{$review->opened_at|date:'j. n. Y, H.i'}</a>
 					&mdash;
-					{if !$unit->isFinalized()}
 						{_messages.unit.evaluationInProgress},
 						<a href="{plink Review:writeForUnit $unit->id}">{_messages.unit.continue} &rarr;</a>
-					{else}
-						{_messages.review.unfinished}
+						{if $unit->isFinalized()}
+							<span class="belated"><i class="fa fa-clock-o" aria-hidden="true" title="{_messages.review.belated}"></i></span>
+						{/if}
 					{/if}
 				</li>
 			{elseif !$review->isInPrep()}
