@@ -63,7 +63,6 @@ $.nette.ext('forms', {
 
 var PeerBlender = {
 	baseUri: '',
-	playgrounds: new Playgrounds,
 	outdatedIframes: [],
 	
 	init: function() {
@@ -76,7 +75,6 @@ var PeerBlender = {
 		});
 		$.nette.init();
 
-		this.playgrounds.init();
 		this.ThirdParty.init();
 		this.Review.init();
 		
@@ -171,7 +169,7 @@ var PeerBlender = {
 		},
 		
 		save: function(e) {
-			PeerBlender.playgrounds.save();
+			Txoy.save();
 			document.querySelector('#frm-assignmentForm [type=submit]').click();
 			
 			if (e) {
