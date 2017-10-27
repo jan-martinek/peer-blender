@@ -90,8 +90,6 @@ var PeerBlender = {
 	},
 	
 	Review: {
-		autosave: null,
-		
 		init: function() {
 			this.setupSaveButton();
 			this.setupScoreUpdate();
@@ -255,4 +253,4 @@ var PeerBlender = {
 			return sum/arr.length;
 		}
 	}
-}
+};
