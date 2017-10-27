@@ -118,7 +118,7 @@ var PeerBlender = {
 			var qs = document.querySelector('#quick-save-button');
 			
 			if (qs) { 
-				this.setupAutoSave(qs);
+				//this.setupAutoSave(qs);
 				
 				qs.addEventListener('click', this.save.bind(this));
 				
