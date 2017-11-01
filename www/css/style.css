@@ -6445,3 +6445,6 @@ li.selected {
 
 .belated {
   color: #9E354A; }
+
+.past-event {
+  opacity: 0.5; }

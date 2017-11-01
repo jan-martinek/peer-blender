@@ -34,11 +34,10 @@
 			
 			<ul>
 			{foreach $course->calendar as $time => $event}
-				{if strtotime($time) > time() + 5 * 3600}
-			
-				{var time = strftime("%A %e. %B %H.%M", strtotime($time))}
-				<li>{$time}: <b>{!$event|imd}</b></li>
-				{/if}
+				{var stime = strftime("%A %e. %B %H.%M", strtotime($time))}
+				<li n:class="strtotime($time) < time() + 5 * 3600 ? past-event">
+					{$stime}: <b>{!$event|imd}</b>
+				</li>
 			{/foreach}
 			</ul>
 		{/if}
