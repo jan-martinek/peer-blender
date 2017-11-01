@@ -58,8 +58,9 @@
 				<p n:ifcontent>{foreach $unit->tags as $tag}<span class="label secondary">{$tag}</span> {/foreach}</p>
 			
 				<div class="row">
-					{var solutionsAvailable = $unit->hasReviewsPhaseStarted() && isset($favoriteSolutions[$unit->id])}
-					{var reviewsAvailable = $unit->hasObjectionsPhaseStarted() && isset($favoriteReviews[$unit->id])}
+					{* temporarily removed *}
+					{var solutionsAvailable = false && $unit->hasReviewsPhaseStarted() && isset($favoriteSolutions[$unit->id])}
+					{var reviewsAvailable = false && $unit->hasObjectionsPhaseStarted() && isset($favoriteReviews[$unit->id])}
 					
 					{var goalsWidth = 12}
 					{if $solutionsAvailable}{? $goalsWidth -= 2}{/if}
