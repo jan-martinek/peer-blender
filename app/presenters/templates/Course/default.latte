@@ -58,33 +58,10 @@
 				<p n:ifcontent>{foreach $unit->tags as $tag}<span class="label secondary">{$tag}</span> {/foreach}</p>
 			
 				<div class="row">
-					{* temporarily removed *}
-					{var solutionsAvailable = false && $unit->hasReviewsPhaseStarted() && isset($favoriteSolutions[$unit->id])}
-					{var reviewsAvailable = false && $unit->hasObjectionsPhaseStarted() && isset($favoriteReviews[$unit->id])}
-					
-					{var goalsWidth = 12}
-					{if $solutionsAvailable}{? $goalsWidth -= 2}{/if}
-					{if $reviewsAvailable}{? $goalsWidth -= 6}{/if}
-				
-					<div class="columns large-{$goalsWidth}">
+					<div class="columns">
 						{if $summary = $unit->summary}
 							{!$summary|md}
 						{/if}
-					</div>
-
-					<div n:if="$solutionsAvailable" class="columns large-2">
-						<h4>★{_messages.unit.solutions}</h4>
-						<ul>
-							
-							<li n:foreach="array_slice($favoriteSolutions[$unit->id], 0, 5) as $solution">
-								<a n:href="Solution:default $solution->id">{_messages.app.solution} {$solution->id}</a>
-							</li>
-						</ul>
-						
-					</div>
-					<div n:if="$reviewsAvailable" class="columns large-6">
-						<h4>★{_messages.unit.reviews}</h4>
-						{control reviewsRenderer array_slice($favoriteReviews[$unit->id], 0, 5)}
 					</div>
 				</div>
 			</li>
