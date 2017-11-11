@@ -144,6 +144,7 @@ class QuestionProduct extends AbstractProduct
 	        'livecss',
 	        'xml',
 	        'turtle',
+	        'p5',
 	        'p5js'
 	    ));
 	}

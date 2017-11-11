@@ -129,6 +129,7 @@ class QuestionItem extends \Nette\Object
             'xml',
             'file',
             'turtle',
+            'p5',
             'p5js'
         );
         

@@ -49,7 +49,7 @@ class AssignmentForm extends Form
                     break;
                 default:
                     $input = $questionsContainer->addTextarea($id, $label);
-                    $highlight = in_array($question->input, array('turtle', 'p5js')) ? 'javascript' : $question->input;
+                    $highlight = in_array($question->input, array('turtle', 'p5', 'p5js')) ? 'javascript' : $question->input;
                     if ($question->isHighlightingAvailable()) {
                         $input->getControlPrototype()->class('highlight-' . $highlight);
                     }
