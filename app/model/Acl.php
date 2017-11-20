@@ -39,6 +39,7 @@ class Acl extends Permission
 			'unlock'
 		));
 		
+		$this->allow('admin', 'unit', 'batchOps');
 		$this->allow('admin', 'errors', 'view');
 		$this->allow('admin', 'user', array(
 			'editNotes',

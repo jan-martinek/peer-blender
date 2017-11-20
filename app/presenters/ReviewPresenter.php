@@ -182,7 +182,7 @@ class ReviewPresenter extends BasePresenter
             if ($rubric instanceof \Model\Ontology\IRubric) {
                 $rubric->setRaw($assessments[$i]);
                 $scores[$i] = $rubric->calcScore();
-            } elseif (is_numeric($assessments[$i])) {
+            } elseif (is_int($assessments[$i]) || is_float($assessments[$i])) {
                 $scores[$i] = $assessments[$i];
             }
         }

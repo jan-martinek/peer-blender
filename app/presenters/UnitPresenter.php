@@ -105,6 +105,58 @@ class UnitPresenter extends BasePresenter
         
         return $form;
     }
+
+
+
+
+    // temp - move to model
+    public function actionRecalcScores($id) {
+        if ($this->user->isAllowed('unit', 'batchOps')) {
+            $unit = $this->unitRepository->find($id);
+            foreach ($unit->assignments as $assignment) {
+                if ($assignment->solution) {
+                    foreach ($assignment->solution->reviews as $review) {
+                        $review->score = $this->calcTotalScore($assignment, $review->getAssessmentSet(), $review->solutionIsComplete);
+                        $this->reviewRepository->persist($review);
+                        echo $review->id . ' score is now ' . $review->score . '<br>';
+                    }
+                }
+            }
+        }
+        exit;
+    }
+
+    private function calcTotalScore($assignment, $assessments, $solutionIsComplete)
+    {
+        // if there's a null in the assessments, ratings are incomplete
+        $ratingComplete = !in_array(NULL, (array) $assessments, TRUE);
+        if (!$ratingComplete) {
+            return NULL;
+        }
+        
+        // process assessments
+        $scores = array();
+        $assignment = $this->produce($assignment);
+        
+        $rubrics = $assignment->getAllRubrics();
+        
+        foreach ($rubrics as $i => $rubric) {
+            if ($rubric instanceof \Model\Ontology\IRubric) {
+                $rubric->setRaw($assessments[$i]);
+                $scores[$i] = $rubric->calcScore();
+            } elseif (is_int($assessments[$i]) || is_float($assessments[$i])) {
+                $scores[$i] = $assessments[$i];
+            }
+        }
+        
+        $score = array_sum($scores) / count($scores);
+        
+        if (!$solutionIsComplete) {
+            $score = $score / 2;    
+        }
+        
+        return $score;
+    }
     
     
 }
