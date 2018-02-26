@@ -14,7 +14,7 @@ class CourseRepository extends Repository
         $courses = $this->connection->select('*')
             ->from($this->getTable())
             ->where(array('open%b' => true))
-            ->orderBy('id DESC')->fetchAll();
+            ->orderBy('id ASC')->fetchAll();
         
         return $this->createEntities($courses);
     }
