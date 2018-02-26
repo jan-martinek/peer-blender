@@ -9,6 +9,16 @@ use DateTime;
 
 class CourseRepository extends Repository
 {   
+    public function findOpen() 
+    {   
+        $courses = $this->connection->select('*')
+            ->from($this->getTable())
+            ->where(array('open%b' => true))
+            ->orderBy('id DESC')->fetchAll();
+        
+        return $this->createEntities($courses);
+    }
+
     public function getReviewStats(Course $course) 
     {
         $units = array();

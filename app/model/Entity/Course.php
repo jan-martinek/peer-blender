@@ -5,6 +5,7 @@ namespace Model\Entity;
 /**
  * @property int $id
  * @property string $dir
+ * @property bool $open
  * @property string $name
  * @property Unit[] $units m:belongsToMany
  * @property Enrollment[] $enrollments m:belongsToMany
