@@ -12,6 +12,7 @@ use Model\Entity\Course;
 use Model\Entity\Unit;
 use Model\Entity\Assignment;
 use Model\Entity\Question;
+use Model\Ontology\CourseLoader;
 
 
 class CourseFactory extends \Nette\Object
@@ -79,72 +80,12 @@ class CourseFactory extends \Nette\Object
 	 */
 	public function init($courseName)
 	{
-		$resources = $this->fetchResources($courseName);
-		$data = array(
-			'course' => $this->parseCourseResources($resources), 
-			'units' => $this->parseUnitResources($resources)
-		);		
+		$loader = new CourseLoader($courseName, $this->path);
+		$course = $loader->loadYaml('course.yml');
+		$units = $loader->loadUnits($course);
+		$data = array('course' => $course, 'units' => $units);
 		$this->courses[$courseName] = new CourseDefinition($data, $this);
-	}	
-	
-	/**
-	 * Fetches resources stored in path/courseName.
-	 * @param string
-	 * @return array source contents
-	 */
-	private function fetchResources($courseName) 
-	{
-		$resources = array();
-		$dir = glob($this->path . '/' . $courseName . '/*');
-		foreach ($dir as $file) {
-			if (pathinfo($file, PATHINFO_EXTENSION) == 'yml') {
-				$name = pathinfo($file, PATHINFO_FILENAME);
-				$resources[$name] = file_get_contents($file);    
-			}
-		}
-		return $resources;
 	}
-	
-	/**
-	 * Parses course's YAML source.
-	 * @param array file contents
-	 * @return array
-	 */
-	private function parseCourseResources($resources) 
-	{
-		if (!isset($resources['course'])) {
-			throw new CourseDefinitionNotFoundException;
-			return;
-		} 
-		return $this->yaml->parse($resources['course']);
-	}
-	
-	/**
-	 * Parses all units' YAML source.
-	 * @param array file contents
-	 * @return array units data
-	 */
-	private function parseUnitResources($resources) 
-	{
-		$data = array();
-		foreach ($resources as $name => $source) {
-			if ($name === 'course') {
-				continue;
-			}
-			
-			$unit = array();
-			$yamlDocs = preg_split('/\n---\s*\n/', $source);
-			foreach ($yamlDocs as $yamlDoc) {
-				if (trim($yamlDoc) != '') {
-					$unit[] = $this->yaml->parse(trim($yamlDoc));	
-				}
-			}
-			$data[$name] = $unit;
-		}
-		return $data;
-	}
-	
-	
 	
 	 
 	public function assembleCourse($dir)
@@ -192,7 +133,7 @@ class CourseFactory extends \Nette\Object
 			case "Model\Entity\Assignment":
 				return $this->produceAssignment($entity);
 			case "Model\Entity\Question":
-				return $this->produceQuestion($entity);
+				return $this->produceItem($entity);
 			default:
 				throw new \Exception('"' . $classname . '" cannot be produced.');
 		}
@@ -215,10 +156,10 @@ class CourseFactory extends \Nette\Object
 		return $this->get($course->dir)->produceAssignment($assignment);
 	}
 	
-	public function produceQuestion(Question $question) 
+	public function produceItem($item)
 	{
-		$course = $question->assignment->unit->course;
-		return $this->get($course->dir)->produceQuestion($question);
+		$course = $item->assignment->unit->course;
+		return $this->get($course->dir)->produceItem($item);
 	}
 	
 }

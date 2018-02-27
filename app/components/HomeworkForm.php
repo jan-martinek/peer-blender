@@ -23,11 +23,16 @@ class AssignmentForm extends Form
         
         $questionsContainer = $this->addContainer('questions');
         $commentsContainer = $this->addContainer('comments');
-        foreach ($questions as $id => $question) {
+
+        foreach ($questions as $question) {
+            if ($question instanceof Model\Ontology\Reading) continue;
+            
             $label = Html::el()->setHtml(
                 Markdown::defaultTransform($question->text)
             );
             
+            $id = $this->getQuestionIdentifier($question->source, $question->order);
+
             switch ($question->input) {
                 case 'file':
                     $maxKb = $course->uploadMaxFilesizeKb;
@@ -73,6 +78,11 @@ class AssignmentForm extends Form
         $submitLabel = $translator->translate('messages.unit.submitAssignment');
         $this->addSubmit('submit', $submitLabel);
         $this->onSuccess[] = array($this, 'formSucceeded');
+    }
+
+    public function getQuestionIdentifier($source, $order)
+    {
+        return str_replace('.', '_', $source) . '_' . $order;
     }
     
     public function formSucceeded(AssignmentForm $form, $values) 
@@ -120,7 +130,9 @@ class AssignmentForm extends Form
     {
         $courseRegistry = $this->presenter->courseRegistry;
         
-        foreach ($questions as $order => $question) {
+        foreach ($questions as $question) {
+            $id = $this->getQuestionIdentifier($question->source, $question->order);
+
             if (isset($question->answer)) {
                 $answer = $question->answer; 
             } else {
@@ -133,19 +145,18 @@ class AssignmentForm extends Form
             $questionProduct = $this->presenter->produce($question);
             if ($questionProduct->input == 'file') {
                 $answer->text = $this->saveAssignmentFile(
-                    $order + 1,
                     $courseRegistry->course->id,
                     $courseRegistry->unit->id,
                     $this->presenter->user->id,
-                    $values[$order],
+                    $values[$id],
                     $answer->text
                 );
             } else {
-                $answer->text = $values[$order];    
+                $answer->text = $values[$id];    
             }
             
-            if ($comments[$order] != '') {
-                $answer->comments = $comments[$order];
+            if ($comments[$id] != '') {
+                $answer->comments = $comments[$id];
             }
             
             $this->presenter->answerRepository->persist($answer);

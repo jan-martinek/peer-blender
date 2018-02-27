@@ -4,6 +4,7 @@ namespace Model\Entity;
 
 /**
  * @property int $id
+ * @property string $source
  * @property int|NULL $order
  * @property int $itemKey (item_key)
  * @property int|NULL $paramsKey (params_key)

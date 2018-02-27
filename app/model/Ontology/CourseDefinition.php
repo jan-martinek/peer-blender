@@ -108,10 +108,10 @@ class CourseDefinition extends \Nette\Object implements IDefinition
 		return $this->units[$unit->def]->produceAssignment($assignment);
 	}
 	
-	public function produceQuestion($question)
+	public function produceItem($item)
 	{
-		$unit = $question->assignment->unit;
-		return $this->units[$unit->def]->produceQuestion($question);
+		$unit = $item->assignment->unit;
+		return $this->units[$unit->def]->produceItem($item);
 	}
 }
 

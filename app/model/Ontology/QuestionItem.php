@@ -31,6 +31,9 @@ class QuestionItem extends \Nette\Object
     /** @var Params */
     private $params;
     
+    /** @var string Question's source filename */
+    public $source;
+
     
     /**
      * Defines a question item (a special case of a question).
