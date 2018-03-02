@@ -145,6 +145,7 @@ class AssignmentForm extends Form
             $questionProduct = $this->presenter->produce($question);
             if ($questionProduct->input == 'file') {
                 $answer->text = $this->saveAssignmentFile(
+                    $id,
                     $courseRegistry->course->id,
                     $courseRegistry->unit->id,
                     $this->presenter->user->id,
