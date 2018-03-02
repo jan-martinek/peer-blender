@@ -12,6 +12,9 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     /** @var QuestionRepository */
     private $repository;
     
+
+    /** @var string Question's source filename */
+    public $source;
     
     /** @var array Array of QuestionItems */
     private $questionItems = array();
@@ -31,16 +34,20 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     /** @var array Array of rubrics */
     private $rubrics = array();
 
+    /** @var int Count of produced questions from this definition */
+    private $assembledCount = 0;
+
     
     /** 
      * @param array
      * @param AssignmentDefinition
      */
-    public function __construct($data, $factory) 
+    public function __construct($data, $factory)
     {
         $this->factory = $factory;
         $this->repository = $this->factory->questionRepository;
         $this->hash = substr(sha1(serialize($data)), 0, 6);
+        $this->source = $data['filename'];
         
         if (isset($data['allowRepeat']) && $data['allowRepeat'] === 'question') {
             $this->repeatAllowed = TRUE;
@@ -151,9 +158,11 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     public function assemble()
     {
         $question = new Question();
+        $question->source = $this->source;
         $question->itemKey = $this->assembleQuestionItemKey();
         $question->paramsKey = $this->questionItems[$question->itemKey]->assembleParamsKey();
         $question->hash = $this->hash;
+        $question->order = $this->assembledCount;
         
         /* Question texts are saved so that they're 
          * available in case the definition
@@ -164,6 +173,7 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
         
         $this->repository->persist($question);
         
+        $this->assembledCount++;
         return $question;
     }
     
@@ -171,6 +181,10 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     {
         $keys = array_keys($this->questionItems);
         $availableKeys = array_diff($keys, $this->usedQuestionItemKeys);
+        if (count($availableKeys) === 0) {
+            throw new Exception('Cannot generate more variations of the same question.');
+            return;
+        }
         $key = $availableKeys[array_rand($availableKeys)];
         
         if (!$this->repeatAllowed) {
@@ -190,37 +204,27 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
     {
         $product = new QuestionProduct($question);
         $product->rubrics = $this->rubrics;
-        $item = $this->getQuestionItem($question->itemKey);
+        $item = $this->getQuestionItem($question->itemKey);    
         
-        if (strlen($question->hash) != 6 || !$item) {
-            // legacy behavior in case there is no information 
-            // about the way the question had been construed
-            
-            $product->legacy = true;
-            $product->text = $question->text;
-            $product->prefill = $question->prefill;
-            $product->input = $question->input;
-            $product->comments = 5;            
-            $product->hashMatch = false;
-        } else {
-            $item = $this->getQuestionItem($question->itemKey);
-            
-            $product->bloom = $item->bloom;
-            $product->text = $item->getText($question->paramsKey);
-            $product->prefill = $item->getPrefill($question->paramsKey);
-            $product->input = $item->getInput($question->paramsKey);
-            $product->comments = $item->comments;
-            
-            $product->hashMatch = $question->hash === $this->hash ? true : false;
-            
-            if (!$product->hashMatch) {
-                $product->textDump = ($question->text !== $product->text)
-                    ? $question->text : null;
-                $product->prefillDump = ($question->prefill !== $product->prefill)
-                    ? $question->prefill : null;
-                $product->inputDump = ($question->input !== $product->input)
-                    ? $question->input : null;
-            }   
+        $product->bloom = $item->bloom;
+        $product->source = $this->source;
+        $product->order = $question->order;
+        $product->text = $item->getText($question->paramsKey);
+        $product->prefill = $item->getPrefill($question->paramsKey);
+        $product->input = $item->getInput($question->paramsKey);
+        $product->comments = $item->comments;
+        $product->hashMatch = $question->hash === $this->hash;
+        
+        if (!$product->hashMatch) {
+            $product->textDump = ($question->text !== $product->text)
+                ? $question->text 
+                : null;
+            $product->prefillDump = ($question->prefill !== $product->prefill)
+                ? $question->prefill 
+                : null;
+            $product->inputDump = ($question->input !== $product->input)
+                ? $question->input 
+                : null;
         }
         
         return $product;
@@ -233,15 +237,6 @@ class QuestionDefinition extends \Nette\Object implements IDefinition
             return $this->questionItems[$key];
         } else {
             return FALSE;
-        }
-        
-    }
-    
-    
-    private function produceQuestionItemKey()
-    {
-        
-        
-        return $key;
+        }   
     }
 }

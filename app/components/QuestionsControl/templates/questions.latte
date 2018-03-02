@@ -3,7 +3,10 @@
 	{var reviewMode = !$playMode}
 	{var mode = $reviewMode ? 'review' : 'play'}
 		
-	{var formQuestion = $form['questions'][$key]}
+	{if isset($form)}
+		{var key = $form->getQuestionIdentifier($question->source, $question->order)}
+		{var formQuestion = $form['questions'][$key]}
+	{/if}
 	{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}	
 	{var value = $answered ? $question->entity->answer->text : $question->prefill}
 	{var answerId = isset($question->entity->answer->id) ? $question->entity->answer->id : 0}
@@ -16,9 +19,7 @@
 		<h3 class="questionNumber">{$qNumber}</h3>
 		
 		<p n:ifcontent class="label warning">
-			{if $question->legacy}
-				{_messages.question.legacy}
-			{elseif !$question->hashMatch}
+			{if !$question->hashMatch}
 				{_messages.question.changed}
 			{/if}
 		</p>
@@ -171,6 +172,12 @@
 	</div>
 {/define}
 
+{define reading}
+	<div n:if="!$review" class="row content"><div class="columns">
+		{!$item->text|md}
+	</div></div>
+{/define}
+
 
 {block content}
 	<div n:if="isset($form) && $form->hasErrors()" class="panel errors" style="background: #f90;">
@@ -181,15 +188,20 @@
 
 	{snippetArea assignmentQuestions}
 		{var rubricPos = 0}
-		<div n:foreach="$assignment->questions as $key => $question" class="assignmentQuestion">
-			{if $question->input === 'file'} 
-				{snippet question-$question->order}
-					{include question, qNumber => $iterator->getCounter()}
-				{/snippet}
-			{else}
-				{include question, qNumber => $iterator->getCounter()}
+		<div n:foreach="$assignment->structure as $pos => $item" class="assignmentQuestion">
+			{if $item instanceof \Model\Ontology\QuestionProduct}
+				{var question = $item}
+				{if $question->input === 'file'} 
+					{snippet question-$question->order}
+						{include question, qNumber => $pos}
+					{/snippet}
+				{else}
+					{include question, qNumber => $pos}
+				{/if}
+				{? $rubricPos += count($question->rubrics)}
+			{elseif $item instanceof Model\Ontology\Reading}
+				{include reading}
 			{/if}
-			{? $rubricPos += count($question->rubrics)}
 		</div>
 	{/snippetArea}
 

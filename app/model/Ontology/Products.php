@@ -97,12 +97,14 @@ class AssignmentProduct extends AbstractProduct
 {
 	public $generated_at;
     public $rubrics;
+    public $structure;
 	public $questions = array();
 	
 	public function getAllRubrics() {
 		$questionRubrics = array();
 		
-		foreach ($this->questions as $question) {
+		foreach ($this->structure as $question) {
+			if ($question instanceof \Model\Ontology\Reading) continue;
 			$questionRubrics = array_merge($questionRubrics, $question->rubrics);
 		}
 		
@@ -112,21 +114,21 @@ class AssignmentProduct extends AbstractProduct
 
 class QuestionProduct extends AbstractProduct
 {
+	public $source;
+	public $order;
+
 	public $bloom;
 	public $input;
 	public $text;
 	public $prefill;
 	public $comments;
 	
-	public $order;
 	public $rubrics;
 	
 	public $hashMatch;
 	public $textDump;
 	public $prefillDump;
 	public $inputDump;
-	
-	public $legacy;
 	
 	/**
 	 * Checks whether syntax highlighting is 

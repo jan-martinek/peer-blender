@@ -3,6 +3,9 @@
 namespace Model\Ontology;
 
 use Model\Entity\Assignment;
+use Model\Entity\Question;
+use Model\Ontology\QuestionDefinition;
+use Model\Ontology\Reading;
 use DateTime;
 
 class AssignmentDefinition extends \Nette\Object implements IDefinition, \Countable
@@ -11,9 +14,11 @@ class AssignmentDefinition extends \Nette\Object implements IDefinition, \Counta
     private $factory;
     
     
-    /** @var array Structure applied when generating an assignment */
+    /** @var array Structure of an assignment */
     private $structure = array();
     
+    /** @var array Definitions applied when generating an assignment */
+    private $definitions = array();
     
     /**
      * Defines questions.
@@ -23,13 +28,33 @@ class AssignmentDefinition extends \Nette\Object implements IDefinition, \Counta
     public function __construct($data, $factory) 
     {
         $this->factory = $factory;
-        foreach ($data as $doc) {
-            $question = new QuestionDefinition($doc, $this->factory);
-            
-            $count = isset($doc['count']) ? $doc['count'] : 1;
-            for ($i = 0; $i < $count; $i++) {
-                $this->structure[] = $question;
-            }
+
+        foreach ($data['content'] as $doc) {
+            switch ($doc['content']) {
+                case 'reading':
+                    $reading = new Reading($doc);
+                    if (!isset($this->definitions[$reading->source])) {
+                        $this->definitions[$reading->source] = $reading;    
+                    }
+                    
+                    $this->structure[] = $reading;
+                    
+                    break;
+                case 'question':
+                    $question = new QuestionDefinition($doc, $this->factory);
+                    if (!isset($this->definitions[$question->source])) {
+                        $this->definitions[$question->source] = $question;    
+                    }
+                    
+                    $count = isset($doc['count']) ? $doc['count'] : 1;
+                    for ($i = 0; $i < $count; $i++) {
+                        $this->structure[] = $question;
+                    }
+                    
+                    break;
+                default:
+                    throw new Exception('Content type not supported');
+            }   
         }
     }
     
@@ -54,11 +79,12 @@ class AssignmentDefinition extends \Nette\Object implements IDefinition, \Counta
         $assignment->generated_at = new DateTime;
         $this->factory->assignmentRepository->persist($assignment);
         
-        foreach ($this->structure as $order => $questionDefinition) {
-            $question = $questionDefinition->assemble(); 
-            $question->assignment = $assignment;
-            $question->order = $order;
-            $this->factory->questionRepository->persist($question);
+        foreach ($this->structure as $item) {
+            if ($item instanceof QuestionDefinition) {
+                $question = $item->assemble(); 
+                $question->assignment = $assignment;
+                $this->factory->questionRepository->persist($question);
+            }
         }
         
         return $assignment;
@@ -74,18 +100,35 @@ class AssignmentDefinition extends \Nette\Object implements IDefinition, \Counta
         $product = new AssignmentProduct($entity);
         $product->generated_at = $entity->generated_at;
         
-        foreach ($entity->questions as $question) {
-            $product->questions[] = $this->factory->produce($question);
+        $questionPos = 0;
+        foreach($this->structure as $item) {
+            if ($item instanceof QuestionDefinition) {                
+                $product->structure[] = $this->factory->produce($entity->questions[$questionPos]);
+                $questionPos++;
+            } else if ($item instanceof Reading) {
+                $product->structure[] = $item;
+            }
         }
         
         return $product;
     }
     
-    
-    public function produceQuestion($question)
+    public function produceItem($item)
     {
-        $product = $this->structure[$question->order]->produce($question);
-        $product->order = $question->order;
-        return $product;
+        if ($item instanceof Reading) return $item;
+        else if ($item instanceof Question) {
+            if ($item->source) {
+                return $this->definitions[$item->source]->produce($item);    
+            } else {
+                // legacy
+                $questions = array_values(array_filter($this->structure, [$this, 'isQuestion']));
+                return $questions[$item->order]->produce($item);
+            }
+        }
+    }
+    
+    private function isQuestion($item) 
+    { 
+        return $item instanceof QuestionDefinition; 
     }
 }

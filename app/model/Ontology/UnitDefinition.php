@@ -40,11 +40,12 @@ class UnitDefinition extends \Nette\Object implements IDefinition
      */
     public function __construct($data, $factory) 
     {       
-        $unitInfo = array_shift($data);
-        
         $this->factory = $factory;
-        $this->assignment = new AssignmentDefinition($data, $this->factory);
-        $this->defineUnit($unitInfo);
+
+        if (isset($data['content'])) {
+            $this->assignment = new AssignmentDefinition($data, $this->factory);
+            $this->defineUnit($data);
+        }
     }
     
     
@@ -77,13 +78,6 @@ class UnitDefinition extends \Nette\Object implements IDefinition
     {
         $builder = new RubricBuilder;
         $this->rubrics = $builder->buildSet($rubrics);
-        
-        // TODO add default if there's not any numeric rubric
-        // 
-        //$hasCustomRubrics = FALSE;
-        // if (!$hasCustomRubrics) {
-        //     $this->rubrics[] = new DefaultRubric;
-        // }
     }
     
     /**
@@ -138,8 +132,8 @@ class UnitDefinition extends \Nette\Object implements IDefinition
         return $assignment;
     }
     
-    public function produceQuestion($question)
+    public function produceItem($item)
     {
-        return $this->assignment->produceQuestion($question);
+        return $this->assignment->produceItem($item);
     }
 }
