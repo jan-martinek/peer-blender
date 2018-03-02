@@ -82,7 +82,7 @@ class AssignmentForm extends Form
 
     public function getQuestionIdentifier($source, $order)
     {
-        return str_replace('.', '_', $source) . '_' . $order;
+        return str_replace(array('.', '-'), '_', $source) . '_' . $order;
     }
     
     public function formSucceeded(AssignmentForm $form, $values) 
