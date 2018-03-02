@@ -113,10 +113,22 @@ class AssignmentDefinition extends \Nette\Object implements IDefinition, \Counta
         return $product;
     }
     
-    
     public function produceItem($item)
     {
-        if ($item instanceof Question) return $this->definitions[$item->source]->produce($item);
-        else if ($item instanceof Reading) return $item;
+        if ($item instanceof Reading) return $item;
+        else if ($item instanceof Question) {
+            if ($item->source) {
+                return $this->definitions[$item->source]->produce($item);    
+            } else {
+                // legacy
+                $questions = array_values(array_filter($this->structure, [$this, 'isQuestion']));
+                return $questions[$item->order]->produce($item);
+            }
+        }
+    }
+    
+    private function isQuestion($item) 
+    { 
+        return $item instanceof QuestionDefinition; 
     }
 }

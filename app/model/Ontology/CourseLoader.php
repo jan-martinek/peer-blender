@@ -23,6 +23,11 @@ class CourseLoader extends \Nette\Object
 	
 	public function loadUnits($course) 
 	{
+		if (!isset($course['units'])) {
+			$legacyLoader = new LegacyUnitLoader($this->path, $this->yaml);
+			return $legacyLoader->loadUnits();
+		}
+
 		$units = array();
 
 		foreach ($course['units'] as $unitName) {
@@ -81,5 +86,87 @@ class CourseLoader extends \Nette\Object
 	public function loadFile($name) 
 	{
 		return file_get_contents($this->path . '/' . $name);
+	}
+}
+
+class LegacyUnitLoader {
+	private $path;
+	private $yaml;
+
+	public function __construct($path, $yaml)
+	{
+		$this->path = $path;
+		$this->yaml = $yaml;
+	}
+
+	public function loadUnits() {
+		$resources = $this->fetchResources();
+		return $this->parseUnitResources($resources);
+	}
+
+	/**
+	 * Fetches resources stored in path/courseName.
+	 * @param string
+	 * @return array source contents
+	 */
+	private function fetchResources() 
+	{
+		$resources = array();
+		$dir = glob($this->path . '/*');
+		foreach ($dir as $file) {
+			if (pathinfo($file, PATHINFO_EXTENSION) == 'yml') {
+				$name = pathinfo($file, PATHINFO_FILENAME);
+				$resources[$name] = file_get_contents($file);    
+			}
+		}
+		return $resources;
+	}
+	
+	/**
+	 * Parses course's YAML source.
+	 * @param array file contents
+	 * @return array
+	 */
+	private function parseCourseResources($resources) 
+	{
+		if (!isset($resources['course'])) {
+			throw new CourseDefinitionNotFoundException;
+			return;
+		} 
+		return $this->yaml->parse($resources['course']);
+	}
+	
+	/**
+	 * Parses all units' YAML source.
+	 * @param array file contents
+	 * @return array units data
+	 */
+	private function parseUnitResources($resources) 
+	{
+		$data = array();
+		foreach ($resources as $name => $source) {
+			if ($name === 'course') {
+				continue;
+			}
+			
+			$unitData = array();
+			$yamlDocs = preg_split('/\n---\s*\n/', $source);
+			foreach ($yamlDocs as $i => $yamlDoc) {
+				if (trim($yamlDoc) != '') {
+					$unitData[] = $this->yaml->parse(trim($yamlDoc));
+				}
+				if ($i > 0) {
+					$unitData[count($unitData) - 1]['content'] = 'question';
+					$unitData[count($unitData) - 1]['filename'] = $i - 1;
+				}
+			}
+
+			$unit = array_shift($unitData);
+			$unit['content'] = $unitData;
+			$unit['title'] = $unit['name'];
+			$unit['name'] = $name;
+			$data[$name] = $unit;
+		}
+		return $data;
 	}
 }

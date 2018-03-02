@@ -4,7 +4,8 @@
 	{var mode = $reviewMode ? 'review' : 'play'}
 		
 	{if isset($form)}
-		{var formQuestion = $form['questions'][$form->getQuestionIdentifier($question->source, $question->order)]}
+		{var key = $form->getQuestionIdentifier($question->source, $question->order)}
+		{var formQuestion = $form['questions'][$key]}
 	{/if}
 	{var answered = isset($question->entity->answer->text) && $question->entity->answer->text != $question->prefill}	
 	{var value = $answered ? $question->entity->answer->text : $question->prefill}
