@@ -88,7 +88,8 @@ class CourseDefinition extends \Nette\Object implements IDefinition
 		return $product;
 	}
 	
-	public function assembleAssignment($unit) {
+	public function assembleAssignment($unit) 
+	{
 		return $this->units[$unit->def]->assembleAssignment($unit);
 	}
 	
