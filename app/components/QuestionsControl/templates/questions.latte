@@ -188,17 +188,19 @@
 
 	{snippetArea assignmentQuestions}
 		{var rubricPos = 0}
+		{var qNumber = 1}
 		<div n:foreach="$assignment->structure as $pos => $item" class="assignmentQuestion">
 			{if $item instanceof \Model\Ontology\QuestionProduct}
 				{var question = $item}
 				{if $question->input === 'file'} 
 					{snippet question-$question->order}
-						{include question, qNumber => $pos}
+						{include question}
 					{/snippet}
 				{else}
-					{include question, qNumber => $pos}
+					{include question}
 				{/if}
 				{? $rubricPos += count($question->rubrics)}
+				{? $qNumber += 1}
 			{elseif $item instanceof Model\Ontology\Reading}
 				{include reading}
 			{/if}
