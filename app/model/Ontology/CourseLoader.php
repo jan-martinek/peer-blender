@@ -2,10 +2,12 @@
 
 namespace Model\Ontology;
 
-use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Yaml;
 
-class CourseLoader extends \Nette\Object
+class CourseLoader
 {
+    use \Nette\SmartObject;
+
 	/** @var Path to the directory where Course definition is stored */
 	private $path;
 	
@@ -18,7 +20,7 @@ class CourseLoader extends \Nette\Object
 	public function __construct($courseName, $courseDirPath) 
 	{
 		$this->path = $courseDirPath . '/' . $courseName;
-		$this->yaml = new Parser;
+		$this->yaml = new Yaml;
 	}
 	
 	public function loadUnits($course) 
@@ -80,7 +82,7 @@ class CourseLoader extends \Nette\Object
 
 	public function loadYaml($name) 
 	{
-		return $this->yaml->parse($this->loadFile($name));
+		return $this->yaml::parse($this->loadFile($name));
 	}
 
 	public function loadFile($name) 
@@ -153,7 +155,7 @@ class LegacyUnitLoader {
 			$yamlDocs = preg_split('/\n---\s*\n/', $source);
 			foreach ($yamlDocs as $i => $yamlDoc) {
 				if (trim($yamlDoc) != '') {
-					$unitData[] = $this->yaml->parse(trim($yamlDoc));
+					$unitData[] = $this->yaml::parse(trim($yamlDoc));
 				}
 				if ($i > 0) {
 					$unitData[count($unitData) - 1]['content'] = 'question';

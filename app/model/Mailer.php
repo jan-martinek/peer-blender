@@ -6,8 +6,10 @@ use DateTime;
 use PHPMailer;
 use Nette\Utils\Html;
 
-class Mailer extends \Nette\Object 
+class Mailer
 {	
+    use \Nette\SmartObject;
+
 	public function sendPasswordResetEmail($presenter, $email, $token) 
     {
         $mail = new PHPMailer();

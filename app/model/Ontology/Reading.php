@@ -2,8 +2,10 @@
 
 namespace Model\Ontology;
 
-class Reading extends \Nette\Object
+class Reading
 {
+    use \Nette\SmartObject;
+
     public $source;
     public $text;
 

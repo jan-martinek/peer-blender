@@ -2,7 +2,7 @@
 
 namespace Model\Ontology;
 
-use Symfony\Component\Yaml\Parser;
+use Symfony\Component\Yaml\Yaml;
 use Model\Repository\CourseRepository;
 use Model\Repository\UnitRepository;
 use Model\Repository\AssignmentRepository;
@@ -15,8 +15,10 @@ use Model\Entity\Question;
 use Model\Ontology\CourseLoader;
 
 
-class CourseFactory extends \Nette\Object
+class CourseFactory
 {
+    use \Nette\SmartObject;
+
 	/** @var Path to the directory where Course definitions are stored */
 	private $path;
 	
@@ -50,7 +52,7 @@ class CourseFactory extends \Nette\Object
 	) 
 	{
 		$this->path = $path;
-		$this->yaml = new Parser;
+		$this->yaml = new Yaml;
 		
 		$this->courseRepository = $courseRepository;
 		$this->unitRepository = $unitRepository;

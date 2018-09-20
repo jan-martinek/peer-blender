@@ -4,7 +4,7 @@
 		{continueIf $phaseName == 'draft'}
 		{var $dateAttrName = $phaseName ? $phaseName . '_since' : NULL}
 		{var $nextPhaseDateAttrName = $unit->nextPhaseName ? $unit->nextPhaseName . '_since' : NULL}
-		{var isCurrent = $phaseName === $unit->currentPhaseName}
+		{var isCurrent = $phaseName === $unit->getCurrentPhaseName()}
 		<span class="label time">
 			{$unit->$dateAttrName|date: "%a %e %h"}<br>
 			{$unit->$dateAttrName|date: "%k.%M"}

@@ -33,7 +33,7 @@
 		<div class="row content"><div class="columns">
 			<div class="assignmentQuestion">
 				<h3 class="questionNumber">✔</h3>
-				{? $form['solutionIsComplete']->setValue((bool) $review->solutionIsComplete)}
+				{php $form['solutionIsComplete']->setValue((bool) $review->solutionIsComplete)}
 				{input solutionIsComplete}
 			</div>
 		</div></div>
@@ -50,7 +50,7 @@
 				<style> input[type="checkbox"] { margin-right: 5px; } .prefix label { display: inline; } </style>
 				<div class="row collapse">
 					<div class="columns small-5">
-						{? $form['complete']->caption = $presenter->translator->translate('messages.review.isFixed')}
+						{php $form['complete']->caption = $presenter->translator->translate('messages.review.isFixed')}
 						<span class="prefix">{input complete, 'class' => 'inline'}</span>
 					</div>
 					<div class="columns small-7">

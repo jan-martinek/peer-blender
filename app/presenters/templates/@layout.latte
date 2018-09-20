@@ -52,7 +52,7 @@
     
     {snippet flashMessages}
         <div class="flashMessages" n:ifcontent>
-            <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{!$flash->message|imd}</p>
+            <p n:foreach="$flashes as $flash" n:class="alert-box, $flash->type">{$flash->message|imd|noescape}</p>
         </div>
     {/snippet}
 

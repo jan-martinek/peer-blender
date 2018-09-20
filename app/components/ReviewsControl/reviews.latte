@@ -1,7 +1,7 @@
 {block content}
 {if !count($reviews)}
 	<div class="panel">
-		{!_messages.unit.noReviewsFound|md}
+		{_messages.unit.noReviewsFound|md|noescape}
 	</div>
 {else}
 	<ul class="no-bullet">
@@ -20,7 +20,7 @@
 					<span style="color: #f90; font-weight: bold">
 						{if !is_null($review->score)}
 							{var score = round($review->score)}
-							{!$score|stars}
+							{$score|stars|noescape}
 						{else}
 							&mdash;
 						{/if}

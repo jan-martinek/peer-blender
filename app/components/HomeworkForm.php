@@ -9,6 +9,9 @@ use Model\Entity\Answer;
 use Model\Entity\Solution;
 use DateTime;
 
+/**
+ * @property string $questionIdentifier
+ */
 class AssignmentForm extends Form
 {   
     private $presenter;
@@ -38,6 +41,7 @@ class AssignmentForm extends Form
                     $maxKb = $course->uploadMaxFilesizeKb;
                     $input = $questionsContainer
                         ->addUpload($id, $label)
+                        ->setRequired(false)
                         ->addRule(
                             Form::MAX_FILE_SIZE, 
                             $translator->translate(
@@ -113,14 +117,14 @@ class AssignmentForm extends Form
         
         if ($this->presenter->isAjax()) {
             $this->presenter->flashMessage($this->presenter->translator->translate('messages.solution.saved'));
-            $this->presenter->invalidateControl('flashMessages');
-            $this->presenter->invalidateControl('formInfo');
+            $this->presenter->redrawControl('flashMessages');
+            $this->presenter->redrawControl('formInfo');
             foreach ($form['questions']->getControls() as $q) {
                 if ($q instanceof \Nette\Forms\Controls\UploadControl) {
-                    $this->presenter['questionsRenderer']->invalidateControl('question-' . $q->name);
+                    $this->presenter['questionsRenderer']->redrawControl('question-' . $q->name);
                 }
             }
-            $this->presenter['questionsRenderer']->invalidateControl('assignmentQuestions');
+            $this->presenter['questionsRenderer']->redrawControl('assignmentQuestions');
         } else {
             $this->presenter->redirect('this');
         }

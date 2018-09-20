@@ -24,7 +24,7 @@
 			{/if}
 		</p>
 		
-		{!$question->text|md}	
+		{$question->text|md|noescape}	
 	
 	</div></div>
 	
@@ -83,7 +83,7 @@
 			{else}
 				{if isset($question->entity->answer->comments)}
 					<b>{_messages.solution.comments}:</b>
-					{!=nl2br(htmlspecialchars($question->entity->answer->comments))}
+					{=nl2br(htmlspecialchars($question->entity->answer->comments))|noescape}
 				{else}
 					<b>{_messages.solution.noComment}</b>
 				{/if}
@@ -98,18 +98,18 @@
 		<div class="row"><div class="columns">
 	
 		{if $review}
-			{var answers = $review->assessmentSet}
-			{? if ($answers && $reviewForm) $reviewForm['rubrics']->setValues($answers)}
+			{var answers = $review->getAssessmentSet()}
+			{php if ($answers && $reviewForm) $reviewForm['rubrics']->setValues($answers)}
 		{/if}
 	
 		{foreach $question->rubrics as $rubric}
 			{if $reviewForm}
 				{include rubric, name => $rubricPos, rubric => $reviewForm['rubrics'][$rubricPos]}
-				{? $control->renderedRubrics[] = $rubricPos}
-				{? $rubricPos++}
+				{php $control->renderedRubrics[] = $rubricPos}
+				{php $rubricPos++}
 			{else}
 				{include rubricPreview, rubric => $rubric, answer => isset($answers) ? $answers[$rubricPos] : null}
-				{? $rubricPos++}
+				{php $rubricPos++}
 			{/if}
 		{/foreach}
 		</div></div>
@@ -119,7 +119,7 @@
 {define rubric}
 	<div class="rubric {=get_class($rubric)|webalize}">
 		{if $rubric instanceof \Model\Ontology\DefaultRubric && !is_null($review->score)}
-			{? $rubric->setValue($review->score)}
+			{php $rubric->setValue($review->score)}
 		{/if}
 		
 		<div class="description">
@@ -129,7 +129,7 @@
 		{if $rubric instanceof \Nette\Forms\Controls\TextArea}
 			{input $rubric, 'rows' => '5'}
 		{else}
-			{?$rubric->getSeparatorPrototype()->setName(NULL)}
+			{php $rubric->getSeparatorPrototype()->setName(NULL)}
 			{input $rubric}
 		{/if}
 		
@@ -142,39 +142,39 @@
 	{if $rubric instanceof \Model\Ontology\DefaultRubric}
 		<ol start="0">
 			{var scale = array(0, 1, 2, 3);}
-			<li n:foreach="$scale as $i" n:class="$answer === $i ? selected">{!$i|stars} {_messages.review.score.$i}</li>
+			<li n:foreach="$scale as $i" n:class="$answer === $i ? selected">{$i|stars|noescape} {_messages.review.score.$i}</li>
 		</ol>
 	{elseif $rubric instanceof \Model\Ontology\Rubric}
 		<div class="description">
-			<p>{!$rubric->metric|imd}</p>
+			<p>{$rubric->metric|imd|noescape}</p>
 		</div>
 		<ol start="0">
-			<li n:foreach="$rubric->scale as $score => $description" n:class="$answer === $score ? selected">{!$score|stars} {!$description|imd}</li>
+			<li n:foreach="$rubric->scale as $score => $description" n:class="$answer === $score ? selected">{$score|stars|noescape} {$description|imd|noescape}</li>
 		</ol>
 	{elseif $rubric instanceof \Model\Ontology\Checklist}
 		<div class="description">
-			{!$rubric->description|md}
+			{$rubric->description|md|noescape}
 		</div>
 		<label n:foreach="$rubric->items as $order => $item">
-			{? $rubric->setRaw($answer)}
+			{php $rubric->setRaw($answer)}
 			{var $raw = $rubric->getRaw()}
-			<input type="checkbox"  {if in_array($order, $raw)}checked{/if} disabled> {!$item->metric|imd} 
+			<input type="checkbox"  {if in_array($order, $raw)}checked{/if} disabled> {$item->metric|imd|noescape} 
 			<span class="label secondary weight" title="{_messages.review.checklist.weight}"><i class="fa fa-pie-chart" aria-hidden="true"></i> <b>{$item->weight}</b></span>
 		</label>
 		{var $score = $rubric->calcScore()}
-		<p n:ifset="$score"><b>{_messages.review.checklist.weightedSum}: {!$score|stars} {!$score}</b></p>
+		<p n:ifset="$score"><b>{_messages.review.checklist.weightedSum}: {$score|stars|noescape} {$score|noescape}</b></p>
 	{elseif $rubric instanceof \Model\Ontology\Comment}
 		<div class="description">
-			{!$rubric->instructions|md}
+			{$rubric->instructions|md|noescape}
 		</div>
-		<div class="panel">{if $answer}{!=nl2br(htmlspecialchars($answer))}{else}{_messages.review.verbalAssessment}.{/if}</div>
+		<div class="panel">{if $answer}{=nl2br(htmlspecialchars($answer))|noescape}{else}{_messages.review.verbalAssessment}.{/if}</div>
 	{/if}
 	</div>
 {/define}
 
 {define reading}
 	<div n:if="!$review" class="row content"><div class="columns">
-		{!$item->text|md}
+		{$item->text|md|noescape}
 	</div></div>
 {/define}
 
@@ -199,8 +199,8 @@
 				{else}
 					{include question}
 				{/if}
-				{? $rubricPos += count($question->rubrics)}
-				{? $qNumber += 1}
+				{php $rubricPos += count($question->rubrics)}
+				{php $qNumber += 1}
 			{elseif $item instanceof Model\Ontology\Reading}
 				{include reading}
 			{/if}
@@ -211,8 +211,8 @@
 		<div class="row"><div class="columns">
 		{if $reviewForm}
 			{if $review}
-				{var answers = $review->assessmentSet}
-				{? if ($answers && $reviewForm) $reviewForm['rubrics']->setValues($answers)}
+				{var answers = $review->getAssessmentSet()}
+				{php if ($answers && $reviewForm) $reviewForm['rubrics']->setValues($answers)}
 			{/if}
 		
 			<div n:foreach="$reviewForm['rubrics']->controls as $name => $rubric" n:if="!in_array($name, $control->renderedRubrics)">
@@ -220,7 +220,7 @@
 			</div>
 		{else}
 			{if $review}
-				{var answers = $review->assessmentSet}
+				{var answers = $review->getAssessmentSet()}
 				{var answerOffset = count($assignment->getAllRubrics()) - count($assignment->rubrics)}
 			{/if}
 		

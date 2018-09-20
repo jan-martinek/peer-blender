@@ -200,7 +200,7 @@ class ReviewPresenter extends BasePresenter
     {   
         $review = $this->courseRegistry->review;
         $review->score = $this->calcTotalScore($values->rubrics, $values->solutionIsComplete);
-        $review->assessmentSet = $values->rubrics;
+        $review->setAssessmentSet($values->rubrics);
         
         // legacy – notes moved to comments, UI stayed
         // hence on saving, notes are kept until saved as complete review

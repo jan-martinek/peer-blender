@@ -3,11 +3,12 @@
 namespace Model\Ontology;
 
 use DateTime;
-use Nette\Object;
 use Model\Entity\Entity;
 
-abstract class AbstractProduct extends Object
+abstract class AbstractProduct
 {
+	use \Nette\SmartObject;
+
 	public $id;
 	public $entity;
 	
@@ -32,6 +33,12 @@ class CourseProduct extends AbstractProduct
 	public $gaCode;
 }
 
+/**
+ * @property int $currentPhase
+ * @property string $currentPhaseName
+ * @property array $phaseNames
+ * @property string $nextPhaseName
+ */
 class UnitProduct extends AbstractProduct
 {    
     public $name;

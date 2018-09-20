@@ -6,8 +6,10 @@ use Nette;
 use Nette\Application\UI\Form;
 use Nette\Security\User;
 
-class SignFormFactory extends Nette\Object
+class SignFormFactory
 {
+    use Nette\SmartObject;
+
     /** @var User */
     private $user;
     

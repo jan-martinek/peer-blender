@@ -21,7 +21,7 @@
 	<div class="columns">
 		<h2>{_messages.user.courses}</h2>
 		{var enrollments = $userProfile->enrollments}
-		{? $enrollments = array_reverse($enrollments)}
+		{php $enrollments = array_reverse($enrollments)}
 		{foreach $enrollments as $enrollment}
 			{var course = $enrollment->course}
 			{var courseTotal = 0}
@@ -37,11 +37,11 @@
 				<table>
 					<tr n:if="$enrollment->notes">
 						<th>{_messages.user.notes}</th>
-						<td>{!$enrollment->notes|nl2br}</td>
+						<td>{$enrollment->notes|nl2br|noescape}</td>
 					</tr>
 					<tr n:if="$enrollment->hiddenNotes && $user->isAllowed('user', 'seeHiddenNotes')">
 						<th>{_messages.user.hiddenNotes}</th>
-						<td>{!$enrollment->hiddenNotes|nl2br}</td>
+						<td>{$enrollment->hiddenNotes|nl2br|noescape}</td>
 					</tr>
 					<tr n:if="$enrollment->scoreAdjustment != 0">
 						<th>{_messages.user.scoreAdjustment}</th>
@@ -73,7 +73,7 @@
 							{if $assignment && $assignment->solution}
 								
 								{var id = $assignment->solution->id}
-								{var score = $assignment->solution->score}
+								{var score = $assignment->solution->getScore()}
 								<td>
 									<a n:href="Solution:default $id">{_messages.unit.solution} {$id}</a>
 								</td>
@@ -83,7 +83,7 @@
 								{var $reviews = $reviewRepository->findByUnitAndReviewer($unit, $userProfile, TRUE)}
 								{var $allInTime = true}
 								{foreach $reviews as $review}
-									{if !$review->submittedInTime}{? $allInTime = false}{/if}
+									{if !$review->submittedInTime}{php $allInTime = false}{/if}
 								{/foreach}
 								{var reviewCount = count($reviews)}
 								{var $countUnit = $unit->course->reviewCount <= $reviewCount}
@@ -98,7 +98,7 @@
 										{else}
 											{$score|number: 2}
 										{/if}
-										{? $courseTotal += $allInTime ? $score : $score/2}
+										{php $courseTotal += $allInTime ? $score : $score/2}
 									{else}
 										0
 									{/if}

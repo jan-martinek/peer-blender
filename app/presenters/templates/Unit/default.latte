@@ -24,13 +24,13 @@
 
 	{if $goals = $unit->goals}
 		<h2>{_messages.unit.goals}</h2>
-		{!$goals|md}
+		{$goals|md|noescape}
 		<hr>
 	{/if}
 	
 	{if $reading = $unit->reading}
 		<h2>{_messages.unit.reading}</h2>
-		{!$reading|md}
+		{$reading|md|noescape}
 		<hr>
 	{/if}
 {/block}
@@ -42,7 +42,7 @@
 			{_messages.unit.myAssignment}
 		</h2>
 		
-		{!$unit->preface|md}
+		{$unit->preface|md|noescape}
 	</div></div>
 	
 	{form assignmentForm, class => "ajax"}
@@ -58,7 +58,7 @@
 		</h2>
 	</div></div>
 
-	{!$unit->preface|md}
+	{$unit->preface|md|noescape}
 
 	{control questionsRenderer $assignment, $solution}
 {/block}
@@ -69,7 +69,7 @@
 	
 	{control reviewsRenderer $solution->reviews}
 	
-	<p n:if="!is_null($solution->score)"><strong>{_messages.unit.averageScore}: <big>{$solution->score|number:2}</big></strong></p>
+	<p n:if="!is_null($solution->getScore())"><strong>{_messages.unit.averageScore}: <big>{$solution->getScore()|number:2}</big></strong></p>
 {/block}
 
 {block myReviewsOfOthers}
@@ -80,12 +80,12 @@
 	
 	{if count($reviews) < $course->reviewCount}
 		{if !$unit->isCurrentPhase(\Model\Entity\Unit::REVIEWS)}
-			{!_messages.review.belatedWarning|md}
+			{_messages.review.belatedWarning|md|noescape}
 		{/if}
 		<a class="button" n:href="Review:writeForUnit $unit->id">{_messages.unit.writeReview} &rarr;</a>
-		{!_messages.unit.reviewMore, [count => $course->reviewCount]|md}
+		{_messages.unit.reviewMore, [count => $course->reviewCount]|md|noescape}
 	{else}
-		{!_messages.unit.enoughReviews, [count => $course->reviewCount]|md}
+		{_messages.unit.enoughReviews, [count => $course->reviewCount]|md|noescape}
 	{/if}
 {/block}
 

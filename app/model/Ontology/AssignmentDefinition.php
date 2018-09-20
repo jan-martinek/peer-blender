@@ -8,8 +8,10 @@ use Model\Ontology\QuestionDefinition;
 use Model\Ontology\Reading;
 use DateTime;
 
-class AssignmentDefinition extends \Nette\Object implements IDefinition, \Countable
+class AssignmentDefinition implements IDefinition, \Countable
 {   
+    use \Nette\SmartObject;
+
     /** @var CourseFactory */
     private $factory;
     

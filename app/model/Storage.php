@@ -4,8 +4,14 @@ namespace Model;
 
 use Nette;
 
-class Storage extends Nette\Object
+/**
+ * @property string $absolutePath
+ * @property string $path
+ */
+class Storage
 {
+    use \Nette\SmartObject;
+
     protected $dir;
     protected $path;
 

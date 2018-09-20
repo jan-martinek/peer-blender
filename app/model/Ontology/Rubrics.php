@@ -26,8 +26,10 @@ interface IRubric
     function getRaw();
 }
 
-abstract class AbstractRubric extends \Nette\Object implements IRubric
+abstract class AbstractRubric implements IRubric
 {
+    use \Nette\SmartObject;
+
     private $questionKey = null;
     
     public function bindToQuestion($key) {
@@ -57,8 +59,10 @@ abstract class AbstractRubric extends \Nette\Object implements IRubric
     }
 }
 
-class RubricBuilder extends \Nette\Object {
-    
+class RubricBuilder 
+{
+    use \Nette\SmartObject;
+
     public function buildSet($rubricSetData) 
     {
     	$set = array();	
@@ -91,6 +95,11 @@ class RubricBuilder extends \Nette\Object {
     }
 }
 
+/**
+ * @property string $description
+ * @property array $items
+ * @property array $raw
+ */
 class Checklist extends AbstractRubric implements IRubric
 {
     private $description;
@@ -166,8 +175,14 @@ class Checklist extends AbstractRubric implements IRubric
     }
 }
 
-class ChecklistItem extends \Nette\Object
+/**
+ * @property string $weight
+ * @property string $metric
+ */
+class ChecklistItem
 {
+    use \Nette\SmartObject;
+
     private $metric;
     private $weight = 1;
     
@@ -199,8 +214,10 @@ class ChecklistItem extends \Nette\Object
     }
 }
 
-class Rubric extends \Nette\Object 
+class Rubric
 {
+    use \Nette\SmartObject;
+
     private $metric;
     private $scale;
     
@@ -228,8 +245,13 @@ class DefaultRubric extends Rubric
     }
 }
 
-class Comment extends \Nette\Object
+/**
+ * @property string $instructions
+ */
+class Comment
 {
+    use \Nette\SmartObject;
+
     private $instructions;
     
     public function __construct($instructions)

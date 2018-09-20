@@ -32,22 +32,22 @@
 			<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a>
 			{var solutionTimespan = $assignment->generated_at->diff($solution->submitted_at)}		
 			{if $solutionTimespan->format('%a') >= 1}
-				{!_messages.solution.writtenIn.moreThanADay|imd}
+				{_messages.solution.writtenIn.moreThanADay|imd|noescape}
 			{elseif $solutionTimespan->format('%h') > 0}
-				{!_messages.solution.writtenIn.hours, [hours => $solutionTimespan->format('%h'), minutes => $solutionTimespan->format('%i')]|imd}
+				{_messages.solution.writtenIn.hours, [hours => $solutionTimespan->format('%h'), minutes => $solutionTimespan->format('%i')]|imd|noescape}
 			{else}
-				{!_messages.solution.writtenIn.minutes, [minutes => $solutionTimespan->format('%i')]|imd}
+				{_messages.solution.writtenIn.minutes, [minutes => $solutionTimespan->format('%i')]|imd|noescape}
 			{/if}
 			
 			<br>
 			<b>{_messages.review.writtenBy}</b>  <a n:href="User:default $review->reviewed_by->id">{$review->reviewed_by->name}</a>.
 			{var reviewTimespan = $review->opened_at->diff($review->submitted_at)}		
 			{if $reviewTimespan->format('%a') >= 1}
-				{!_messages.review.writtenIn.moreThanADay|imd}
+				{_messages.review.writtenIn.moreThanADay|imd|noescape}
 			{elseif $reviewTimespan->format('%h') > 0}
-				{!_messages.review.writtenIn.hours, [hours => $reviewTimespan->format('%h'), minutes => $reviewTimespan->format('%i')]|imd}
+				{_messages.review.writtenIn.hours, [hours => $reviewTimespan->format('%h'), minutes => $reviewTimespan->format('%i')]|imd|noescape}
 			{else}
-				{!_messages.review.writtenIn.minutes, [minutes => $reviewTimespan->format('%i')]|imd}
+				{_messages.review.writtenIn.minutes, [minutes => $reviewTimespan->format('%i')]|imd|noescape}
 			{/if}
 			</p>
 		</div>
@@ -68,7 +68,7 @@
 		
 		<p>
 			{if !is_null($review->score)}
-				<p id="totalScore">{!=round($review->score)|stars} {$review->score}</p>
+				<p id="totalScore">{=round($review->score)|stars|noescape} {$review->score}</p>
 			{else}
 				<span style="color: #aaa">{_messages.review.score.missing}</a>
 			{/if}
@@ -76,7 +76,7 @@
 		
 		{if $review->notes}
 			<h3>{_messages.review.notes}</h3>
-			{!$review->notes|md}
+			{$review->notes|md|noescape}
 		{/if}
 	
 		<a class="button" n:href="unlock! $review->id" n:if="$user->isAllowed('review', 'unlock') && $review->isOk()">
@@ -113,7 +113,7 @@
 					in_array($comment->review_status, array('objection', 'fixed')) ? 'warning'
 				">{_messages.review.status.$comment->review_status}</span>
 				{if $comment->comment}
-					{!$comment->comment|md}
+					{$comment->comment|md|noescape}
 				{else}
 					
 				{/if}

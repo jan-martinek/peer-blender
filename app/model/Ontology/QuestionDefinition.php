@@ -4,8 +4,10 @@ namespace Model\Ontology;
 
 use Model\Entity\Question;
 
-class QuestionDefinition extends \Nette\Object implements IDefinition
+class QuestionDefinition implements IDefinition
 {
+    use \Nette\SmartObject;
+
     /** @var CourseFactory */
     private $factory;
     

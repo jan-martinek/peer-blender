@@ -24,7 +24,7 @@
 	</div>
 
 	<div class="columns large-6">
-		{!$course->methods|md}
+		{$course->methods|md|noescape}
 	</div>
 	
 	<div class="columns large-6">
@@ -36,13 +36,13 @@
 			{foreach $course->calendar as $time => $event}
 				{var stime = strftime("%A %e. %B %H.%M", strtotime($time))}
 				<li n:class="strtotime($time) < time() + 5 * 3600 ? past-event">
-					{$stime}: <b>{!$event|imd}</b>
+					{$stime}: <b>{$event|imd|noescape}</b>
 				</li>
 			{/foreach}
 			</ul>
 		{/if}
 		
-		{!$course->support|md}
+		{$course->support|md|noescape}
 	</div>
 
 	<div class="columns">
@@ -60,7 +60,7 @@
 				<div class="row">
 					<div class="columns">
 						{if $summary = $unit->summary}
-							{!$summary|md}
+							{$summary|md|noescape}
 						{/if}
 					</div>
 				</div>

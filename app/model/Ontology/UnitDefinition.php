@@ -2,8 +2,10 @@
 
 namespace Model\Ontology;
 
-class UnitDefinition extends \Nette\Object implements IDefinition
+class UnitDefinition implements IDefinition
 {   
+    use \Nette\SmartObject;
+
     /** @var CourseFactory */
     private $factory;
     

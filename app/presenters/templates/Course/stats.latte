@@ -35,7 +35,7 @@
 						
 						{foreach $enrollment->user->solutions as $solution}
 							{if $solution->unit->id == $unit->id}
-								{? $solutionFound = TRUE}
+								{php $solutionFound = TRUE}
 								{var reviewsSubmitted = isset($submittedReviews[$enrollment->user->id][$unit->id]) ? $submittedReviews[$enrollment->user->id][$unit->id]->reviewCount : 0}
 								{var enoughReviews = $reviewsSubmitted >= $course->reviewCount ? TRUE : FALSE}
 								{var reviewedInTime = false}
@@ -44,14 +44,14 @@
 								{/if}
 								<td style="text-align: right; background-color: {if $enoughReviews}#dfd{else}#fdd{/if}">
 								<a n:href="Solution:default $solution->id">
-									{if $solution->score}
-										<strong>{$solution->score|number:2}</strong>
+									{if $solution->getScore()}
+										<strong>{$solution->getScore()|number:2}</strong>
 										
 									{else}
 										&mdash;
 									{/if}
 								</a>
-								{if $enoughReviews}{? $courseTotal += $reviewedInTime ? $solution->score : $solution->score / 2}{/if}
+								{if $enoughReviews}{php $courseTotal += $reviewedInTime ? $solution->getScore() : $solution->getScore() / 2}{/if}
 								&middot; {$reviewsSubmitted}{if $reviewsSubmitted > 0 && !$reviewedInTime}<span class="belated"><i class="fa fa-clock-o" aria-hidden="true" title="{_messages.review.belated}"></i></span>{/if}
 								</td>
 							{/if}

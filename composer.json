@@ -11,15 +11,15 @@
 		}
 	],
 	"require": {
-		"php": ">= 5.3.7",
-		"nette/nette": "~2.3",
+		"php": ">= 7",
+		"nette/nette": "~2.4",
 		"dg/adminer-custom": "~1.6",
 		"phpmailer/phpmailer": "5.2.9",	
-		"kdyby/translation": "2.0.3",
-		"dibi/dibi": "^2.3@dev",
+		"kdyby/translation": "^2.4@dev",
+		"dibi/dibi": "^3.2",
 		"michelf/php-markdown": "~1.5",
-		"tharos/leanmapper": "~2.2",
-		"symfony/yaml": "^2.8"
+		"tharos/leanmapper": "3.3.0",
+		"symfony/yaml": "^4.2@dev"
 	},
 	"require-dev": {
 		"nette/tester": "~1.3"

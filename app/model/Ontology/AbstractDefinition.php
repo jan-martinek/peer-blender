@@ -2,8 +2,10 @@
 
 namespace Model\Ontology;
 
-abstract class AbstractDefinition extends \Nette\Object implements IDefinition
+abstract class AbstractDefinition implements IDefinition
 {   
+    use \Nette\SmartObject;
+
     /** @var CourseFactory */
     private $factory;
     

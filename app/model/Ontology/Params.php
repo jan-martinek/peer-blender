@@ -2,8 +2,10 @@
 
 namespace Model\Ontology;
 
-class Params extends \Nette\Object implements \Countable
+class Params implements \Countable
 {
+    use \Nette\SmartObject;
+
     /** @var Combinations @see enumerateCombinations() */
     private $combinations;
     

@@ -28,13 +28,13 @@
 
 	{if $goals = $unit->goals}
 		<h2>{_messages.unit.goals}</h2>
-		{!$goals|md}
+		{$goals|md|noescape}
 		<hr>
 	{/if}
 	
 	{if $reading = $unit->reading}
 		<h2>{_messages.unit.reading}</h2>
-		{!$reading|md}
+		{$reading|md|noescape}
 		<hr>
 	{/if}
 {/block}
@@ -51,7 +51,7 @@
 				<p><b>{_messages.solution.writtenBy}</b> <a n:href="User:default $solution->user->id">{$solution->user->name}</a></p>
 			</div>
 
-			{!$unit->preface|md}
+			{$unit->preface|md|noescape}
 			
 		</div>
 	</div>
@@ -78,7 +78,7 @@
 		{/form}
 	{/if}
 	
-	<p n:if="!is_null($solution->score)"><strong>{_messages.unit.averageScore}: <big>{$solution->score|number:2}</big></strong></p>
+	<p n:if="!is_null($solution->getScore())"><strong>{_messages.unit.averageScore}: <big>{$solution->getScore()|number:2}</big></strong></p>
 {/block}
 
 

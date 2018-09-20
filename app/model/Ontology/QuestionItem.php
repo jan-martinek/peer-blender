@@ -2,8 +2,19 @@
 
 namespace Model\Ontology;
 
-class QuestionItem extends \Nette\Object
-{   
+
+/**
+ * @property string $bloom
+ * @property string $text 
+ * @property string $input
+ * @property int $comments
+ * @property string $prefill
+ * @property string $hash
+ */
+class QuestionItem
+{
+    use \Nette\SmartObject;
+   
     /** @var Classification of the question in 
      * Revised Bloom's Taxonomy of Education Objectives 
      * (Anderson, L., & Krathwohl, D. A. (2001). Taxonomy 

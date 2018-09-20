@@ -2,10 +2,10 @@
 
 namespace Model\Ontology;
 
-use Symfony\Component\Yaml\Parser;
-
-class CourseDefinition extends \Nette\Object implements IDefinition
+class CourseDefinition implements IDefinition
 {
+	use \Nette\SmartObject;
+
 	/** @var CourseFactory */
 	private $factory;
 	

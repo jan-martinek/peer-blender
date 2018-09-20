@@ -9,8 +9,10 @@ use Model\Entity\Solution;
 use Model\Entity\Review;
 use Model\Entity\ReviewComment;
 
-class CourseRegistry extends \Nette\Object
+class CourseRegistry
 {
+    use \Nette\SmartObject;
+
 	
 	/** @var Course */
 	public $course;
