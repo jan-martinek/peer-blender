@@ -37,11 +37,11 @@
 				<table>
 					<tr n:if="$enrollment->notes">
 						<th>{_messages.user.notes}</th>
-						<td>{$enrollment->notes|nl2br|noescape}</td>
+						<td>{$enrollment->notes|breaklines|noescape}</td>
 					</tr>
 					<tr n:if="$enrollment->hiddenNotes && $user->isAllowed('user', 'seeHiddenNotes')">
 						<th>{_messages.user.hiddenNotes}</th>
-						<td>{$enrollment->hiddenNotes|nl2br|noescape}</td>
+						<td>{$enrollment->hiddenNotes|breaklines|noescape}</td>
 					</tr>
 					<tr n:if="$enrollment->scoreAdjustment != 0">
 						<th>{_messages.user.scoreAdjustment}</th>

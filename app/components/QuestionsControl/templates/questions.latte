@@ -167,7 +167,7 @@
 		<div class="description">
 			{$rubric->instructions|md|noescape}
 		</div>
-		<div class="panel">{if $answer}{=nl2br(htmlspecialchars($answer))|noescape}{else}{_messages.review.verbalAssessment}.{/if}</div>
+		<div class="panel">{if $answer}{(htmlspecialchars($answer))|breaklines|noescape}{else}{_messages.review.verbalAssessment}.{/if}</div>
 	{/if}
 	</div>
 {/define}
