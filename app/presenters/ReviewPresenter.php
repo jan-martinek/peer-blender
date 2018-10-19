@@ -277,7 +277,7 @@ class ReviewPresenter extends BasePresenter
         
         $form = new Form;
         $form->addTextarea('comment', $this->translator->translate('messages.review.comments.label'));
-        $form->addSelect('reviewStatus', $this->translator->translate('messages.review.status.title'), $statuses);
+        $form->addRadioList('reviewStatus', $this->translator->translate('messages.review.status.title'), $statuses)->setDefaultValue($review->status);;
         $form->addSubmit('submit', $this->translator->translate('messages.review.comments.post'));
     
         $form->onSuccess[] = array($this, 'reviewCommentFormSucceeded');

@@ -6448,3 +6448,7 @@ li.selected {
 
 .past-event {
   opacity: 0.5; }
+
+.review-status label {
+  display: inline; 
+  padding-right: 1rem; }

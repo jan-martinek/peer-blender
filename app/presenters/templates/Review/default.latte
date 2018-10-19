@@ -133,21 +133,18 @@
 	{form reviewCommentForm}
 		{input comment, 'rows' => 5, 'placeholder' => $presenter->translator->translate('messages.review.comments.write')}
 		
+		<p class="review-status">	
+			<strong>{label reviewStatus}</strong>
+			{foreach $form[reviewStatus]->items as $key => $label}
+			    <label n:name="reviewStatus:$key"><input n:name="reviewStatus:$key"> {$label}</label>
+			{/foreach}
+		</p>
+
 		<div class="row">
-			<div class="columns medium-5">
-				<div class="row collapse">
-					<div class="small-2 columns">
-						{label reviewStatus, 'class' => 'prefix' /}
-					</div>
-					<div class="small-4 columns">
-						{input reviewStatus}
-					</div>
-					<div class="small-5 columns">
-						{input submit, 'class' => 'button postfix'}
-					</div>
-				</div>
+			<div class="columns medium-5">	
+				{input submit, 'class' => 'button postfix'}
 			</div>
-		</div>	
+		</div>
 	{/form}
 {/if}
 
