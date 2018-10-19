@@ -29,7 +29,7 @@
 					<span class="label warning" n:if="$review->isObjected()">{_messages.review.status.objection}</span>
 					<span class="label alert" n:if="$review->hasProblem()">{_messages.review.status.problem}</span>
 					<span class="label warning" n:if="$review->isFixed()">{_messages.review.status.fixed}</span>
-					{if $unit->isFinalized()}<a href="{plink User:default $review->reviewed_by->id}">{$review->reviewed_by->name}</a>, {/if}
+					{if $unit->isFinalized() && $review->isOk()}<a href="{plink User:default $review->reviewed_by->id}">{$review->reviewed_by->name}</a>, {/if}
 					{if !is_null($review->submitted_at)}{$review->submitted_at|date:'j. n. H.i'}{if !$review->submittedInTime} <span class="belated"><i class="fa fa-clock-o" aria-hidden="true" title="{_messages.review.belated}"></i></span>{/if}, {/if}
 					<a href="{plink Review:default $review->id}">{_messages.review.showReview} &rarr;</a>
 				</li>

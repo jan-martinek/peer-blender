@@ -93,7 +93,7 @@
 				<div class="panel">
 				<p style="margin-bottom: 0"><strong>
 					{block |trim}
-						{if $solution->unit->isCurrentPhase(\Model\Entity\Unit::REVIEWS) || $solution->unit->isCurrentPhase(\Model\Entity\Unit::OBJECTIONS)}
+						{if !$review->isOk() || $solution->unit->isCurrentPhase(\Model\Entity\Unit::REVIEWS) || $solution->unit->isCurrentPhase(\Model\Entity\Unit::OBJECTIONS)}
 							{if $comment->author->id == $solution->user->id}
 								{_messages.solution.author}
 							{elseif $comment->author->id == $review->reviewed_by->id}
