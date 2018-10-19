@@ -336,6 +336,7 @@ class ReviewPresenter extends BasePresenter
             $review = $this->courseRegistry->review;
             $review->solutionIsComplete = 1;
             $review->status = Review::OK;
+            $review->score = $review->score * 2;
             $this->reviewRepository->persist($review);
 
             $comment = new ReviewComment;
