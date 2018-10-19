@@ -126,6 +126,7 @@ review:
 	author: "Reviewer"
 	solutionIsComplete: "The submitted solution is complete, no question has been omitted."
 	solutionIsNotComplete: "The submitted solution is not complete, one or more questions has been omitted."
+	fixComplete: "Mark as complete and accept the objection."
 	thirdParty: "Third party"
 	rubrics: "Assessment rubrics"
 	checklist:

@@ -126,6 +126,7 @@ review:
 	author: "Autor/ka recenze"
 	solutionIsComplete: "Všechny úlohy v odevzdaném úkolu jsou zpracovány."
 	solutionIsNotComplete: "V odevzdaném úkolu nejsou zpracovány všechny úlohy."
+	fixComplete: "Označit jako kompletní a vyřešit námitku."
 	thirdParty: "Třetí strana"
 	rubrics: "Parametry hodnocení"
 	checklist:

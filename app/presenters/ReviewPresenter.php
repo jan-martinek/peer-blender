@@ -329,6 +329,26 @@ class ReviewPresenter extends BasePresenter
         
         return $availableStatuses;
     }
+
+    public function handleFixComplete() 
+    {
+        if ($this->user->isAllowed('review', 'commentAnytime')) {
+            $review = $this->courseRegistry->review;
+            $review->solutionIsComplete = 1;
+            $review->status = Review::OK;
+            $this->reviewRepository->persist($review);
+
+            $comment = new ReviewComment;
+            $comment->comment = '<span style="color:#aaa">' . $this->translator->translate('messages.review.fixed') . '</span>';
+            $comment->review = $review;
+            $comment->review_status = Review::OK;
+            $comment->author = $this->userRepository->find($this->user->id);
+            $comment->submitted_at = new DateTime;        
+            $this->reviewCommentRepository->persist($comment);
+
+            $this->redirect('this');
+        }
+    }
     
     public function reviewCommentFormSucceeded(Form $form, $values) 
     {   

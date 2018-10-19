@@ -151,3 +151,8 @@
 	{/form}
 {/if}
 
+{if $user->isAllowed('review', 'commentAnytime') && !$review->solutionIsComplete}
+	<ul>
+		<li><a n:href="fixComplete!">{_messages.review.fixComplete} </a></li>
+	</ul>
+{/if}
